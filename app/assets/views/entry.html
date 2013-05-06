@@ -1,0 +1,12 @@
+<div>
+    <h1> {{model.currentCategory}} </h1>
+    <ul>
+        <li ng-repeat="q in model.experience.questions">
+            {{q}} <input type="text" ng-model="model.responses[$index]"></input>
+        </li>
+    </ul>
+    <button ng-click="ctrl.complete();">Done</button>
+    <div c6-video-node="theVideo">
+        <video class="video-js vjs-default-skin" controls preload="auto" > </video>
+    </div>
+</div>

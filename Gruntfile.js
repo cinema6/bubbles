@@ -33,6 +33,11 @@ module.exports = function (grunt) {
             'sourceDir' : _path.join(__dirname,'vendor','jqueryui'),
             'buildDir'  : _path.join(__dirname,'vendor','jqueryui','dist'),
             'targetDir' : _path.join(__dirname,'app','assets','lib','jqueryui')
+          },
+        videojs : {
+            'sourceDir' : _path.join(__dirname,'vendor','video-js'),
+            'buildDir'  : _path.join(__dirname,'vendor','video-js','dist'),
+            'targetDir' : _path.join(__dirname,'app','assets','lib','video-js')
           }
       };
 
@@ -88,6 +93,7 @@ module.exports = function (grunt) {
       angular:  [ '<%= yeoman.angular.buildDir %>' ,'<%= yeoman.angular.targetDir %>' ] ,
       jquery:   [ '<%= yeoman.jquery.buildDir %>'  ,'<%= yeoman.jquery.targetDir %>' ] ,
       jqueryui: [ '<%= yeoman.jqueryui.buildDir %>','<%= yeoman.jqueryui.targetDir %>' ] ,
+      videojs:  [ '<%= yeoman.videojs.buildDir %>' ,'<%= yeoman.videojs.targetDir %>' ] ,
       dist: {
         files: [{
           dot: true,
@@ -194,6 +200,11 @@ module.exports = function (grunt) {
       jqueryui: {
         files: [{ expand: true, dot: true, cwd: '<%= yeoman.jqueryui.buildDir %>',
           dest: '<%= yeoman.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
+      },
+      videojs: {
+        files: [{ expand: true, dot: true, cwd: '<%= yeoman.videojs.buildDir %>',
+          dest: '<%= yeoman.videojs.targetDir %>', src: [ '*.css', '*.js', 
+                                                          '*.png', '*.swf', 'version.*' ] }]
       },
       dist: {
         files: [{
@@ -350,7 +361,35 @@ module.exports = function (grunt) {
   grunt.registerTask('jqueryui.install', 'Install jqueryui', ['copy:jqueryui']);
   grunt.registerTask('jqueryui',         'Build and install jqueryui',
           ['jqueryui.clean','jqueryui.build','jqueryui.install']);
+ 
+  // Video-JS
+  grunt.registerTask('videojs.build',   'Build videojs', function(){
+      /*jshint validthis:true */
+      grunt.log.writeln('Building videojs');
+      var done        = this.async(),
+          opts        = { 
+                          cmd : "./build.sh",
+                          opts : {
+                              cwd : grunt.config.get('yeoman.videojs.sourceDir')
+                          }
+                        };
+      
+      grunt.util.spawn( opts, function(error, result, code) {
+          if ((error) || (code)) {
+              grunt.log.errorlns("VideoJS build returns: error=" + error +
+                                  ", result=" + result + 
+                                  ", code=" + code);
+          }
+          done(!error);
+      });
+  });
+  grunt.registerTask('videojs.clean',   'Remove videojs source & target dist',
+                                                                  ['clean:videojs']);
+  grunt.registerTask('videojs.install', 'Install videojs', ['copy:videojs']);
+  grunt.registerTask('videojs',         'Build and install videojs',
+          ['videojs.clean','videojs.build','videojs.install']);
+
 
   // All vendor
-  grunt.registerTask('vendor',['angular','jquery']);
+  grunt.registerTask('vendor',['angular','jquery','videojs']);
 };

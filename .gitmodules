@@ -4,3 +4,6 @@
 [submodule "vendor/jquery"]
 	path = vendor/jquery
 	url = git@github.com:cinema6/jquery.git
+[submodule "vendor/video-js"]
+	path = vendor/video-js
+	url = git@github.com:cinema6/video-js.git

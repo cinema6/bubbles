@@ -50,6 +50,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/assets/views/{,*/}*.html',
           '{.tmp,<%= yeoman.app %>}/assets/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/assets/scripts/{,*/}*.js',
+          '{.tmp,<%= yeoman.app %>}/assets/scripts/c6/{,*/}*.js',
           '<%= yeoman.app %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         tasks: ['livereload']
@@ -203,7 +204,7 @@ module.exports = function (grunt) {
       },
       videojs: {
         files: [{ expand: true, dot: true, cwd: '<%= yeoman.videojs.buildDir %>',
-          dest: '<%= yeoman.videojs.targetDir %>', src: [ '*.css', '*.js', 
+          dest: '<%= yeoman.videojs.targetDir %>', src: [ '*.css', '*.js',
                                                           '*.png', '*.swf', 'version.*' ] }]
       },
       dist: {
@@ -250,6 +251,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
+    'jshint',
     'clean:server',
     'connect:test',
     'karma'
@@ -257,7 +259,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'jshint',
     'test',
     'cssmin',
     'htmlmin',
@@ -269,7 +270,6 @@ module.exports = function (grunt) {
   grunt.registerTask('release',function(type){
     type = type ? type : 'patch';
     grunt.task.run('clean:dist');
-    grunt.task.run('jshint');
     grunt.task.run('test');
     grunt.task.run('bumpup:' + type);
     grunt.task.run('updatePackageVersion');
@@ -361,24 +361,24 @@ module.exports = function (grunt) {
   grunt.registerTask('jqueryui.install', 'Install jqueryui', ['copy:jqueryui']);
   grunt.registerTask('jqueryui',         'Build and install jqueryui',
           ['jqueryui.clean','jqueryui.build','jqueryui.install']);
- 
+
   // Video-JS
   grunt.registerTask('videojs.build',   'Build videojs', function(){
       /*jshint validthis:true */
       grunt.log.writeln('Building videojs');
       var done        = this.async(),
-          opts        = { 
-                          cmd : "./build.sh",
+          opts        = {
+                          cmd : './build.sh',
                           opts : {
                               cwd : grunt.config.get('yeoman.videojs.sourceDir')
                           }
                         };
-      
+
       grunt.util.spawn( opts, function(error, result, code) {
           if ((error) || (code)) {
-              grunt.log.errorlns("VideoJS build returns: error=" + error +
-                                  ", result=" + result + 
-                                  ", code=" + code);
+              grunt.log.errorlns('VideoJS build returns: error=' + error +
+                                  ', result=' + result +
+                                  ', code=' + code);
           }
           done(!error);
       });

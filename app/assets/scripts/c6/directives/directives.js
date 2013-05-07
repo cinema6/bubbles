@@ -1,7 +1,8 @@
+/* global _V_ */
 (function(){
 
 'use strict';
-angular.module('c6.dir',[]) 
+angular.module('c6.dir.videoNode',[])
 .directive('c6VideoNode',['$log','$timeout','environment',
                         function($log,$timeout,environment) {
     return function(scope, iElement, iAttrs) {
@@ -46,7 +47,6 @@ angular.module('c6.dir',[])
                 var _videoNode  = videoNode,
                     eventType   = arg.type,
                     player      = this;
-              
                 if (arg.type === 'canplay') {
                     // If we are getting this event its because this is chrome and
                     // we need to work some magic to deal with a bug
@@ -78,43 +78,43 @@ angular.module('c6.dir',[])
                 // associated with it.
                 _scope.$emit('video-' +  eventType, _videoNode);
             };
-            
-            player.addEvent("timeupdate", videoEventHandler);
-            player.addEvent("play", videoEventHandler);
-            player.addEvent("pause",videoEventHandler);
-            player.addEvent("ended",videoEventHandler);
-            player.addEvent("durationchange",videoEventHandler);
-            player.addEvent("progress",videoEventHandler);
-            player.addEvent("loadstart",videoEventHandler);
-            player.addEvent("loadeddata",videoEventHandler);
-            player.addEvent("loadedmetadata",videoEventHandler);
-            player.addEvent("loadedalldata",videoEventHandler);
-            player.addEvent("resize",videoEventHandler);
-            player.addEvent("error",videoEventHandler);
-          
+
+            player.addEvent('timeupdate', videoEventHandler);
+            player.addEvent('play', videoEventHandler);
+            player.addEvent('pause',videoEventHandler);
+            player.addEvent('ended',videoEventHandler);
+            player.addEvent('durationchange',videoEventHandler);
+            player.addEvent('progress',videoEventHandler);
+            player.addEvent('loadstart',videoEventHandler);
+            player.addEvent('loadeddata',videoEventHandler);
+            player.addEvent('loadedmetadata',videoEventHandler);
+            player.addEvent('loadedalldata',videoEventHandler);
+            player.addEvent('resize',videoEventHandler);
+            player.addEvent('error',videoEventHandler);
+
             if (environment.browser.app === 'chrome') {
                 $log.log('Setup canplay trick for: ' + videoNode);
-                player.addEvent("canplay",videoEventHandler);
+                player.addEvent('canplay',videoEventHandler);
             }
-            
+
             _scope.$on('resetPlayers',function(){
                 if (!player.paused()){
                     player.pause();
                 }
                 player.currentTime(0);
             });
-          
+
             // When we see the videoNode's data update we'll point
             // the player to the video src for the new data
             var watchVar = ('model.experience');
-            _scope.$watch(watchVar, function(newVal,oldVal) {
+            _scope.$watch(watchVar, function(newVal/*,oldVal*/) {
                 if (newVal) {
                     player.src(newVal.src);
-                    $log.info('Current Source Set [' + videoNode + ']: ['  + 
+                    $log.info('Current Source Set [' + videoNode + ']: ['  +
                                                         player.currentSrc() + ']');
                 } else {
                     player.src(null);
-                    player.currentSrc("");
+                    player.currentSrc('');
                     $log.info('Clear source from ' + videoNode + ' [' +
                                                         player.currentSrc() + ']');
                 }

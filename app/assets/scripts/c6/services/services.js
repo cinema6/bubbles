@@ -17,7 +17,7 @@ angular.module('c6.svc',[])
         };
     };
 
-    service.getExperienceByCategory = function(category) {
+    service.getExperienceByCategory = function(/*category*/) {
         return  {
                 'id'          : '1',
                 'title'       : 'Something Special',
@@ -42,24 +42,24 @@ angular.module('c6.svc',[])
                     'A small person.'
                 ],
                 'annotations' :  [
-                                   { 'type' : 'b', 'ts' : 1,  'dur': 5, 'plot': [ .10, .05],
-                                      'template' : 'This one is a real ${1}!' 
+                                   { 'type' : 'b', 'ts' : 1,  'dur': 5, 'plot': [ 0.10, 0.05],
+                                      'template' : 'This one is a real ${1}!'
                                    },
-                                   { 'type' : 'b', 'ts' : 15, 'dur': 5, 'plot': [ .10, .05],
+                                   { 'type' : 'b', 'ts' : 15, 'dur': 5, 'plot': [ 0.10, 0.05],
                                      'template' : 'He really likes ${2} and ${3}.'
                                    },
-                                   { 'type' : 'b', 'ts' : 20, 'dur': 5, 'plot': [ .10, .05],
+                                   { 'type' : 'b', 'ts' : 20, 'dur': 5, 'plot': [ 0.10, 0.05],
                                      'template' : 'What a ${4} really a ${5}.'
                                    },
-                                   { 'type' : 'b', 'ts' : 25, 'dur': 5, 'plot': [ .10, .05],
+                                   { 'type' : 'b', 'ts' : 25, 'dur': 5, 'plot': [ 0.10, 0.05],
                                      'template' : 'I need a ${6} and ${7}.'
-                                   } 
+                                   }
                                 ]
             } ;
     };
 
     service.getVideoList = function() {
-    
+
     };
 
     return service;

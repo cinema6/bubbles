@@ -1,3 +1,17 @@
-h1 {
+.vjs-default-skin .vjs-big-play-button { display:none !important; }
+html {
     font-family: sans-serif;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.hidden {
+    display: none;
+}
+
+.disabled {
+    opacity: 0.5;
 }

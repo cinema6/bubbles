@@ -11,31 +11,32 @@ var browserVersion = (function(){
     }
 
     if (M) {
-        return { "app" : M[1].toLowerCase(), "version" : M[2], 
-                 "isMobile": isMobile, "isIPad" : isIPad };
-    } 
+        return { 'app' : M[1].toLowerCase(), 'version' : M[2],
+                 'isMobile': isMobile, 'isIPad' : isIPad };
+    }
 
-    return { "app" : N, "version" : navigator.appVersion };
+    return { 'app' : N, 'version' : navigator.appVersion };
 })(),
-    release_config = {
-        "browser"           : browserVersion,
-        "logging"           : [],
-        "showPlayerData"    : false
+    releaseConfig = {
+        'browser'           : browserVersion,
+        'logging'           : [],
+        'showPlayerData'    : false
     },
-    debug_config = {
-        "browser"           : browserVersion,
-        "logging"           : ['error','warn','log','info'],
-        "showPlayerData"    : true
+    debugConfig = {
+        'browser'           : browserVersion,
+        'logging'           : ['error','warn','log','info'],
+        'showPlayerData'    : true
     },
-    app_config = release_config;
+    appConfig = releaseConfig;
     if (window.location.toString().match(/\?debug$/)) {
-        app_config = debug_config;
+        appConfig = debugConfig;
     }
 
 var dependencies = [
     'c6.ctl',
     'c6.svc',
-    'c6.dir'
+    'c6.dir.wordSelect',
+    'c6.dir.videoNode'
 ];
 
 angular.module('c6.app', dependencies)
@@ -54,7 +55,7 @@ angular.module('c6.app', dependencies)
       });
   }])
   .constant('appBaseUrl', __C6_APP_BASE_URL__)
-  .constant('environment', app_config)
+  .constant('environment', appConfig)
   .controller('MainCtrl', ['$scope',function ($scope) {
     $scope.stub = 'Hello from Stubby!';
   }]);

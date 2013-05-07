@@ -15,7 +15,7 @@ angular.module('c6.ctl',['c6.svc'])
 .controller('c6CategoryListCtrl',['$log','$scope',
                                         'c6VideoListingService', function($log,$scope,vsvc){
     $log.log('Creating cCategoryListCtrl');
-    var obj = vsvc.getCategories(); 
+    var obj = vsvc.getCategories();
     $scope.categories = [];
     obj.categories.forEach(function(cat){
         $scope.categories.push(cat);
@@ -28,7 +28,7 @@ angular.module('c6.ctl',['c6.svc'])
                                         function($log,$scope,$routeParams,vsvc){
 
     $log.log('Creating c6FillInEntryCtrl: ' + $routeParams.category);
-    
+
     this.model = new FillInModel($routeParams.category,
                                     vsvc.getExperienceByCategory($routeParams.category));
 
@@ -36,10 +36,10 @@ angular.module('c6.ctl',['c6.svc'])
 
     this.complete = function(){
         for (var i = 0; i < this.model.experience.questions.length; i++) {
-            $log.log(this.model.experience.questions[i] + ': ' + 
+            $log.log(this.model.experience.questions[i] + ': ' +
                         this.model.responses[i]);
         }
-    }
+    };
 
     $scope.model = this.model;
     $scope.ctrl  = this;

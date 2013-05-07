@@ -1,12 +1,18 @@
-<div>
-    <h1> {{model.currentCategory}} </h1>
-    <ul>
-        <li ng-repeat="q in model.experience.questions">
+<h1 > {{model.currentCategory}} </h1>
+<div c6-word-select >
+    <ul >
+        <li ng-repeat="q in model.experience.questions" c6-question=" {{$index}} , {{$last}}" 
+                                                        class="question hidden">
             {{q}} <input type="text" ng-model="model.responses[$index]"></input>
         </li>
     </ul>
-    <button ng-click="ctrl.complete();">Done</button>
-    <div c6-video-node="theVideo">
-        <video class="video-js vjs-default-skin" controls preload="auto" > </video>
+    <div> <span>{{currQuestNo()}} of {{questionCount()}}</span> </div>
+    <p/>
+    <div>
+        <button name="prev" ng-click="prevQuestion();" >Prev</button>
+        <button name="next" ng-click="nextQuestion();" >Next</button>
     </div>
+</div>
+<div c6-video-node="theVideo">
+    <video class="video-js vjs-default-skin hidden" preload="auto" > </video>
 </div>

@@ -3,11 +3,36 @@
 'use strict';
 
 function FillInModel(currentCategory, experience) {
+    var localException = function(msg) {
+        return {
+          'name'     : 'FillInModel',
+          'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
+          'toString' : function() { return this.name + ': ' + this.message; }
+        };
+      };
     this.currentCategory = currentCategory;
-    this.experience      = experience;
-    this.responses       = [];
-    for (var i = 0; i < this.experience.questions.length; i++) {
-        this.responses[i] = null;
+    this.id              = experience.id;
+    this.title           = experience.title;
+    this.defSizeLimit    = (experience.defSizeLimit) ? experience.defSizeLimit : 30;
+    this.prompts       = [];
+    for (var i = 0; i < experience.prompts.length; i++) {
+        var q = experience.prompts[i];
+        if (q instanceof Object) {
+            if (!q.query) {
+                throw localException('question object must have a query!');
+            }
+           this.prompts[i] = {
+                query : q.query,
+                sizeLimit : (q.sizeLimit) ? q.sizeLimit : this.defSizeLimit,
+                response : null
+           }
+        } 
+        else if ((typeof q === 'string') || (q instanceof String)){
+            this.prompts[i] = { query : q, sizeLimit : this.defSizeLimit, response: null }; 
+        }
+        else {
+            throw localException('Unknown question type: ' + typeof q);
+        }
     }
 }
 
@@ -40,6 +65,11 @@ angular.module('c6.ctl',['c6.svc'])
                         this.model.responses[i]);
         }
     };
+
+    this.interpolate = function(tmpl,data) {
+        var m = tmpl.match(/\$\{\d+\}/g);
+        $log.log('m=' + m);
+    }
 
     $scope.model = this.model;
     $scope.ctrl  = this;

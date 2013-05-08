@@ -32,27 +32,28 @@ angular.module('c6.svc',[])
                                     'src': baseUrl + '/media/not_over.mp4'
                                    }
                                  ],
-                'questions'   : [
+                'defSizeLimit': 32,
+                'prompts'   : [
                     'Name a vegetable.',
                     'What is your favorite ice-cream.',
-                    'Name a color.',
+                    { 'query' : 'Name a color.' },
                     'An animal you would find at a zoo.',
-                    'A country in Europe.',
+                    { 'query' : 'A country in Europe.', 'sizeLimit' : 25 },
                     'A popular song.',
                     'A small person.'
                 ],
                 'annotations' :  [
-                                   { 'type' : 'b', 'ts' : 1,  'dur': 5, 'plot': [ 0.10, 0.05],
-                                      'template' : 'This one is a real ${1}!'
+                                   { 'type':'bubble','ts':1,'dur':5,'plot':[ 0.10, 0.05],
+                                      'template':'This one is a real ${1}!'
                                    },
-                                   { 'type' : 'b', 'ts' : 15, 'dur': 5, 'plot': [ 0.10, 0.05],
-                                     'template' : 'He really likes ${2} and ${3}.'
+                                   { 'type':'bubble','ts':15,'dur':5,'plot':[ 0.10, 0.05],
+                                     'template':'He really likes ${2} and ${3}.'
                                    },
-                                   { 'type' : 'b', 'ts' : 20, 'dur': 5, 'plot': [ 0.10, 0.05],
-                                     'template' : 'What a ${4} really a ${5}.'
+                                   { 'type':'bubble','ts':20,'dur':5,'plot':[ 0.10, 0.05],
+                                     'template':'What a ${4} really a ${5}. Screw his ${1}!'
                                    },
-                                   { 'type' : 'b', 'ts' : 25, 'dur': 5, 'plot': [ 0.10, 0.05],
-                                     'template' : 'I need a ${6} and ${7}.'
+                                   { 'type':'bubble','ts':25,'dur':5,'plot':[ 0.10, 0.05],
+                                     'template':'I need a ${6} and ${7}.'
                                    }
                                 ]
             } ;

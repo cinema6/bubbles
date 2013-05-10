@@ -58,7 +58,7 @@ angular.module('c6.dir.wordSelect',[])
         scope.nextQuestion = function(){
             if (currentIndex === questionElts.length - 1){
                 $log.log('Done wiht questions!');
-                scope.ctrl.complete();
+                scope.$emit('promptsComplete');
             }
             else {
                 questionElts[currentIndex++].addClass('hidden');
@@ -87,6 +87,13 @@ angular.module('c6.dir.wordSelect',[])
                 }
             },true );
 
+        });
+
+        scope.$on('promptsComplete',function(){
+            scope.ctrl.interpolateTemplates();
+            var $video = angular.element('video');
+            $video.removeClass('hidden');
+            $video.play();
         });
 
         scope.$on('expReady',function(){

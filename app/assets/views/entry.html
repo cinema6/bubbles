@@ -1,9 +1,9 @@
 <h1 > {{model.currentCategory}} </h1>
 <div c6-word-select >
     <ul >
-        <li ng-repeat="q in model.experience.questions" c6-question=" {{$index}} , {{$last}}" 
+        <li ng-repeat="q in model.prompts" c6-question="{{$index}},{{$last}}" 
                                                         class="question hidden">
-            {{q}} <input type="text" ng-model="model.responses[$index]"></input>
+            {{q.query}} <input type="text" ng-model="model.responses[$index]"></input>
         </li>
     </ul>
     <div> <span>{{currQuestNo()}} of {{questionCount()}}</span> </div>

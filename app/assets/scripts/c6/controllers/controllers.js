@@ -14,25 +14,43 @@ function FillInModel(currentCategory, experience) {
     this.id              = experience.id;
     this.title           = experience.title;
     this.defSizeLimit    = (experience.defSizeLimit) ? experience.defSizeLimit : 30;
-    this.prompts       = [];
+    this.prompts         = [];
+    this.responses       = [];
+    this.annotations     = [];
     for (var i = 0; i < experience.prompts.length; i++) {
         var q = experience.prompts[i];
         if (q instanceof Object) {
             if (!q.query) {
                 throw localException('question object must have a query!');
             }
-           this.prompts[i] = {
-                query : q.query,
-                sizeLimit : (q.sizeLimit) ? q.sizeLimit : this.defSizeLimit,
-                response : null
-           }
+            this.prompts.push({
+                 query : q.query,
+                 sizeLimit : (q.sizeLimit) ? q.sizeLimit : this.defSizeLimit
+            });
         } 
         else if ((typeof q === 'string') || (q instanceof String)){
-            this.prompts[i] = { query : q, sizeLimit : this.defSizeLimit, response: null }; 
+            this.prompts.push({ 
+                query : q, 
+                sizeLimit : this.defSizeLimit, 
+            });
         }
         else {
             throw localException('Unknown question type: ' + typeof q);
         }
+       this.responses.push(null);
+    }
+
+    for (var i = 0; i < experience.annotations.length; i++) {
+        var a = experience.annotations[i];
+        if (!a.type)     { throw localException('Missing Property (type): ' + JSON.stringify(a));} 
+        if (!a.ts)       { throw localException('Missing Property (ts): ' + JSON.stringify(a));} 
+        if (!a.dur)      { throw localException('Missing Property (dur): ' + JSON.stringify(a));} 
+        if (!a.plot)     { throw localException('Missing Property (plot): ' + JSON.stringify(a));} 
+        if (!a.template) { throw localException('Missing Property (template): ' + JSON.stringify(a));} 
+
+        this.annotations.push({
+            type : a.type, ts : a.ts, dur : a.dur, plot : a.plot, template : a.template, text : null
+        });
     }
 }
 
@@ -53,6 +71,14 @@ angular.module('c6.ctl',['c6.svc'])
                                         function($log,$scope,$routeParams,vsvc){
 
     $log.log('Creating c6FillInEntryCtrl: ' + $routeParams.category);
+    
+    var localException = function(msg) {
+        return {
+          'name'     : 'c6FillInEntryCtrl',
+          'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
+          'toString' : function() { return this.name + ': ' + this.message; }
+        };
+      };
 
     this.model = new FillInModel($routeParams.category,
                                     vsvc.getExperienceByCategory($routeParams.category));
@@ -67,9 +93,39 @@ angular.module('c6.ctl',['c6.svc'])
     };
 
     this.interpolate = function(tmpl,data) {
-        var m = tmpl.match(/\$\{\d+\}/g);
-        $log.log('m=' + m);
-    }
+        var patt  = /\${(\d+)}/g,
+            dataLen,
+            match;
+
+        if (!data) {
+            return tmpl;
+        }
+
+        if ((data instanceof Array) === false) {
+            throw new TypeError('Data parameter must be an array.'); 
+        }
+
+        dataLen = data.length;
+        
+        while((match = patt.exec(tmpl)) !== null) {
+            var idx = (match[1] - 1);
+            if (idx < 0) {
+                throw new RangeError('Template parameters should start at ${1}');
+            }
+            if (idx >= dataLen) {
+                throw new RangeError('Invalid template parameter (too high): ' + match[0]);
+            }
+            tmpl = tmpl.replace(match[0],data[idx]);
+        }
+        return tmpl;
+    };
+
+    this.interpolateTemplates = function() {
+        for (var i = 0; i < this.model.annotations.length; i++) {
+            var a = this.model.annotations[i];
+            a.text = this.interpolate(a.template,this.model.responses);
+        }
+    };
 
     $scope.model = this.model;
     $scope.ctrl  = this;

@@ -2,21 +2,17 @@
 
 'use strict';
 
-function FillInModel(currentCategory, experience) {
+function PromptModel(experience) {
     var localException = function(msg) {
         return {
-          'name'     : 'FillInModel',
+          'name'     : 'PromptModel',
           'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
           'toString' : function() { return this.name + ': ' + this.message; }
         };
       };
-    this.currentCategory = currentCategory;
-    this.id              = experience.id;
-    this.title           = experience.title;
     this.defSizeLimit    = (experience.defSizeLimit) ? experience.defSizeLimit : 30;
     this.prompts         = [];
     this.responses       = [];
-    this.annotations     = [];
     for (var i = 0; i < experience.prompts.length; i++) {
         var q = experience.prompts[i];
         if (q instanceof Object) {
@@ -39,7 +35,18 @@ function FillInModel(currentCategory, experience) {
         }
        this.responses.push(null);
     }
+}
 
+function AnnotationsModel(experience) {
+    var localException = function(msg) {
+        return {
+          'name'     : 'AnnotationsModel',
+          'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
+          'toString' : function() { return this.name + ': ' + this.message; }
+        };
+      };
+    this.videoSrc        = experience.src;    
+    this.annotations     = [];
     for (var i = 0; i < experience.annotations.length; i++) {
         var a = experience.annotations[i];
         if (!a.type)     { throw localException('Missing Property (type): ' + JSON.stringify(a));} 
@@ -49,7 +56,8 @@ function FillInModel(currentCategory, experience) {
         if (!a.template) { throw localException('Missing Property (template): ' + JSON.stringify(a));} 
 
         this.annotations.push({
-            type : a.type, ts : a.ts, dur : a.dur, plot : a.plot, template : a.template, text : null
+            type : a.type, ts : a.ts, dur : a.dur, plot : a.plot, template : a.template, 
+            text : null, index : i
         });
     }
 }
@@ -64,34 +72,39 @@ angular.module('c6.ctl',['c6.svc'])
         $scope.categories.push(cat);
     });
 }])
-.controller('c6FillInEntryCtrl',[   '$log',
-                                    '$scope',
-                                    '$routeParams',
-                                    'c6VideoListingService',
+.controller('c6ExperienceCtrl', ['$log', '$scope', '$routeParams', 'c6VideoListingService',
                                         function($log,$scope,$routeParams,vsvc){
+    $log.log('Creating c6ExperienceCtrl: ' + $routeParams.category);
+    var experience = vsvc.getExperienceByCategory($routeParams.category);
+    this.model = {
+        id              : experience.id,
+        title           : experience.title,
+        category        : $routeParams.category
+    };
+    $scope.expCtrl = this;
+    $scope._experience = experience;
+}])
+.controller('c6PromptCtrl',['$log','$scope',function($log,$scope){
 
-    $log.log('Creating c6FillInEntryCtrl: ' + $routeParams.category);
+    $log.log('Creating c6PromptCtrl');
     
     var localException = function(msg) {
         return {
-          'name'     : 'c6FillInEntryCtrl',
+          'name'     : 'c6PromptCtrl',
           'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
           'toString' : function() { return this.name + ': ' + this.message; }
         };
       };
 
-    this.model = new FillInModel($routeParams.category,
-                                    vsvc.getExperienceByCategory($routeParams.category));
+    this.model = new PromptModel($scope._experience);
 
+    $scope.promptCtrl  = this;
+}])
+.controller('c6AnnotationsCtrl',['$log', '$scope', function($log,$scope){
+    $log.log('Creating c6AnnotationsCtrl');
 
-
-    this.complete = function(){
-        for (var i = 0; i < this.model.experience.questions.length; i++) {
-            $log.log(this.model.experience.questions[i] + ': ' +
-                        this.model.responses[i]);
-        }
-    };
-
+    this.model = new AnnotationsModel($scope._experience);
+    
     this.interpolate = function(tmpl,data) {
         var patt  = /\${(\d+)}/g,
             dataLen,
@@ -120,15 +133,43 @@ angular.module('c6.ctl',['c6.svc'])
         return tmpl;
     };
 
-    this.interpolateTemplates = function() {
-        for (var i = 0; i < this.model.annotations.length; i++) {
+    this.interpolateTemplates = function(data) {
+        var annoLength = this.model.annotations.length;
+        $log.info('Interpolate ' + annoLength + ' annotations with ' + data.length + ' responses.');
+        for (var i = 0; i < annoLength; i++) {
             var a = this.model.annotations[i];
-            a.text = this.interpolate(a.template,this.model.responses);
+            a.text = this.interpolate(a.template,data);
+            $log.info('Annotation [' + i + ']: ' + a.text);
         }
     };
 
-    $scope.model = this.model;
-    $scope.ctrl  = this;
+    this.timerUpdate = function(tm, currNotes, fnActivate, fnDeactivate){
+        var currIdx = {};
+        if (currNotes){
+            if (currNotes instanceof Array) {
+                currNotes.forEach(function(note){
+                    if ((note.ts + note.dur) <= tm) {
+                        fnDeactivate(note);
+                    }
+                    currIdx[note.index] = note;
+                });
+            } else {
+                if ((currnote.ts + currNote.dur) <= tm) {
+                    fnDeactivate(currNote);
+                }
+                currIdx[currNotes.index] = currNotes;
+            }
+        }
+        this.model.annotations.forEach(function(note){
+            if (!currIdx[note.index]){
+                if ((note.ts <= tm) && ((note.ts + note.dur) > tm)) {
+                    fnActivate(note);
+                }
+            }
+        });
+    };
+
+    $scope.annoCtrl = this;
 }]);
 
 })();

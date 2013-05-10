@@ -1,9 +1,9 @@
-<h1 > {{model.currentCategory}} </h1>
+<h1 > {{expCtrl.model.category}}: {{expCtrl.model.title}} </h1>
 <div c6-word-select >
     <ul >
-        <li ng-repeat="q in model.prompts" c6-question="{{$index}},{{$last}}" 
+        <li ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" 
                                                         class="question hidden">
-            {{q.query}} <input type="text" ng-model="model.responses[$index]"></input>
+            {{q.query}} <input type="text" ng-model="promptCtrl.model.responses[$index]"></input>
         </li>
     </ul>
     <div> <span>{{currQuestNo()}} of {{questionCount()}}</span> </div>
@@ -13,6 +13,11 @@
         <button name="next" ng-click="nextQuestion();" >Next</button>
     </div>
 </div>
-<div c6-video-node="theVideo">
-    <video class="video-js vjs-default-skin hidden" preload="auto" > </video>
+<div c6-annotations-player>
+    <video id="player" c6-video class="hidden" preload="auto" controls> </video>
+    <ul>
+        <li ng-repeat="a in annoCtrl.model.annotations" class="annotation hidden">
+            {{a.text}}
+        </li>
+    </ul>
 </div>

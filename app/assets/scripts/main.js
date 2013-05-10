@@ -21,7 +21,6 @@ if (__C6_BUILD_VERSION__) {
 }
 
 require([   'lib/jquery/jquery.min',
-            'lib/video-js/video.min'
             /*'lib/jqueryui/jquery-ui.min'*/], function(){
 
     require(['lib/angular/angular.min'],function(){

@@ -33,9 +33,9 @@ var browserVersion = (function(){
     }
 
 var dependencies = [
-    'c6.ctl',
+    'c6.ctrl',
     'c6.svc',
-    'c6.dir.wordSelect',
+    'c6.dir.screenJack',
     'c6.dir.videoNode'
 ];
 
@@ -47,7 +47,7 @@ angular.module('c6.app', dependencies)
         controller: 'c6CategoryListCtrl'
       })
       .when('/entry/:category', {
-        templateUrl: __C6_APP_BASE_URL__ + '/views/entry.html',
+        templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
         controller: 'c6ExperienceCtrl'
       })
       .otherwise({

@@ -62,7 +62,7 @@ function AnnotationsModel(experience) {
     }
 }
 
-angular.module('c6.ctl',['c6.svc'])
+angular.module('c6.ctrl',['c6.svc'])
 .controller('c6CategoryListCtrl',['$log','$scope',
                                         'c6VideoListingService', function($log,$scope,vsvc){
     $log.log('Creating cCategoryListCtrl');

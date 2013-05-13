@@ -2,7 +2,7 @@
 (function(){
 
 'use strict';
-angular.module('c6.dir.wordSelect',[])
+angular.module('c6.dir.screenJack',[])
 .directive('c6Question', [function(){
     return  function(scope,iElement, iAttrs) {
                 if (iAttrs.c6Question) {

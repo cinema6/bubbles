@@ -16,7 +16,7 @@ if (__C6_BUILD_VERSION__) {
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
                     'scripts/c6/directives/directives',
-                    'scripts/c6/directives/wordselect'
+                    'scripts/c6/directives/videonode'
                     ];
 }
 

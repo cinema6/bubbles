@@ -36,9 +36,9 @@ angular.module('c6.svc',[])
                 'prompts'   : [
                     'strong smell',
                     'bodily function',
-                    'exuberant expression',
+                    { query : 'exuberant expression' },
                     'animal',
-                    'animal',
+                    { query : 'animal', sizeLimit : 25},
                     'type of bread',
                     'famous A-list celebrity',
                     'Fight move',

@@ -85,19 +85,8 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope._experience = experience;
 }])
 .controller('c6PromptCtrl',['$log','$scope',function($log,$scope){
-
     $log.log('Creating c6PromptCtrl');
-    
-    var localException = function(msg) {
-        return {
-          'name'     : 'c6PromptCtrl',
-          'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
-          'toString' : function() { return this.name + ': ' + this.message; }
-        };
-      };
-
     this.model = new PromptModel($scope._experience);
-
     $scope.promptCtrl  = this;
 }])
 .controller('c6AnnotationsCtrl',['$log', '$scope', function($log,$scope){

@@ -135,8 +135,12 @@ angular.module('c6.dir.screenJack',[])
             });
 
             var fnActivate = function(note){
-                var className = 'note' + note.index,
-                $elt = noteElts[className];
+                var className   = 'note' + note.index,
+                    $elt        = noteElts[className];
+                $elt.css({
+                    top  :  Math.floor(note.plot[0] * 100) + "%",
+                    left :  Math.floor(note.plot[1] * 100) + "%" 
+                });
                 $elt.removeClass('hidden');
                 $log.info('Activate note: ' + className);
                 currNotes.push(note);

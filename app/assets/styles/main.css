@@ -12,12 +12,14 @@ video {
     width: 100%;
 }
 
+[c6-annotations-player] {
+    position: relative;
+    width: 100%;
+}
 .annotation {
     position: absolute;
-    top: 200px;
-    left: 100px;
     width: 200px;
-    min-height: 100px;
+    min-height: 50px;
     padding: 20px;
     background-color: #ffffff;
     border: 2px solid #ff0000;

@@ -12,7 +12,7 @@ angular.module('c6.dir.screenJack',[])
                 }
     };
 }])
-.directive('c6WordSelect',['$log',function($log) {
+.directive('c6PromptInterface',['$log',function($log) {
     $log.log('Creating c6WordSelect');
     return {
         controller : 'c6PromptCtrl',
@@ -61,6 +61,7 @@ angular.module('c6.dir.screenJack',[])
             scope.nextQuestion = function(){
                 if (currentIndex === questionElts.length - 1){
                     $log.log('Done wiht questions!');
+                    iElt.addClass('hidden');
                     scope.$emit('promptsComplete',ctrl.model.responses);
                 }
                 else {
@@ -103,6 +104,7 @@ angular.module('c6.dir.screenJack',[])
             scope.$on('expReady',function(){
                 $log.log('Ready with ' + questionElts.length + ' questions.');
                 questionElts[currentIndex].removeClass('hidden');
+                questionElts[currentIndex].find('input').get(0).focus();
             });
         }
     };

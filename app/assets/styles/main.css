@@ -17,6 +17,8 @@ video {
     top: 200px;
     left: 100px;
     width: 200px;
+    min-height: 100px;
+    padding: 20px;
     background-color: #ffffff;
     border: 2px solid #ff0000;
     border-radius: 15px;

@@ -8,6 +8,20 @@ ul {
     padding: 0px;
 }
 
+video {
+    width: 100%;
+}
+
+.annotation {
+    position: absolute;
+    top: 200px;
+    left: 100px;
+    width: 200px;
+    background-color: #ffffff;
+    border: 2px solid #ff0000;
+    border-radius: 15px;
+}
+
 .hidden {
     display: none;
 }

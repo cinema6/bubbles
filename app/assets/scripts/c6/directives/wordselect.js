@@ -53,6 +53,7 @@ angular.module('c6.dir.wordSelect',[])
                 if (currentIndex > 0) {
                     questionElts[currentIndex--].addClass('hidden');
                     questionElts[currentIndex].removeClass('hidden');
+                    questionElts[currentIndex].find('input').get(0).focus();
                     buttonStates();
                 }
             };
@@ -65,12 +66,20 @@ angular.module('c6.dir.wordSelect',[])
                 else {
                     questionElts[currentIndex++].addClass('hidden');
                     questionElts[currentIndex].removeClass('hidden');
+                    questionElts[currentIndex].find('input').get(0).focus();
                     buttonStates();
                 } 
             };
 
             scope.$on('onAddedQuestion',function(evt,elt,idx,last){
                 questionElts.push(elt);
+                $(elt.find('input').get(0)).keyup(function(e){
+                    if ((e.keyCode == 13) || (e.keyCode == 9)) {
+                        scope.$apply(function(){
+                            scope.nextQuestion(); 
+                        });
+                    }
+                });
                 if (last === true) {
                     scope.$emit('expReady');
                 }
@@ -128,15 +137,24 @@ angular.module('c6.dir.wordSelect',[])
                 $elt = noteElts[className];
                 $elt.removeClass('hidden');
                 $log.info('Activate note: ' + className);
+                currNotes.push(note);
             };
 
             var fnDeactivate = function(note){
-
+                var className = 'note' + note.index,
+                $elt = noteElts[className];
+                $elt.addClass('hidden');
+                for (var i = 0; i < currNotes.length; i++){
+                    if (currNotes[i] === note){
+                        $log.info('Remove note ' + note.index + ' from currnotes');
+                        currNotes.splice(i,1);
+                    }
+                }
 
             };
 
             scope.$on('video-timeupdate',function(evt,vid){
-                $log.info(vid + ': ' + vid.video().currentTime);
+                //$log.info(vid + ': ' + vid.video().currentTime);
                 ctrl.timerUpdate(vid.video().currentTime,currNotes,fnActivate,fnDeactivate);
             });
         }

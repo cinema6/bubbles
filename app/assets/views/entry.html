@@ -3,7 +3,7 @@
     <ul >
         <li ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" 
                                                         class="question hidden">
-            {{q.query}} <input type="text" ng-model="promptCtrl.model.responses[$index]"></input>
+            {{q.query}} <input name="response" type="text" ng-model="promptCtrl.model.responses[$index]"></input>
         </li>
     </ul>
     <div> <span>{{currQuestNo()}} of {{questionCount()}}</span> </div>

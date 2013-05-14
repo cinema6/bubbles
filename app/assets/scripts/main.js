@@ -10,7 +10,7 @@ require.config({
 
 var c6Scripts;
 if (__C6_BUILD_VERSION__) {
-    c6Scripts = [ 'scripts/c6vs.min' ];
+    c6Scripts = [ 'scripts/c6app.min' ];
 } else {
     c6Scripts = [   'scripts/c6/app',
                     'scripts/c6/services/services',

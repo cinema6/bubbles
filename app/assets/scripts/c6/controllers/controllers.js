@@ -47,18 +47,44 @@ function AnnotationsModel(experience) {
       };
     this.videoSrc        = experience.src;    
     this.annotations     = [];
-    for (var i = 0; i < experience.annotations.length; i++) {
-        var a = experience.annotations[i];
-        if (!a.type)     { throw localException('Missing Property (type): ' + JSON.stringify(a));} 
-        if (!a.ts)       { throw localException('Missing Property (ts): ' + JSON.stringify(a));} 
-        if (!a.dur)      { throw localException('Missing Property (dur): ' + JSON.stringify(a));} 
-        if (!a.plot)     { throw localException('Missing Property (plot): ' + JSON.stringify(a));} 
-        if (!a.template) { throw localException('Missing Property (template): ' + JSON.stringify(a));} 
-
-        this.annotations.push({
-            type : a.type, ts : a.ts, dur : a.dur, plot : a.plot, template : a.template, 
+    for (var i = 0; i < experience.annotations.notes.length; i++) {
+        var a = experience.annotations.notes[i],
+            n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
             text : null, index : i
-        });
+            };
+        if (experience.annotations.options){
+            if (!n.type) {
+                n.type = experience.annotations.options.type;
+            }
+            if (!n.duration) {
+                n.duration = experience.annotations.options.duration;
+            }
+            if (!n.cls) {
+                var eCls = experience.annotations.options.cls;
+                if (eCls instanceof Array) {
+                    var lenCls = eCls.length;
+                    n.cls = [];
+                    for (var j = 0; j < lenCls; j++) {
+                        n.cls.push(eCls[j]);
+                    }
+                }
+            }
+        }
+        
+        if (n.cls instanceof Array) {
+            for (var j = 0; j < n.cls.length; j++) {
+                n.cls[j] = n.cls[j].replace('${index}',n.index);
+            }
+        }
+        
+        if (!n.type){ throw localException('Missing Property (type): ' + JSON.stringify(a));} 
+        if (!n.ts)  { throw localException('Missing Property (ts): ' + JSON.stringify(a));} 
+        if (!n.duration) { throw localException('Missing Property (duration): ' + 
+                JSON.stringify(a));} 
+        if (!n.template){ throw localException('Missing Property (template): ' 
+                + JSON.stringify(a));} 
+
+        this.annotations.push(n);
     }
 }
 
@@ -95,7 +121,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.model = new AnnotationsModel($scope._experience);
     
     this.interpolate = function(tmpl,data) {
-        var patt  = /\${(\d+)}/g,
+        var patt  = /\${(\d+)}/,
             dataLen,
             match;
 
@@ -108,8 +134,9 @@ angular.module('c6.ctrl',['c6.svc'])
         }
 
         dataLen = data.length;
-        
+//        $log.info('Template:' + tmpl); 
         while((match = patt.exec(tmpl)) !== null) {
+//            $log.info('Match: ' + JSON.stringify(match));
             var idx = (match[1] - 1);
             if (idx < 0) {
                 throw new RangeError('Template parameters should start at ${1}');
@@ -125,6 +152,9 @@ angular.module('c6.ctrl',['c6.svc'])
     this.interpolateTemplates = function(data) {
         var annoLength = this.model.annotations.length;
         $log.info('Interpolate ' + annoLength + ' annotations with ' + data.length + ' responses.');
+//       for (var x = 0; x < data.length; x++) {
+//            $log.info('DATA[' + x + ']: [' + data[x] + ']');
+//        }
         for (var i = 0; i < annoLength; i++) {
             var a = this.model.annotations[i];
             a.text = this.interpolate(a.template,data);
@@ -137,13 +167,13 @@ angular.module('c6.ctrl',['c6.svc'])
         if (currNotes){
             if (currNotes instanceof Array) {
                 currNotes.forEach(function(note){
-                    if ((note.ts + note.dur) <= tm) {
+                    if ((note.ts + note.duration) <= tm) {
                         fnDeactivate(note);
                     }
                     currIdx[note.index] = note;
                 });
             } else {
-                if ((currnote.ts + currNote.dur) <= tm) {
+                if ((currnote.ts + currNote.duration) <= tm) {
                     fnDeactivate(currNote);
                 }
                 currIdx[currNotes.index] = currNotes;
@@ -151,7 +181,7 @@ angular.module('c6.ctrl',['c6.svc'])
         }
         this.model.annotations.forEach(function(note){
             if (!currIdx[note.index]){
-                if ((note.ts <= tm) && ((note.ts + note.dur) > tm)) {
+                if ((note.ts <= tm) && ((note.ts + note.duration) > tm)) {
                     fnActivate(note);
                 }
             }

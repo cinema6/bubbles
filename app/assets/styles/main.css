@@ -18,12 +18,12 @@ video {
 }
 .annotation {
     position: absolute;
-    width: 200px;
-    min-height: 50px;
+    /*width: 200px;*/
+    min-height: 20px;
     padding: 20px;
     background-color: #ffffff;
-    border: 2px solid #ff0000;
-    border-radius: 15px;
+    border: 4px solid #000000;
+    border-radius: 25px;
 }
 
 .hidden {
@@ -33,3 +33,36 @@ video {
 .disabled {
     opacity: 0.5;
 }
+
+.notebook-0 { top: 20%; left: 45%; }
+.notebook-1 { top: 15%; left: 25%; }
+.notebook-2 { top: 15%; left: 25%; }
+.notebook-3 { top: 20%; left: 25%; }
+.notebook-4 { top: 20%; left: 25%; }
+.notebook-5 { top: 20%; left: 35%; }
+.notebook-6 { top: 20%; left: 35%; }
+.notebook-7 { top: 20%; left: 35%; }
+.notebook-8 { top: 20%; left: 40%; }
+
+.lee-0 { top: 20%; left: 55%; }
+.lee-1 { top: 25%; left: 20%; }
+.lee-2 { top: 35%; left: 25%; }
+.lee-3 { top: 45%; left: 30%; }
+.lee-4 { top: 30%; left: 25%; }
+.lee-5 { top: 35%; left: 5%; }
+.lee-6 { top: 25%; left: 25%; }
+.lee-7 { top: 10%; left: 5%; }
+.lee-8 { top: 20%; left: 5%; }
+.lee-9 { top: 20%; left: 15%; }
+.lee-10 { top: 10%; left: 45%; }
+.lee-11 { top: 15%; left: 75%; }
+.lee-12 { top: 15%; left: 10%; }
+.lee-13 { top: 20%; left: 25%; }
+.lee-14 { top: 40%; left: 80%; }
+.lee-15 { top: 15%; left: 55%; }
+.lee-16 { top: 20%; left: 45%; }
+.lee-17 { top: 20%; left: 55%; }
+.lee-18 { top: 20%; left: 50%; }
+.lee-19 { top: 20%; left: 10%; }
+.lee-20 { top: 20%; left: 40%; }
+.lee-21 { top: 20%; left: 40%; }

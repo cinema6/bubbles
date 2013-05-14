@@ -125,10 +125,12 @@ angular.module('c6.dir.screenJack',[])
             scope.$on('promptsComplete',function(evt,responses){
                 ctrl.interpolateTemplates(responses);
                 iElt.find('li').each(function(idx,elt){
-                    var className = 'note' + idx,
-                        $elt      = angular.element(elt);
-                    $elt.addClass(className);
-                    noteElts[className] = $elt;
+                    var $elt      = angular.element(elt),
+                        note      = ctrl.model.annotations[idx];
+                    note.cls.forEach(function(c){
+                        $elt.addClass(c);
+                    });
+                    noteElts[('note' + note.index)] = $elt;
                 });
                 vid.el.removeClass('hidden');
                 vid.video().play();
@@ -137,10 +139,6 @@ angular.module('c6.dir.screenJack',[])
             var fnActivate = function(note){
                 var className   = 'note' + note.index,
                     $elt        = noteElts[className];
-                $elt.css({
-                    top  :  Math.floor(note.plot[0] * 100) + "%",
-                    left :  Math.floor(note.plot[1] * 100) + "%" 
-                });
                 $elt.removeClass('hidden');
                 $log.info('Activate note: ' + className);
                 currNotes.push(note);

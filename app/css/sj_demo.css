@@ -5,70 +5,79 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
 
 #c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:2;}
 #experience { position: absolute; width:100%;}
-#viewport { height: 684px; width: 1280px; margin: 46px auto 0 auto; position: relative;}
+.viewport { height: 684px; width: 1280px; margin: 46px auto 0 auto; position: relative; }
 
-/*  scaling elements  */
-    #videoSelection {
-        width: 81.41%;
-        height: 91.62%;
-        margin: 3.5% 0 0 14.84%; 
-        position: absolute; 
-        z-index: 1;
-        transform: rotate(-15deg);
-        -ms-transform: rotate(-15deg); /* IE 9 */
-        -webkit-transform: rotate(-15deg); /* Safari and Chrome */
-    }
-        .instructions { color: #c20000; margin: 6.5% 0 0 40.31%; font-size: 32px; }
-
-        /*  category thumbnails  */
-            .videoCategory {
-                color: #FFF;
-                height: 34.28%;
-                width: 30.23%;
-                display: inline-block;
-                color: #252525;
-                font-size: 28px;
-                font-weight: 700;
-                text-align: center;
-            }
-
-            div[title=Romance] {margin: 0% 0 0 2.32%;}
-            div[title=Politics] {margin: 0 0 0 2.32%;}
-            div[title=Sci-fi] {margin: 0% 0% 0 2.32%;}
-            div[title=Sports] {margin: 2% 0 0 19.2%;}
-            div[title=Drama] {margin: 0% 0% 0 2.32%;}
-
-            div.thumbFrame {
-                background: #fff;
-                width: 95.68%;
-                height: 77.88%;
-                box-shadow: 0 2px 4px #b9b9b9;
-                line-height: 200px;
-                padding: 2.22%;
-                margin: 0 0 2% 0;
-            }
-            div.thumbFrame:hover{ background: #c20000; color: #c20000; }
-
-            /* thumbnail images */
-                #thumb_romance { background: url('../img/vidThumb_romance.jpg'); width: 100%; height: 100%; }
-                #thumb_romance:hover { background: url('../img/vidThumb_romance.gif');  width: 100%;  height: 100%; }
-
-
-/*  static background elements  */
-    .artTopLeft {
-        background: url('../img/artTopLeft_start.png') no-repeat top left; 
-        margin: 36px 0 0 0; 
+/*      START SCREEN BEGIN      */
+    #startScreen {
+        background: blue;
+        position: absolute;
         width: 100%;
         height: 100%;
-        position: fixed;
-        z-index: 0;
+        display: none;
     }
 
-    .artBottomRight {
-        background: url('../img/artBottomRight_start.png') no-repeat bottom right; 
-        width: 100%; 
-        height: 100%;
-        position: fixed;
-        z-index: 0;
-    }
+    /*  scaling elements  */
+        #videoSelection {
+            width: 81.41%;
+            height: 91.62%;
+            margin: 3.5% 0 0 14.84%; 
+            position: absolute; 
+            z-index: 1;
+            transform: rotate(-15deg);
+            -ms-transform: rotate(-15deg); /* IE 9 */
+            -webkit-transform: rotate(-15deg); /* Safari and Chrome */
+        }
+            .instructions { color: #c20000; margin: 6.5% 0 0 40.31%; font-size: 32px; }
 
+            /*  category thumbnails  */
+                .videoCategory {
+                    color: #FFF;
+                    height: 34.28%;
+                    width: 30.23%;
+                    display: inline-block;
+                    color: #252525;
+                    font-size: 28px;
+                    font-weight: 700;
+                    text-align: center;
+                }
+
+                div[title=Romance] {margin: 0% 0 0 2.32%;}
+                div[title=Politics] {margin: 0 0 0 2.32%;}
+                div[title=Sci-fi] {margin: 0% 0% 0 2.32%;}
+                div[title=Sports] {margin: 2% 0 0 19.2%;}
+                div[title=Drama] {margin: 0% 0% 0 2.32%;}
+
+                div.thumbFrame {
+                    background: #fff;
+                    width: 95.68%;
+                    height: 77.88%;
+                    box-shadow: 0 2px 4px #b9b9b9;
+                    line-height: 200px;
+                    padding: 2.22%;
+                    margin: 0 0 2% 0;
+                }
+                div.thumbFrame:hover{ background: #c20000; color: #c20000; }
+
+                /* thumbnail images */
+                    #thumb_romance { background: url('../img/vidThumb_romance.jpg'); width: 100%; height: 100%; }
+                    #thumb_romance:hover { background: url('../img/vidThumb_romance.gif');  width: 100%;  height: 100%; }
+
+
+    /*  static background elements  */
+        .artTopLeft {
+            background: url('../img/artTopLeft_start.png') no-repeat top left; 
+            margin: 36px 0 0 0; 
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 0;
+        }
+
+        .artBottomRight {
+            background: url('../img/artBottomRight_start.png') no-repeat bottom right; 
+            width: 100%; 
+            height: 100%;
+            position: fixed;
+            z-index: 0;
+        }
+/*      START SCREEN END     */

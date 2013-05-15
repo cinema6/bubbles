@@ -1,50 +1,48 @@
 /* css stylesheet */
 
-body { margin: 0; padding: 0;}
-#c6bar { background-color: #232527; height: 36px; width: 100%; position: absolute;}
+body { margin: 0; padding: 0; overflow: hidden;}
+body.paperTexture {
+    background: url('../img/bg_tile.jpg') repeat;}
+#c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:2;}
 
 #experience {
-    background-image: url('../img/bg_tile.jpg');
-    background-repeat: repeat;
+    position: absolute; width:100%;
+}
+#viewport {
+    /*background: blue;*/
     height: 684px;
     width: 1280px;
-    margin-top: 36px;
-    position: absolute;
-    /*text-align: center;*/
-    overflow: hidden;
-    z-index: 0;
+    margin: 46px auto 0 auto; 
+    position: relative;
 }
-/*ghost element for centering
-#experience:before { content:''; display: inline-block; height: 100%; vertical-align: middle; margin-right: -0.25em;}*/
 
 /*scaling elements*/
 #videoSelect {
-    background-color: red;
+    background: url('../img/placeholder.png');
     width: 81.41%;
-    height: 88.33%;
-    margin-left: 14.84%;
-    /*display: inline-block;
-    vertical-align: middle; */
+    height: 91.62%;
+    margin: 3.5% 0 0 14.84%; 
     position: absolute; 
     z-index: 1;
 }
 
 /*static elements*/
 .artTopLeft {
-    background-color: yellow; 
-    width: 548px; 
-    height: 984px; 
-    position: inherit;
+    background: url('../img/artTopLeft_start.png'); 
+    width: 546px; 
+    height: 933px;
+    margin: 36px 0 0 0; 
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 0;
 }
 
 .artBottomRight {
-    background-color: yellow; 
+    background: url('../img/artBottomRight_start.png'); 
     width: 150px; 
-    height: 430px;
-    position: inherit;
+    height: 432px;
+    position: absolute;
     bottom: 0;
     right: 0;
     z-index: 0;

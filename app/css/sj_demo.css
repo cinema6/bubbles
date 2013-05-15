@@ -1,22 +1,20 @@
 /* css stylesheet */
 
-body { margin: 0; padding: 0; overflow: hidden;}
-body.paperTexture {
-    background: url('../img/bg_tile.jpg') repeat;}
-#c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:2;}
+body { margin: 0; padding: 0; }
+body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
 
-#experience {
-    position: absolute; width:100%;
-}
+#c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:2;}
+#experience { position: absolute; width:100%;}
+
+
+/*scaling elements*/
 #viewport {
-    /*background: blue;*/
     height: 684px;
     width: 1280px;
     margin: 46px auto 0 auto; 
     position: relative;
 }
 
-/*scaling elements*/
 #videoSelect {
     background: url('../img/placeholder.png');
     width: 81.41%;
@@ -26,25 +24,22 @@ body.paperTexture {
     z-index: 1;
 }
 
+
 /*static elements*/
 .artTopLeft {
-    background: url('../img/artTopLeft_start.png'); 
-    width: 546px; 
-    height: 933px;
+    background: url('../img/artTopLeft_start.png') no-repeat top left; 
     margin: 36px 0 0 0; 
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
     z-index: 0;
 }
 
 .artBottomRight {
-    background: url('../img/artBottomRight_start.png'); 
-    width: 150px; 
-    height: 432px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    background: url('../img/artBottomRight_start.png') no-repeat bottom right; 
+    width: 100%; 
+    height: 100%;
+    position: fixed;
     z-index: 0;
 }
 

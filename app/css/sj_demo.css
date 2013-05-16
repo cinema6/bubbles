@@ -2,6 +2,9 @@
 
 body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; }
 body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
+.ir {
+    width:0; height:0; display: block; overflow: hidden;
+}
 
 #c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10;}
 #experience {position: fixed; width:100%;}
@@ -9,7 +12,7 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
 
 /*      START SCREEN BEGIN      */
     #startScreen { position: absolute; width: 100%; height: 100%; 
-        display: none;  }
+        /*display: none;*/  }
 
     /*  scaling elements  */
         #videoSelection {
@@ -22,39 +25,45 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
             -ms-transform: rotate(-15deg); /* IE 9 */
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
         }
-            .instructions { color: #c20000; margin: 6.5% 0 0 40.31%; font-size: 32px; }
+            .instructions { color: #c20000; margin: 6.5% 0 0 40.31%; font-size: 32px; font-weight: 300; }
 
             /*  category thumbnails  */
                 .videoCategory {
                     color: #FFF;
-                    height: 34.28%;
+                    height: 32.28%;
                     width: 30.23%;
                     display: inline-block;
+                    text-align: center;
+                    background: blue;
+                }
+
+                .videoCategory p {
                     color: #252525;
                     font-size: 28px;
                     font-weight: 700;
-                    text-align: center;
+                    margin: 0;
                 }
 
-                div[title=Romance] {margin: 0% 0 0 2.32%;}
-                div[title=Politics] {margin: 0 0 0 2.32%;}
-                div[title=Sci-fi] {margin: 0% 0% 0 2.32%;}
-                div[title=Sports] {margin: 2% 0 0 19.2%;}
-                div[title=Drama] {margin: 0% 0% 0 2.32%;}
+                li[title=Romance] {margin: 0% 0 0 2.32%;}
+                li[title=Politics] {margin: 0 0 0 2.32%;}
+                li[title=Sci-fi] {margin: 0% 0% 0 2.32%;}
+                li[title=Sports] {margin: 2% 0 0 19.2%;}
+                li[title=Drama] {margin: 0% 0% 0 2.32%;}
 
-                div.thumbFrame {
+                button.thumbFrame {
                     background: #fff;
                     width: 95.68%;
                     height: 77.88%;
                     box-shadow: 0 2px 4px #b9b9b9;
-                    line-height: 200px;
                     padding: 2.22%;
                     margin: 0 0 2% 0;
+                    border: 0;
+                    cursor: pointer;
                 }
-                div.thumbFrame:active{ background: #c20000; color: #c20000; }
+                button.thumbFrame:active{ background: #c20000; color: #c20000; }
 
                 /* thumbnail images */
-                    #thumb_romance { background: url('../img/vidThumb_romance.jpg'); width: 100%; height: 100%; }
+                    #thumb_romance { background: url('../img/vidThumb_romance.jpg'); width: 100%; height: 100%; position: inherit; }
                     #thumb_romance:hover { background: url('../img/vidThumb_romance.gif');  width: 100%;  height: 100%; }
 
 
@@ -187,7 +196,7 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
 
 /*      END SCREEN BEGIN        */
     #endScreen { width: 100%; height: 100%; position: absolute; 
-        /*display: none;*/  }
+        display: none;  }
 
     /* scaling elements */
         #vidEnd {
@@ -220,34 +229,15 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
             margin: 0 0 1% 0;
             z-index: 3;
         }
-            .facebookbtn {
-                background: url('../img/btn_facebook_default.png') no-repeat top;
-                height: 100%;
-                width: 142px;
-                display: inline-block;
-                float: right;
-            }
+            .facebookbtn { background: url('../img/btn_facebook_default.png') no-repeat top; height: 100%; width: 142px; display: inline-block; float: right;}
             .facebookbtn:active {background: url('../img/btn_facebook_tap.png') no-repeat top;}
 
-            .twitterbtn {
-                background: url('../img/btn_twitter_default.png') no-repeat top;
-                height: 100%;
-                width: 134px;
-                display: inline-block;
-                float: right;
-                margin: 0 0 0 8%
-            }
+            .twitterbtn { background: url('../img/btn_twitter_default.png') no-repeat top; height: 100%; width: 134px; display: inline-block; float: right; margin: 0 0 0 8% }
             .twitterbtn:active {background: url('../img/btn_twitter_tap.png') no-repeat top;} 
 
-            .emailbtn {
-                background: url('../img/btn_email_default.png') no-repeat top;
-                height: 100%;
-                width: 120px;
-                display: inline-block;
-                float: right;
-                margin: 0 0 0 8%;
-            }
+            .emailbtn { background: url('../img/btn_email_default.png') no-repeat top; height: 100%; width: 120px; display: inline-block; float: right; margin: 0 0 0 8%;}
             .emailbtn:active {background: url('../img/btn_email_tap.png') no-repeat top;}
+
     /*  static background elements  */
         .artTopLeft_end {
             background: url('../img/artTopLeft_end.png') no-repeat top left; 

@@ -5,23 +5,51 @@
 </head><body class="paperTexture">
 
 <div id="experience">
-    <div id="c6bar"></div>
+<span id="c6bar"></span>
 
     <!-- START SCREEN BEGIN -->
     <div id="startScreen">
         <!--static elements-->
-        <div class="artBottomRight"></div>
-        <div class="artTopLeft_start"></div>
+        <header class="artTopLeft_start">&nbsp;</header>
+        <div class="artBottomRight">&nbsp;</div>
+
         <!--scaling elements-->
         <div class="viewport">
-            <div id="videoSelection">
-                <div class="instructions">choose one</div><br>
-                <div class="videoCategory" title="Romance"><div class="thumbFrame"><div id="thumb_romance"></div></div>Romance</div>
-                <div class="videoCategory" title="Politics"><div class="thumbFrame"><img src="../img/vidThumb_politics.jpg"></div>Politics</div>
-                <div class="videoCategory" title="Sci-fi"><div class="thumbFrame"><img src="../img/vidThumb_scifi.jpg"></div>Sci-Fi</div>
-                <div class="videoCategory" title="Sports"><div class="thumbFrame"><img src="../img/vidThumb_sports.jpg"></div>Sports</div>
-                <div class="videoCategory" title="Drama"><div class="thumbFrame"><img src="../img/vidThumb_drama.jpg"></div>Drama</div>
-            </div>
+            <menu id="videoSelection">
+                <h1 class="instructions">choose one</h1><br>
+                <ul>
+                    <li class="videoCategory" title="Romance">
+                        <button class="thumbFrame">
+                            <!--<div id="thumb_romance">&nbsp;<span class="ir">Romance</span></div>--> <!-- Div won't resize to be the size of the image based off the thumbFrame, how would this be done in dynamic sizes -->
+                        </button>
+                        <p>Romance</p>
+                    </li>
+                    <li class="videoCategory" title="Politics">
+                        <button class="thumbFrame">
+                            <span id="thumb_romance">&nbsp;<span class="ir">Politics</span></span>
+                        </button>
+                        <p>Politics</p>
+                    </li>
+                    <li class="videoCategory" title="Sci-fi">
+                        <button class="thumbFrame">
+                            <span id="thumb_romance">&nbsp;<span class="ir">Sci-Fi</span></span>
+                        </button>
+                        <p>Sci-Fi</p>
+                    </li>
+                    <li class="videoCategory" title="Sports">
+                        <button class="thumbFrame">
+                            <span id="thumb_romance">&nbsp;<span class="ir">Sports</span></span>
+                        </button>
+                        <p>Sports</p>
+                    </li>
+                    <li class="videoCategory" title="Drama">
+                        <button class="thumbFrame">
+                            <span id="thumb_romance">&nbsp;<span class="ir">Drama</span></span>
+                        </button>
+                        <p>Drama</p>
+                    </li>
+                </ul>
+            </menu>
         </div>
      </div>
     <!-- START SCREEN END -->
@@ -57,12 +85,13 @@
     </div>
      <!-- INPUT SCREEN END -->
 
+
+
      <!-- END SCREEN BEGIN -->
      <div id="endScreen">
         <!--static elements-->
         <div class="artBottomRight"></div>
         <div class="artTopLeft_end"></div>
-
         <!--scaling elements-->
         <div class="viewport">
             <div id="vidEnd"> </div>

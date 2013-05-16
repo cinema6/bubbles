@@ -12,6 +12,7 @@ angular.module('c6.svc',[])
                         'Action',
                         'Politics',
                         'Romance',
+                        'SciFi-Fantasy',
                         'Sports'
                     ]
         };
@@ -74,6 +75,64 @@ angular.module('c6.svc',[])
                         { 'ts':128,'template':'That made no sense', 'duration':2 },
                         { 'ts':130,'template':'${6}?', 'duration':2 },
                         { 'ts':132,'template':'${2} ${3}!', 'duration':2 }
+                    ]
+                }
+            };
+        } else
+        if (category === 'scifi-fantasy') {
+            return {
+                'id'         : '3',
+                'title'      : 'Heartbreaking Romance',
+                'views'      : 1000,
+                'src'         : [
+                                   {
+                                    'type': 'video/webm',
+                                    'src': baseUrl + '/media/lotr.webm'
+                                   },
+                                   {
+                                    'type': 'video/mp4',
+                                    'src': baseUrl + '/media/lotr.mp4'
+                                   }
+                                 ],
+                'defSizeLimit': 32,
+                'prompts'     : [
+                    'favorite past time (past tense)',
+                    'romantic pet nickname',
+                    'fruit',
+                    'body part',
+                    'verb',
+                    'plural noun',
+                    'synonym for feces',
+                    'noun',
+                    'place',
+                    'baby animal'
+                    ],
+                'annotations' : {
+                    'options' : {
+                        'type'      : 'bubble',
+                        'duration'  : 4,
+                        'cls'     : ['lotr-${index}']
+                        },
+                     'notes'  : [
+                        { 'ts':  3,'template':'I\'ll always remember', 'duration': 5 },
+                        { 'ts':  5,'template':'The times we ${1} together', 'duration' : 3 },
+                        { 'ts':  9,'template':'${2}' },
+                        { 'ts': 12,'template':'${3} ${4}' },
+                        { 'ts': 23,'template':'Wonder if he knows I ${1} with everyone' },
+                        { 'ts': 29,'template':'Yes, I know..', 'duration' : 3 },
+                        { 'ts': 32,'template':'but I don\'t care', 'duration' : 3 },
+                        { 'ts': 35,'template':'Because I ${5} ${6} with Gandalf' },
+                        { 'ts': 41,'template':'${3} ${4}' },
+                        { 'ts': 49,'template':'What a ${7} ${8}' },
+                        { 'ts': 58,'template':'I\'m ready to go to ${9}!' },
+                        { 'ts': 63,'template':'Get over here you tiny ${7}', 'duration' : 2 },
+                        { 'ts': 68,'template':'I hope they have ${6} in ${9}', 'duration' : 2 },
+                        { 'ts': 75,'template':'You sail, I\'m not doing ${7} on this trip' },
+                        { 'ts': 78,'template':'Hope this ${10} can swim', 'duration' : 2 },
+                        { 'ts': 82,'template':'${2}', 'duration' : 4 },
+                        { 'ts': 83,'template':'${2}', 'duration' : 3 },
+                        { 'ts': 84,'template':'${7} ${8}', 'duration' : 2 },
+                        { 'ts': 95,'template':'I just took a ${7} in my pants', 'duration' : 8 }
                     ]
                 }
             };

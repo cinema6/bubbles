@@ -10,6 +10,7 @@ ul {
 
 video {
     width: 100%;
+    min-height: 80%;
 }
 
 [c6-annotations-player] {

@@ -129,6 +129,15 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
             #startbtn:active {background: url('../img/btn_start_tap.png');}
 
     /* static background elements */
+        #progressDock {
+            height: 30px;
+            width: 110px;
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            margin: 0 0 0 -55px;
+        }
+
         .artTopLeft_input {
             background: url('../img/logo_input.png') no-repeat top left; 
             margin: 48px 0 0 0; 

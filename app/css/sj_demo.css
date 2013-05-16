@@ -1,14 +1,15 @@
 /* css stylesheet */
 
-body { margin: 0; padding: 0; font-family: courier prime, courier, times, serif; }
+body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; }
 body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
 
 #c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:2;}
 #experience {position: fixed; width:100%;}
-.viewport { height: 684px; width: 1280px; margin: 46px auto 0 auto; position: relative; background: red; }
+.viewport { height: 684px; width: 1280px; margin: 46px auto 0 auto; position: relative;  }
 
 /*      START SCREEN BEGIN      */
-    #startScreen { position: absolute; width: 100%; height: 100%; display: none;}
+    #startScreen { position: absolute; width: 100%; height: 100%; 
+        display: none;  }
 
     /*  scaling elements  */
         #videoSelection {
@@ -77,33 +78,19 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
 /*      START SCREEN END     */
 
 
-
 /*      INPUT SCREEN BEGIN      */
-    #inputScreen { width: 100%; height: 100%; position: absolute; /*display: none;*/}
+    #inputScreen { width: 100%; height: 100%; position: absolute; 
+        /*display: none;*/  }
 
     /* scaling elements */
     #input {
-        background: blue;
         height: 41.67%;
         width: 56.25%;
-        position: inherit;
-        margin: 0 auto;
+        display: inline-block;
+        margin: 13.52% 0 0 21.16%;
     }
-        .title {
-            display: inline-block;
-            font-size: 18px ;
-            width: 100%;
-            text-align: center;
-        }
-
-        .question {
-            display: inline-block;
-            width: 100%;
-            font-size: 36px;
-            font-weight: 700;
-            margin: 2% 0 0 0;
-            text-align: center;
-        }
+        .title {display: inline-block; width: 100%; text-align: center;}
+        .question { display: inline-block; width: 100%; margin: 3% 0 0 0; text-align: center;}
 
         /* input */
         .inputContainer{
@@ -111,67 +98,37 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
             width: 100%;
             margin: 5% 0 0 0;
         }
-
-            #previousbtn {
-                background: url('../img/btn_previous_default.png') no-repeat bottom left;
-                height: 40%;
-                width: 4%;
-                display: inline-block;
-            }
+            #previousbtn {background: url('../img/btn_previous_default.png') no-repeat bottom left; height: 40%; width: 4%; display: inline-block; }
             #previousbtn:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left;}
 
             #inputBar {
-                background: url('../img/inputLine.jpg') bottom center no-repeat;
-                width: 89.2%;
-                height: 10%;
-                position: relative;
-                margin: 5% 0 0 0;
+                background: url('../img/inputLine.jpg') bottom center no-repeat; 
+                width: 76.2%; 
+                height: 45%; 
+                margin: 0 6% 0 6%; 
                 display: inline-block;
             }
-
-            #nextbtn {
-                background: url('../img/btn_next_default.png') no-repeat bottom right;
-                height: 50%;
-                width: 4%;
-                display: inline-block;
+            input {
+                border: 0;
+                background: none;
+                font-family: "Courier Prime", Courier, Times, serif;
+                font-size: 28px;
+                font-weight: 700;
+                color: #c20000;
+                width: 100%;
             }
+            input:focus { outline:none; }
+            
+            #nextbtn {background: url('../img/btn_next_default.png') no-repeat bottom right; height: 50%; width: 4%; display: inline-block;}
             #nextbtn:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
 
-            #characterCount{
-                width: 80%;
-                text-align: right;
-                margin: 0 0 0 8.48%;  
-            }
+            #characterCount{ width: 76.2%; text-align: right; margin: 0 0 0 11.48%;}
 
-        #startbtn {
-            background: url('../img/btn_start_default.png') center no-repeat;
-            width: 27%;
-            height: 22%;
-            margin:  0 auto;
-            /*display: none;*/
-        }
-        #startbtn:active {background: url('../img/btn_start_tap.png');}
-
+            #startbtn {background: url('../img/btn_start_default.png') center no-repeat; width: 27%; height: 22%; margin: 6% auto 0 auto; 
+                /*display: none;*/  }
+            #startbtn:active {background: url('../img/btn_start_tap.png');}
 
     /* static background elements */
-        #pageLeft {
-            background: url('../img/pageTile_left.png') repeat-y top left; 
-            margin: 36px 0 0 0; 
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: -1;
-        }
-
-        #pageRight {
-            background: url('../img/pageTile_right.png') repeat-y top right; 
-            margin: 36px 0 0 0; 
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: -1;
-        }
-
         .artTopLeft_input {
             background: url('../img/logo_input.png') no-repeat top left; 
             margin: 48px 0 0 0; 
@@ -190,27 +147,31 @@ body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
             z-index: 0;
         }    
 
-        .btnposition {
+        .closePosition {
             margin: 42px 0 0 0; 
             width: 100%;
             height: 54px;
             position: fixed;
             z-index: 1
         }
-            #closebtn { 
-                background: url('../img/btn_closeInput_default.png');  
-                float: right; 
-                height: 54px; 
-                width: 66px; 
-                margin: 0 104px 0 0;
-            }
-            #closebtn:active { 
-                background: url('../img/btn_closeInput_tap.png'); 
-                float: right; 
-                height: 54px; 
-                width: 66px; 
-                margin: 0 104px 0 0;
-            }
+            #closebtn { background: url('../img/btn_closeInput_default.png');   float: right;  height: 54px;  width: 66px;  margin: 0 104px 0 0;}
+            #closebtn:active {  background: url('../img/btn_closeInput_tap.png'); float: right;  height: 54px; width: 66px; margin: 0 104px 0 0;}
 
+        #pageLeft {
+            background: url('../img/pageTile_left.png') repeat-y top left; 
+            margin: 36px 0 0 0; 
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: -1;
+        }
 
+        #pageRight {
+            background: url('../img/pageTile_right.png') repeat-y top right; 
+            margin: 36px 0 0 0; 
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: -1;
+        }
 /*      INPUT SCREEN END      */

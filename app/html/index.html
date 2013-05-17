@@ -8,9 +8,9 @@
 <span id="c6bar"></span>
 
     <!-- START SCREEN BEGIN -->
-    <div id="startScreen">
+     <div id="startScreen">
         <!--static elements-->
-        <header class="artTopLeft_start">&nbsp;</header>
+        <header class="artTopLeft_start"><span class="ir">Screenjacked</span></header>
         <div class="artBottomRight">&nbsp;</div>
 
         <!--scaling elements-->
@@ -19,34 +19,24 @@
                 <h1 class="instructions">choose one</h1><br>
                 <ul>
                     <li class="videoCategory" title="Romance">
-                        <button class="thumbFrame">
-                            <!--<div id="thumb_romance">&nbsp;<span class="ir">Romance</span></div>--> <!-- Div won't resize to be the size of the image based off the thumbFrame, how would this be done in dynamic sizes -->
-                        </button>
-                        <p>Romance</p>
+                        <button class="romance"><span class="ir">Romance</span></button>
+                        <h3>Romance</h3>
                     </li>
                     <li class="videoCategory" title="Politics">
-                        <button class="thumbFrame">
-                            <span id="thumb_romance">&nbsp;<span class="ir">Politics</span></span>
-                        </button>
-                        <p>Politics</p>
+                        <button class="politics"><span class="ir">Politics</span></button>
+                        <h3>Politics</h3>
                     </li>
                     <li class="videoCategory" title="Sci-fi">
-                        <button class="thumbFrame">
-                            <span id="thumb_romance">&nbsp;<span class="ir">Sci-Fi</span></span>
-                        </button>
-                        <p>Sci-Fi</p>
+                        <button class="scifi"><span class="ir">Sci-Fi</span></button>
+                        <h3>Sci-Fi</h3>
                     </li>
                     <li class="videoCategory" title="Sports">
-                        <button class="thumbFrame">
-                            <span id="thumb_romance">&nbsp;<span class="ir">Sports</span></span>
-                        </button>
-                        <p>Sports</p>
+                        <button class="sports"><span class="ir">Sports</span></button>
+                        <h3>Sports</h3>
                     </li>
                     <li class="videoCategory" title="Drama">
-                        <button class="thumbFrame">
-                            <span id="thumb_romance">&nbsp;<span class="ir">Drama</span></span>
-                        </button>
-                        <p>Drama</p>
+                        <button class="drama"><span class="ir">Drama</span></button>
+                        <h3>Drama</h3>
                     </li>
                 </ul>
             </menu>
@@ -54,60 +44,58 @@
      </div>
     <!-- START SCREEN END -->
 
-    <!-- INPUT SCREEN BEGIN -->
-    <div id="inputScreen">
-        <!--static elements-->
-        <div class="closePosition"><a href="#"><div id="closebtn"></div></a></div>
-        <div id="progressDock">Page 8 of 9</div>
-        <div class="artTopLeft_input"></div>
-        <div class="artBottomLeft"></div>
-        <div id="pageLeft"></div>
-        <div id="pageRight"></div>
 
-        <!--scaling elements-->
+    <!-- INPUT SCREEN BEGIN -->
+     <div id="inputScreen">
+        <!--artwork-->
+        <header class="artTopLeft_input"><span class="ir">Screenjacked</span></header>
+        <div class="artBottomLeft">&nbsp;</div>
+        <div id="bgLeft">&nbsp;</div>
+        <div id="bgRight">&nbsp;</div>
+
+        <!--content-->
+        <button id="closebtn"><span class="ir">Close</span></button> 
         <div class="viewport">
             <div id="input">
-                <span class="title"><img src="../img/fillBlank.png"></span>
-                <span class="question"><img src="../img/question_8.png"></span>
-                <div class="inputContainer">
-                    
-                        <div id="previousbtn"></div>
-                        <div id="inputBar">
-                            <form><input type="text" name="question_8"></form>
-                        </div>
-                        <div id="nextbtn"></div>
-                    
-                    <div id="characterCount">12</div>
-                </div>
-                <div id="startbtn"> </div>
+                <h1 class="title"><span class="ir">Fill in the blank</span></h1>
+                <h2 class="question"><span class="ir">Fight Move:</span></h2>
+                    <form id="inputBar">
+                        <input type="text" name="question_8">
+                        <button id="previousbtn"><span class="ir">Previous</span></button>
+                        <button id="nextbtn"><span class="ir">Next</span></button>
+                    </form>
+                <h6 id="characterCount">12</h6>
+                <button id="startbtn"><span class="ir">Start</span></button>
             </div>
         </div>
-    </div>
-     <!-- INPUT SCREEN END -->
+        <footer id="progressDock">Page 8 of 9</footer>
+     </div>
+    <!-- INPUT SCREEN END -->
 
 
-
-     <!-- END SCREEN BEGIN -->
+    <!-- END SCREEN BEGIN -->
      <div id="endScreen">
-        <!--static elements-->
-        <div class="artBottomRight"></div>
-        <div class="artTopLeft_end"></div>
-        <!--scaling elements-->
+        <!--artwork-->
+        <header class="artTopLeft_end"><span class="ir">Screenjacked</span></header>
+        <div class="artBottomRight">&nbsp;</div>
+
+        <!--content-->
         <div class="viewport">
-            <div id="vidEnd"> </div>
-            <div id="vidMenu">
-                <div class="playAgainbtn"></div>
-                <div class="editbtn"></div>
-                <div class="newVidbtn"></div>
-            </div>
-            <div id="shareMenu"> 
-                <div class="emailbtn"></div>
-                <div class="twitterbtn"></div>
-                <div class="facebookbtn"></div>
-            </div>
+            <div id="vidEnd">&nbsp;</div>
+            <menu id="vidMenu">
+                <button class="playAgainbtn"><span class="ir">Replay</span></button>
+                <button class="editbtn"><span class="ir">Edit</span></button>
+                <button class="newVidbtn"><span class="ir">Make a new video</span></button>
+            </menu>
+            <footer id="shareMenu">
+                <span class="ir">Share with others:</span>
+                    <button class="emailbtn"><span class="ir">Email</span></button>
+                    <button class="twitterbtn"><span class="ir">Twitter</span></button>
+                    <button class="facebookbtn"><span class="ir">Facebook</span></button>
+            </footer>
         </div>
      </div>
-     <!-- END SCREEN END -->
+    <!-- END SCREEN END -->
 
  </div>
 </body></html>

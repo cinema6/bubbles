@@ -10,11 +10,12 @@
     <!-- START SCREEN BEGIN -->
      <div id="startScreen">
         <!--artwork-->
-        <header class="logo1"><h5 class="ir">Screenjacked</h5></header>
         <div class="artwork1">&nbsp;</div>
+        <header class="logo1"><h5 class="ir">Screenjacked</h5></header>
 
         <!--content-->
         <div class="viewport">
+            
             <menu id="videoSelection">
                 <h1>choose one</h1>
                 <ul>
@@ -26,9 +27,9 @@
                         <button><span class="ir">Select Politics</span></button>
                         <h3>Politics</h3>
                     </li>
-                    <li class="scifi">
+                    <!--<li class="scifi">
                         <button><span class="ir">Select Sci-Fi</span></button>
-                        <h3>Sci-Fi</h3>
+                        <h3>Sci-Fi</h3>-->
                     </li>
                     <li class="sports">
                         <button><span class="ir">Select Sports</span></button>
@@ -48,25 +49,22 @@
     <!-- INPUT SCREEN BEGIN -->
      <div id="inputScreen">
         <!--artwork-->
-        <header class="logo2"><h5 class="ir">Screenjacked</h5></header>
+        <header class="logo2"><h5 class="ir">Screenjacked</h5></header>           
         <div class="artwork2">&nbsp;</div>
-        <div id="bgLeft">&nbsp;</div>
-        <div id="bgRight">&nbsp;</div>
-
+        
         <!--content-->
-        <button id="btn_close"><span class="ir">Close</span></button> 
-        <div class="viewport">
+        <button class="btn_close"><span class="ir">Close</span></button> 
             <form id="input">
                 <h1 class="title"><span class="ir">Fill in the blank</span></h1>
                 <h2 class="question"><span class="ir">Fight Move:</span></h2>
                 <input type="text" name="question8">
-                <button id="btn_previous"><span class="ir">Previous</span></button>
-                <button id="btn_next"><span class="ir">Next</span></button>
-                <h6 id="characterCount">12</h6>
+                <button class="btn_previous"><span class="ir">Previous</span></button>
+                <button class="btn_next"><span class="ir">Next</span></button>
+                <h6 class="characterCount">12</h6>
             </form>
-            <button id="btn_start"><span class="ir">Start</span></button>
-        </div>
-        <footer id="progressDock">Page 8 of 9</footer>
+            <button class="btn_start"><span class="ir">Start</span></button>
+
+        <footer class="progressDock">Page 8 of 9</footer>
      </div>
     <!-- INPUT SCREEN END -->
 
@@ -74,18 +72,18 @@
     <!-- END SCREEN BEGIN -->
      <div id="endScreen">
         <!--artwork-->
-        <header class="logo3"><h5 class="ir">Screenjacked</h5></header>
         <div class="artwork1">&nbsp;</div>
+        <header class="logo3"><h5 class="ir">Screenjacked</h5></header>
 
         <!--content-->
         <div class="viewport">
-            <div id="vidEnd">&nbsp;</div>
-            <menu id="menu_vid">
+            <div id="vidEnd"><span class="ir">[ Actual video content will replace this span ]</span></div>
+            <menu class="menu_vid">
                 <button class="btn_playAgain"><span class="ir">Replay</span></button>
                 <button class="btn_edit"><span class="ir">Edit</span></button>
                 <button class="btn_newVid"><span class="ir">Make a new video</span></button>
             </menu>
-            <footer id="menu_share">
+            <footer class="menu_share">
                 <span class="ir">Share with others:</span>
                 <button class="btn_email"><span class="ir">Share through Email</span></button>
                 <button class="btn_twitter"><span class="ir">Share on Twitter</span></button>

@@ -3,24 +3,22 @@
 html { height: 100%; width: 100%;}
 body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;}
 body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
-.ir {
-    width:0; height:0; display: block; overflow: hidden; }
 button {border: none; cursor: pointer;}
-
+.ir {width:0; height:0; display: block; overflow: hidden; }
 #c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10;}
 #experience {position: fixed; width:100%;}
-.viewport { height: 684px; width: 1280px; margin: 46px auto 0 auto; position: relative;}
+.viewport { height: 684px; width: 1280px; margin: 36px auto 0 auto; position: relative;}
 
 /*      START SCREEN BEGIN      */
     #startScreen { position: absolute; width: 100%; height: 100%; 
-       display: none  }
+       display: none;}
 
-       /* scaling content */
+     /* content */
          #videoSelection {
             width: 81.41%;
             height: 91.62%;
             left: 12%;
-            top: 0%;
+            top: 4%;
             position: absolute; 
             z-index: 1;
             transform: rotate(-15deg);
@@ -28,7 +26,7 @@ button {border: none; cursor: pointer;}
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
          }
          #videoSelection ul { list-style-type: none; height: 100%; width: 100%;}
-         #videoSelection h1 { color: #c20000; margin: 6.5% 0 0 40.31%; font-size: 32px; font-weight: 300; }  
+         #videoSelection h1 { color: #c20000; margin: 6.5% 0 0 28.31%; font-size: 32px; font-weight: 300; }  
          #videoSelection h3 { color: #252525; font-size: 28px; font-weight: 700; margin: 4%;}         
 
             /*  thumbnail styling  */
@@ -134,10 +132,11 @@ button {border: none; cursor: pointer;}
                  }
                  .drama:active button{ background: url('../img/vidThumb_drama.jpg') 50% 50% no-repeat #c20000; }
 
-        /* artwork */
+     /* artwork */
          .logo1 {
-            background: url('../img/logo_pen.png') no-repeat top left; 
-            margin: 36px 0 0 0; 
+            background: url('../img/logo_pen.png') no-repeat top left  ; 
+            background-size: 42.66% auto;
+            margin: 35px 0 0 0;
             width: 100%;
             height: 100%;
             position: fixed;
@@ -156,18 +155,20 @@ button {border: none; cursor: pointer;}
 
 /*      INPUT SCREEN BEGIN      */
     #inputScreen { width: 100%; height: 100%; position: absolute; 
-        display:block; }
+        display: block; }
 
-    /* scaling content */
-     #input {
+    /* content */
+      #input {
         background: none; 
-        height: 41.67%;
-        width: 56.25%;
+        height: 308px;
+        width: 722px;
         margin: 13.52% 0 0 21.16%; 
-     }
+        position: absolute;
+      }
 
         .title {background: url('../img/header_fillBlank.png') no-repeat center; display: inline-block; width: 100%; height: 4.9%; margin: 0; text-align: center;}
         .question {background: url('../img/question8_fightMove.png') no-repeat center; display: inline-block; width: 100%; height: 11%; margin: 3% 0 0 0; text-align: center;}
+        .characterCount{font-size: 15px; width: 77.2%; text-align: right; margin: 1% 0 0 11.48%;}
 
         input {
             border: 0;
@@ -182,7 +183,7 @@ button {border: none; cursor: pointer;}
          }
          input:focus { outline:none; }
             
-        #btn_previous {
+        .btn_previous {
             background: url('../img/btn_previous_default.png') no-repeat bottom left; 
             height: 10%; 
             width: 4%; 
@@ -191,9 +192,9 @@ button {border: none; cursor: pointer;}
             float: left; 
             z-index: 5;
          }
-         #btn_previous:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left;}
+         .btn_previous:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left;}
 
-        #btn_next {
+        .btn_next {
             background: url('../img/btn_next_default.png') no-repeat bottom right; 
             height: 10%; 
             width: 4%; 
@@ -201,45 +202,43 @@ button {border: none; cursor: pointer;}
             float: right; 
             z-index: 5;
          }
-         #btn_next:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
+         .btn_next:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
 
-        #btn_start {
+        .btn_start {
             background: url('../img/btn_start_default.png') center no-repeat; 
-            width: 15.1%; 
-            height: 8.65%;
-            position: relative; 
-            margin: 0 0 0 42.5%; 
+            width: 30%; 
+            height: 50%;
+            position: absolute; 
+            margin: 34% 0 0 42.5%; 
             display: block;
          }
-         #btn_start:active {background: url('../img/btn_start_tap.png') center no-repeat;}
+         .btn_start:active {background: url('../img/btn_start_tap.png') center no-repeat;}
 
-        #characterCount{font-size: 15px; width: 76.2%; text-align: right; margin: 0 0 0 11.48%;}
+        .btn_close {
+            background: url('../img/btn_close_default.png');
+            height: 54px;
+            width: 65px;
+            margin: 40px 2px 0 0;
+            position: relative;
+            float: right;
+            display: inline-block;
+            z-index: 1;
+         }
+         .btn_close:active {background: url('../img/btn_close_tap.png');}
 
-    /* non-scaling content */
-        #progressDock {
+        .progressDock {
             height: 30px;
             width: 110px;
             position: fixed;
             bottom: 0;
             left: 50%;
             margin: 0 0 0 -55px;
-         }
-
-        #btn_close {
-            background: url('../img/btn_close_default.png');
-            float: right;
-            height: 54px;
-            width: 66px;
-            margin: 42px 104px 0 0;
-            position: relative;
-            z-index: 1;
-         }
-         #btn_close:active {  background: url('../img/btn_close_tap.png'); float: right;  height: 54px; width: 66px; margin: 42px 104px 0 0;}
+         }         
 
     /* artwork */
      .logo2 {
         background: url('../img/logo_small.png') no-repeat top left; 
-        margin: 48px 0 0 0; 
+        margin: 48px 0 0 10px;
         width: 100%;
         height: 100%;
         position: fixed;
@@ -248,30 +247,11 @@ button {border: none; cursor: pointer;}
 
      .artwork2 {
         background: url('../img/paperball_left.png') no-repeat bottom left; 
-        margin: 48px 0 0 0; 
         width: 100%;
         height: 100%;
         position: fixed;
         z-index: 0;
      }
-
-     #bgLeft {
-        background: url('../img/paperTile_left.png') repeat-y top left; 
-        margin: 36px 0 0 0; 
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        z-index: -1;
-     }
-
-     #bgRight {
-        background: url('../img/paperTile_right.png') repeat-y top right; 
-        margin: 36px 0 0 0; 
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        z-index: -1;
-     }            
 /*      INPUT SCREEN END        */
 
 
@@ -279,7 +259,7 @@ button {border: none; cursor: pointer;}
     #endScreen { width: 100%; height: 100%; position: absolute; 
         display: none; }
 
-    /* scaling content */
+    /* content */
         #vidEnd {
             background: url('../img/vidPlaceholder.jpg') center top no-repeat;
             height:56.41%;
@@ -288,7 +268,7 @@ button {border: none; cursor: pointer;}
             margin: 12.56% 0 0 21.79%;
         }
 
-        #menu_vid { 
+        .menu_vid { 
             height: 8.2%; 
             width: 56.45%; 
             position: relative; 
@@ -310,7 +290,7 @@ button {border: none; cursor: pointer;}
             .btn_newVid { background: url('../img/btn_newVid_default.png') no-repeat top center; height: 100%; width: 34.56%; float:right;}
             .btn_newVid:active {background: url('../img/btn_newVid_tap.png') no-repeat top center;}
 
-        #menu_share {
+        .menu_share {
             background: url('../img/header_shareWithOthers.png') no-repeat left;
             height: 4.86%;
             width: 67.58%;
@@ -331,6 +311,7 @@ button {border: none; cursor: pointer;}
     /* artwork */
      .logo3 {
         background: url('../img/logo_rippedPaper.png') no-repeat top left; 
+        background-size: 67.99% auto;
         margin: 36px 0 0 0; 
         width: 100%;
         height: 100%;

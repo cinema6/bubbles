@@ -39,7 +39,8 @@ describe('Controller: c6CategoryListCtrl', function () {
         expect(scope.categories[0]).toBe('Action');
         expect(scope.categories[1]).toBe('Politics');
         expect(scope.categories[2]).toBe('Romance');
-        expect(scope.categories[3]).toBe('Sports');
+        expect(scope.categories[3]).toBe('SciFi-Fantasy');
+        expect(scope.categories[4]).toBe('Sports');
     });
 
 });

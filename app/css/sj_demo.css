@@ -4,8 +4,7 @@ html { height: 100%; width: 100%;}
 body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;}
 body.paperTexture { background: url('../img/bg_tile.jpg') repeat;}
 .ir {
-    width:0; height:0; display: block; overflow: hidden;
-}
+    width:0; height:0; display: block; overflow: hidden; }
 button {border: none; cursor: pointer;}
 
 #c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10;}
@@ -14,10 +13,10 @@ button {border: none; cursor: pointer;}
 
 /*      START SCREEN BEGIN      */
     #startScreen { position: absolute; width: 100%; height: 100%; 
-       display: none;  }
+       display: none  }
 
-    /*  scaling elements  */
-        #videoSelection {
+       /* scaling content */
+         #videoSelection {
             width: 81.41%;
             height: 91.62%;
             left: 12%;
@@ -27,191 +26,196 @@ button {border: none; cursor: pointer;}
             transform: rotate(-15deg);
             -ms-transform: rotate(-15deg); /* IE 9 */
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
-        }
-        #videoSelection ul {
-            list-style-type: none;
-            height: 100%;
-            width: 100%;
-        }
-            .instructions { color: #c20000; margin: 6.5% 0 0 40.31%; font-size: 32px; font-weight: 300; }
+         }
+         #videoSelection ul { list-style-type: none; height: 100%; width: 100%;}
+         #videoSelection h1 { color: #c20000; margin: 6.5% 0 0 40.31%; font-size: 32px; font-weight: 300; }  
+         #videoSelection h3 { color: #252525; font-size: 28px; font-weight: 700; margin: 4%;}         
 
-            /*  category thumbnails  */
-                .videoCategory {
+            /*  thumbnail styling  */
+                .romance {
                     color: #FFF;
                     height: 32.28%;
                     width: 30.23%;
                     display: inline-block;
                     text-align: center;
+                    margin: 0% 0 0 2.32%;
                 }
-
-                .videoCategory h3 {
-                    color: #252525;
-                    font-size: 28px;
-                    font-weight: 700;
-                    margin: 4%;
+                .politics {
+                    color: #FFF;
+                    height: 32.28%;
+                    width: 30.23%;
+                    display: inline-block;
+                    text-align: center;
+                    margin: 0 0 0 2.32%;
                 }
+                .scifi {
+                    color: #FFF;
+                    height: 32.28%;
+                    width: 30.23%;
+                    display: inline-block;
+                    text-align: center;
+                    margin: 0% 0% 0 2.32%;;
+                }
+                .sports {
+                    color: #FFF;
+                    height: 32.28%;
+                    width: 30.23%;
+                    display: inline-block;
+                    text-align: center;
+                    margin: 2% 0 0 19.2%;
+                }
+                .drama {
+                    color: #FFF;
+                    height: 32.28%;
+                    width: 30.23%;
+                    display: inline-block;
+                    text-align: center;
+                    margin: 0% 0% 0 2.32%;
+                }
+            
+            /* thumbnail images */
+                .romance button{
+                    background: url('../img/vidThumb_romance.jpg') 50% 50% no-repeat #fff;
+                    width: 100%;
+                    height: 89.88%;
+                    box-shadow: 0 2px 4px #b9b9b9;
+                    border: 0;
+                    cursor: pointer;
+                 }
+                 .romance:active button{ background: url('../img/vidThumb_romance.jpg') 50% 50% no-repeat #c20000; }
 
-                li[title=Romance] {margin: 0% 0 0 2.32%;}
-                li[title=Politics] {margin: 0 0 0 2.32%;}
-                li[title=Sci-fi] {margin: 0% 0% 0 2.32%;}
-                li[title=Sports] {margin: 2% 0 0 19.2%;}
-                li[title=Drama] {margin: 0% 0% 0 2.32%;}
+                .politics button{
+                    background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #fff;
+                    width: 100%;
+                    height: 89.88%;
+                    box-shadow: 0 2px 4px #b9b9b9;
+                    border: 0;
+                    cursor: pointer;
+                 }
+                 .politics:active button{ background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #c20000; }
 
-                /* thumbnail images */
-                    button.romance {
-                        background: url('../img/vidThumb_romance.jpg') 50% 50% no-repeat #fff;
-                        width: 100%;
-                        height: 89.88%;
-                        box-shadow: 0 2px 4px #b9b9b9;
-                        border: 0;
-                        cursor: pointer;
-                    }
-                    button.romance:active{ background: url('../img/vidThumb_romance.jpg') 50% 50% no-repeat #c20000; }
-                    /*button.romance:hover{ background: url('../img/vidThumb_romance.gif') 50% 50% no-repeat #fff;}*/
+                .politics button{
+                    background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #fff;
+                    width: 100%;
+                    height: 89.88%;
+                    box-shadow: 0 2px 4px #b9b9b9;
+                    border: 0;
+                    cursor: pointer;
+                 }
+                 .politics:active button{ background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #c20000; }
 
+                .scifi button{
+                    background: url('../img/vidThumb_scifi.jpg') 50% 50% no-repeat #fff;
+                    width: 100%;
+                    height: 89.88%;
+                    box-shadow: 0 2px 4px #b9b9b9;
+                    border: 0;
+                    cursor: pointer;
+                 }
+                 .scifi:active button{ background: url('../img/vidThumb_scifi.jpg') 50% 50% no-repeat #c20000; }
 
-                    button.politics {
-                        background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #fff;
-                        width: 100%;
-                        height: 89.88%;
-                        box-shadow: 0 2px 4px #b9b9b9;
-                        border: 0;
-                        cursor: pointer;
-                    }
-                    button.politics:active{ background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #c20000; }
-                    /*button.romance:hover{ background: url('../img/vidThumb_romance.gif') 50% 50% no-repeat #fff;}*/
+                .sports button{
+                    background: url('../img/vidThumb_sports.jpg') 50% 50% no-repeat #fff;
+                    width: 100%;
+                    height: 89.88%;
+                    box-shadow: 0 2px 4px #b9b9b9;
+                    border: 0;
+                    cursor: pointer;
+                 }
+                 .sports:active button{ background: url('../img/vidThumb_sports.jpg') 50% 50% no-repeat #c20000; }
 
+                .drama button{
+                    background: url('../img/vidThumb_drama.jpg') 50% 50% no-repeat #fff;
+                    width: 100%;
+                    height: 89.88%;
+                    box-shadow: 0 2px 4px #b9b9b9;
+                    border: 0;
+                    cursor: pointer;
+                 }
+                 .drama:active button{ background: url('../img/vidThumb_drama.jpg') 50% 50% no-repeat #c20000; }
 
-                    button.politics {
-                        background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #fff;
-                        width: 100%;
-                        height: 89.88%;
-                        box-shadow: 0 2px 4px #b9b9b9;
-                        border: 0;
-                        cursor: pointer;
-                    }
-                    button.politics:active{ background: url('../img/vidThumb_politics.jpg') 50% 50% no-repeat #c20000; }
-                    /*button.romance:hover{ background: url('../img/vidThumb_romance.gif') 50% 50% no-repeat #fff;}*/
-
-
-                    button.scifi {
-                        background: url('../img/vidThumb_scifi.jpg') 50% 50% no-repeat #fff;
-                        width: 100%;
-                        height: 89.88%;
-                        box-shadow: 0 2px 4px #b9b9b9;
-                        border: 0;
-                        cursor: pointer;
-                    }
-                    button.scifi:active{ background: url('../img/vidThumb_scifi.jpg') 50% 50% no-repeat #c20000; }
-                    /*button.romance:hover{ background: url('../img/vidThumb_romance.gif') 50% 50% no-repeat #fff;}*/
-
-
-                    button.sports {
-                        background: url('../img/vidThumb_sports.jpg') 50% 50% no-repeat #fff;
-                        width: 100%;
-                        height: 89.88%;
-                        box-shadow: 0 2px 4px #b9b9b9;
-                        border: 0;
-                        cursor: pointer;
-                    }
-                    button.sports:active{ background: url('../img/vidThumb_sports.jpg') 50% 50% no-repeat #c20000; }
-                    /*button.romance:hover{ background: url('../img/vidThumb_romance.gif') 50% 50% no-repeat #fff;}*/
-
-
-                    button.drama {
-                        background: url('../img/vidThumb_drama.jpg') 50% 50% no-repeat #fff;
-                        width: 100%;
-                        height: 89.88%;
-                        box-shadow: 0 2px 4px #b9b9b9;
-                        border: 0;
-                        cursor: pointer;
-                    }
-                    button.drama:active{ background: url('../img/vidThumb_drama.jpg') 50% 50% no-repeat #c20000; }
-                    /*button.romance:hover{ background: url('../img/vidThumb_romance.gif') 50% 50% no-repeat #fff;}*/
-
-    /*  static background elements  */
-        .artTopLeft_start {
-            background: url('../img/artTopLeft_start.png') no-repeat top left; 
+        /* artwork */
+         .logo1 {
+            background: url('../img/logo_pen.png') no-repeat top left; 
             margin: 36px 0 0 0; 
             width: 100%;
             height: 100%;
             position: fixed;
             z-index: 0;
-        }
+         }     
 
-        .artBottomRight {
-            background: url('../img/artBottomRight_start.png') no-repeat bottom right; 
+         .artwork1 {
+            background: url('../img/paperball_right.png') no-repeat bottom right; 
             width: 100%; 
             height: 100%;
             position: fixed;
             z-index: 0;
-        }
-/*      START SCREEN END     */
+         }
+/*      START SCREEN END        */
 
 
 /*      INPUT SCREEN BEGIN      */
     #inputScreen { width: 100%; height: 100%; position: absolute; 
-        display: none; }
+        display:block; }
 
-    /* scaling elements */
-    #input {
+    /* scaling content */
+     #input {
+        background: none; 
         height: 41.67%;
         width: 56.25%;
-        display: inline-block;
-        margin: 13.52% 0 0 21.16%;
-    }
-        .title {background: url('../img/fillBlank.png') no-repeat center; display: inline-block; width: 100%; height: 4.9%; margin: 0; text-align: center;}
-        .question {background: url('../img/question_8.png') no-repeat center; display: inline-block; width: 100%; height: 11%; margin: 3% 0 0 0; text-align: center;}
+        margin: 13.52% 0 0 21.16%; 
+     }
 
-        /* input */
-            #inputBar {
-                background: url('../img/inputLine.jpg') bottom center no-repeat; 
-                width: 100%; 
-                height: 15%; 
-                margin: 5% 0 0 0; 
+        .title {background: url('../img/header_fillBlank.png') no-repeat center; display: inline-block; width: 100%; height: 4.9%; margin: 0; text-align: center;}
+        .question {background: url('../img/question8_fightMove.png') no-repeat center; display: inline-block; width: 100%; height: 11%; margin: 3% 0 0 0; text-align: center;}
 
-                
-            }
-            input {
-                border: 0;
-                background: none;
-                font-family: "Courier Prime", Courier, Times, serif;
-                font-size: 28px;
-                font-weight: 700;
-                color: #c20000;
-                width: 78%;
-                cursor: text;
-                margin: 0 0 0 7%;
-            }
-            input:focus { outline:none; }
+        input {
+            border: 0;
+            background: url('../img/inputLine.jpg') bottom center no-repeat;
+            font-family: "Courier Prime", Courier, Times, serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #c20000;
+            width: 78%;
+            cursor: text;
+            margin: 10% 0 0 7%;
+         }
+         input:focus { outline:none; }
             
-            #previousbtn {
-                background: url('../img/btn_previous_default.png') no-repeat bottom left; 
-                height: 100%; 
-                width: 4%; 
-                display: inline-block; 
-                float: left; 
-                position: relative; 
-                z-index: 5;}
-            #previousbtn:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left;}
+        #btn_previous {
+            background: url('../img/btn_previous_default.png') no-repeat bottom left; 
+            height: 10%; 
+            width: 4%; 
+            margin: 11.5% 0 0 0;
+            display: inline-block; 
+            float: left; 
+            z-index: 5;
+         }
+         #btn_previous:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left;}
 
-            #nextbtn {
-                background: url('../img/btn_next_default.png') no-repeat bottom right; 
-                height: 100%; 
-                width: 4%; 
-                display: inline-block; 
-                float: right; 
-                position: relative; 
-                z-index: 5;}
-            #nextbtn:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
+        #btn_next {
+            background: url('../img/btn_next_default.png') no-repeat bottom right; 
+            height: 10%; 
+            width: 4%; 
+            margin: 11.5% 0 0 0;
+            float: right; 
+            z-index: 5;
+         }
+         #btn_next:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
 
-            #characterCount{font-size: 15px; width: 76.2%; text-align: right; margin: 0 0 0 11.48%;}
+        #btn_start {
+            background: url('../img/btn_start_default.png') center no-repeat; 
+            width: 15.1%; 
+            height: 8.65%;
+            position: relative; 
+            margin: 0 0 0 42.5%; 
+            display: block;
+         }
+         #btn_start:active {background: url('../img/btn_start_tap.png') center no-repeat;}
 
-            #startbtn {background: url('../img/btn_start_default.png') center no-repeat; width: 27%; height: 22%; position: relative; margin: 5% 0 0 36.5%; 
-                /*display: none;*/  }
-            #startbtn:active {background: url('../img/btn_start_tap.png');}
+        #characterCount{font-size: 15px; width: 76.2%; text-align: right; margin: 0 0 0 11.48%;}
 
-    /* static background elements */
+    /* non-scaling content */
         #progressDock {
             height: 30px;
             width: 110px;
@@ -219,114 +223,118 @@ button {border: none; cursor: pointer;}
             bottom: 0;
             left: 50%;
             margin: 0 0 0 -55px;
-        }
+         }
 
-        .artTopLeft_input {
-            background: url('../img/logo_input.png') no-repeat top left; 
-            margin: 48px 0 0 0; 
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: 0;
-        }
-
-        .artBottomLeft {
-            background: url('../img/artBottomLeft_input.png') no-repeat bottom left; 
-            margin: 48px 0 0 0; 
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: 0;
-        }    
-
-        .closePosition {
-            margin: 42px 0 0 0; 
-            width: 100%;
+        #btn_close {
+            background: url('../img/btn_close_default.png');
+            float: right;
             height: 54px;
-            position: fixed;
-            z-index: 1
-        }
-            #closebtn {
-                background: url('../img/btn_closeInput_default.png');
-                float: right;
-                height: 54px;
-                width: 66px;
-                margin: 42px 104px 0 0;
-                position: relative;
-                z-index: 1;
-            }
-            #closebtn:active {  background: url('../img/btn_closeInput_tap.png'); float: right;  height: 54px; width: 66px; margin: 42px 104px 0 0;}
+            width: 66px;
+            margin: 42px 104px 0 0;
+            position: relative;
+            z-index: 1;
+         }
+         #btn_close:active {  background: url('../img/btn_close_tap.png'); float: right;  height: 54px; width: 66px; margin: 42px 104px 0 0;}
 
-        #bgLeft {
-            background: url('../img/pageTile_left.png') repeat-y top left; 
-            margin: 36px 0 0 0; 
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: -1;
-        }
+    /* artwork */
+     .logo2 {
+        background: url('../img/logo_small.png') no-repeat top left; 
+        margin: 48px 0 0 0; 
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 0;
+     } 
 
-        #bgRight {
-            background: url('../img/pageTile_right.png') repeat-y top right; 
-            margin: 36px 0 0 0; 
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: -1;
-        }
-/*      INPUT SCREEN END      */
+     .artwork2 {
+        background: url('../img/paperball_left.png') no-repeat bottom left; 
+        margin: 48px 0 0 0; 
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 0;
+     }
+
+     #bgLeft {
+        background: url('../img/paperTile_left.png') repeat-y top left; 
+        margin: 36px 0 0 0; 
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: -1;
+     }
+
+     #bgRight {
+        background: url('../img/paperTile_right.png') repeat-y top right; 
+        margin: 36px 0 0 0; 
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: -1;
+     }            
+/*      INPUT SCREEN END        */
+
 
 /*      END SCREEN BEGIN        */
     #endScreen { width: 100%; height: 100%; position: absolute; 
-        /*display: none;*/  }
+        display: none; }
 
-    /* scaling elements */
+    /* scaling content */
         #vidEnd {
-            background: url('../img/placeholder.jpg') center top no-repeat;
+            background: url('../img/vidPlaceholder.jpg') center top no-repeat;
             height:56.41%;
             width:56.41%;
             display: inline-block;
             margin: 12.56% 0 0 21.79%;
         }
 
-        #vidMenu { height: 8.2%; width: 56.45%; position: relative; z-index: 3; padding: 0; list-style-type: none; display: inline-block; left: 21.78%; margin: .4% 0 0 0;}
-            .playAgainbtn { background: url('../img/btn_playAgain_default.png') no-repeat top center; height: 100%; width: 6.67%; float:left;}
-            .playAgainbtn:hover {background: url('../img/btn_playAgain_hover.png') no-repeat top center;}
-            .playAgainbtn:active {background: url('../img/btn_playAgain_tap.png') no-repeat top center;}
+        #menu_vid { 
+            height: 8.2%; 
+            width: 56.45%; 
+            position: relative; 
+            z-index: 3; 
+            padding: 0; 
+            list-style-type: none; 
+            display: inline-block; 
+            left: 21.78%;
+            margin: .4% 0 0 0;
+         }
+            .btn_playAgain { background: url('../img/btn_playAgain_default.png') no-repeat top center; height: 100%; width: 6.67%; float:left;}
+            .btn_playAgain:hover {background: url('../img/btn_playAgain_hover.png') no-repeat top center;}
+            .btn_playAgain:active {background: url('../img/btn_playAgain_tap.png') no-repeat top center;}
 
-            .editbtn { background: url('../img/btn_edit_default.png') no-repeat top center; height: 100%; width: 6.04%; float:left; margin: 0 0 0 1%;}
-            .editbtn:hover {background: url('../img/btn_edit_hover.png') no-repeat top center;}
-            .editbtn:active {background: url('../img/btn_edit_tap.png') no-repeat top center;}
+            .btn_edit { background: url('../img/btn_edit_default.png') no-repeat top center; height: 100%; width: 6.04%; float:left; margin: 0 0 0 1%;}
+            .btn_edit:hover {background: url('../img/btn_edit_hover.png') no-repeat top center;}
+            .btn_edit:active {background: url('../img/btn_edit_tap.png') no-repeat top center;}
 
-            .newVidbtn { background: url('../img/btn_newVid_default.png') no-repeat top center; height: 100%; width: 34.56%; float:right;}
-            .newVidbtn:active {background: url('../img/btn_newVid_tap.png') no-repeat top center;}
+            .btn_newVid { background: url('../img/btn_newVid_default.png') no-repeat top center; height: 100%; width: 34.56%; float:right;}
+            .btn_newVid:active {background: url('../img/btn_newVid_tap.png') no-repeat top center;}
 
-        #shareMenu {
-            background: url('../img/sharebg.png') no-repeat left;
+        #menu_share {
+            background: url('../img/header_shareWithOthers.png') no-repeat left;
             height: 4.86%;
             width: 67.58%;
             position: absolute;
             bottom: 0;
-
             margin: 0 0 1% 17%;
             z-index: 3;
-        }
-            .facebookbtn { background: url('../img/btn_facebook_default.png') no-repeat top; height: 100%; width: 142px; display: inline-block; float: right;}
-            .facebookbtn:active {background: url('../img/btn_facebook_tap.png') no-repeat top;}
+         }
+            .btn_facebook { background: url('../img/btn_facebook_default.png') no-repeat top; height: 100%; width: 142px; display: inline-block; float: right;}
+            .btn_facebook:active {background: url('../img/btn_facebook_tap.png') no-repeat top;}
 
-            .twitterbtn { background: url('../img/btn_twitter_default.png') no-repeat top; height: 100%; width: 134px; display: inline-block; float: right; margin: 0 0 0 8% }
-            .twitterbtn:active {background: url('../img/btn_twitter_tap.png') no-repeat top;} 
+            .btn_twitter { background: url('../img/btn_twitter_default.png') no-repeat top; height: 100%; width: 134px; display: inline-block; float: right; margin: 0 0 0 8% }
+            .btn_twitter:active {background: url('../img/btn_twitter_tap.png') no-repeat top;} 
 
-            .emailbtn { background: url('../img/btn_email_default.png') no-repeat top; height: 100%; width: 120px; display: inline-block; float: right; margin: 0 0 0 8%;}
-            .emailbtn:active {background: url('../img/btn_email_tap.png') no-repeat top;}
+            .btn_email { background: url('../img/btn_email_default.png') no-repeat top; height: 100%; width: 120px; display: inline-block; float: right; margin: 0 0 0 8%;}
+            .btn_email:active {background: url('../img/btn_email_tap.png') no-repeat top;}
 
-    /*  static background elements  */
-        .artTopLeft_end {
-            background: url('../img/artTopLeft_end.png') no-repeat top left; 
-            margin: 36px 0 0 0; 
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            z-index: 3;
-        }        
+    /* artwork */
+     .logo3 {
+        background: url('../img/logo_rippedPaper.png') no-repeat top left; 
+        margin: 36px 0 0 0; 
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 3;
+     }      
 /*      END SCREEN END          */

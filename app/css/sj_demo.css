@@ -11,7 +11,7 @@ button {border: none; cursor: pointer;}
 
 /*      START SCREEN BEGIN      */
     #startScreen { position: absolute; width: 100%; height: 100%; 
-       display: block;}
+       display: none;}
 
      /* content */
          #videoSelection {
@@ -155,7 +155,7 @@ button {border: none; cursor: pointer;}
 
 /*      INPUT SCREEN BEGIN      */
     #inputScreen { width: 100%; height: 100%; position: absolute; 
-        display: none; }
+        display: block; }
 
     /* content */
       #input {
@@ -187,6 +187,7 @@ button {border: none; cursor: pointer;}
             
         .btn_previous {
             background: url('../img/btn_previous_default.png') no-repeat bottom left; 
+            background-size: 100% auto;
             height: 10%; 
             width: 4%; 
             margin: 11.5% 0 0 0;

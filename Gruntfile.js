@@ -33,11 +33,6 @@ module.exports = function (grunt) {
             'sourceDir' : _path.join(__dirname,'vendor','jqueryui'),
             'buildDir'  : _path.join(__dirname,'vendor','jqueryui','dist'),
             'targetDir' : _path.join(__dirname,'app','assets','lib','jqueryui')
-          },
-        videojs : {
-            'sourceDir' : _path.join(__dirname,'vendor','video-js'),
-            'buildDir'  : _path.join(__dirname,'vendor','video-js','dist'),
-            'targetDir' : _path.join(__dirname,'app','assets','lib','video-js')
           }
       };
 
@@ -94,7 +89,6 @@ module.exports = function (grunt) {
       angular:  [ '<%= yeoman.angular.buildDir %>' ,'<%= yeoman.angular.targetDir %>' ] ,
       jquery:   [ '<%= yeoman.jquery.buildDir %>'  ,'<%= yeoman.jquery.targetDir %>' ] ,
       jqueryui: [ '<%= yeoman.jqueryui.buildDir %>','<%= yeoman.jqueryui.targetDir %>' ] ,
-      videojs:  [ '<%= yeoman.videojs.buildDir %>' ,'<%= yeoman.videojs.targetDir %>' ] ,
       dist: {
         files: [{
           dot: true,
@@ -105,7 +99,8 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      local: '/usr/local/share/nginx/demos/screenjack'
     },
     sed: {
         index: {
@@ -137,9 +132,12 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         files: {
-          '.tmp/scripts/c6vs.js' : [
+          '.tmp/scripts/c6app.js' : [
             '<%= yeoman.app %>/assets/scripts/c6/app.js',
-            '<%= yeoman.app %>/assets/scripts/c6/cardselect.js'
+            '<%= yeoman.app %>/assets/scripts/c6/services/services.js',
+            '<%= yeoman.app %>/assets/scripts/c6/controllers/controllers.js',
+            '<%= yeoman.app %>/assets/scripts/c6/directives/directives.js',
+            '<%= yeoman.app %>/assets/scripts/c6/directives/videonode.js'
           ]
         }
       }
@@ -183,8 +181,8 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '<%= yeoman.distVer() %>/scripts/c6vs.min.js': [
-            '.tmp/scripts/c6vs.js'
+          '<%= yeoman.distVer() %>/scripts/c6app.min.js': [
+            '.tmp/scripts/c6app.js'
           ],
         }
       }
@@ -201,11 +199,6 @@ module.exports = function (grunt) {
       jqueryui: {
         files: [{ expand: true, dot: true, cwd: '<%= yeoman.jqueryui.buildDir %>',
           dest: '<%= yeoman.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
-      },
-      videojs: {
-        files: [{ expand: true, dot: true, cwd: '<%= yeoman.videojs.buildDir %>',
-          dest: '<%= yeoman.videojs.targetDir %>', src: [ '*.css', '*.js',
-                                                          '*.png', '*.swf', 'version.*' ] }]
       },
       dist: {
         files: [{
@@ -225,11 +218,21 @@ module.exports = function (grunt) {
               dest: '<%= yeoman.distVer() %>',
               src: [
                 'img/**',
+                'media/**',
                 'lib/**',
                 'scripts/main.js'
               ]
         }]
-      }
+      },
+      local:    {
+        files:  [{
+              expand : true,
+              dot    : true,
+              cwd    : _path.join(__dirname,'dist'),
+              src    : ['**'],
+              dest   : '/usr/local/share/nginx/demos/screenjack'
+              }]
+        }
     }
   });
 
@@ -279,12 +282,14 @@ module.exports = function (grunt) {
     grunt.task.run('copy:dist');
     grunt.task.run('uglify');
     grunt.task.run('sed');
+    grunt.task.run('clean:local');
+    grunt.task.run('copy:local');
   });
 
+  grunt.registerTask('default', ['release']);
   /*****************************************************
    * Vendor submodules
    */
-  grunt.registerTask('default', ['build']);
   function npmInstallAndGrunt(fnComplete,sourceDir,gruntArgs) {
       (function(done){
               var opts = {
@@ -361,34 +366,6 @@ module.exports = function (grunt) {
   grunt.registerTask('jqueryui.install', 'Install jqueryui', ['copy:jqueryui']);
   grunt.registerTask('jqueryui',         'Build and install jqueryui',
           ['jqueryui.clean','jqueryui.build','jqueryui.install']);
-
-  // Video-JS
-  grunt.registerTask('videojs.build',   'Build videojs', function(){
-      /*jshint validthis:true */
-      grunt.log.writeln('Building videojs');
-      var done        = this.async(),
-          opts        = {
-                          cmd : './build.sh',
-                          opts : {
-                              cwd : grunt.config.get('yeoman.videojs.sourceDir')
-                          }
-                        };
-
-      grunt.util.spawn( opts, function(error, result, code) {
-          if ((error) || (code)) {
-              grunt.log.errorlns('VideoJS build returns: error=' + error +
-                                  ', result=' + result +
-                                  ', code=' + code);
-          }
-          done(!error);
-      });
-  });
-  grunt.registerTask('videojs.clean',   'Remove videojs source & target dist',
-                                                                  ['clean:videojs']);
-  grunt.registerTask('videojs.install', 'Install videojs', ['copy:videojs']);
-  grunt.registerTask('videojs',         'Build and install videojs',
-          ['videojs.clean','videojs.build','videojs.install']);
-
 
   // All vendor
   grunt.registerTask('vendor',['angular','jquery','videojs']);

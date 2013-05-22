@@ -21,7 +21,8 @@ angular.module('c6.dir.screenJack',[])
             var prevElt = $('[name=prev]'),
                 nextElt = $('[name=next]'),
                 currentIndex = 0 ,
-                questionElts = [];
+                questionElts = [],
+                sigPromptStart = false;
 
             scope.currQuestNo = function () { return currentIndex + 1; };
             scope.questionCount = function() { return questionElts.length; };
@@ -65,6 +66,10 @@ angular.module('c6.dir.screenJack',[])
                     scope.$emit('promptsComplete',ctrl.model.responses);
                 }
                 else {
+                    if ((sigPromptStart === false) && (currentIndex === 0)) {
+                        sigPromptStart = true;
+                        scope.$emit('promptsStart');
+                    }
                     questionElts[currentIndex++].addClass('hidden');
                     questionElts[currentIndex].removeClass('hidden');
                     questionElts[currentIndex].find('input').get(0).focus();
@@ -103,6 +108,7 @@ angular.module('c6.dir.screenJack',[])
 
             scope.$on('expReady',function(){
                 $log.log('Ready with ' + questionElts.length + ' questions.');
+                sigPromptStart = false;
                 questionElts[currentIndex].removeClass('hidden');
                 questionElts[currentIndex].find('input').get(0).focus();
             });
@@ -120,27 +126,29 @@ angular.module('c6.dir.screenJack',[])
                 currNotes = [];
 
             $log.info('got the player: ' + vid);
-            vid.loadSource(ctrl.model.videoSrc); 
+
+            scope.$on('promptsStart',function(){
+                vid.loadSource(ctrl.model.videoSrc); 
+            });
             
             scope.$on('promptsComplete',function(evt,responses){
                 ctrl.interpolateTemplates(responses);
                 iElt.find('li').each(function(idx,elt){
-                    var className = 'note' + idx,
-                        $elt      = angular.element(elt);
-                    $elt.addClass(className);
-                    noteElts[className] = $elt;
+                    var $elt      = angular.element(elt),
+                        note      = ctrl.model.annotations[idx];
+                    note.cls.forEach(function(c){
+                        $elt.addClass(c);
+                    });
+                    noteElts[('note' + note.index)] = $elt;
                 });
                 vid.el.removeClass('hidden');
                 vid.video().play();
+                vid.video().focus();
             });
 
             var fnActivate = function(note){
                 var className   = 'note' + note.index,
                     $elt        = noteElts[className];
-                $elt.css({
-                    top  :  Math.floor(note.plot[0] * 100) + "%",
-                    left :  Math.floor(note.plot[1] * 100) + "%" 
-                });
                 $elt.removeClass('hidden');
                 $log.info('Activate note: ' + className);
                 currNotes.push(note);

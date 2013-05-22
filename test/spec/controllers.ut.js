@@ -39,7 +39,8 @@ describe('Controller: c6CategoryListCtrl', function () {
         expect(scope.categories[0]).toBe('Action');
         expect(scope.categories[1]).toBe('Politics');
         expect(scope.categories[2]).toBe('Romance');
-        expect(scope.categories[3]).toBe('Sports');
+        expect(scope.categories[3]).toBe('SciFi-Fantasy');
+        expect(scope.categories[4]).toBe('Sports');
     });
 
 });
@@ -171,22 +172,36 @@ describe('Controller: c6AnnotationsCtrl', function () {
             $routeParams : { category : 'politics' }
         });
         controller  = $controller('c6AnnotationsCtrl', {
-            /*
+           /* 
             $log : {
                 log     : console.log,
                 info    : console.log,
                 warn    : console.error,
                 error   : console.error
             },
-            */
+           */ 
             $scope: scope
         });
     }));
 
+    it('can properly instantiate the annotations', function(){
+        expect(controller.model.annotations.length).toBe(9);
+        expect(controller.model.annotations[0].type).toBe('bubble');
+        expect(controller.model.annotations[0].cls[0]).toBe('notebook-0');
+        expect(controller.model.annotations[1].type).toBe('bubble');
+        expect(controller.model.annotations[1].cls[0]).toBe('notebook-1');
+
+    });
     it('can interploate a template string from array',function(){
         var responses=['Carrot','Chocolate','Red','Penguin','France','Call Me Maby','Dr. Ruth'];
         var exp = controller.interpolate('Eat a ${1}. What a ${4} really a ${5}. Screw his ${1}!',responses); 
         expect(exp).toEqual('Eat a Carrot. What a Penguin really a France. Screw his Carrot!');
+    });
+
+    it('can interploate a template string from array with two params',function(){
+        var responses=['Carrot','Chocolate','Red','Penguin','France','Call Me Maby','Dr. Ruth'];
+        var exp = controller.interpolate('What a ${4} really a ${5}.',responses); 
+        expect(exp).toEqual('What a Penguin really a France.');
     });
 
     it('does nothing if interpolate is called with out a data array',function(){

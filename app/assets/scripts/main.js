@@ -23,7 +23,7 @@ if (__C6_BUILD_VERSION__) {
 require([   'lib/jquery/jquery.min',
             /*'lib/jqueryui/jquery-ui.min'*/], function(){
 
-    require(['lib/angular/angular.min'],function(){
+    require(['lib/angular/angular.min', 'assets/lib/c6media/c6lib.video.js'],function(){
         require(c6Scripts, function(){
             angular.bootstrap(document, ['c6.app']);
         });

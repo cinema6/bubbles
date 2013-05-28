@@ -11,7 +11,6 @@
 
 <div id="experience">
 <span id="c6bar"></span>
-<div class="transition_blackFade">&nbsp;</div>
 
     <!-- START SCREEN BEGIN -->
      <div id="startScreen">
@@ -93,6 +92,8 @@
      </div>
     <!-- END SCREEN END -->
 
+<div class="transition_blackFade">&nbsp;</div>
+
  </div>
 
 <!-- SCRIPTS -->
@@ -130,27 +131,53 @@
     .resize();
 
 // TRANSITIONS //
-    var startScreen = $("#startScreen"),
-        inputScreen = $("#inputScreen");
-        transition = $(".transition_blackFade");
+    var startScreen     = $("#startScreen"),
+        inputScreen     = $("#inputScreen"),
+        transition      = $(".transition_blackFade"),
+        tl_startInput   = new TimelineLite({paused: true}),
+        tl_inputVid     = new TimelineLite({paused: true});
 
     // ANIMATIONS //        
-    var tl = new TimelineLite({paused: true});
-    tl.to(startScreen, 2, {onComplete: console.log("1"), transformOrigin: "0% 0%", rotation: "90deg", ease: Power3.easeIn, alpha: 0}, "startInput")
-      .from(inputScreen, 2, {onComplete: console.log("2"), transformOrigin: "100% 0%", rotation: "-90deg", ease: Power3.easeOut, alpha: 0}, "startInput+=1.5")
-      .from(transition, 2, {onComplete: console.log("3"), alpha: 0}, "inputVid")
+    tl_startInput.to(startScreen, 2, {onComplete: console.log("Start leaves"), 
+                                      transformOrigin: "0% 0%", 
+                                      rotation: "90deg", 
+                                      ease: Power3.easeIn, 
+                                      alpha: 0})
+      .from(inputScreen, 2, {onComplete: console.log("Input comes in"), 
+                             transformOrigin: "100% 0%", 
+                             rotation: "-90deg", 
+                             ease: Power3.easeOut, 
+                             alpha: 0,}, "-=0.5")
 
     //transition to input screen
-    $(".thumbnail1").click(function() {tl.play("startInput")} );
-    $(".thumbnail2").click(function() {tl.play("startInput")} );
-    $(".thumbnail3").click(function() {tl.play("startInput")} );
-    $(".thumbnail4").click(function() {tl.play("startInput")} );
+    $(".thumbnail1").click(function() {
+        tl_startInput.play()
+    });
+    $(".thumbnail2").click(function() {
+        tl_startInput.play()
+    });
+    $(".thumbnail3").click(function() {
+        tl_startInput.play()
+    });
+    $(".thumbnail4").click(function() {
+        tl_startInput.play()
+    });
 
     //transition to start screen
-    $(".btn_close").click(function() {tl.reverse("startInput")});
+    $(".btn_close").click(function(e) {
+        tl_startInput.reverse()
+        e.preventDefault();
+    });
+
+
+    tl_inputVid.to(inputScreen, 2, {onComplete: console.log("Input fades"), alpha: 0})
+                 .to(transition, 2, {onComplete: console.log("Fade in black"), opacity: 1}, "-=1")
 
     //transition to video
-    $(".btn_start").click(function() {tl.play("inputVid")} );
+    $(".btn_start").click(function(e) {
+        tl_inputVid.play();
+        e.preventDefault();
+    });
 
 
 

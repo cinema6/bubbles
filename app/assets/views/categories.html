@@ -1,7 +1,19 @@
-<div>
-    <ul>
-        <li ng-repeat="category in categories">
-            <a href="#/entry/{{category | lowercase}}"> {{category}} </a> 
-        </li>
-    </ul>
+<div id="startScreen">
+    <!--artwork-->
+     <div class="artwork1">&nbsp;</div>
+     <header class="logo1"><h5 class="ir">Screenjacked</h5></header>
+
+    <!--content-->
+     <div class="viewport">
+        <menu id="videoSelection">
+            <h1>choose one</h1>
+            <ul>
+                <li class="thumbnail" ng-repeat="category in categories">
+                    <button onclick="location.href='#/entry/{{category}}';"><img src="../img/vidThumb_{{category}}.jpg"></button>
+                    <h3>{{category}}</h3>
+                </li>
+            </ul>
+        </menu>
+     </div>
+
 </div>

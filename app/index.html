@@ -7,11 +7,14 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="assets/styles/main.css">
+    <!--<link rel="stylesheet" href="assets/styles/main.css">-->
+    <link rel="stylesheet" href="assets/styles/sj_main.css">
+    <link rel="stylesheet" href="assets/styles/sj_710.css">
   </head>
-  <body>
-      
-    <div class="container" ng-view></div>
+  <body class="paperTexture"> <!-- class toggles on for the experience -->
+     <!--experience div contains c6 bar & ng-view-->
+    <span id="c6bar"></span> 
+    <div ng-view></div>
     <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

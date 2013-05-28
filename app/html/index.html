@@ -2,10 +2,16 @@
 <html><head>
     <title>Screenjacked</title>
     <link rel="stylesheet" type="text/css" href="../css/sj_demo.css">
+    <link rel="stylesheet" media="screen and (max-width: 710px)" href="../css/710.css">
+    <script type="text/javascript" src="../assets/lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../assets/lib/greensock/TweenMax.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/greensock/TimelineLite.min.js"></script>
+    <!--<script type="text/javascript" src="../js/cs-screenjacked-transitions.js"></script>-->
 </head><body class="paperTexture">
 
 <div id="experience">
 <span id="c6bar"></span>
+<div class="transition_blackFade">&nbsp;</div>
 
     <!-- START SCREEN BEGIN -->
      <div id="startScreen">
@@ -18,25 +24,20 @@
             <menu id="videoSelection">
                 <h1>choose one</h1>
                 <ul>
-                    <li class="romance">
-                        <button><span class="ir">Select Romance</span></button>
+                    <li class="thumbnail1">
+                        <button><img src="../img/vidThumb_romance.jpg"></button>
                         <h3>Romance</h3>
                     </li>
-                    <li class="politics">
-                        <button><span class="ir">Select Politics</span></button>
+                    <li class="thumbnail2">
+                        <button><img src="../img/vidThumb_politics.jpg"></button>
                         <h3>Politics</h3>
                     </li>
-                    <!--<li class="scifi">
-                        <button><span class="ir">Select Sci-Fi</span></button>
-                        <h3>Sci-Fi</h3>-->
-                    <!-- take out comment only if 5th video in menu is needed -->    
-                    </li>
-                    <li class="sports">
-                        <button><span class="ir">Select Sports</span></button>
+                   <li class="thumbnail3">
+                        <button><img src="../img/vidThumb_sports.jpg"></button>
                         <h3>Sports</h3>
                     </li>
-                    <li class="drama">
-                        <button><span class="ir">Select Drama</span></button>
+                    <li class="thumbnail4">
+                        <button><img src="../img/vidThumb_drama.jpg"></button>
                         <h3>Drama</h3>
                     </li>
                 </ul>
@@ -73,9 +74,9 @@
         <!--artwork-->
         <div class="artwork1">&nbsp;</div>
         <header class="logo3"><h5 class="ir">Screenjacked</h5></header>
-
         <!--content-->
         <div class="viewport">
+            
             <div id="vidEnd"><span class="ir">[ Actual video content will replace this span ]</span></div>
             <menu class="menu_vid">
                 <button class="btn_playAgain"><span class="ir">Replay</span></button>
@@ -94,7 +95,65 @@
 
  </div>
 
-<script>
+<!-- SCRIPTS -->
+ <script>
+// CONTENT SCALING //
+    $(window).resize(function() {
+        // set variable dimensions for viewport
+        var baseW = 1280,
+            baseH = 684,
+            fontSize = 28,
+
+        //find current dimensions of window
+            winH = window.innerHeight,
+            winW = window.innerWidth,
+        
+        //find scale factor
+            scaleH = winH / baseH,
+            scaleW = winW / baseW,
+            scaleFactor = Math.min(scaleH, scaleW);
+        
+        //apply new dimensions to viewport
+        $(".viewport").height(baseH * scaleFactor)
+                      .width(baseW * scaleFactor)
+                      .css("font-size", (fontSize * scaleFactor))
+                      .css("margin-top", ((baseH * scaleFactor) / -2))
+                      .css("margin-left", ((baseW * scaleFactor) / -2));
+
+        //feed screen divs window dimensions
+        $("#startScreen").height(winH).width(winW);
+        $("#inputScreen").height(winH).width(winW);
+        $("#endScreen").height(winH).width(winW);
+    })
     
-</script>
+    //Resize content immediately when page is loded
+    .resize();
+
+// TRANSITIONS //
+    var startScreen = $("#startScreen"),
+        inputScreen = $("#inputScreen");
+        transition = $(".transition_blackFade");
+
+    // ANIMATIONS //        
+    var tl = new TimelineLite({paused: true});
+    tl.to(startScreen, 2, {onComplete: console.log("1"), transformOrigin: "0% 0%", rotation: "90deg", ease: Power3.easeIn, alpha: 0}, "startInput")
+      .from(inputScreen, 2, {onComplete: console.log("2"), transformOrigin: "100% 0%", rotation: "-90deg", ease: Power3.easeOut, alpha: 0}, "startInput+=1.5")
+      .from(transition, 2, {onComplete: console.log("3"), alpha: 0}, "inputVid")
+
+    //transition to input screen
+    $(".thumbnail1").click(function() {tl.play("startInput")} );
+    $(".thumbnail2").click(function() {tl.play("startInput")} );
+    $(".thumbnail3").click(function() {tl.play("startInput")} );
+    $(".thumbnail4").click(function() {tl.play("startInput")} );
+
+    //transition to start screen
+    $(".btn_close").click(function() {tl.reverse("startInput")});
+
+    //transition to video
+    $(".btn_start").click(function() {tl.play("inputVid")} );
+
+
+
+ </script>
+
 </body></html>

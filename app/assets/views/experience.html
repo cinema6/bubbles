@@ -27,10 +27,12 @@
      <button class="btn_close" onclick="history.go(-1);return false;"><span class="ir">Close</span></button> 
         <form id="input">
             <h1>Fill in the blank</h1>
-            <h2 ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" class="question hidden">{{q.query}}</h2>
-
-            <input type="text" name="response" ng-model="promptCtrl.model.responses[$index]"></input>
-
+            <ul>
+                <li ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" class="question hidden">
+                    <h2>{{q.query}}</h2>
+                    <input type="text" name="response" ng-model="promptCtrl.model.responses[$index]"></input>
+                </li>
+            </ul>
             <button name="prev" class="btn_previous" ng-click="prevQuestion();"><span class="ir">Previous</span></button>
             <button name="next" class="btn_next" ng-click="nextQuestion();"><span class="ir">Next</span></button>
             <h6 class="characterCount">12</h6>
@@ -40,8 +42,6 @@
      </div>
     <footer class="progressDock">Page {{currQuestNo()}} of {{questionCount()}}</footer>
 </div>-->
-
-
 
 <!-- video 
 <div c6-annotations-player>

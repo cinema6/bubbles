@@ -1,12 +1,14 @@
-<!-- OLD CODE
-<h1 > {{expCtrl.model.category}}: {{expCtrl.model.title}} </h1>
+
+<!--<h1 > {{expCtrl.model.category}}: {{expCtrl.model.title}} </h1>
 <div c6-prompt-interface >
+    
     <ul >
         <li ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" 
                                                         class="question hidden">
             {{q.query}} <input name="response" type="text" ng-model="promptCtrl.model.responses[$index]"></input>
         </li>
     </ul>
+
     <div> <span>{{currQuestNo()}} of {{questionCount()}}</span> </div>
     <p/>
     <div>
@@ -15,25 +17,33 @@
     </div>
 </div>-->
 
-<!-- input -->
 <div id="inputScreen">
     <!--artwork-->
      <header class="logo2"><h5 class="ir">Screenjacked</h5></header>           
      <div class="artwork2">&nbsp;</div>
-        
+    
     <!--content-->
+     <div c6-prompt-interface >    
      <button class="btn_close"><span class="ir">Close</span></button> 
         <form id="input">
-            <h1 class="title"><span class="ir">Fill in the blank</span></h1>
-            <h2 class="question"><span class="ir">Fight Move:</span></h2>
-            <input type="text" name="question8">
-            <button class="btn_previous"><span class="ir">Previous</span></button>
-            <button class="btn_next"><span class="ir">Next</span></button>
+            <h1 class="title"><span class="ir">Fill in the blank </span></h1>
+            <h2 ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" class="question hidden">
+                <!--<span class="ir">{{q.query}}</span>-->{{q.query}}
+            </h2>
+
+            <input type="text" name="response" ng-model="promptCtrl.model.responses[$index]"></input>
+
+            <button name="prev" class="btn_previous" ng-click="prevQuestion();"><span class="ir">Previous</span></button>
+            <button name="next" class="btn_next" ng-click="nextQuestion();"><span class="ir">Next</span></button>
             <h6 class="characterCount">12</h6>
+
             <button class="btn_start"><span class="ir">Start</span></button>
         </form>
-    <footer class="progressDock">Page 8 of 9</footer>
-</div>
+     </div>
+    <footer class="progressDock">Page {{currQuestNo()}} of {{questionCount()}}</footer>
+</div>-->
+
+
 
 <!-- video 
 <div c6-annotations-player>

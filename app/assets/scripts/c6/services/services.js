@@ -24,16 +24,7 @@ angular.module('c6.svc',[])
                 'id'         : '2',
                 'title'      : 'Madcap Hilarity',
                 'views'      : 1000,
-                'src'         : [
-                                   {
-                                    'type': 'video/webm',
-                                    'src': baseUrl + '/media/bruce_lee.webm'
-                                   },
-                                   {
-                                    'type': 'video/mp4',
-                                    'src': baseUrl + '/media/bruce_lee.mp4'
-                                   }
-                                 ],
+                'src'         : baseUrl + '/media/bruce_lee',
                 'defSizeLimit': 32,
                 'prompts'     : [
                     'Salutation',
@@ -84,16 +75,7 @@ angular.module('c6.svc',[])
                 'id'         : '3',
                 'title'      : 'Heartbreaking Romance',
                 'views'      : 1000,
-                'src'         : [
-                                   {
-                                    'type': 'video/webm',
-                                    'src': baseUrl + '/media/lotr.webm'
-                                   },
-                                   {
-                                    'type': 'video/mp4',
-                                    'src': baseUrl + '/media/lotr.mp4'
-                                   }
-                                 ],
+                'src'         : baseUrl + '/media/lotr.webm',
                 'defSizeLimit': 32,
                 'prompts'     : [
                     'favorite past time (past tense)',
@@ -141,16 +123,7 @@ angular.module('c6.svc',[])
                 'id'          : '1',
                 'title'       : 'Something Special',
                 'views'       : 993,
-                'src'         : [
-                                   {
-                                    'type': 'video/webm',
-                                    'src': baseUrl + '/media/not_over.webm'
-                                   },
-                                   {
-                                    'type': 'video/mp4',
-                                    'src': baseUrl + '/media/not_over.mp4'
-                                   }
-                                 ],
+                'src'         : baseUrl + '/media/not_over.webm',
                 'defSizeLimit': 32,
                 'prompts'   : [
                     'strong smell',

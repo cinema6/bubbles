@@ -118,6 +118,12 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('c6AnnotationsCtrl',['$log', '$scope', function($log,$scope){
     $log.log('Creating c6AnnotationsCtrl');
 	
+	$scope.$on('c6video-ready', function(event, player) {
+		$scope.videos = {};
+		$scope.videos.player = player;
+		player.on('timeupdate');
+	});
+	
     this.model = new AnnotationsModel($scope._experience);
     
     this.interpolate = function(tmpl,data) {

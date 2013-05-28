@@ -128,7 +128,7 @@ angular.module('c6.dir.screenJack',[])
             $log.info('got the player: ' + vid);
 
             scope.$on('promptsStart',function(){
-                vid.loadSource(ctrl.model.videoSrc); 
+                vid.src(ctrl.model.videoSrc); 
             });
             
             scope.$on('promptsComplete',function(evt,responses){
@@ -141,9 +141,9 @@ angular.module('c6.dir.screenJack',[])
                     });
                     noteElts[('note' + note.index)] = $elt;
                 });
-                vid.el.removeClass('hidden');
-                vid.video().play();
-                vid.video().focus();
+                $(vid.player).removeClass('hidden');
+                vid.player.play();
+                vid.player.focus();
             });
 
             var fnActivate = function(note){
@@ -167,9 +167,9 @@ angular.module('c6.dir.screenJack',[])
 
             };
 
-            scope.$on('video-timeupdate',function(evt,vid){
-                //$log.info(vid + ': ' + vid.video().currentTime);
-                ctrl.timerUpdate(vid.video().currentTime,currNotes,fnActivate,fnDeactivate);
+            scope.$on('c6video-timeupdate',function(evt,vid){
+                //$log.info(vid + ': ' + vid.player.currentTime);
+                ctrl.timerUpdate(vid.player.currentTime,currNotes,fnActivate,fnDeactivate);
             });
         }
     };

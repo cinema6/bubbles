@@ -24,7 +24,7 @@
     
     <!--content-->
      <div c6-prompt-interface >    
-     <button class="btn_close"><span class="ir">Close</span></button> 
+     <button class="btn_close" onclick="history.go(-1);return false;"><span class="ir">Close</span></button> 
         <form id="input">
             <h1>Fill in the blank</h1>
             <h2 ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" class="question hidden">{{q.query}}</h2>

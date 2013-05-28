@@ -26,10 +26,8 @@
      <div c6-prompt-interface >    
      <button class="btn_close"><span class="ir">Close</span></button> 
         <form id="input">
-            <h1 class="title"><span class="ir">Fill in the blank </span></h1>
-            <h2 ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" class="question hidden">
-                <!--<span class="ir">{{q.query}}</span>-->{{q.query}}
-            </h2>
+            <h1>Fill in the blank</h1>
+            <h2 ng-repeat="q in promptCtrl.model.prompts" c6-question="{{$index}},{{$last}}" class="question hidden">{{q.query}}</h2>
 
             <input type="text" name="response" ng-model="promptCtrl.model.responses[$index]"></input>
 

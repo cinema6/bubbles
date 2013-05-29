@@ -22,6 +22,8 @@ if (__C6_BUILD_VERSION__) {
 }
 
 require([   'lib/jquery/jquery.min',
+            'lib/greensock/TimelineMax.min',
+            'lib/greensock/TweenMax.min'
             /*'lib/jqueryui/jquery-ui.min'*/], function(){
 
     require(['lib/angular/angular.min', 'assets/lib/c6media/c6lib.video.js'],function(){

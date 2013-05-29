@@ -1,0 +1,275 @@
+/* overall css stylesheet */
+
+html { height: 100%; width: 100%;}
+body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;}
+button {border: none; cursor: pointer; padding: 0; margin: 0;}
+ul {list-style: none;}
+.paperTexture { background: url('../media/bg_tile.jpg') repeat;}
+.ir {width:0; height:0; display: block; overflow: hidden; }
+.c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0;}
+.experience {position: fixed; width:100%;}
+.transition_blackFade{background: #000; height: 100%; width: 100%; position: fixed; z-index:9; display: none;}
+button:disabled {opacity: 0.5;}
+
+.viewport { 
+    height: 684px; 
+    width: 1280px; 
+    margin: -396px 0 0 -640px; 
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    font-size: 28px; }
+
+/*      START SCREEN BEGIN      */
+    .startScreen {position: fixed; width: 100%; height: 100%; font-size: 100%;
+       display: block;}
+
+     /* content */
+         .category__group {
+            width: 81.41%;
+            height: 91.62%;
+            left: 18%;
+            top: 12%;
+            position: absolute; 
+            z-index: 1;
+            -ms-transform: rotate(-15deg); /* IE 9 */
+            -moz-transform: rotate(-15deg); /* Firefox */
+            -o-transform: rotate(-15deg); /* Opera */
+            -webkit-transform: rotate(-15deg); /* Safari and Chrome */
+            transform: rotate(-15deg);
+            list-style-type: none;
+         }
+
+         .startScreen__directions { 
+            color: #c20000; 
+            margin: 2% 0 0 36.31%; 
+            font-size:114.29%; 
+            font-weight: 300;
+            -ms-transform: rotate(-15deg); /* IE 9 */
+            -moz-transform: rotate(-15deg); /* Firefox */
+            -o-transform: rotate(-15deg); /* Opera */
+            -webkit-transform: rotate(-15deg); /* Safari and Chrome */
+            transform: rotate(-15deg);
+         }
+
+         .category__item {
+            height: 32.28%;
+            width: 30.23%;
+            display: inline-block;
+            text-align: center;
+            margin: 2% 0 0 2.32%;
+        }
+
+         .category__frame {
+            background: #fff;
+            width: 100%;
+            height: 89.88%;
+            box-shadow: 0 2px 4px #b9b9b9;
+            border: 0;
+            cursor: pointer;
+         }
+         .category__frame:active {background: #c20000;} 
+         .category__name { color: #252525; font-size:100%; font-weight: 700; margin: 3%;}    
+         .category__art {height: 95%; width: 95%;}            
+
+
+     /* artwork */
+         .startScreen__logo {
+            background: url('../media/logo_pen.png') no-repeat top left;
+            background-size: 42.66% auto;            
+            margin: 35px 0 0 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            position: fixed;
+         }    
+
+         .startScreen__bgArtwork {
+            background: url('../media/paperball_right.png') no-repeat bottom right;
+            width: 100%; 
+            height: 100%;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+         }
+/*      START SCREEN END        */
+
+
+/*      INPUT SCREEN BEGIN      */
+    .inputScreen { width: 100%; height: 100%; position: fixed; display:block; }
+
+    /* content */
+      .content {
+        background: none; 
+        height: 308px;
+        width: 722px;
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        margin: -120px 0  0 -361px;
+      }
+
+        .inputScreen__directions {display: inline-block; width: 100%; height: 4.9%; margin: 0; text-align: center; font-size: 16px; color: #252525;}
+        .question__query {width: 100%; height: 11%; margin: 3% 0 0 0; text-align: center; font-size: 32px; display: block; }
+        .question__characterCount {font-size: 15px; width: 77.2%; text-align: right; margin: 1% 0 0 11.4%; }
+
+        .question__userAnswer {
+            border: 0;
+            background: url('../media/inputLine.jpg') bottom center no-repeat;
+            font-family: "Courier Prime", Courier, Times, serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #c20000;
+            width: 78%;
+            cursor: text;
+            margin: 10% 0 0 11%;
+         }
+         .question__userAnswer:focus {outline:none; background: url('../media/inputLine.jpg') bottom center no-repeat;}
+            
+        .question__btnPrevious {
+            background: url('../media/btn_previous_default.png') no-repeat bottom left; 
+            background-size: 100% auto;
+            height: 10%; 
+            width: 4%; 
+            margin: -7% 0 0 0;
+            position: relative;
+            float: left; 
+            z-index: 5;
+            text-indent: 200%;
+            white-space: nowrap;
+            overflow: hidden;
+         }
+         .question__btnPrevious:active {background: url('../media/btn_previous_tap.png') no-repeat bottom left; background-size: 100% auto;}
+
+        .question__btnNext {
+            background: url('../media/btn_next_default.png') no-repeat bottom right; 
+            height: 10%; 
+            width: 4%; 
+            margin: -7% 0 0 0;
+            position: relative;
+            float: right; 
+            z-index: 5;
+            text-indent: 200%;
+            white-space: nowrap;
+            overflow: hidden;
+         }
+         .question__btnNext:active {background: url('../media/btn_next_tap.png') no-repeat bottom right;}
+
+        .question__btnStart {
+            background: url('../media/btn_start_default.png') center no-repeat; 
+            width: 27%; 
+            height: 19%;
+            position: absolute; 
+            left: 36.5%;
+            margin: 5% 0 0 0;
+         }
+         .question__btnStart:active {background: url('../media/btn_start_tap.png') center no-repeat;}
+
+        .inputScreen__btnClose {
+            background: url('../media/btn_close_default.png');
+            height: 54px;
+            width: 65px;
+            margin: 40px 2px 0 0;
+            position: relative;
+            float: right;
+            display: block;
+            z-index: 1;
+         }
+         .inputScreen__btnClose:active {background: url('../media/btn_close_tap.png');}
+
+        .progressDock {
+            height: 30px;
+            width: 110px;
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            margin: 0 0 0 -55px;
+         }         
+
+    /* artwork */
+     .inputScreen__logo {
+        background: url('../media/logo_small.png') no-repeat top left; 
+        margin: 48px 0 0 10px;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 0;
+     } 
+
+     .inputScreen__bgArtwork {
+        background: url('../media/paperball_left.png') no-repeat bottom left; 
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 0;
+     }
+/*      INPUT SCREEN END        */
+
+
+/*      END SCREEN BEGIN        */
+    .endScreen { width: 100%; height: 100%; position: fixed; 
+        display: none;}
+
+    /* content */
+        .video {
+            background: url('../media/vidPlaceholder.jpg') center top no-repeat;
+            background-size: contain;
+            height:58.41%;
+            width:56.41%;
+            display: inline-block;
+            margin: 11.56% 0 0 21.79%;
+        }
+
+        .vidMenu { 
+            height: 8.2%; 
+            width: 56.45%; 
+            position: absolute; 
+            padding: 0; 
+            list-style-type: none; 
+            display: inline-block; 
+            left: 21.78%;
+            top: 80%;
+            margin: .4% 0 0 0;
+         }
+            .vidMenu__btnReplay { background: url('../media/btn_playAgain_default.png') no-repeat top center; background-size: contain; height: 100%; width: 6.67%; float:left;}
+            .vidMenu__btnReplay:hover {background: url('../media/btn_playAgain_hover.png') no-repeat top center; background-size: contain}
+            .vidMenu__btnReplay:active {background: url('../media/btn_playAgain_tap.png') no-repeat top center; background-size: contain}
+
+            .vidMenu__btnEdit { background: url('../media/btn_edit_default.png') no-repeat top center; background-size: contain; height: 100%; width: 6.04%; float:left; margin: 0 0 0 1%;}
+            .vidMenu__btnEdit:hover {background: url('../media/btn_edit_hover.png') no-repeat top center; background-size: contain;}
+            .vidMenu__btnEdit:active {background: url('../media/btn_edit_tap.png') no-repeat top center; background-size: contain;}
+
+            .vidMenu__btnNewVid { background: url('../media/btn_newVid_default.png') no-repeat top center; background-size: contain; height: 100%; width: 34.56%; float:right;}
+            .vidMenu__btnNewVid:active {background: url('../media/btn_newVid_tap.png') no-repeat top center; background-size: contain;}
+
+        .shareMenu {
+            background: url('../media/header_shareWithOthers.png') no-repeat left;
+            background-size: 30.54% auto;
+            height: 4.86%;
+            width: 67.58%;
+            position: fixed;
+            bottom: 0;
+            left: 16.21%;
+         }
+            .shareMenu__btnFacebook { background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; float: right;}
+            .shareMenu__btnFacebook:active {background: url('../media/btn_facebook_tap.png') no-repeat top; background-size: contain;}
+
+            .shareMenu__btnTwitter { background: url('../media/btn_twitter_default.png') no-repeat top; background-size: contain; height: 100%; width: 15.16%; float: right; margin: 0 0 0 8% }
+            .shareMenu__btnTwitter:active {background: url('../media/btn_twitter_tap.png') no-repeat top; background-size: contain;} 
+
+            .shareMenu__btnEmail { background: url('../media/btn_email_default.png') no-repeat top; background-size: contain; height: 100%; width: 13.57%; float: right; margin: 0 0 0 8%;}
+            .shareMenu__btnEmail:active {background: url('../media/btn_email_tap.png') no-repeat top; background-size: contain;}
+
+    /* artwork */
+     .endScreen__logo {
+        background: url('../media/logo_rippedPaper.png') no-repeat top left; 
+        background-size: contain;
+        margin: 36px 0 0 0; 
+        width: 82.23%;
+        height: 42.96%;
+        position: fixed;
+        top: 0;
+        z-index: 3;
+     }      
+/*      END SCREEN END          */

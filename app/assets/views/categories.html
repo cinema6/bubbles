@@ -1,7 +1,48 @@
-<div>
-    <ul id="categories">
-        <li ng-repeat="category in categories">
-            <a href="#/entry/{{category | lowercase}}"> {{category}} </a> 
-        </li>
-    </ul>
+<!--        START (CATEGORY) SCREEN      -->
+<div class="startScreen">
+    <!--artwork-->
+     <header class="startScreen__logo"><h1 class="ir">Screenjacked</h1></header>
+     <div class="startScreen__bgArtwork">&nbsp;</div>
+
+    <!--content-->
+     <div class="viewport">
+        <h1 class="startScreen__directions">choose one</h1>
+        <ul class="category__group">
+            <li class="category__item" ng-repeat="category in categories">
+                <button class="category__frame" onclick="location.href='#/entry/{{category}}';">
+                    <img class="category__art" src="assets/media/vidThumb_{{category}}.jpg">
+                </button>
+                <h3 class="category__name">{{category}}</h3>
+            </li>
+        </ul>
+
+     </div>
+
 </div>
+
+
+<!--        ENDING SCREEN      -->
+<div class="endScreen">
+        <!--artwork-->
+        <header class="endScreen__logo"><h1 class="ir">Screenjacked</h1></header>
+        <div class="startScreen__bgArtwork">&nbsp;</div>
+        
+        <!--content-->
+        <div class="viewport">
+            
+            <div class="video"><span class="ir">[ Actual video content will replace this span ]</span></div>
+
+            <menu class="vidMenu">
+                <button class="vidMenu__btnReplay" name="replay"><span class="ir">Replay</span></button>
+                <button class="vidMenu__btnEdit" name="edit"><span class="ir">Edit</span></button>
+                <button class="vidMenu__btnnNewVid" name="newVid"><span class="ir">Make a new video</span></button>
+            </menu>
+
+            <footer class="shareMenu"><span class="ir">Share with others:</span>
+                <button class="shareMenu__btnEmail" name="email"><span class="ir">Share through Email</span></button>
+                <button class="shareMenu__btnTwitter" name="twitter"><span class="ir">Share on Twitter</span></button>
+                <button class="shareMenu__btnFacebook" name="facebook"><span class="ir">Share on Facebook</span></button>
+            </footer>
+
+        </div>
+     </div>

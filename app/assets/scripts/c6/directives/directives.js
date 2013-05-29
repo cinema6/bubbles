@@ -79,13 +79,7 @@ angular.module('c6.dir.screenJack',[])
 
             scope.$on('onAddedQuestion',function(evt,elt,idx,last){
                 questionElts.push(elt);
-                $(elt.find('input').get(0)).keyup(function(e){
-                    if ((e.keyCode == 13) || (e.keyCode == 9)) {
-                        scope.$apply(function(){
-                            scope.nextQuestion(); 
-                        });
-                    }
-                });
+                
                 if (last === true) {
                     scope.$emit('expReady');
                 }

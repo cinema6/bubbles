@@ -2,16 +2,14 @@
 
 html { height: 100%; width: 100%;}
 body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;}
-body.paperTexture { background: url('../media/bg_tile.jpg') repeat;}
-button {border: none; cursor: pointer;}
-ul {list-style: none; padding: 0px;}
+button {border: none; cursor: pointer; padding: 0; margin: 0;}
+ul {list-style: none;}
+.paperTexture { background: url('../media/bg_tile.jpg') repeat;}
 .ir {width:0; height:0; display: block; overflow: hidden; }
-#c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0;}
-#experience {position: fixed; width:100%;}
+.c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0;}
+.experience {position: fixed; width:100%;}
 .transition_blackFade{background: #000; height: 100%; width: 100%; position: fixed; z-index:9; display: none;}
-button:disabled {
-    opacity: 0.5;
-}
+button:disabled {opacity: 0.5;}
 
 .viewport { 
     height: 684px; 
@@ -23,7 +21,7 @@ button:disabled {
     font-size: 28px; }
 
 /*      START SCREEN BEGIN      */
-    .startScreen { position: absolute; width: 100%; height: 100%; font-size: 100%;
+    .startScreen {position: fixed; width: 100%; height: 100%; font-size: 100%;
        display: block;}
 
      /* content */
@@ -34,9 +32,11 @@ button:disabled {
             top: 12%;
             position: absolute; 
             z-index: 1;
-            transform: rotate(-15deg);
             -ms-transform: rotate(-15deg); /* IE 9 */
+            -moz-transform: rotate(-15deg); /* Firefox */
+            -o-transform: rotate(-15deg); /* Opera */
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
+            transform: rotate(-15deg);
             list-style-type: none;
          }
 
@@ -45,9 +45,11 @@ button:disabled {
             margin: 2% 0 0 36.31%; 
             font-size:114.29%; 
             font-weight: 300;
-            transform: rotate(-15deg);
             -ms-transform: rotate(-15deg); /* IE 9 */
+            -moz-transform: rotate(-15deg); /* Firefox */
+            -o-transform: rotate(-15deg); /* Opera */
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
+            transform: rotate(-15deg);
          }
 
          .category__item {
@@ -58,9 +60,6 @@ button:disabled {
             margin: 2% 0 0 2.32%;
         }
 
-         .category__name { color: #252525; font-size:100%; font-weight: 700; margin: 3%;}    
-         .category__art {height: 100%; width: 100%;}     
-         
          .category__frame {
             background: #fff;
             width: 100%;
@@ -68,9 +67,10 @@ button:disabled {
             box-shadow: 0 2px 4px #b9b9b9;
             border: 0;
             cursor: pointer;
-            padding: 3%;
          }
-         .category__item:active {background: #c20000;} 
+         .category__frame:active {background: #c20000;} 
+         .category__name { color: #252525; font-size:100%; font-weight: 700; margin: 3%;}    
+         .category__art {height: 95%; width: 95%;}            
 
 
      /* artwork */
@@ -97,8 +97,7 @@ button:disabled {
 
 
 /*      INPUT SCREEN BEGIN      */
-    .inputScreen { width: 100%; height: 100%; position: absolute; 
-        display:block; }
+    .inputScreen { width: 100%; height: 100%; position: fixed; display:block; }
 
     /* content */
       .content {
@@ -126,7 +125,7 @@ button:disabled {
             cursor: text;
             margin: 10% 0 0 11%;
          }
-         .question__userAnswer:focus {outline:none; }
+         .question__userAnswer:focus {outline:none; background: url('../media/inputLine.jpg') bottom center no-repeat;}
             
         .question__btnPrevious {
             background: url('../media/btn_previous_default.png') no-repeat bottom left; 
@@ -174,7 +173,7 @@ button:disabled {
             margin: 40px 2px 0 0;
             position: relative;
             float: right;
-            display: inline-block;
+            display: block;
             z-index: 1;
          }
          .inputScreen__btnClose:active {background: url('../media/btn_close_tap.png');}
@@ -253,13 +252,13 @@ button:disabled {
             bottom: 0;
             left: 16.21%;
          }
-            .shareMenu__btnFacebook { background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; display: inline-block; float: right;}
+            .shareMenu__btnFacebook { background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; float: right;}
             .shareMenu__btnFacebook:active {background: url('../media/btn_facebook_tap.png') no-repeat top; background-size: contain;}
 
-            .shareMenu__btnTwitter { background: url('../media/btn_twitter_default.png') no-repeat top; background-size: contain; height: 100%; width: 15.16%; display: inline-block; float: right; margin: 0 0 0 8% }
+            .shareMenu__btnTwitter { background: url('../media/btn_twitter_default.png') no-repeat top; background-size: contain; height: 100%; width: 15.16%; float: right; margin: 0 0 0 8% }
             .shareMenu__btnTwitter:active {background: url('../media/btn_twitter_tap.png') no-repeat top; background-size: contain;} 
 
-            .shareMenu__btnEmail { background: url('../media/btn_email_default.png') no-repeat top; background-size: contain; height: 100%; width: 13.57%; display: inline-block; float: right; margin: 0 0 0 8%;}
+            .shareMenu__btnEmail { background: url('../media/btn_email_default.png') no-repeat top; background-size: contain; height: 100%; width: 13.57%; float: right; margin: 0 0 0 8%;}
             .shareMenu__btnEmail:active {background: url('../media/btn_email_tap.png') no-repeat top; background-size: contain;}
 
     /* artwork */

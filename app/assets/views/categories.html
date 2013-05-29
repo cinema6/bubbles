@@ -1,19 +1,20 @@
-<div id="startScreen">
+<div class="startScreen">
     <!--artwork-->
-     <div class="artwork1">&nbsp;</div>
-     <header class="logo1"><h5 class="ir">Screenjacked</h5></header>
+    <header class="startScreen__logo"><h1 class="ir">Screenjacked</h1></header>
+    <div class="startScreen__bgArtwork">&nbsp;</div>
 
     <!--content-->
      <div class="viewport">
-        <menu id="videoSelection">
-            <h1>choose one</h1>
-            <ul>
-                <li class="thumbnail" ng-repeat="category in categories">
-                    <button onclick="location.href='#/entry/{{category}}';"><img src="assets/media/vidThumb_{{category}}.jpg"></button>
-                    <h3>{{category}}</h3>
-                </li>
-            </ul>
-        </menu>
+        <h1 class="directions">choose one</h1>
+        <ul class="category__group">
+            <li class="category__item" ng-repeat="category in categories">
+                <button class="category__frame" onclick="location.href='#/entry/{{category}}';">
+                    <img class="category__art" src="assets/media/vidThumb_{{category}}.jpg">
+                </button>
+                <h3 class="category__name">{{category}}</h3>
+            </li>
+        </ul>
+
      </div>
 
 </div>

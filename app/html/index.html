@@ -6,7 +6,6 @@
     <script type="text/javascript" src="../assets/lib/jquery/jquery.js"></script>
     <script type="text/javascript" src="../assets/lib/greensock/TweenMax.min.js"></script>
     <script type="text/javascript" src="../assets/lib/greensock/TimelineLite.min.js"></script>
-
 </head><body class="paperTexture">
 
 <div id="experience">
@@ -67,6 +66,16 @@
      </div>
     <!-- INPUT SCREEN END -->
 
+    <!-- VIDEO BEGIN -->
+     <div class="viewport">
+        <video id="player" preload="auto" controls>
+            <source id src="../assets/media/not_over.mp4" type="video/mp4">
+        </video>
+     </div>
+     <div class="transition_blackFade">&nbsp;</div>
+
+
+    <!-- VIDEO END -->
 
     <!-- END SCREEN BEGIN -->
      <div id="endScreen">
@@ -92,12 +101,12 @@
      </div>
     <!-- END SCREEN END -->
 
-<div class="transition_blackFade">&nbsp;</div>
+
 
  </div>
 
 <!-- SCRIPTS -->
-<script type="text/javascript" src="../js/c6-screenjacked-transitions.js"></script>
+
  <script>
 // CONTENT SCALING //
     $(window).resize(function() {
@@ -125,11 +134,11 @@
         //feed screen divs window dimensions
         $("#startScreen").height(winH).width(winW);
         $("#inputScreen").height(winH).width(winW);
-        $("#endScreen").height(winH).width(winW);
-    })
+        $("#endScreen").height(winH).width(winW); 
+     })
     
     //Resize content immediately when page is loded
     .resize();
  </script>
-
+<script type="text/javascript" src="../js/c6-screenjacked-transitions.js"></script>
 </body></html>

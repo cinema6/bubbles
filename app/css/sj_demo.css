@@ -7,7 +7,9 @@ button {border: none; cursor: pointer;}
 .ir {width:0; height:0; display: block; overflow: hidden; }
 #c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10;}
 #experience {position: fixed; width:100%;}
-.transition_blackFade{background: #000; height: 100%; width: 100%; position: fixed; z-index:-1; opacity: 0; }
+
+#player {position: absolute; margin: 0 auto; width:100%; height: 100%; z-index: 9; opacity: 0;}
+.transition_blackFade{background: #000; height: 100%; width: 100%; z-index: -5; position: fixed; top: 0;  opacity: 0;}
 
 .viewport { 
     height: 684px; 
@@ -19,7 +21,7 @@ button {border: none; cursor: pointer;}
     font-size: 28px; }
 
 /*      START SCREEN BEGIN      */
-    #startScreen { position: absolute; width: 100%; height: 100%; font-size: 100%; 
+    #startScreen { position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5;
        display: block;}
 
      /* content */
@@ -110,7 +112,7 @@ button {border: none; cursor: pointer;}
 
 
 /*      INPUT SCREEN BEGIN      */
-    #inputScreen { width: 100%; height: 100%; position: absolute; 
+    #inputScreen { width: 100%; height: 100%; position: absolute; z-index: 4;
         display:block; }
 
     /* content */

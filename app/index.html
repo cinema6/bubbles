@@ -13,6 +13,7 @@
 
     <!-- temp loading libraries, this needs to be functioning in another file -->
     <script type="text/javascript" src="assets/lib/jquery/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
     <script type="text/javascript" src="assets/lib/greensock/TweenMax.min.js"></script>
     <script type="text/javascript" src="assets/lib/greensock/TimelineLite.min.js"></script>
 
@@ -22,12 +23,12 @@
     <div class="experience">
       <span class="c6bar"></span> 
       
-      <div ng-view></div>
+      <div ng-view ng-animate="currentRoute + '-partial'"></div>
      
     </div>
 
     <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js"></script>
-    <script type="text/javascript" src="assets/scripts/c6-screenjacked-transitions.js"></script>
+    <!--<script type="text/javascript" src="assets/scripts/c6-screenjacked-transitions.js"></script>-->
 
     <!-- CONTENT SCALING SCRIPT (put this in directives.js???) -->
      <script>

@@ -16,16 +16,18 @@
                                       rotation: "90deg", 
                                       ease: Power3.easeIn, 
                                       alpha: 0})
-      .from(inputScreen, 2, {transformOrigin: "100% 0%", 
+      .from(inputScreen, 2, {display: "block",
+                             transformOrigin: "100% 0%", 
                              rotation: "-90deg", 
                              ease: Power3.easeOut, 
                              alpha: 0,
                              onComplete: console.log("Start-to-Input Loaded 1/5"), 
-                             }, "-=0.5")
+                             }, "-=0.5");
 
     //transition to input screen
     $(".thumbnail1").click(function() {
         tl_startInput.play()
+        tl_startInput.seek(0);
     });
 
     //transition to start screen
@@ -45,6 +47,7 @@
         tl_expVid.play();
         e.preventDefault();
         setTimeout('videoPlayer.play()', 2800);
+        tl_expVid.seek(0);
     });
 
     // Vid-to-End //  
@@ -52,16 +55,17 @@
              .to(videoPlayer, 1.5, {opacity: 0})
              .to(transition, 2, {opacity: 0})
              .to(videoPlayer, 0.1, {display: "none"})
-             .to(endScreen, 2, {opacity: 1, onComplete: console.log("Vid-to-End Loaded 3/5")}, "-=2")             
+             .to(endScreen, 2, {opacity: 1, onComplete: console.log("Vid-to-End Loaded 3/5")}, "-=2");             
 
 
     // automatically transitions when the video ends
     videoPlayer.addEventListener('ended', videoEnd, false);
 
     function videoEnd() {
-      tl_vidEnd.play();
-      console.log("Video Ended");
-      setTimeout('videoPlayer.currentTime=0;', 5000);      
+      tl_vidEnd.play(); //play transition animation to end screen
+      console.log("Video Ended"); //print to console
+      setTimeout('videoPlayer.currentTime=0;', 5000); //rewinds playhead to beginning 
+      tl_vidEnd.seek(0); 
     }
 
     // End-to-Vid //  
@@ -69,20 +73,24 @@
              .to(videoPlayer, 0.1, {display: "block"})
              .to(transition, 2, {opacity: 1}, "-=2")
              .to(videoPlayer, 2, {opacity: 1}, "-=0.25")
-             .to(endScreen, 0.1, {display: "none", onComplete: console.log("Vid-to-End Loaded 4/5")})     
+             .to(endScreen, 0.1, {display: "none", onComplete: console.log("Vid-to-End Loaded 4/5")});   
 
 
-    //transition to video
-    $(".btn_edit").click(function(e) {
+     //var videoPlayer = false;         
+
+    //transition to video 1 day
+    $(".btn_edit").click(function(e) {   
         tl_endVid.play();
         e.preventDefault();
         setTimeout('videoPlayer.play()', 1800);
+        tl_endVid.seek(0);
     });
 
     $(".btn_playAgain").click(function(e) {
         tl_endVid.play();
         e.preventDefault();
         setTimeout('videoPlayer.play()', 1800);
+        tl_endVid.seek(0);
     });
 
 
@@ -106,4 +114,5 @@
     $(".btn_newVid").click(function(e) {
       tl_endStart.play();
       e.preventDefault();
+      tl_endStart.seek(0);
     })

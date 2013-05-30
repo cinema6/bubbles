@@ -68,15 +68,18 @@
 
     <!-- VIDEO BEGIN -->
      <div class="viewport">
-        <video id="player" preload="auto" controls>
+        <video id="player" preload="auto" ended controls>
             <source src="../assets/media/not_over.mp4" type="video/mp4">
         </video>
      </div>
      <div class="transition_blackFade">&nbsp;</div>
 
      <!-- video player scripts for transitions -->
-     <script type="text/javascript">
-     $(".transition_blackFade").load=console.log("EVENT");
+     <script>
+     myVid=document.getElementById("video1");
+     function hasVidEnded() {
+        alert(myVid.ended);
+     }
      </script>
     <!-- VIDEO END -->
 

@@ -2,9 +2,9 @@
     var startScreen     = $("#startScreen"),
         inputScreen     = $("#inputScreen"),
         transition      = $(".transition_blackFade"),
-        videoPlayer     = $("#player");        
         tl_startInput   = new TimelineLite({paused: true}),
-        tl_expVid       = new TimelineLite({paused: true});
+        tl_expVid       = new TimelineLite({paused: true}),
+        videoPlayer     = document.getElementById("player");
 
 
     // ANIMATIONS //        
@@ -45,13 +45,11 @@
                  .to(inputScreen, 0.5, {onComplete: console.log("display none on input"), display: "none"})
                  .to(videoPlayer, 2, {onComplete: console.log("Fade in Video"), opacity: 1}, "-=0.75")
 
-    //transition to video
+    //transition ot video
     $(".btn_start").click(function(e) {
         tl_expVid.play();
         e.preventDefault();
+        videoPlayer.delay(4500).play();
     });
 
-    //when video ends, transition out
-    //$("VIDEO???").event(function(e) {
-    //  tl_expVid.reverse()
-    //});
+    

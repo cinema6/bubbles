@@ -19,7 +19,7 @@
                              alpha: 0,}, "-=0.5")
 
     //transition to input screen
-    $(".category__frame").click(function() {
+    $(".category__item").click(function() {
         tl_startInput.play()
     });
 
@@ -39,3 +39,4 @@
         tl_inputVid.play();
         e.preventDefault();
     });
+

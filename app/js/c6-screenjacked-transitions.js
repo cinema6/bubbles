@@ -49,7 +49,6 @@
     $(".btn_start").click(function(e) {
         tl_expVid.play();
         e.preventDefault();
-        videoPlayer.delay(4500).play();
     });
 
     

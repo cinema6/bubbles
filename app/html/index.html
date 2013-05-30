@@ -67,12 +67,21 @@
     <!-- INPUT SCREEN END -->
 
     <!-- VIDEO BEGIN -->
-      <div class="viewport">
+<div class="viewport">
     <video id="player" c6video class="hidden" preload="auto" controls>
         <source src="../assets/media/not_over.mp4" type="video/mp4">
     </video>
  </div>
      <div class="transition_blackFade">&nbsp;</div>
+
+<script>
+    var videoPlayer = document.getElementById("player");
+
+    $(".btn_start").click(function() {
+        videoPlayer.setTimeout(play(), 4500);
+    });
+
+</script>
     <!-- VIDEO END -->
 
     <!-- END SCREEN BEGIN -->

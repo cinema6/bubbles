@@ -49,8 +49,9 @@ angular.module('c6.app', dependencies)
         controller: 'c6CategoryListCtrl'
       })
       .when('/entry/:category', {
-        templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
-        controller: 'c6ExperienceCtrl'
+        templateUrl: __C6_APP_BASE_URL__ + '/views/input.html',
+        controller: 'C6InputCtrl'
+        //controller: 'c6ExperienceCtrl'
       })
       .otherwise({
         redirectTo: '/'

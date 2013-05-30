@@ -89,16 +89,53 @@ function AnnotationsModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
+.controller('C6AppCtrl', ['$log', '$scope', function($log, $scope) {
+	$log.log('Creating C6AppCtrl');
+	$scope.app = {};
+	
+	$scope.app.experience = null;
+}])
 .controller('c6CategoryListCtrl',['$log','$scope', '$rootScope',
                                         'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
     $log.log('Creating cCategoryListCtrl');
-    $log.log('Setting route to categories.');
 	$rootScope.currentRoute = 'categories';
     var obj = vsvc.getCategories();
-    $scope.categories = [];
-    obj.categories.forEach(function(cat){
-        $scope.categories.push(cat);
-    });
+    $scope.categories = obj.categories;
+}])
+.controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'c6VideoListingService', function($log, $scope, $rootScope, $routeParams, vsvc) {
+    $log.log('Creating C6InputCtrl: ' + $routeParams.category);
+    $scope.input = {};
+	$rootScope.currentRoute = 'input';
+	
+    $scope.app.experience = vsvc.getExperienceByCategory($routeParams.category);
+    
+    $scope.input.promptModel = new PromptModel($scope.app.experience);
+    console.log($scope.input.promptModel);
+    
+    $scope.input.currentPrompt = $scope.input.promptModel.prompts[0];
+    $scope.input.currentResponse = function() {
+	    return $scope.input.promptModel.responses[$scope.input.currentPromptIndex()];
+    }
+    console.log($scope.input.currentPrompt);
+    $scope.input.currentPromptIndex = function() {
+	    return $scope.input.promptModel.prompts.indexOf($scope.input.currentPrompt);
+    }
+    $scope.input.totalPrompts = function() {
+	    return $scope.input.promptModel.prompts.length;
+    }
+    $scope.input.nextQuestion = function() {
+	    $scope.input.currentPrompt = $scope.input.promptModel.prompts[$scope.input.promptModel.prompts.indexOf($scope.input.currentPrompt) + 1];
+    }
+    $scope.input.prevQuestion = function() {
+	    $scope.input.currentPrompt = $scope.input.promptModel.prompts[$scope.input.promptModel.prompts.indexOf($scope.input.currentPrompt) - 1];
+    }
+    $scope.input.canGoBack = function() {
+	    return $scope.input.currentPromptIndex();
+    }
+    $scope.input.canGoForward = function() {
+	    var result = ($scope.input.currentPromptIndex() !== $scope.input.totalPrompts() - 1 && $scope.input.currentResponse());
+	    return result;
+    }
 }])
 .controller('c6ExperienceCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'c6VideoListingService',
                                         function($log,$scope,$rootScope,$routeParams,vsvc){

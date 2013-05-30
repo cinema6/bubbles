@@ -3,6 +3,39 @@
 
 'use strict';
 angular.module('c6.dir.screenJack',[])
+.directive('c6Resize', ['$window', function($window) {
+	return function($scope, $element, $attrs) {
+		$($window).resize(function() {
+			// set variable dimensions for viewport
+			var baseW = 1280,
+				baseH = 684,
+				fontSize = 28,
+			
+				//find current dimensions of window
+				winH = $window.innerHeight,
+				winW = $window.innerWidth,
+			
+				//find scale factor
+				scaleH = winH / baseH,
+				scaleW = winW / baseW,
+				scaleFactor = Math.min(scaleH, scaleW);
+			
+			//apply new dimensions to viewport
+			$element.find(".viewport").height(baseH * scaleFactor)
+				.width(baseW * scaleFactor)
+				.css("font-size", (fontSize * scaleFactor))
+				.css("margin-top", ((baseH * scaleFactor) / -2))
+				.css("margin-left", ((baseW * scaleFactor) / -2));
+			
+			//feed screen divs window dimensions
+			$element.height(winH).width(winW);
+		});
+		
+		//Resize content immediately when page is loded
+		$($window).resize();
+	}
+}])
+
 .directive('c6Question', [function(){
     return  function(scope,iElement, iAttrs) {
                 if (iAttrs.c6Question) {
@@ -35,8 +68,9 @@ angular.module('c6.dir.screenJack',[])
                     prevElt.attr('disabled','disabled');
                 } else
                 if (currentIndex === (questionElts.length - 1)) {
-                    nextElt.text('Done');
+                    scope.isDone = true;
                 } else {
+                	if (scope.isDone) { scope.isDone = false; }
                     if (prevElt.attr('disabled')){
                         prevElt.removeAttr('disabled');
                     }
@@ -122,7 +156,7 @@ angular.module('c6.dir.screenJack',[])
             $log.info('got the player: ' + vid);
 
             scope.$on('promptsStart',function(){
-                vid.loadSource(ctrl.model.videoSrc); 
+                vid.src(ctrl.model.videoSrc); 
             });
             
             scope.$on('promptsComplete',function(evt,responses){
@@ -135,9 +169,9 @@ angular.module('c6.dir.screenJack',[])
                     });
                     noteElts[('note' + note.index)] = $elt;
                 });
-                vid.el.removeClass('hidden');
-                vid.video().play();
-                vid.video().focus();
+                $(vid.player).removeClass('hidden');
+                vid.player.play();
+                vid.player.focus();
             });
 
             var fnActivate = function(note){
@@ -161,9 +195,9 @@ angular.module('c6.dir.screenJack',[])
 
             };
 
-            scope.$on('video-timeupdate',function(evt,vid){
-                //$log.info(vid + ': ' + vid.video().currentTime);
-                ctrl.timerUpdate(vid.video().currentTime,currNotes,fnActivate,fnDeactivate);
+            scope.$on('c6video-timeupdate',function(evt,vid){
+                //$log.info(vid + ': ' + vid.player.currentTime);
+                ctrl.timerUpdate(vid.player.currentTime,currNotes,fnActivate,fnDeactivate);
             });
         }
     };

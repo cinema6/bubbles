@@ -11,58 +11,18 @@
     <link rel="stylesheet" href="assets/styles/sj_main.css">
     <link rel="stylesheet" media="screen and (max-width: 710px)" href="../css/710.css">
 
-    <!-- temp loading libraries, this needs to be functioning in another file -->
-    <script type="text/javascript" src="assets/lib/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/lib/greensock/TweenMax.min.js"></script>
-    <script type="text/javascript" src="assets/lib/greensock/TimelineLite.min.js"></script>
-
+    <!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
   </head>
   <body class="paperTexture"> <!-- class toggles on for the experience -->
 
     <div class="experience">
       <span class="c6bar"></span> 
       
-      <div ng-view></div>
+      <div ng-view ng-animate="currentRoute + '-partial'"></div>
      
     </div>
 
     <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js"></script>
-    <script type="text/javascript" src="assets/scripts/c6-screenjacked-transitions.js"></script>
-
-    <!-- CONTENT SCALING SCRIPT (put this in directives.js???) -->
-     <script>
-     $(window).resize(function() {
-        // set variable dimensions for viewport
-        var baseW = 1280,
-            baseH = 684,
-            fontSize = 28,
-
-        //find current dimensions of window
-            winH = window.innerHeight,
-            winW = window.innerWidth,
-        
-        //find scale factor
-            scaleH = winH / baseH,
-            scaleW = winW / baseW,
-            scaleFactor = Math.min(scaleH, scaleW);
-        
-        //apply new dimensions to viewport
-        $(".viewport").height(baseH * scaleFactor)
-                      .width(baseW * scaleFactor)
-                      .css("font-size", (fontSize * scaleFactor))
-                      .css("margin-top", ((baseH * scaleFactor) / -2))
-                      .css("margin-left", ((baseW * scaleFactor) / -2));
-
-        //feed screen divs window dimensions
-        $(".startScreen").height(winH).width(winW);
-        $(".inputScreen").height(winH).width(winW);
-        $(".endScreen").height(winH).width(winW); 
-     })
-    
-     //Resize content immediately when page is loded
-     .resize();
-     </script>
-    
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

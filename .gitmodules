@@ -7,3 +7,6 @@
 [submodule "vendor/video-js"]
 	path = vendor/video-js
 	url = git@github.com:cinema6/video-js.git
+[submodule "vendor/c6media"]
+	path = vendor/c6media
+	url = https://github.com/cinema6/c6Media.git

@@ -89,18 +89,22 @@ function AnnotationsModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('c6CategoryListCtrl',['$log','$scope',
-                                        'c6VideoListingService', function($log,$scope,vsvc){
+.controller('c6CategoryListCtrl',['$log','$scope', '$rootScope',
+                                        'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
     $log.log('Creating cCategoryListCtrl');
+    $log.log('Setting route to categories.');
+	$rootScope.currentRoute = 'categories';
     var obj = vsvc.getCategories();
     $scope.categories = [];
     obj.categories.forEach(function(cat){
         $scope.categories.push(cat);
     });
 }])
-.controller('c6ExperienceCtrl', ['$log', '$scope', '$routeParams', 'c6VideoListingService',
-                                        function($log,$scope,$routeParams,vsvc){
+.controller('c6ExperienceCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'c6VideoListingService',
+                                        function($log,$scope,$rootScope,$routeParams,vsvc){
     $log.log('Creating c6ExperienceCtrl: ' + $routeParams.category);
+    $log.log('Setting route to experience.');
+	$rootScope.currentRoute = 'experience';
     var experience = vsvc.getExperienceByCategory($routeParams.category);
     this.model = {
         id              : experience.id,
@@ -114,10 +118,18 @@ angular.module('c6.ctrl',['c6.svc'])
     $log.log('Creating c6PromptCtrl');
     this.model = new PromptModel($scope._experience);
     $scope.promptCtrl  = this;
+    
+    $scope.isDone = false;
 }])
 .controller('c6AnnotationsCtrl',['$log', '$scope', function($log,$scope){
     $log.log('Creating c6AnnotationsCtrl');
-
+	
+	$scope.$on('c6video-ready', function(event, player) {
+		$scope.videos = {};
+		$scope.videos.player = player;
+		player.on('timeupdate');
+	});
+	
     this.model = new AnnotationsModel($scope._experience);
     
     this.interpolate = function(tmpl,data) {

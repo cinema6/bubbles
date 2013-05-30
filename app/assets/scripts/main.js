@@ -15,6 +15,7 @@ if (__C6_BUILD_VERSION__) {
     c6Scripts = [   'scripts/c6/app',
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
+                    'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives',
                     'scripts/c6/directives/videonode'
                     ];
@@ -25,7 +26,7 @@ require([   'lib/jquery/jquery.min',
             'lib/greensock/TweenMax.min'
             /*'lib/jqueryui/jquery-ui.min'*/], function(){
 
-    require(['lib/angular/angular.min'],function(){
+    require(['lib/angular/angular.min', 'assets/lib/c6media/c6lib.video.js'],function(){
         require(c6Scripts, function(){
             angular.bootstrap(document, ['c6.app']);
         });

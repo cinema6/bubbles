@@ -35,8 +35,10 @@ var browserVersion = (function(){
 var dependencies = [
     'c6.ctrl',
     'c6.svc',
+    'c6.anim',
     'c6.dir.screenJack',
-    'c6.dir.videoNode'
+    //'c6.dir.videoNode'
+    'c6lib.video'
 ];
 
 angular.module('c6.app', dependencies)

@@ -2,11 +2,14 @@
     var startScreen     = $(".startScreen"),
         inputScreen     = $(".inputScreen"),
         transition      = $(".transition_blackFade"),
-        videoPlayer     = $("#player");         
+        videoPlayer     = document.getElementById("player");         
         tl_startInput   = new TimelineLite({paused: true}),
         tl_inputVid     = new TimelineLite({paused: true});
 
-    // ANIMATIONS //        
+
+    // ANIMATIONS //  
+
+    //timeline for start-to-input      
     tl_startInput.to(startScreen, 2, {onComplete: console.log("Start leaves"), 
                                       transformOrigin: "0% 0%", 
                                       rotation: "90deg", 
@@ -29,6 +32,8 @@
         e.preventDefault();
     });
 
+
+    //timeline for input-to-video
     tl_inputVid.to(inputScreen, 2, {onComplete: console.log("Input fades"), alpha: 0})
                  .to(transition, 2, {onComplete: console.log("Fade in black"), opacity: 1}, "-=1")
                  .to(inputScreen, 0.5, {onComplete: console.log("display none on input"), display: "none"})
@@ -38,5 +43,6 @@
     $(".question__btnStart").click(function(e) {
         tl_inputVid.play();
         e.preventDefault();
+        videoPlayer.play();
     });
 

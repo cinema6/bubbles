@@ -92,6 +92,7 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('c6CategoryListCtrl',['$log','$scope', '$rootScope',
                                         'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
     $log.log('Creating cCategoryListCtrl');
+    $log.log('Setting route to categories.');
 	$rootScope.currentRoute = 'categories';
     var obj = vsvc.getCategories();
     $scope.categories = [];
@@ -102,6 +103,7 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('c6ExperienceCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'c6VideoListingService',
                                         function($log,$scope,$rootScope,$routeParams,vsvc){
     $log.log('Creating c6ExperienceCtrl: ' + $routeParams.category);
+    $log.log('Setting route to experience.');
 	$rootScope.currentRoute = 'experience';
     var experience = vsvc.getExperienceByCategory($routeParams.category);
     this.model = {

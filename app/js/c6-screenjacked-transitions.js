@@ -1,6 +1,7 @@
 // TRANSITIONS //
     var startScreen     = $("#startScreen"),
         inputScreen     = $("#inputScreen"),
+        endScreen     = $("#endScreen"),
         transition      = $(".transition_blackFade"),
         tl_startInput   = new TimelineLite({paused: true}),
         tl_expVid       = new TimelineLite({paused: true}),
@@ -49,6 +50,6 @@
     $(".btn_start").click(function(e) {
         tl_expVid.play();
         e.preventDefault();
+        setTimeout('videoPlayer.play()', 2800);
     });
 
-    

@@ -34,7 +34,7 @@
 			start: function($oldView, done) {
 				if ($rootScope.currentRoute === 'categories') {
 					$log.log('Animating from "experience" to "categories"');
-					var tl_startInput   = new TimelineLite({paused: true}),
+					/*var tl_startInput   = new TimelineLite({paused: true}),
 						startScreen     = $(".startScreen"),
 						inputScreen     = $(".inputScreen");
 		
@@ -51,7 +51,8 @@
 						alpha: 0,}, "-=0.5")
 					.eventCallback('onComplete', done);
 					
-					tl_startInput.play();
+					tl_startInput.play();*/
+					done();
 				}
 			}
 		}

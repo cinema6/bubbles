@@ -68,8 +68,9 @@ angular.module('c6.dir.screenJack',[])
                     prevElt.attr('disabled','disabled');
                 } else
                 if (currentIndex === (questionElts.length - 1)) {
-                    nextElt.text('Done');
+                    scope.isDone = true;
                 } else {
+                	if (scope.isDone) { scope.isDone = false; }
                     if (prevElt.attr('disabled')){
                         prevElt.removeAttr('disabled');
                     }

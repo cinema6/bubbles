@@ -17,11 +17,11 @@
                     <input class="question__userAnswer" type="text" name="response" ng-model="promptCtrl.model.responses[$index]"></input>
                 </li>
             </ul>
-            <button class="question__btnNext" ng-click="nextQuestion();" name="next"><span class="ir">Next</span></button>
+            <button class="question__btnNext" ng-click="nextQuestion();" ng-if="!isDone" name="next"><span class="ir">Next</span></button>
             <button class="question__btnPrevious" ng-click="prevQuestion();" name="prev"><span class="ir">Prev</span></button>
             <h6 class="question__characterCount">12</h6>
 
-            <button class="question__btnStart"><span class="ir">Start</span></button>
+            <button class="question__btnStart" ng-if="isDone"><span class="ir">Start</span></button>
         </form>
 
         <footer class="progressDock">Page {{currQuestNo()}} of {{questionCount()}}</footer>

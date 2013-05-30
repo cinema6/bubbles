@@ -118,6 +118,8 @@ angular.module('c6.ctrl',['c6.svc'])
     $log.log('Creating c6PromptCtrl');
     this.model = new PromptModel($scope._experience);
     $scope.promptCtrl  = this;
+    
+    $scope.isDone = false;
 }])
 .controller('c6AnnotationsCtrl',['$log', '$scope', function($log,$scope){
     $log.log('Creating c6AnnotationsCtrl');

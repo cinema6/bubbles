@@ -10,7 +10,7 @@ ul {list-style: none;}
 .experience {position: fixed; width:100%;}
 button:disabled {opacity: 0.5;}
 
-#player {position: absolute; margin: 0 auto; width:100%; height: 100%; z-index: 9; opacity: 0;}
+#player {position: absolute; margin: 0 auto; width:100%; height: 600px; z-index: 9; opacity: 1;}
 .transition_blackFade{background: #000; height: 100%; width: 100%; z-index: -5; position: fixed; top: 0;  opacity: 0;}
 
 .viewport { 

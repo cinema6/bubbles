@@ -15,11 +15,20 @@
   </head>
   <body class="paperTexture"> <!-- class toggles on for the experience -->
 
-    <div class="experience">
+    <div class="experience" ng-controller="C6AppCtrl">
       <span class="c6bar"></span> 
       
       <div ng-view ng-animate="currentRoute + '-partial'"></div>
-     
+      
+      <div ng-controller="C6AnnotationsCtrl" ng-show="app.inExperience" ng-animate="'video'">
+        <video id="player" c6video c6-src="{{app.experience.src}}" preload="auto" controls></video>
+        <ul>
+          <li ng-repeat="a in anno.model.annotations" ng-show="anno.annotationIsActive(a.index)" ng-class="'annotation ' + {{a.cls}}">
+            {{a.text}}
+          </li>
+        </ul>
+      </div>
+
     </div>
 
     <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js"></script>

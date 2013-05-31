@@ -8,8 +8,9 @@ button {border: none; cursor: pointer;}
 #c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10;}
 #experience {position: fixed; width:100%;}
 
+/*.videoContainer {width: 100%; height: 100%; opacity: 0; display: block;}*/
 #player {position: absolute; margin: 0 auto; width:100%; height: 100%; z-index: 9; opacity: 0;}
-.transition_blackFade{background: #000; height: 100%; width: 100%; z-index: -5; position: fixed; top: 0;  opacity: 0;}
+.transition_blackFade{background: #000; height: 100%; width: 100%; z-index: -20; position: fixed; top: 0; opacity: 0; }
 
 .viewport { 
     height: 684px; 
@@ -112,7 +113,9 @@ button {border: none; cursor: pointer;}
 
 
 /*      INPUT SCREEN BEGIN      */
-    #inputScreen { width: 100%; height: 100%; position: absolute; z-index: 4;
+    #inputScreen { width: 100%; height: 100%; position: absolute; z-index: 4;  opacity: 1;
+        -webkit-transform: rotate(-90deg); 
+        -webkit-transform-origin:100% 0%;
         display:block; }
 
     /* content */
@@ -218,6 +221,8 @@ button {border: none; cursor: pointer;}
 
 /*      END SCREEN BEGIN        */
     #endScreen { width: 100%; height: 100%; position: absolute; 
+        -webkit-transform: rotate(0deg); 
+        -webkit-transform-origin:100% 0%;
         display: none; opacity: 0;}
 
     /* content */
@@ -253,14 +258,14 @@ button {border: none; cursor: pointer;}
             .btn_newVid:active {background: url('../img/btn_newVid_tap.png') no-repeat top center; background-size: contain;}
 
         .menu_share {
-
             background: url('../img/header_shareWithOthers.png') no-repeat left;
             background-size: 30.54% auto;
-            height: 4.86%;
-            width: 67.58%;
+            height: 54px;
+            width: 1026px;
             position: fixed;
             bottom: 0;
-            left: 16.21%;
+            left: 50%;
+            margin: 0 0 0 -513px;
          }
             .btn_facebook { background: url('../img/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; display: inline-block; float: right;}
             .btn_facebook:active {background: url('../img/btn_facebook_tap.png') no-repeat top; background-size: contain;}

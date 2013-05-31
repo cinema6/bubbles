@@ -75,7 +75,7 @@ angular.module('c6.svc',[])
                 'id'         : '3',
                 'title'      : 'Heartbreaking Romance',
                 'views'      : 1000,
-                'src'         : baseUrl + '/media/lotr.webm',
+                'src'         : baseUrl + '/media/lotr',
                 'defSizeLimit': 32,
                 'prompts'     : [
                     'favorite past time (past tense)',
@@ -123,7 +123,7 @@ angular.module('c6.svc',[])
                 'id'          : '1',
                 'title'       : 'Something Special',
                 'views'       : 993,
-                'src'         : baseUrl + '/media/not_over.webm',
+                'src'         : baseUrl + '/media/not_over',
                 'defSizeLimit': 32,
                 'prompts'   : [
                     'strong smell',

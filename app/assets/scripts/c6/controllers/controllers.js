@@ -89,13 +89,31 @@ function AnnotationsModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', function($log, $scope) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', function($log, $scope, $location) {
 	$log.log('Creating C6AppCtrl');
 	$scope.app = {};
 	
 	$scope.app.experience = null;
+	$scope.app.inExperience = false;
+	$scope.app.goToRoute = function(route) {
+		$location.path(route);
+	}
+	
+	$scope.$on('$routeChangeSuccess', function() {
+		if ($location.path() === '/experience') {
+			if (!$scope.app.experience) {
+				$location.path('/');
+			} else {
+				$scope.app.inExperience = true;
+			}
+		} else {
+			if ($scope.app.inExperience) {
+				$scope.app.inExperience = false;
+			}
+		}
+	});
 }])
-.controller('c6CategoryListCtrl',['$log','$scope', '$rootScope',
+.controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
                                         'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
     $log.log('Creating cCategoryListCtrl');
 	$rootScope.currentRoute = 'categories';
@@ -124,50 +142,84 @@ angular.module('c6.ctrl',['c6.svc'])
 	    return $scope.input.promptModel.prompts.length;
     }
     $scope.input.nextQuestion = function() {
-	    $scope.input.currentPrompt = $scope.input.promptModel.prompts[$scope.input.promptModel.prompts.indexOf($scope.input.currentPrompt) + 1];
+	    $scope.input.currentPrompt = $scope.input.promptModel.prompts[$scope.input.currentPromptIndex() + 1];
     }
     $scope.input.prevQuestion = function() {
-	    $scope.input.currentPrompt = $scope.input.promptModel.prompts[$scope.input.promptModel.prompts.indexOf($scope.input.currentPrompt) - 1];
+	    $scope.input.currentPrompt = $scope.input.promptModel.prompts[$scope.input.currentPromptIndex() - 1];
     }
     $scope.input.canGoBack = function() {
 	    return $scope.input.currentPromptIndex();
     }
+    $scope.input.isDone = function() {
+	    return ($scope.input.currentPromptIndex() === $scope.input.totalPrompts() - 1);
+    }
     $scope.input.canGoForward = function() {
-	    var result = ($scope.input.currentPromptIndex() !== $scope.input.totalPrompts() - 1 && $scope.input.currentResponse());
-	    return result;
+	    return (!$scope.input.isDone() && $scope.input.currentResponse());
+    }
+    $scope.input.startExperience = function() {
+    	$scope.app.experience.responses = $scope.input.promptModel.responses;
+	    $scope.app.goToRoute('/experience');
     }
 }])
-.controller('c6ExperienceCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'c6VideoListingService',
-                                        function($log,$scope,$rootScope,$routeParams,vsvc){
-    $log.log('Creating c6ExperienceCtrl: ' + $routeParams.category);
-    $log.log('Setting route to experience.');
-	$rootScope.currentRoute = 'experience';
-    var experience = vsvc.getExperienceByCategory($routeParams.category);
-    this.model = {
-        id              : experience.id,
-        title           : experience.title,
-        category        : $routeParams.category
-    };
-    $scope.expCtrl = this;
-    $scope._experience = experience;
+.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', function($log, $scope, $rootScope) {
+    $log.log('Creating C6EndCtrl');
+	$rootScope.currentRoute = 'end';
 }])
-.controller('c6PromptCtrl',['$log','$scope',function($log,$scope){
-    $log.log('Creating c6PromptCtrl');
-    this.model = new PromptModel($scope._experience);
-    $scope.promptCtrl  = this;
-    
-    $scope.isDone = false;
-}])
-.controller('c6AnnotationsCtrl',['$log', '$scope', function($log,$scope){
-    $log.log('Creating c6AnnotationsCtrl');
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', function($log, $scope, $rootScope, $location){
+    $log.log('Creating C6AnnotationsCtrl');
+    var self = this;
+	$scope.anno = {};
+	$scope.anno.activeAnnotations = [];
 	
 	$scope.$on('c6video-ready', function(event, player) {
-		$scope.videos = {};
-		$scope.videos.player = player;
-		player.on('timeupdate');
+		$scope.video = player;
+		player.on('timeupdate', function(event, video) {
+			var annotations = $scope.anno.model.annotations,
+				activeAnnotations = $scope.anno.activeAnnotations,
+				time = video.player.currentTime,
+				ts,
+				duration,
+				index;
+			
+			annotations.forEach(function(annotation) {
+				ts = annotation.ts;
+				duration = annotation.duration;
+				index = annotation.index;
+				
+				if (time >= ts && time <= (ts + duration)) {
+					if (!activeAnnotations[index]) {
+						$scope.anno.activeAnnotations[index] = annotation;
+						$log.log('Activated annotation: ' + annotation.text);
+					}
+				} else {
+					if (activeAnnotations[index]) {
+						$scope.anno.activeAnnotations.splice(index, 1);
+						$log.log('Deactivated annotation: ' + annotation.text);
+					}
+				}
+			});
+			if (time === video.player.duration) { $location.path('/end'); }
+		});
 	});
 	
-    this.model = new AnnotationsModel($scope._experience);
+	$scope.$watch('app.experience', function(experience) {
+		if (experience) { $scope.anno.model = new AnnotationsModel($scope.app.experience); }
+	});
+	
+	$scope.$watch('app.inExperience', function(yes) {
+		if (yes) {
+			$rootScope.currentRoute = 'experience';
+			self.interpolateTemplates($scope.app.experience.responses);
+			$scope.video.player.currentTime = 0;
+			$scope.video.player.play();
+		} else {
+			$scope.video.player.pause();
+		}
+	});
+    
+    $scope.anno.annotationIsActive = function(index) {
+	    return $scope.anno.activeAnnotations[index]? true : false;
+    }
     
     this.interpolate = function(tmpl,data) {
         var patt  = /\${(\d+)}/,
@@ -199,45 +251,17 @@ angular.module('c6.ctrl',['c6.svc'])
     };
 
     this.interpolateTemplates = function(data) {
-        var annoLength = this.model.annotations.length;
+        var annoLength = $scope.anno.model.annotations.length;
         $log.info('Interpolate ' + annoLength + ' annotations with ' + data.length + ' responses.');
 //       for (var x = 0; x < data.length; x++) {
 //            $log.info('DATA[' + x + ']: [' + data[x] + ']');
 //        }
         for (var i = 0; i < annoLength; i++) {
-            var a = this.model.annotations[i];
+            var a = $scope.anno.model.annotations[i];
             a.text = this.interpolate(a.template,data);
             $log.info('Annotation [' + i + ']: ' + a.text);
         }
     };
-
-    this.timerUpdate = function(tm, currNotes, fnActivate, fnDeactivate){
-        var currIdx = {};
-        if (currNotes){
-            if (currNotes instanceof Array) {
-                currNotes.forEach(function(note){
-                    if ((note.ts + note.duration) <= tm) {
-                        fnDeactivate(note);
-                    }
-                    currIdx[note.index] = note;
-                });
-            } else {
-                if ((currnote.ts + currNote.duration) <= tm) {
-                    fnDeactivate(currNote);
-                }
-                currIdx[currNotes.index] = currNotes;
-            }
-        }
-        this.model.annotations.forEach(function(note){
-            if (!currIdx[note.index]){
-                if ((note.ts <= tm) && ((note.ts + note.duration) > tm)) {
-                    fnActivate(note);
-                }
-            }
-        });
-    };
-
-    $scope.annoCtrl = this;
 }]);
 
 })();

@@ -125,6 +125,10 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.input = {};
 	$rootScope.currentRoute = 'input';
 	
+	$scope.$watch('input.currentPrompt', function(value) {
+		$scope.$broadcast('newPrompt');
+	});
+	
     $scope.app.experience = vsvc.getExperienceByCategory($routeParams.category);
     
     $scope.input.promptModel = new PromptModel($scope.app.experience);

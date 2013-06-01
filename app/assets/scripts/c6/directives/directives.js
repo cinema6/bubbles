@@ -34,5 +34,13 @@ angular.module('c6.dir.screenJack',[])
 		//Resize content immediately when page is loded
 		$($window).resize();
 	}
+}])
+
+.directive('c6On', [function() {
+	return function($scope, $element, $attrs) {
+		$scope.$on($attrs.c6On, function() {
+			$element[$attrs.do]();
+		});
+	}
 }]);
 })();

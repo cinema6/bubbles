@@ -153,13 +153,21 @@
 		}])
 	
 	//End Animation (into Video else Categories)
-//	.animation('end-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
-//		return {
-//			start: function($oldView, done) {
-//				done(); // EDIT INTO ELSE & END OF TIMELINE
-//			}
-//		}
-//	}])
+	.animation('end-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
+		return {
+			start: function($oldView, done) {
+			if ($rootScope.currentRoute === 'experience'){
+
+			} else if ($rootScope.currentRoute === 'categories') {
+				
+			}
+
+
+
+				done(); // EDIT INTO ELSE & END OF TIMELINE
+			}
+		}
+	}])
 
 
 })();

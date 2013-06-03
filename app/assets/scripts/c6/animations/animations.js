@@ -156,17 +156,51 @@
 	.animation('end-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
-			if ($rootScope.currentRoute === 'experience'){
+			if ($rootScope.currentRoute === 'experience') {
+				$log.log('Animating from "end" to "experience"');
+				var endScreen	= $(".endScreen"),
+					videoPlayer	= document.getElementById("player"),
+					transition 	= $(".transition_blackFade"),
+					tl_endVid	= new TimelineLite({paused: true});
+
+				tl_endVid.to(endScreen, 2, {opacity: 0})
+		            .to(videoPlayer, 0.1, {display: "block"})
+		            .to(transition, 2, {opacity: 1}, "-=2")
+		            .to(videoPlayer, 2, {opacity: 1}, "-=0.25")
+		            .to(endScreen, 0.1, {display: "none"})
+		            .eventCallback('onComplete', done);
+
+		        tl_endVid.play();
+		        setTimeout('videoPlayer.play()', 2800);   
+		        tl_endVid.seek(0);
 
 			} else if ($rootScope.currentRoute === 'categories') {
+				$log.log('Animating from "end" to "categories"');
+				var endScreen 	= $(".endScreen"),
+					startScreen	= $(".startScreen"),
+					tl_endStart	= new TimelineLite({paused: true});	
 
+				//ANIMATION TIMELINE
+				tl_endStart.to(endScreen, 2, { 
+			        transformOrigin: "100% 0%", 
+			        rotation: "-90deg", 
+			        ease: Power3.easeIn, 
+			        alpha: 0
+			     })
+			     .to(startScreen, 2, {
+			        transformOrigin: "0% 0%",
+			        rotation: "0deg",
+			        ease: Power3.easeOut,
+			        alpha: 1
+			     }, "-=0.5")
+			     .eventCallback('onComplete', done);
+
+			     tl_endStart.play();
+			     tl_endStart.seek(0);
+			} else {
+				done();
 			}
-
-
-
-				done(); // EDIT INTO ELSE & END OF TIMELINE
-			}
-		}
+		}}
 	}])
 
 

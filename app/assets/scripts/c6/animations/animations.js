@@ -1,7 +1,7 @@
 (function() {
 	angular.module('c6.anim', [])
 	
-   //Categories Animations
+   //Categories Animations (into Input)
 	.animation('categories-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
@@ -28,7 +28,7 @@
 				        "opacity": "1"
 				      });
 				      $log.log("* Input Styles Reset *");
-				    };
+				    }
 
 					// ANIMATION TIMELINE //
 					tl_startInput.to(startScreen, 2, {
@@ -36,12 +36,10 @@
 				        rotation: "90deg", 
 				        ease: Power3.easeIn, 
 				        alpha: 0})
-
 				    .to(inputScreen, 2, {   
 				        rotation: "0deg", 
 				        ease: Power3.easeOut, 
 				        alpha: 1}, "-=0.5")
-
 					.eventCallback('onComplete', done);
 					
 					inputReset();
@@ -54,7 +52,7 @@
 		}
 	}])
 	
-   //Input Animations
+   //Input Animations (into Categories else Experience)
 	.animation('input-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
@@ -83,10 +81,10 @@
 
 				} else if ($rootScope.currentRoute === 'experience') {
 					$log.log('Animating from "input" to "experience"');
+					var	videoPlayer     = document.getElementById("player"),
 						tl_inputExp     = new TimelineLite({paused: true}),
 						inputScreen     = $(".inputScreen"),
-						transition      = $(".transition_blackFade"),
-						videoPlayer     = document.getElementById("player");
+						transition      = $(".transition_blackFade");						
 
 					// ANIMATION TIMELINE
 					tl_inputExp.to(inputScreen, 2, {opacity: 0})
@@ -105,74 +103,63 @@
 			}
 		}
 	}])
-	.animation('experience-partial-leave', ['$rootScope', function($rootScope) {
+
+	//Experience Animation (into End) --> do we need this???
+	.animation('experience-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
 				if ($rootScope.currentRoute === 'end') {
-					$log.log('Animating from "video" to "end"');
-						tl_vidEnd	= new TimelineLite({paused: true}),
-						videoPlayer	= document.getElementById("player"),
-						transition  = $(".transition_blackFade"),
-						endScreen	= $(".endScreen");
+//					$log.log('Animating from "video" to "end"');
+//					var	tl_vidEnd	= new TimelineLite({paused: true}),
+//						videoPlayer	= document.getElementById("player"),
+//						transition  = $(".transition_blackFade"),
+//						endScreen	= $(".endScreen");
 
 					// reset video styles for replaying the experience
-					function vidReset() {
-				      videoPlayer.style.display==="block";
-				      videoPlayer.style.opacity==="0";
-				      console.log("* Vid Styles Reset *");
-				    }
+//					function vidReset() {
+//				      videoPlayer.style.display==="block";
+//				      videoPlayer.style.opacity==="0";
+//				      console.log("* Vid Styles Reset *");
+//				    }
 
 				    // reset end screen styles !!! STILL NEEDS CROSS BROWSER STYLES, NOT JUST CHROME
-				    function endReset() {
-				      endScreen.css({
-				        "-webkit-transform": "rotate(0)", 
-				        "-webkit-transform-origin" : "100% 0%",
-				        "display": "none",
-				        "opacity": "0"
-				      })
-				      console.log("* End Styles Reset *");      
-				    }
+//				    function endReset() {
+//				      endScreen.css({
+//				        "-webkit-transform": "rotate(0)", 
+//				        "-webkit-transform-origin" : "100% 0%",
+//				        "display": "none",
+//				        "opacity": "0"
+//				      })
+//				      console.log("* End Styles Reset *");      
+//				    }
 
 					// ANIMATION TIMELINE
-					tl_vidEnd.to(endScreen, 0.1, {display: "block", opacity: "0"})
-             			.to(videoPlayer, 1.5, {opacity: 0})
-             			.to(transition, 2, {opacity: 0}, "-=0.5")
-             			.to(videoPlayer, 0.1, {display: "none"})
-             			.to(endScreen, 2, {opacity: 1}, "-=2")             
-						.eventCallback('onComplete', done);
+//					tl_vidEnd.to(endScreen, 0.1, {display: "block", opacity: "0"})
+//             			.to(videoPlayer, 1.5, {opacity: 0})
+//             			.to(transition, 2, {opacity: 0}, "-=0.5")
+//             			.to(videoPlayer, 0.1, {display: "none"})
+//             			.to(endScreen, 2, {opacity: 1}, "-=2")             
+//						.eventCallback('onComplete', done);
 
-						videoPlayer.addEventListener('ended', videoEnd, false);
-
-						vidReset();
-          				endReset();
-						tl_vidEnd.play(); 
-						setTimeout('videoPlayer.currentTime=0;', 5000); 
-          				tl_vidEnd.seek(0);
+//						vidReset();
+//          				endReset();
+//						tl_vidEnd.play(); 
+//          				tl_vidEnd.seek(0);
 				} else {
 					done();
 				}
 			}
 		}
-	}])
+		}])
 	
+	//End Animation (into Video else Categories)
+//	.animation('end-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
+//		return {
+//			start: function($oldView, done) {
+//				done(); // EDIT INTO ELSE & END OF TIMELINE
+//			}
+//		}
+//	}])
 
-	//
-	.animation('video-show', function() {
-		return {
-			start: function($playerDiv, done) {
-				// ANIMATE VIDEO PLAYER IN HERE! (Don't forget to move done() to the right place!)
-				done(); // <- THIS ONE!
-			}
-		}
-	})
-	
-	.animation('video-hide', function() {
-		return {
-			start: function($playerDiv, done) {
-				// ANIMATE VIDEO PLAYER OUT HERE! (Don't forget to move done() to the right place!)
-				done(); // <- THIS ONE!
-			}
-		}
-	})
 
 })();

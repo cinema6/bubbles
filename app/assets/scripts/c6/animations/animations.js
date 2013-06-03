@@ -1,8 +1,12 @@
 (function() {
 	angular.module('c6.anim', [])
+
+//								  // 
+//        PARTIALS ANIMATIONS     //
+//								  //
 	
-   //Categories Animations (into Input)
-	.animation('categories-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
+    //Categories Animations (into Input)
+	 .animation('categories-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
 				if($rootScope.currentRoute === 'input') {
@@ -11,7 +15,7 @@
 						startScreen     = $(".startScreen"),
 						inputScreen     = $(".inputScreen");
 					
-					// resets styles for replaying the experience
+					// resets styles
 					function inputReset() {
 				      inputScreen.css({
 				        "-webkit-transform": "rotate(-90deg)", 
@@ -50,15 +54,16 @@
 				}
 			}
 		}
-	}])
+	 }])
 	
-   //Input Animations (into Categories else Experience)
-	.animation('input-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
+    //Input Animations (into Categories else Experience)
+	 .animation('input-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
 				if ($rootScope.currentRoute === 'categories') {
 					$log.log('Animating from "input" to "categories"');
 					var tl_inputStart   = new TimelineLite({paused: true}),
+						videoPlayer		= document.getElementById("player"),
 						startScreen     = $(".startScreen"),
 						inputScreen     = $(".inputScreen");
 		
@@ -81,20 +86,17 @@
 
 				} else if ($rootScope.currentRoute === 'experience') {
 					$log.log('Animating from "input" to "experience"');
-					var	videoPlayer     = document.getElementById("player"),
-						tl_inputExp     = new TimelineLite({paused: true}),
+					var	tl_inputExp     = new TimelineLite({paused: true}),
 						inputScreen     = $(".inputScreen"),
 						transition      = $(".transition_blackFade");						
 
 					// ANIMATION TIMELINE
 					tl_inputExp.to(inputScreen, 2, {opacity: 0})
              			.to(transition, 2, {opacity: 1}, "-=1")
-             			.to(videoPlayer, 2, {display: "block", opacity: 1}, "-=1")
              			.to(inputScreen, 0.1, {display: "none"})
              			.eventCallback('onComplete', done);
 
              		tl_inputExp.play();
-       				setTimeout('videoPlayer.play()', 2800);
         			tl_inputExp.seek(0);	
 
 				} else {
@@ -102,58 +104,55 @@
 				}
 			}
 		} 
-	}])
+	 }])
 
-	//Experience Animation (into End) --> do we need this???
-	.animation('experience-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
+	//Experience Animations (into End Screen)
+	 .animation('experience-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
-				if ($rootScope.currentRoute === 'end') {
-//					$log.log('Animating from "video" to "end"');
-//					var	tl_vidEnd	= new TimelineLite({paused: true}),
-//						videoPlayer	= document.getElementById("player"),
-//						transition  = $(".transition_blackFade"),
-//						endScreen	= $(".endScreen");
+				if($rootScope.currentRoute === 'end') {
+					$log.log('Animating from "experience" to "end"');
+					var tl_expEnd   = new TimelineLite({paused: true}),
+						endScreen   = $(".endScreen"),
+						transition  = $(".transition_blackFade");
+					
+					// reset styles
+					function vidReset() {
+				      videoPlayer.style.display==="block";
+				      videoPlayer.style.opacity==="0";
+				      console.log("* Vid Styles Reset *");
+				    }
 
-					// reset video styles for replaying the experience
-//					function vidReset() {
-//				      videoPlayer.style.display==="block";
-//				      videoPlayer.style.opacity==="0";
-//				      console.log("* Vid Styles Reset *");
-//				    }
+				    function endReset() {
+				      endScreen.css({
+				        "-webkit-transform": "rotate(0)", 
+				        "-webkit-transform-origin" : "100% 0%",
+				        "display": "none",
+				        "opacity": "0"
+				      });
+				      console.log("* End Styles Reset *");      
+				    }
 
-				    // reset end screen styles !!! STILL NEEDS CROSS BROWSER STYLES, NOT JUST CHROME
-//				    function endReset() {
-//				      endScreen.css({
-//				        "-webkit-transform": "rotate(0)", 
-//				        "-webkit-transform-origin" : "100% 0%",
-//				        "display": "none",
-//				        "opacity": "0"
-//				      })
-//				      console.log("* End Styles Reset *");      
-//				    }
-
-					// ANIMATION TIMELINE
-//					tl_vidEnd.to(endScreen, 0.1, {display: "block", opacity: "0"})
-//             			.to(videoPlayer, 1.5, {opacity: 0})
-//             			.to(transition, 2, {opacity: 0}, "-=0.5")
-//             			.to(videoPlayer, 0.1, {display: "none"})
-//             			.to(endScreen, 2, {opacity: 1}, "-=2")             
-//						.eventCallback('onComplete', done);
-
-//						vidReset();
-//          				endReset();
-//						tl_vidEnd.play(); 
-//          				tl_vidEnd.seek(0);
+					// ANIMATION TIMELINE //
+					tl_expEnd.to(transition, 0.1, {opacity: "1"})
+					 .to(endScreen, 0.1, {display: "block"})
+		             .to(transition, 5, {opacity: 0})
+		             .to(endScreen, 5, {opacity: 1})      
+					 .eventCallback('onComplete', done);
+					
+					vidReset();
+          			endReset();
+					tl_expEnd.play();
+					tl_expEnd.seek(0);
 				} else {
 					done();
 				}
 			}
 		}
-		}])
+	 }])
 	
 	//End Animation (into Video else Categories)
-	.animation('end-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
+	 .animation('end-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
 			if ($rootScope.currentRoute === 'experience') {
@@ -201,7 +200,47 @@
 				done();
 			}
 		}}
-	}])
+	 }])
+
+//								  // 
+//        VIDEO ANIMATIONS        //
+//								  //
+
+	.animation('video-show', function() {
+		return {
+			start: function($playerDiv, done) {
+				console.log('Fade in Video Experience');
+				var videoPlayer	= document.getElementById("player"), 
+				tl_vidIn 		= new TimelineLite({paused: true});
+
+				//ANIMATION TIMELINE
+				tl_vidIn.to(videoPlayer, 2, {display: "block", opacity: 1}, "+=2")
+				.eventCallback('onComplete', done);
+
+				tl_vidIn.play();
+				setTimeout(function() {
+       				videoPlayer.play()
+       			}, 1800);
+       			tl_vidIn.seek(0);
+			}	
+		}
+	})
+
+	.animation('video-hide', function() {
+		return {
+			start: function($playerDiv, done) {
+				console.log('Fade Out Video Experience');
+				var videoPlayer = document.getElementById("player"),
+				tl_vidOut		= new TimelineLite({paused: true});
+
+				tl_vidOut.to(videoPlayer, 1.5, {opacity: 0})
+				.to(videoPlayer, 0.1, {display: "none"})
+				.eventCallback('onComplete', done);
+
+				tl_vidOut.play();
+			}
+		}
+	})
 
 
 })();

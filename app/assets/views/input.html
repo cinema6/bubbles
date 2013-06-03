@@ -1,5 +1,4 @@
-<!--        INPUT SCREEN      -->
-<div class="inputScreen">
+<div class="inputScreen" c6-resize>
     <!--artwork-->
      <header class="inputScreen__logo"><h1 class="ir">Screenjacked</h1></header>           
      <div class="inputScreen__bgArtwork">&nbsp;</div>
@@ -32,13 +31,13 @@
             </button>
             
             <button
-            	class="question__btnStart"
-            	ng-if="input.isDone()"
-            	ng-disabled="!input.currentResponse()"
-            	ng-click="input.startExperience();">
-            	<span class="ir">Start</span>
+                class="question__btnStart"
+                ng-if="input.isDone()"
+                ng-disabled="!input.currentResponse()"
+                ng-click="input.startExperience();">
+                <span class="ir">Start</span>
             </button>
-            
+
             <button
             	class="question__btnPrevious"
 				ng-disabled="!input.canGoBack()"
@@ -46,6 +45,7 @@
 				name="prev">
 				<span class="ir">Prev</span>
 			</button>
+
             <h6 class="question__characterCount">{{input.promptModel.defSizeLimit - input.promptModel.responses[input.currentPromptIndex()].length}}</h6>
         </form>
 

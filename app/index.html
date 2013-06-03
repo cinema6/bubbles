@@ -20,10 +20,17 @@
       
       <div ng-view ng-animate="currentRoute + '-partial'"></div>
       
-      <div ng-controller="C6AnnotationsCtrl" ng-show="app.inExperience" ng-animate="'video'">
-        <video id="player" c6video c6-src="{{app.experience.src}}" preload="auto" controls></video>
+      <div ng-controller="C6AnnotationsCtrl" ng-show="appCtrl.inExperience" ng-animate="'video'">
+        <video
+        	id="player"
+        	c6video
+        	c6-src="{{appCtrl.experience.src}}"
+        	on="timeupdate: annoCtrl.setActiveAnnotations, ended: annoCtrl.goToEnd"
+        	preload="auto"
+        	controls>
+        </video>
         <ul>
-          <li ng-repeat="a in anno.model.annotations" ng-show="anno.annotationIsActive(a.index)" ng-class="'annotation ' + {{a.cls}}">
+          <li ng-repeat="a in annoCtrl.model.annotations" ng-show="annoCtrl.annotationIsActive(a.index)" ng-class="'annotation ' + {{a.cls}}">
             {{a.text}}
           </li>
         </ul>

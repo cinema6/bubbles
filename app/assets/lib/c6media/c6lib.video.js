@@ -220,6 +220,28 @@ angular.module('c6lib.video', [])
 			c6video.src(src);
 		}
 	});
+
+	// Respond to events specified from attributes
+	$attrs.$observe('on', function(on) {
+		if (on) {
+			var pairs = on.split(',');
+
+			pairs.forEach(function(pair) {
+				var keyValue = pair.split(':'),
+					key = keyValue[0].trim(),
+					valuePaths = keyValue[1].trim().split('.'),
+					targetFunction = $scope.$parent;
+
+				valuePaths.forEach(function(path) {
+					targetFunction = targetFunction[path];
+				});
+
+				c6video.on(key, function(event, player) {
+					targetFunction(event, player);
+				});
+			});
+		}
+	});
 	// Emit an event if the player leaves the DOM
 	$scope.$on('$destroy', function() {
 		$scope.$emit('c6video-destroyed', $attrs.id);
@@ -247,7 +269,8 @@ angular.module('c6lib.video', [])
 	return {
 		controller: 'C6VideoController',
 		scope: {
-			c6Src: '@'
+			c6Src: '@',
+			on: '@'
 		}
 	};
 }]);

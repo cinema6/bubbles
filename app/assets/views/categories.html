@@ -9,7 +9,7 @@
         <ul class="category__group">
             <li class="category__item" ng-repeat="category in categories">
                 <button class="category__frame" onclick="location.href='#/entry/{{category | lowercase}}';">
-                    <img class="category__art" src="assets/media/vidThumb_{{category}}.jpg">
+                    <img class="category__art" ng-src="assets/media/vidThumb_{{category}}.jpg">
                 </button>
                 <h3 class="category__name">{{category}}</h3>
             </li>

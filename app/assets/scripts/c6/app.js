@@ -46,11 +46,17 @@ angular.module('c6.app', dependencies)
     $routeProvider
       .when('/', {
         templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
-        controller: 'c6CategoryListCtrl'
+        controller: 'C6CategoryListCtrl'
       })
       .when('/entry/:category', {
-        templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
-        controller: 'c6ExperienceCtrl'
+        templateUrl: __C6_APP_BASE_URL__ + '/views/input.html',
+        controller: 'C6InputCtrl'
+        //controller: 'c6ExperienceCtrl'
+      })
+      .when('/experience', {})
+      .when('/end', {
+	      templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
+	      controller: 'C6EndCtrl'
       })
       .otherwise({
         redirectTo: '/'

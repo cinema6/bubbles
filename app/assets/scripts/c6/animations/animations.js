@@ -24,6 +24,8 @@
 					.eventCallback('onComplete', done);
 					
 					tl_startInput.play();
+				} else {
+					done();
 				}
 			}
 		}
@@ -53,10 +55,44 @@
 					}, "-=0.5")
 					
 					tl_inputStart.play();
+				} else if ($rootScope.currentRoute === 'experience') {
+					// ANIMATE OUT OF VIDEO HERE (Don't forget to move done() to the right place!)
+					done(); // <- THIS ONE!
+				} else {
+					done();
 				}
 			}
 		}
-	}]);
-
+	}])
+	.animation('experience-partial-leave', ['$rootScope', function($rootScope) {
+		return {
+			start: function($oldView, done) {
+				if ($rootScope.currentRoute === 'end') {
+					// ANIMATE END IN HERE! (Don't forget to move done() to the right place!)
+					done(); // <- THIS ONE!
+				} else {
+					done();
+				}
+			}
+		}
+	}])
+	
+	.animation('video-show', function() {
+		return {
+			start: function($playerDiv, done) {
+				// ANIMATE VIDEO PLAYER IN HERE! (Don't forget to move done() to the right place!)
+				done(); // <- THIS ONE!
+			}
+		}
+	})
+	
+	.animation('video-hide', function() {
+		return {
+			start: function($playerDiv, done) {
+				// ANIMATE VIDEO PLAYER OUT HERE! (Don't forget to move done() to the right place!)
+				done(); // <- THIS ONE!
+			}
+		}
+	})
 
 })();

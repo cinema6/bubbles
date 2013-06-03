@@ -132,13 +132,11 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.app.experience = vsvc.getExperienceByCategory($routeParams.category);
     
     $scope.input.promptModel = new PromptModel($scope.app.experience);
-    console.log($scope.input.promptModel);
     
     $scope.input.currentPrompt = $scope.input.promptModel.prompts[0];
     $scope.input.currentResponse = function() {
 	    return $scope.input.promptModel.responses[$scope.input.currentPromptIndex()];
     }
-    console.log($scope.input.currentPrompt);
     $scope.input.currentPromptIndex = function() {
 	    return $scope.input.promptModel.prompts.indexOf($scope.input.currentPrompt);
     }

@@ -19,6 +19,7 @@
                     	type="text"
                     	name="response"
                     	ng-model="input.promptModel.responses[input.currentPromptIndex()]"
+                    	maxlength="{{input.promptModel.defSizeLimit}}"
                     	c6-on="newPrompt" do="focus"></input>
                 </li>
             </ul>
@@ -45,7 +46,7 @@
 				name="prev">
 				<span class="ir">Prev</span>
 			</button>
-            <h6 class="question__characterCount">12</h6>
+            <h6 class="question__characterCount">{{input.promptModel.defSizeLimit - input.promptModel.responses[input.currentPromptIndex()].length}}</h6>
         </form>
 
         <footer class="progressDock">Page {{input.currentPromptIndex() + 1}} of {{input.totalPrompts()}}</footer>

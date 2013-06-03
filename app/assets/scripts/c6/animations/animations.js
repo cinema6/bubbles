@@ -101,7 +101,7 @@
 					done();
 				}
 			}
-		}
+		} 
 	}])
 
 	//Experience Animation (into End) --> do we need this???
@@ -159,7 +159,7 @@
 			if ($rootScope.currentRoute === 'experience'){
 
 			} else if ($rootScope.currentRoute === 'categories') {
-				
+
 			}
 
 

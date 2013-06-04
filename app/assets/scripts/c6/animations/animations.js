@@ -220,23 +220,19 @@
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($playerDiv, done) {
-				if ($rootScope.currentRoute === 'experience') {
-					$log.log('Fade in Video Experience');
-					var videoPlayer	= document.getElementById("player"), 
-					tl_vidIn 		= new TimelineLite({paused: true});
+				$log.log('Fade in Video Experience');
+				var videoPlayer	= document.getElementById("player"), 
+				tl_vidIn 		= new TimelineLite({paused: true});
 
-					//ANIMATION TIMELINE
-					tl_vidIn.to(videoPlayer, 2, {display: "block", opacity: 1}, "+=2")
-					.eventCallback('onComplete', done);
+				//ANIMATION TIMELINE
+				tl_vidIn.to(videoPlayer, 2, {display: "block", opacity: 1}, "+=2")
+				.eventCallback('onComplete', done);
 
-					tl_vidIn.play();
-					setTimeout(function() {
-	       				videoPlayer.play()
-	       			}, 1800);
-	       			tl_vidIn.seek(0);
-				} else {
-					done();
-				}
+				tl_vidIn.play();
+				setTimeout(function() {
+       				videoPlayer.play()
+       			}, 1800);
+       			tl_vidIn.seek(0);
 			}	
 		}
 	}])
@@ -244,7 +240,6 @@
 	.animation('video-hide', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($playerDiv, done) {
-				if ($rootScope.currentRoute === 'end') {
 				$log.log('Fade Out Video Experience');
 				var videoPlayer = document.getElementById("player"),
 				tl_vidOut		= new TimelineLite({paused: true});
@@ -255,9 +250,6 @@
 
 				tl_vidOut.play();
 				tl_vidOut.seek(0);
-				} else {
-					done();
-				}
 			}
 		}
 	}])

@@ -102,16 +102,8 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.appCtrl = this;
 	
 	$scope.$on('$routeChangeSuccess', function() {
-		if ($location.path() === '/experience') {
-			if (!self.experience) {
-				$location.path('/');
-			} else {
-				self.inExperience = true;
-			}
-		} else {
-			if (self.inExperience) {
-				self.inExperience = false;
-			}
+		if (!$location.path().match(/\/experience/) && self.inExperience) {
+			self.inExperience = false;
 		}
 	});
 }])
@@ -119,6 +111,8 @@ angular.module('c6.ctrl',['c6.svc'])
                                         'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
     $log.log('Creating cCategoryListCtrl');
 	$rootScope.currentRoute = 'categories';
+	
+	$scope.appCtrl.experience = null;
 	
     var obj = vsvc.getCategories();
     $scope.categories = obj.categories;
@@ -131,7 +125,7 @@ angular.module('c6.ctrl',['c6.svc'])
 		$scope.$broadcast('newPrompt');
 	});
 	
-    $scope.appCtrl.experience = vsvc.getExperienceByCategory($routeParams.category);
+    $scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
     
     this.promptModel = new PromptModel($scope.appCtrl.experience);
     
@@ -162,10 +156,17 @@ angular.module('c6.ctrl',['c6.svc'])
     }
     this.startExperience = function() {
     	$scope.appCtrl.experience.responses = this.promptModel.responses;
-	    $scope.appCtrl.goToRoute('/experience');
+	    $scope.appCtrl.goToRoute('/entry/' + $routeParams.category + '/experience');
     }
     
     $scope.inputCtrl = this;
+}])
+.controller('C6ExperienceCtrl', ['$log', '$scope', '$routeParams', 'c6VideoListingService', function($log, $scope, $routeParams, vsvc) {
+    $log.log('Creating C6ExperienceCtrl');
+    
+    $scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
+    
+    $scope.appCtrl.inExperience = true;
 }])
 .controller('C6EndCtrl', ['$log', '$scope', '$rootScope', function($log, $scope, $rootScope) {
     $log.log('Creating C6EndCtrl');
@@ -173,7 +174,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	
 	$scope.endCtrl = this;
 }])
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', function($log, $scope, $rootScope, $location){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$routeParams', function($log, $scope, $rootScope, $location, $routeParams){
     $log.log('Creating C6AnnotationsCtrl');
     var self = this;
     
@@ -231,9 +232,7 @@ angular.module('c6.ctrl',['c6.svc'])
 		if (yes) {
 			$log.log('Starting experience.');
 			$rootScope.currentRoute = 'experience';
-			interpolateTemplates($scope.appCtrl.experience.responses);
-			$scope.video.player.currentTime = 0;
-			$scope.video.player.play();
+			if ($scope.appCtrl.experience.responses) { interpolateTemplates($scope.appCtrl.experience.responses); }
 		} else {
 			$scope.video.player.pause();
 		}
@@ -269,7 +268,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 	
 	this.goToEnd = function() {
-		$location.path('/end');
+		$location.path('/entry/' + $routeParams.category + '/end');
 	}
     
     this.annotationIsActive = function(index) {

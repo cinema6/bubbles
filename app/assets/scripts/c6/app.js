@@ -53,7 +53,9 @@ angular.module('c6.app', dependencies)
         controller: 'C6InputCtrl'
         //controller: 'c6ExperienceCtrl'
       })
-      .when('/experience', {})
+      .when('/experience', {
+	      template: '<!-- Foo -->'
+      })
       .when('/end', {
 	      templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
 	      controller: 'C6EndCtrl'

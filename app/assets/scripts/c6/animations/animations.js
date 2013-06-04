@@ -110,7 +110,6 @@
 	 .animation('experience-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($playerDiv, done) {
-				$log.log('test');
 				if($rootScope.currentRoute === 'end') {
 					$log.log('Animating from "experience" to "end"');
 					var tl_expEnd   = new TimelineLite({paused: true}),

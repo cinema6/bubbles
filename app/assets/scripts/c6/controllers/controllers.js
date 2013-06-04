@@ -128,6 +128,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
     
     this.promptModel = new PromptModel($scope.appCtrl.experience);
+    if ($scope.appCtrl.experience.responses) { this.promptModel.responses = $scope.appCtrl.experience.responses; }
     
     this.currentPrompt = this.promptModel.prompts[0];
     this.currentResponse = function() {

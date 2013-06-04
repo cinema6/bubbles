@@ -136,7 +136,6 @@
 				        "-ms-transform-origin" : "100% 0%",
 				        "-o-transform-origin" : "100% 0%",
 				        "transform-origin" : "100% 0%",
-				        "display": "none",
 				        "opacity": "0"
 				      });
 				      console.log("* End Styles Reset *");      
@@ -150,9 +149,8 @@
 				    }
 
 					// ANIMATION TIMELINE //
-					tl_expEnd.to(endScreen, 0.1, {opacity: 0})
-						.to(transition, 2, {opacity: 0})
-						.to(endScreen, 2, {opacity: 1}, "-=1")   
+					tl_expEnd.to(transition, 3, {opacity: 0})
+						.to(endScreen, 2, {opacity: 1}, "-=2.5")   
 					 	.eventCallback('onComplete', done);
 					
 					fadeReset();
@@ -177,10 +175,18 @@
 					transition 	= $(".transition_blackFade"),
 					tl_endVid	= new TimelineLite({paused: true});
 
+				function endReset() {
+				      endScreen.css({
+				        "opacity": "1",
+				      });
+				      console.log("* End Styles Reset *");      
+				    }	
+
 				tl_endVid.to(endScreen, 2, {opacity: 0})
              			.to(transition, 2, {opacity: 1}, "-=1")
              			.eventCallback('onComplete', done);
 
+             	endReset();
 		        tl_endVid.play(); 
 		        tl_endVid.seek(0);
 
@@ -190,6 +196,23 @@
 					startScreen	= $(".startScreen"),
 					tl_endStart	= new TimelineLite({paused: true});	
 
+				function startReset() {
+					startScreen.css({
+				        "-webkit-transform": "rotate(90deg)", 
+				        "-moz-transform": "rotate(90deg)", 
+				        "-ms-transform": "rotate(90deg)", 
+				        "-o-transform": "rotate(90deg)", 
+				        "transform": "rotate(90deg)", 
+				        "-webkit-transform-origin" : "0% 0%",
+				        "-moz-transform-origin" : "0% 0%",
+				        "-ms-transform-origin" : "0% 0%",
+				        "-o-transform-origin" : "0% 0%",
+				        "transform-origin" : "0% 0%",
+				        "opacity": "0",
+				        "display": "block"
+				      });
+				}
+
 				//ANIMATION TIMELINE
 				tl_endStart.to(endScreen, 2, { 
 			        transformOrigin: "100% 0%", 
@@ -198,13 +221,13 @@
 			        alpha: 0
 			     })
 			     .to(startScreen, 2, {
-			        transformOrigin: "0% 0%",
 			        rotation: "0deg",
 			        ease: Power3.easeOut,
 			        alpha: 1
 			     }, "-=0.5")
 			     .eventCallback('onComplete', done);
 
+			     startReset();
 			     tl_endStart.play();
 			     tl_endStart.seek(0);
 			} else {
@@ -249,7 +272,7 @@
 				var videoPlayer = document.getElementById("player"),
 				tl_vidOut		= new TimelineLite({paused: true});
 
-				tl_vidOut.to(videoPlayer, 1.5, {opacity: 0})
+				tl_vidOut.to(videoPlayer, 1.5, {opacity: 0}, "-=2")
 				.to(videoPlayer, 0.1, {display: "none"})
 				.eventCallback('onComplete', done);
 

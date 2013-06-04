@@ -173,20 +173,13 @@
 			if ($rootScope.currentRoute === 'experience') {
 				$log.log('Animating from "end" to "experience"');
 					transition 	= $(".transition_blackFade"),
+					endScreen	= $(".endScreen"),
 					tl_endVid	= new TimelineLite({paused: true});
 
-				function endReset() {
-				      endScreen.css({
-				        "opacity": "1",
-				      });
-				      console.log("* End Styles Reset *");      
-				    }	
-
 				tl_endVid.to(endScreen, 2, {opacity: 0})
-             			.to(transition, 2, {opacity: 1}, "-=1")
-             			.eventCallback('onComplete', done);
+             		.to(transition, 2, {opacity: 1}, "-=1")
+           			.eventCallback('onComplete', done);
 
-             	endReset();
 		        tl_endVid.play(); 
 		        tl_endVid.seek(0);
 

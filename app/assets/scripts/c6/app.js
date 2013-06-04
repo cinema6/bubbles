@@ -37,7 +37,6 @@ var dependencies = [
     'c6.svc',
     'c6.anim',
     'c6.dir.screenJack',
-    //'c6.dir.videoNode'
     'c6lib.video'
 ];
 
@@ -51,15 +50,15 @@ angular.module('c6.app', dependencies)
       .when('/entry/:category', {
         templateUrl: __C6_APP_BASE_URL__ + '/views/input.html',
         controller: 'C6InputCtrl'
-        //controller: 'c6ExperienceCtrl'
       })
-      .when('/experience', {
-	      template: '<!-- Foo -->'
-      })
-      .when('/end', {
-	      templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
-	      controller: 'C6EndCtrl'
-      })
+	      .when('/entry/:category/experience', {
+		      template: '<!-- Foo -->',
+		      controller: 'C6ExperienceCtrl'
+	      })
+	      .when('/entry/:category/end', {
+		      templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
+		      controller: 'C6EndCtrl'
+	      })
       .otherwise({
         redirectTo: '/'
       });

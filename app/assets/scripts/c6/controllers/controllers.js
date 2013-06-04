@@ -89,7 +89,7 @@ function AnnotationsModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', function($log, $scope, $location) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$routeParams', function($log, $scope, $location, $routeParams) {
 	$log.log('Creating C6AppCtrl');
 	var self = this;
 	
@@ -97,6 +97,9 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.inExperience = false;
 	this.goToRoute = function(route) {
 		$location.path(route);
+	}
+	this.category = function() {
+		return $routeParams.category;
 	}
 	
 	$scope.appCtrl = this;

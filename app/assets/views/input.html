@@ -18,6 +18,7 @@
                         class="question__userAnswer"
                         type="text"
                         name="response"
+                        autocomplete="off"
                         ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         maxlength="{{inputCtrl.promptModel.defSizeLimit}}"
                         c6-on="newPrompt" do="focus"></input>

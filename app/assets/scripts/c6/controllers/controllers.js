@@ -159,6 +159,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	    return (!this.isDone() && this.currentResponse());
     }
     this.startExperience = function() {
+		$scope.$broadcast('experienceStart');
     	$scope.appCtrl.experience.responses = this.promptModel.responses;
 	    $scope.appCtrl.goToRoute('/entry/' + $routeParams.category + '/experience');
     }

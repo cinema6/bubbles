@@ -9,7 +9,7 @@
         <button class="inputScreen__btnClose" ng-click="appCtrl.goToRoute('/');"><span class="ir">Close</span></button> 
         
         <form class="content">
-            <h1 class="inputScreen__directions">Fill in the blank</h1>
+            <h1 class="inputScreen__directions">Fill in the blank {{currentRoute}}</h1>
 
             <ul class="question__group">
                 <li class="question">
@@ -21,7 +21,8 @@
                         autocomplete="off"
                         ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         maxlength="{{inputCtrl.promptModel.defSizeLimit}}"
-                        c6-on="newPrompt" do="focus"></input>
+                        ng-disabled="appCtrl.inExperience"
+                        c6-on="newPrompt: {$this.focus()}, experienceStart: {$this.prop('disabled', true);}"></input>
                 </li>
             </ul>
             <button

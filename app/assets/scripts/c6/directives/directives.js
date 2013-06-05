@@ -39,12 +39,52 @@ angular.module('c6.dir.screenJack',[])
 	}
 }])
 
-.directive('c6On', [function() {
-	return function($scope, $element, $attrs) {
-		$scope.$on($attrs.c6On, function() {
-			$element[$attrs.do]();
-		});
-	}
+.directive('c6On', ['$log', function($log) {
+	return {
+		scope: true,
+		link: function($scope, $element, $attrs) {
+			$scope.$this = $element;
+			
+			var events = [],
+				expressions = [];
+			
+			for (var i = 0, string = $attrs.c6On, length = string.length, onEvent = true, onExpression = false, curEvent = '', curExpression = ''; i < length; i++) {
+				var curChar = string.charAt(i);
+				
+				if (onEvent) {
+					if (curChar !== ':') {
+						curEvent += curChar;
+					} else {
+						onEvent = false;
+						events.push(curEvent);
+						curEvent = '';
+					}
+				} else if (onExpression) {
+					if (curChar !== '}') {
+						curExpression += curChar;
+					} else {
+						onExpression = false;
+						expressions.push(curExpression);
+						curExpression = '';
+					}
+				} else {
+					if (curChar === '{') {
+						onExpression = true;
+					} else if ([' ', ',', '{'].indexOf(curChar) === -1) {
+						curEvent += curChar;
+						onEvent = true;
+					}
+				}
+			}
+			
+			events.forEach(function(event, i) {
+				$scope.$on(event, function() {
+					$log.log('c6-on responding to ' + event);
+					$scope.$eval(expressions[i]);
+				});
+			});
+		}
+	} 
 }])
 
 .directive('c6Share', ['$window', '$document', '$location', function($window, $document, $location) {

@@ -44,5 +44,33 @@ angular.module('c6.dir.screenJack',[])
 			$element[$attrs.do]();
 		});
 	}
+}])
+
+.directive('c6Share', ['$window', '$document', '$location', function($window, $document, $location) {
+	return function(scope, element, attrs) {		
+		element.click(function() {
+			var config = {
+				url: encodeURIComponent(attrs.shareUrl? attrs.shareUrl : $location.absUrl()),
+				title: encodeURIComponent(attrs.shareTitle? attrs.shareTitle : $document.attr('title')),
+				description: attrs.shareDescription? encodeURIComponent(attrs.shareDescription) : null,
+				image: attrs.shareImage? encodeURIComponent(attrs.shareImage) : null
+			};
+			
+			if (attrs.c6Share === 'facebook') {
+				var url = 'http://www.facebook.com/sharer.php?s=100&p[title]='+ config.title
+					+ '&p[summary]=' + config.description
+					+ '&p[url]=' + config.url
+					+ '&p[images][0]=' + config.image
+					+ '&';
+				
+				$window.open(url, 'sharer', 'toolbar=0, status=0, width=548, height=325');
+			} else if (attrs.c6Share === 'twitter') {
+				var data = config.description? ('text=' + config.description + encodeURIComponent(': ') + config.url) : ('url=' + config.url);
+				var url = 'https://twitter.com/share?' + data;
+				
+				$window.open(url, 'sharer', 'toolbar=0, status=0, width=550, height=450');
+			}
+		});
+	}
 }]);
 })();

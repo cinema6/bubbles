@@ -22,7 +22,7 @@
                         ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         maxlength="{{inputCtrl.promptModel.defSizeLimit}}"
                         ng-disabled="appCtrl.inExperience"
-                        c6-on="newPrompt: {$this.focus()}, experienceStart: {$this.prop('disabled', true);}"></input>
+                        c6-on="newPrompt: {$this.focus()}, experienceStart: {$this.prop('disabled', true); $this.blur();}"></input>
                 </li>
             </ul>
             <button

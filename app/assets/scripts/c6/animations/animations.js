@@ -8,6 +8,9 @@
     //Categories Animations (into Input)
 	 .animation('categories-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
+			setup: function() {
+				
+			},
 			start: function($oldView, done) {
 				if($rootScope.currentRoute === 'input') {
 					$log.log('Animating from "categories" to "input"');

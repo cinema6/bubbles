@@ -31,6 +31,7 @@ angular.module('c6.dir.screenJack',[])
 			$element.height(winH).width(winW);
 			$(".shareMenu").height(54 * scaleFactor).width(1026 * scaleFactor).css("margin-left", ((1026 * scaleFactor) / -2)); 
 
+
 		});
 		
 		//Resize content immediately when page is loded

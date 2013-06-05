@@ -10,6 +10,7 @@ angular.module('c6.svc',[])
     service.getCategories = function() {
         return { 'categories' : [
                         'Action',
+                        'Pets',
                         'Politics',
                         'Romance',
                         'SciFi-Fantasy',
@@ -133,6 +134,58 @@ angular.module('c6.svc',[])
                         { 'ts': 83,'template':'${2}', 'duration' : 3 },
                         { 'ts': 84,'template':'${7} ${8}', 'duration' : 2 },
                         { 'ts': 95,'template':'I just took a ${7} in my pants', 'duration' : 8 }
+                    ]
+                }
+            };
+        }
+        if (category === 'pets') {
+            return {
+                'id'         : '4',
+                'title'      : 'Grumpy Cat',
+                'views'      : 1000,
+                'src'         : [
+                                   {
+                                    'type': 'video/webm',
+                                    'src': baseUrl + '/media/grumpy_cat.webm'
+                                   },
+                                   {
+                                    'type': 'video/mp4',
+                                    'src': baseUrl + '/media/grumpy_cat.mp4'
+                                   }
+                                 ],
+                'defSizeLimit': 32,
+                'prompts'     : [
+                    'vegetable',
+                    'food condiment',
+                    'type of meat',
+                    'family relation',
+                    'animal',
+                    'loud sound (all caps)',
+                    'type of vehicle',
+                    'plural noun',
+                    'male name',
+                    'body part'
+                    ],
+                'annotations' : {
+                    'options' : {
+                        'type'      : 'bubble',
+                        'duration'  : 4,
+                        'cls'     : ['grumpy-${index}']
+                        },
+                     'notes'  : [
+                        { 'ts':  2,'template':'Dude', 'duration': 5 },
+                        { 'ts':  4,'template':'Stop it', 'duration' : 3 },
+                        { 'ts':  9,'template':'Your finger smells like ${1}' },
+                        { 'ts': 13,'template':'Seriously, did you bathe in rotten ${2}' },
+                        { 'ts': 18,'template':'Ok, ${3}-bag, I\'m getting pissed!' },
+                        { 'ts': 23,'template':'You ${4} of a ${5}!', 'duration' : 3 },
+                        { 'ts': 32,'template':'That\'s it, here comes the pain!', 'duration' : 3 },
+                        { 'ts': 35,'template':'BOOM-${6} goes the dynamite!' },
+                        { 'ts': 41,'template':'Its no use' },
+                        { 'ts': 43,'template':'Your fingers move like a speeding ${7} carrying ${8}', 'duration': 8 },
+                        { 'ts': 46,'template':'But listen to me now ${5} fingers', 'duration' : 5 },
+                        { 'ts': 49,'template':'I will have vengance in this life or the next', 'duration' : 2 },
+                        { 'ts': 52,'template':'My name is, ${9} Maxiums ${10}-daggers, Gladiator Cat!!!', 'duration' : 10 }
                     ]
                 }
             };

@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="assets/styles/main.css">
     <link rel="stylesheet" href="assets/styles/sj_main.css">
     <link rel="stylesheet" media="screen and (max-width: 710px)" href="../css/710.css">
+    
+    <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     <!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
   </head>
@@ -30,7 +33,7 @@
         	controls>
         </video>
         <ul>
-          <li ng-repeat="a in annoCtrl.model.annotations" ng-show="annoCtrl.annotationIsActive(a.index)" ng-class="'annotation ' + {{a.cls}}">
+          <li ng-repeat="a in annoCtrl.model.annotations" ng-show="annoCtrl.annotationIsActive(a.index)" ng-class="{{a.cls}}">
             {{a.text}}
           </li>
         </ul>

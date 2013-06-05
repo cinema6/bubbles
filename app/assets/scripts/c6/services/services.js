@@ -22,7 +22,7 @@ angular.module('c6.svc',[])
         if (category === 'action') {
             return {
                 'id'         : '2',
-                'title'      : 'Madcap Hilarity',
+                'title'      : 'Battle for Revenge',
                 'views'      : 1000,
                 'src'         : baseUrl + '/media/bruce_lee',
                 'defSizeLimit': 32,
@@ -42,7 +42,7 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
-                        'cls'     : ['lee-${index}']
+                        'cls'     : ['lee-${index}', 'annotation__action']
                         },
                      'notes'  : [
                         { 'ts':  7,'template':'${1}', 'duration':1 },
@@ -65,7 +65,7 @@ angular.module('c6.svc',[])
                         { 'ts':125,'template':'${10}', 'duration':2 },
                         { 'ts':128,'template':'That made no sense', 'duration':2 },
                         { 'ts':130,'template':'${6}?', 'duration':2 },
-                        { 'ts':132,'template':'${2} ${3}!', 'duration':2 }
+                        { 'ts':131,'template':'${2} ${3}!', 'duration':2 }
                     ]
                 }
             };
@@ -93,7 +93,7 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
-                        'cls'     : ['lotr-${index}']
+                        'cls'     : ['lotr-${index}', 'annotation__scifi-fantasy']
                         },
                      'notes'  : [
                         { 'ts':  3,'template':'I\'ll always remember', 'duration': 5 },
@@ -140,7 +140,7 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'       : 'bubble',
                         'duration'   : 4,
-                        'cls'        : ['notebook-${index}']
+                        'cls'        : ['notebook-${index}', 'annotation__romance']
                     },
                     'notes' : [
                        { 'ts':11,'template':'Weird, smells like ${1}!' },

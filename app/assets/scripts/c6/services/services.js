@@ -25,7 +25,7 @@ angular.module('c6.svc',[])
                 'title'      : 'Battle for Revenge',
                 'views'      : 1000,
                 'src'         : baseUrl + '/media/bruce_lee',
-                'defSizeLimit': 32,
+                'defSizeLimit': 24,
                 'prompts'     : [
                     'Salutation',
                     'Animal',
@@ -52,7 +52,7 @@ angular.module('c6.svc',[])
                         { 'ts': 22,'template':'${2} ${3}' },
                         { 'ts': 39,'template':'Get Out' },
                         { 'ts': 41,'template':'Or I will crush your ${4} into ${5}', 'duration':2 },
-                        { 'ts': 52,'template':'${4}!!!' },
+                        { 'ts': 52,'template':'${4}!!!', 'duration':2 },
                         { 'ts': 62,'template':'${5}!!!' },
                         { 'ts': 78,'template':'${6}!!!', 'duration':2 },
                         { 'ts': 86,'template':'${6}???', 'duration':2 },
@@ -65,7 +65,7 @@ angular.module('c6.svc',[])
                         { 'ts':125,'template':'${10}', 'duration':2 },
                         { 'ts':128,'template':'That made no sense', 'duration':2 },
                         { 'ts':130,'template':'${6}?', 'duration':2 },
-                        { 'ts':131,'template':'${2} ${3}!', 'duration':2 }
+                        { 'ts':132,'template':'${2} ${3}!', 'duration':1 }
                     ]
                 }
             };

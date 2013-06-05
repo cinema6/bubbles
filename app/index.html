@@ -32,9 +32,9 @@
         	preload="auto"
         	controls>
         </video>
-        <ul>
+        <ul class="annotations">
           <li ng-repeat="a in annoCtrl.model.annotations" ng-show="annoCtrl.annotationIsActive(a.index)" ng-class="{{a.cls}}">
-            {{a.text}}
+            <span>{{a.text}}</span><div>&nbsp;</div>
           </li>
         </ul>
         <div class="transition_blackFade">&nbsp;</div>

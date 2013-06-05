@@ -26,14 +26,6 @@
                 </li>
             </ul>
             <button
-                class="question__btnNext"
-                ng-disabled="!inputCtrl.canGoForward()"
-                ng-click="inputCtrl.nextQuestion();"
-                name="next">
-                <span class="ir">Next</span>
-            </button>
-            
-            <button
                 class="question__btnStart"
                 ng-if="inputCtrl.isDone()"
                 ng-disabled="!inputCtrl.currentResponse()"
@@ -41,6 +33,14 @@
                 <span class="ir">Start</span>
             </button>
             
+            <button
+                class="question__btnNext"
+                ng-disabled="!inputCtrl.canGoForward()"
+                ng-click="inputCtrl.nextQuestion();"
+                name="next">
+                <span class="ir">Next</span>
+            </button>
+                        
             <button
                 class="question__btnPrevious"
                 ng-disabled="!inputCtrl.canGoBack()"

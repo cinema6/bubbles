@@ -248,6 +248,8 @@ angular.module('c6.ctrl',['c6.svc'])
 		}
 	});
 	
+	this.model = null;
+	
 	this.activeAnnotations = [];
 	
 	this.setActiveAnnotations = function(event, video) {

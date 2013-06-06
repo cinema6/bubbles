@@ -17,7 +17,7 @@ button:disabled {opacity: 0.5;}
     height: 684px; 
     width: 1280px; 
     margin: -396px 0 0 -640px; 
-    position: fixed; 
+    position: absolute; 
     top: 50%; 
     left: 50%; 
     font-size: 28px; }
@@ -92,7 +92,7 @@ button:disabled {opacity: 0.5;}
             background: url('../media/paperball.png') no-repeat bottom right;
             width: 100%; 
             height: 100%;
-            position: fixed;
+            position: absolute;
             bottom: 0;
             right: -400px;
             z-index: -1;
@@ -121,7 +121,7 @@ button:disabled {opacity: 0.5;}
         background: none; 
         height: 308px;
         width: 722px;
-        position: fixed;
+        position: absolute;
         top: 45%;
         left: 50%;
         margin: -120px 0  0 -361px;
@@ -198,7 +198,7 @@ button:disabled {opacity: 0.5;}
         .progressDock {
             height: 30px;
             width: 200px;
-            position: fixed;
+            position: absolute;
             text-align: center;
             bottom: 0;
             left: 50%;
@@ -211,7 +211,7 @@ button:disabled {opacity: 0.5;}
         margin: 48px 0 0 10px;
         width: 100%;
         height: 100%;
-        position: fixed;
+        position: absolute;
         z-index: 0;
      } 
 
@@ -219,7 +219,7 @@ button:disabled {opacity: 0.5;}
         background: url('../media/paperball.png') no-repeat bottom left; 
         width: 100%;
         height: 100%;
-        position: fixed;
+        position: absolute;
         z-index: 0;
         bottom: -300px;
         left: -300px;
@@ -280,7 +280,7 @@ button:disabled {opacity: 0.5;}
             background-size: 30.54% auto;
             height: 54px;
             width: 1026px;
-            position: fixed;
+            position: absolute;
             bottom: 0;
             left: 50%;
             margin: 0 0 0 -513px;

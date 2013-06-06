@@ -62,11 +62,28 @@
     //Input Animations (into Categories else Experience)
 	 .animation('input-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
+			setup: function() {
+					//$log.log('Animating "input" after refresh');
+					//var tl_input   = new TimelineLite({paused: true}),
+					//	videoPlayer		= document.getElementById("player"),
+					//	startScreen     = $(".startScreen"),
+					//	inputScreen     = $(".inputScreen");
+		
+					// ANIMATION TIMELINE //
+					//tl_input.from(startScreen, 2, {
+					//	transformOrigin: "0% 0%",
+					//	rotation: "90deg",
+					//	ease: Power3.easeOut,
+					//	alpha: 0
+					//}, "-=0.5")
+					//.eventCallback('onComplete', done);
+					
+					//tl_input.play();
+			},
 			start: function($oldView, done) {
 				if ($rootScope.currentRoute === 'categories') {
 					$log.log('Animating from "input" to "categories"');
 					var tl_inputStart   = new TimelineLite({paused: true}),
-						videoPlayer		= document.getElementById("player"),
 						startScreen     = $(".startScreen"),
 						inputScreen     = $(".inputScreen");
 		
@@ -75,13 +92,13 @@
 						transformOrigin: "100% 0%", 
 						rotation: "-90deg", 
 						ease: Power3.easeIn, 
-						alpha: 0
+						opacity: 0
 					})
 					.from(startScreen, 2, {
 						transformOrigin: "0% 0%",
 						rotation: "90deg",
 						ease: Power3.easeOut,
-						alpha: 0
+						opacity: 0
 					}, "-=0.5")
 					.eventCallback('onComplete', done);
 					

@@ -126,9 +126,9 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.$watch('inputCtrl.currentPromptIndex()', function(newValue, oldValue) {
 		if (newValue > oldValue) {
-			$scope.inputCtrl.currentDirection = 'forward';
+			$scope.inputCtrl.currentDirection = 'next';
 		} else if (newValue < oldValue) {
-			$scope.inputCtrl.currentDirection = 'back';
+			$scope.inputCtrl.currentDirection = 'previous';
 		}
 	});
 	

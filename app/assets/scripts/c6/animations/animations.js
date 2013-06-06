@@ -299,37 +299,37 @@
 		}
 	}])
 	
-	.animation('response-forward-enter', [function() {
+	.animation('response-next-enter', [function() {
 		return {
 			start: function(input, done) {
-				console.log('time to animate forward (enter)');
+				console.log('time to animate next (enter)');
 				done();
 			}
 		}
 	}])
 	
-	.animation('response-forward-leave', [function() {
+	.animation('response-next-leave', [function() {
 		return {
 			start: function(input, done) {
-				console.log('time to animate forward (leave)');
+				console.log('time to animate next (leave)');
 				done();
 			}
 		}
 	}])
 	
-	.animation('response-back-enter', [function() {
+	.animation('response-previous-enter', [function() {
 		return {
 			start: function(input, done) {
-				console.log('time to animate back (enter)');
+				console.log('time to animate previous (enter)');
 				done();
 			}
 		}
 	}])
 	
-	.animation('response-back-leave', [function() {
+	.animation('response-previous-leave', [function() {
 		return {
 			start: function(input, done) {
-				console.log('time to animate back (leave)');
+				console.log('time to animate previous (leave)');
 				done();
 			}
 		}

@@ -272,6 +272,84 @@
 			}
 		}
 	}])
+	
+//								  // 
+//     INPUT FORM ANIMATIONS      //
+//								  //
 
-
+	.animation('start-button-enter', [function() {
+		return {
+			setup: function($startButton) {
+				// Setup the button for animation.
+				$startButton.hide();
+			},
+			start: function($startButton, done) {
+				// Don't forget to call the done function!
+				$startButton.fadeIn(done);
+			}
+		}
+	}])
+	
+	.animation('start-button-leave', [function() {
+		return {
+			start: function($startButton, done) {
+				// Don't forget to call the done function!
+				$startButton.fadeOut(done);
+			}
+		}
+	}])
+	
+	.animation('response-next-enter', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate next (enter)');
+				done();
+			}
+		}
+	}])
+	
+	.animation('response-next-leave', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate next (leave)');
+				done();
+			}
+		}
+	}])
+	
+	.animation('response-previous-enter', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate previous (enter)');
+				done();
+			}
+		}
+	}])
+	
+	.animation('response-previous-leave', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate previous (leave)');
+				done();
+			}
+		}
+	}])
+	
+	.animation('action-annotation-show', [function() {
+		return {
+			start: function(annotation, done) {
+				console.log('animate in action bubble');
+				done();
+			}
+		}
+	}])
+	
+	.animation('action-annotation-hide', [function() {
+		return {
+			start: function(annotation, done) {
+				console.log('animate out action bubble');
+				done();
+			}
+		}
+	}])
 })();

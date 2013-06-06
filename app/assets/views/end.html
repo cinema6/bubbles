@@ -15,7 +15,23 @@
         </div>
         <footer class="shareMenu"><span class="ir">Share with others:</span>
             <button class="shareMenu__btnEmail" name="email"><span class="ir">Share through Email</span></button>
-            <button class="shareMenu__btnTwitter" name="twitter"><span class="ir">Share on Twitter</span></button>
-            <button class="shareMenu__btnFacebook" name="facebook"><span class="ir">Share on Facebook</span></button>
+            
+            <button
+            	c6-share="twitter"
+            	share-url="http://apple.com/"
+            	share-description="This is Apple, Inc."
+            	class="shareMenu__btnTwitter"
+            	name="twitter"><span class="ir">Share on Twitter</span>
+            </button>
+            
+            <button
+            	c6-share="facebook"
+            	share-url="http://www.apple.com"
+            	share-title="Apple, Inc."
+            	share-description="This is an awesome description!"
+            	share-image="http://www.itscanfixthat.com/wp-content/uploads/2013/02/apple-icon.gif"
+            	class="shareMenu__btnFacebook"
+            	name="facebook"><span class="ir">Share on Facebook</span>
+            </button>
         </footer>
      </div>

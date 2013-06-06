@@ -87,6 +87,12 @@ angular.module('c6.dir.screenJack',[])
 	} 
 }])
 
+.directive('c6Autofocus', [function() {
+	return function(scope, element, attrs) {
+		element.focus();
+	}
+}])
+
 .directive('c6Share', ['$window', '$document', '$location', function($window, $document, $location) {
 	return function(scope, element, attrs) {		
 		element.click(function() {

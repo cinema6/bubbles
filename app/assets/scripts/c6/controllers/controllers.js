@@ -123,9 +123,13 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'c6VideoListingService', function($log, $scope, $rootScope, $routeParams, vsvc) {
     $log.log('Creating C6InputCtrl: ' + $routeParams.category);
 	$rootScope.currentRoute = 'input';
-	
-	$scope.$watch('inputCtrl.currentPrompt', function(value) {
-		$scope.$broadcast('newPrompt');
+
+	$scope.$watch('inputCtrl.currentPromptIndex()', function(newValue, oldValue) {
+		if (newValue > oldValue) {
+			$scope.inputCtrl.currentDirection = 'forward';
+		} else if (newValue < oldValue) {
+			$scope.inputCtrl.currentDirection = 'back';
+		}
 	});
 	
     $scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
@@ -143,6 +147,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.totalPrompts = function() {
 	    return this.promptModel.prompts.length;
     }
+    this.currentDirection = null;
     this.nextQuestion = function() {
 	    this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() + 1];
     }

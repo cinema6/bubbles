@@ -272,6 +272,66 @@
 			}
 		}
 	}])
+	
+//								  // 
+//     INPUT FORM ANIMATIONS      //
+//								  //
 
-
+	.animation('start-button-enter', [function() {
+		return {
+			setup: function($startButton) {
+				// Setup the button for animation.
+				$startButton.hide();
+			},
+			start: function($startButton, done) {
+				// Don't forget to call the done function!
+				$startButton.fadeIn(done);
+			}
+		}
+	}])
+	
+	.animation('start-button-leave', [function() {
+		return {
+			start: function($startButton, done) {
+				// Don't forget to call the done function!
+				$startButton.fadeOut(done);
+			}
+		}
+	}])
+	
+	.animation('response-forward-enter', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate forward (enter)');
+				done();
+			}
+		}
+	}])
+	
+	.animation('response-forward-leave', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate forward (leave)');
+				done();
+			}
+		}
+	}])
+	
+	.animation('response-back-enter', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate back (enter)');
+				done();
+			}
+		}
+	}])
+	
+	.animation('response-back-leave', [function() {
+		return {
+			start: function(input, done) {
+				console.log('time to animate back (leave)');
+				done();
+			}
+		}
+	}])
 })();

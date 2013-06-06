@@ -14,20 +14,27 @@
             <ul class="question__group">
                 <li class="question">
                     <h2 class="question__query">{{inputCtrl.currentPrompt.query}}</h2>
-                    <input
-                        class="question__userAnswer"
-                        type="text"
-                        name="response"
-                        autocomplete="off"
-                        ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
-                        maxlength="{{inputCtrl.promptModel.defSizeLimit}}"
-                        ng-disabled="appCtrl.inExperience"
-                        c6-on="newPrompt: {$this.focus()}, experienceStart: {$this.prop('disabled', true); $this.blur();}"></input>
+                    <div ng-repeat="prompt in inputCtrl.promptModel.prompts">
+	                    <input
+	                    	ng-if="$index === inputCtrl.currentPromptIndex()"
+	                    	ng-animate="'response-' + inputCtrl.currentDirection"
+	                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
+	                    	ng-disabled="appCtrl.inExperience"
+	                    	c6-on="experienceStart: {$this.prop('disabled', true); $this.blur();}"
+	                    	c6-autofocus
+	                    	maxlength="{{prompt.sizeLimit}}"
+	                        class="question__userAnswer"
+	                        type="text"
+	                        name="response"
+	                        autocomplete="off">
+	                    </input>
+                    </div>
                 </li>
             </ul>
             <button
                 class="question__btnStart"
                 ng-if="inputCtrl.isDone()"
+                ng-animate="'start-button'"
                 ng-disabled="!inputCtrl.currentResponse()"
                 ng-click="inputCtrl.startExperience();">
                 <span class="ir">Start</span>
@@ -48,7 +55,7 @@
                 name="prev">
                 <span class="ir">Prev</span>
             </button>
-            <h6 class="question__characterCount">{{inputCtrl.promptModel.defSizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
+            <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
         </form>
 
         <footer class="progressDock">Page {{inputCtrl.currentPromptIndex() + 1}} of {{inputCtrl.totalPrompts()}}</footer>

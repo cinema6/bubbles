@@ -334,4 +334,22 @@
 			}
 		}
 	}])
+	
+	.animation('action-annotation-show', [function() {
+		return {
+			start: function(annotation, done) {
+				console.log('animate in action bubble');
+				done();
+			}
+		}
+	}])
+	
+	.animation('action-annotation-hide', [function() {
+		return {
+			start: function(annotation, done) {
+				console.log('animate out action bubble');
+				done();
+			}
+		}
+	}])
 })();

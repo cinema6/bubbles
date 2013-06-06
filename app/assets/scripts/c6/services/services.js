@@ -26,6 +26,7 @@ angular.module('c6.svc',[])
                 'views'       : 1000,
                 'src'         : baseUrl + '/media/bruce_lee',
                 'css'         : baseUrl + '/styles/bruce_lee.css',
+                'anim'        : 'action',
                 'defSizeLimit': 24,
                 'prompts'     : [
                     'Salutation',

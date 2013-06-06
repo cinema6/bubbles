@@ -34,9 +34,13 @@
         	controls>
         </video>
         <ul class="annotations">
-          <li ng-repeat="a in annoCtrl.model.annotations" ng-show="annoCtrl.annotationIsActive(a.index)" ng-class="a.cls.join(' ') + ' annotation'">
+          <li
+          	ng-repeat="a in annoCtrl.model.annotations"
+          	ng-show="annoCtrl.annotationIsActive(a.index)"
+          	ng-animate="appCtrl.experience.anim + '-annotation'"
+          	ng-class="a.cls.join(' ') + ' annotation'">
             <span>{{a.text}}</span><div>&nbsp;</div>
-          </li>
+		  </li>
         </ul>
         <div class="transition_blackFade">&nbsp;</div>
       </div>

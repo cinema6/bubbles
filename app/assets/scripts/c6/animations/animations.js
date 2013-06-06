@@ -250,7 +250,7 @@
 	 }])
 
 //								  // 
-//        VIDEO ANIMATIONS        //
+//     VIDEO PLAYER ANIMATIONS    //
 //								  //
 
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {
@@ -297,11 +297,9 @@
 	.animation('start-button-enter', [function() {
 		return {
 			setup: function($startButton) {
-				// Setup the button for animation.
 				$startButton.hide();
 			},
 			start: function($startButton, done) {
-				// Don't forget to call the done function!
 				$startButton.fadeIn(done);
 			}
 		}
@@ -310,8 +308,24 @@
 	.animation('start-button-leave', [function() {
 		return {
 			start: function($startButton, done) {
-				// Don't forget to call the done function!
 				$startButton.fadeOut(done);
+			}
+		}
+	}])
+
+	.animation('response-next-leave', [function() {
+		return {
+			start: function(input, done) {
+				console.log('New Question Leave');
+				var userAnswer = $(".question__userAnswer"),
+					tl_nextLeave  = new TimelineLite;
+
+				//tl_nextLeave.to(userAnswer, 3, {
+				//	//"margin-left": "-2000px", 
+				//	alpha: 0, 
+				//	//ease: Power2.easeIn, 
+				//	display: "none"})
+				//.eventCallback('onComplete', done);
 			}
 		}
 	}])
@@ -319,20 +333,22 @@
 	.animation('response-next-enter', [function() {
 		return {
 			start: function(input, done) {
-				console.log('time to animate next (enter)');
-				done();
+				console.log('New Question Enter');
+				userAnswer = $(".question__userAnswer"),
+				tl_nextEnter  = new TimelineLite;
+
+				//tl_nextEnter.from(userAnswer, 3, {
+				//	//"margin-left": "2000px", 
+				//	alpha: 0, 
+				//	//ease: Power2.easeIn, 
+				//	display: "block", 
+				//	onComplete: "done"})
+				//.eventCallback('onComplete', done);
 			}
 		}
 	}])
 	
-	.animation('response-next-leave', [function() {
-		return {
-			start: function(input, done) {
-				console.log('time to animate next (leave)');
-				done();
-			}
-		}
-	}])
+
 	
 	.animation('response-previous-enter', [function() {
 		return {

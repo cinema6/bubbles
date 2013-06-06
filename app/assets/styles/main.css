@@ -45,31 +45,44 @@ video {
     color: #111111;
     z-index: 100;
     min-height: 7.94%;
-    max-width: 30%;
-    padding: 1%;
-    border: solid black 5px;
-    background: white;
+    min-width: 10%;
+    padding: 11px 0 ;
+    background: url('../media/annotation__action-body.png');
+    background-clip: content-box;
+    overflow: none;
 }
 
 .annotation__action span {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
+    padding: 5% 10%;
 }
 
-.annotation__action div {
+.annotation__action .border {
+    height: 100%;
+    width: 100%;
+    background: url('../media/annotation__action-top.png') repeat-x top, url('../media/annotation__action-bottom.png') repeat-x bottom;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.tail-top {
     height: 50%;
     width: 100%;
-    background: blue;
     position: absolute;
     left: 0;
-    bottom: -50%;
+    top: -35%;
 }
 
-
-.annotation__scifi-fantasy {}
-
-.annotation__romance {}
+.tail-bottom {
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -35%;    
+}
 
 .hidden {
     display: none;
@@ -89,27 +102,27 @@ video {
 .notebook-7 { top: 20%; left: 35%; }
 .notebook-8 { top: 20%; left: 40%; }
 
-.lee-0 { top: 20%; left: 55%; }
-.lee-1 { top: 10%; left: 20%; }
-.lee-2 { top: 20%; left: 30%; }
-.lee-3 { top: 30%; left: 35%; }
-.lee-4 { top: 30%; left: 25%; }
-.lee-5 { top: 30%; left: 5%; } .lee-5 div {background: url('../media/btn_previous_default.png') no-repeat 70% 0; background-size: contain}
-.lee-6 { top: 25%; left: 25%; } .lee-6 div {background: url('../media/btn_previous_default.png') no-repeat 5% 0; background-size: contain}
-.lee-7 { top: 20%; left: 50%; } 
-.lee-8 { top: 20%; left: 50%; }
-.lee-9 { top: 15%; left: 5%; }
-.lee-10 { top: 20%; left: 15%; }
-.lee-11 { top: 13%; left: 45%; }
-.lee-12 { top: 15%; left: 10%; }
-.lee-13 { top: 12%; left: 10%; }
-.lee-14 { top: 20%; left: 25%; }
-.lee-15 { top: 15%; left: 65%; }
-.lee-16 { top: 18%; left: 10%; }
-.lee-17 { top: 20%; left: 50%; }
-.lee-18 { top: 20%; left: 30%; }
-.lee-19 { top: 20%; left: 50%; }
-.lee-20 { top: 15%; left: 15%; }
+.lee-0 { top: 15%; left: 60%; } .lee-0 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 10% 0; background-size: contain}
+.lee-1 { top: 8%; left: 20%; } .lee-1 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 20% 0; background-size: contain}
+.lee-2 { top: 25%; left: 30%; } .lee-2 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 10% 0; background-size: contain}
+.lee-3 { top: 60%; left: 25%; } .lee-3 .tail-top {background: url('../media/tail__action-topLeft.png') no-repeat 25% 0; background-size: contain}
+.lee-4 { top: 25%; left: 22%; } .lee-4 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 15% 0; background-size: contain}
+.lee-5 { top: 20%; left: 7%; } .lee-5 .tail-bottom {background: url('../media/tail__action-bottomRight.png') no-repeat 75% 0; background-size: contain}
+.lee-6 { top: 60%; left: 35%; } .lee-6 .tail-top {background: url('../media/tail__action-topLeft.png') no-repeat 5% 0; background-size: contain}
+.lee-7 { top: 15%; left: 50%; } .lee-7 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 15% 0; background-size: contain}
+.lee-8 { top: 20%; left: 60%; } .lee-8 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 10% 0; background-size: contain}
+.lee-9 { top: 75%; left: 25%; } .lee-9 .tail-top {background: url('../media/tail__action-topRight.png') no-repeat 85% 0; background-size: contain}
+.lee-10 { top: 15%; left: 35%; } .lee-10 .tail-bottom {background: url('../media/tail__action-bottomRight.png') no-repeat 80% 0; background-size: contain}
+.lee-11 { top: 5%; left: 10%; } .lee-11 .tail-bottom {background: url('../media/tail__action-bottomRight.png') no-repeat 80% 0; background-size: contain}
+.lee-12 { top: 15%; left: 75%; } .lee-12 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 10% 0; background-size: contain}
+.lee-13 { top: 70%; left: 35%; } .lee-13 .tail-top {background: url('../media/tail__action-topRight.png') no-repeat 85% 0; background-size: contain}
+.lee-14 { top: 15%; left: 33%; } .lee-14 .tail-bottom {background: url('../media/tail__action-bottomRight.png') no-repeat 80% 0; background-size: contain}
+.lee-15 { top: 15%; left: 58%; } .lee-15 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 10% 0; background-size: contain}
+.lee-16 { top: 18%; left: 30%; } .lee-16 .tail-bottom {background: url('../media/tail__action-bottomRight.png') no-repeat 85% 0; background-size: contain}
+.lee-17 { top: 15%; left: 60%; } .lee-17 .tail-bottom {background: url('../media/tail__action-bottomLeft.png') no-repeat 10% 0; background-size: contain}
+.lee-18 { top: 20%; left: 30%; } .lee-18 .tail-bottom {background: url('../media/tail__action-bottomRight.png') no-repeat 85% 0; background-size: contain}
+.lee-19 { top: 70%; left: 70%; } .lee-19 .tail-top {background: url('../media/tail__action-topLeft.png') no-repeat 5% 0; background-size: contain}
+.lee-20 { top: 25%; left: 25%; } .lee-20  .tail-bottom {background: url('../media/tail__action-bottomRight.png') no-repeat 85% 0; background-size: contain}
 .lee-21 { top: 20%; left: 40%; } /* not needed? */
 
 .lotr-0 { top: 3%; left: 3%; }

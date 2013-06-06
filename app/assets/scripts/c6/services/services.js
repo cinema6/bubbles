@@ -25,7 +25,7 @@ angular.module('c6.svc',[])
                 'title'      : 'Battle for Revenge',
                 'views'      : 1000,
                 'src'         : baseUrl + '/media/bruce_lee',
-                'defSizeLimit': 24,
+                'defSizeLimit': 32,
                 'prompts'     : [
                     'Salutation',
                     'Animal',

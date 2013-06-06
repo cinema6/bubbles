@@ -6,7 +6,7 @@ button {border: none; cursor: pointer; padding: 0; margin: 0;}
 ul {list-style: none;}
 .paperTexture { background: url('../media/bg_tile.jpg') repeat;}
 .ir {width:0; height:0; display: block; overflow: hidden; }
-.c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0;}
+.c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0; }
 .experience {position: fixed; width:100%; height: 100%}
 button:disabled {opacity: 0.5;}
 

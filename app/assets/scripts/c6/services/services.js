@@ -24,8 +24,8 @@ angular.module('c6.svc',[])
                 'id'          : '2',
                 'title'       : 'Battle for Revenge',
                 'views'       : 1000,
-                'src'         : baseUrl + '/media/bruce_lee',
-                'css'         : baseUrl + '/styles/bruce_lee.css',
+                'src'         : baseUrl + '/media/action/bruce_lee',
+                'css'         : baseUrl + '/styles/bubbles_action.css',
                 'anim'        : 'action',
                 'defSizeLimit': 24,
                 'prompts'     : [
@@ -44,7 +44,7 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
-                        'cls'     : ['lee-${index}', 'annotation__action']
+                        'cls'     : ['lee-${index}', 'annotation']
                         },
                      'notes'  : [
                         { 'ts':  7,'template':'${1}', 'duration':1 },

@@ -21,10 +21,11 @@ angular.module('c6.svc',[])
     service.getExperienceByCategory = function(category) {
         if (category === 'action') {
             return {
-                'id'         : '2',
-                'title'      : 'Battle for Revenge',
-                'views'      : 1000,
+                'id'          : '2',
+                'title'       : 'Battle for Revenge',
+                'views'       : 1000,
                 'src'         : baseUrl + '/media/bruce_lee',
+                'css'         : baseUrl + '/styles/bruce_lee.css',
                 'defSizeLimit': 24,
                 'prompts'     : [
                     'Salutation',

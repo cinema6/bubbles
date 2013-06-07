@@ -36,7 +36,7 @@
         <ul class="annotations">
           <li
           	ng-repeat="a in annoCtrl.model.annotations"
-          	ng-show="annoCtrl.annotationIsActive(a.index)"
+          	ng-show="annoCtrl.annotationIsActive(a)"
           	ng-animate="appCtrl.experience.anim + '-annotation'"
           	ng-class="a.cls.join(' ') + ' annotation'">
             <span>{{a.text}}</span><div>&nbsp;</div>

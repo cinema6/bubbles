@@ -335,7 +335,7 @@
 	.animation('response-next-leave', [function() {
 		return {
 			setup: function(input) {
-			//	annotation.attr('disabled','disabled');
+				input.prop('disabled', true);
 			},
 			start: function(input, done) {
 				console.log('New Question Leave');
@@ -347,14 +347,20 @@
 					ease: Power4.easeIn, 
 				})
 				.eventCallback('onComplete', done);
-
-				//look up jquery function to disable, enable oncomplete, done after
 			}
 		}
 	}])
 	
 	.animation('response-next-enter', [function() {
 		return {
+			setup: function(input) {
+				input.prop('disabled', true);
+
+				setTimeout(function() {
+					input.prop('disabled', false);
+					input.focus();
+				}, 1250)
+			},
 			start: function(input, done) {
 				console.log('New Question Enter');
 				var tl_nextEnter  = new TimelineLite;
@@ -371,6 +377,9 @@
 	
 	.animation('response-previous-leave', [function() {
 		return {
+			setup: function(input) {
+				input.prop('disabled', true);
+			},
 			start: function(input, done) {
 				console.log('Prev Question Leave');
 				var tl_prevLeave  = new TimelineLite;
@@ -387,6 +396,14 @@
 	
 	.animation('response-previous-enter', [function() {
 		return {
+			setup: function(input) {
+				input.prop('disabled', true);
+
+				setTimeout(function() {
+					input.prop('disabled', false);
+					input.focus();
+				}, 1250)
+			},
 			start: function(input, done) {
 				console.log('Previous Question Enter');
 				var tl_prevEnter  = new TimelineLite;
@@ -401,7 +418,7 @@
 		}
 	}])
 
-	//action experience
+	//action bubbles
 	.animation('action-annotation-show', [function() {
 		return {
 			setup: function(annotation) {

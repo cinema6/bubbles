@@ -1,0 +1,1 @@
+var __C6_APP_BASE_URL__ = 'assets';

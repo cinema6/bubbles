@@ -5,9 +5,21 @@ basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
+  '../app/assets/lib/jquery/jquery.min.js',
+  '../app/assets/lib/angular/angular.min.js',
+  '../app/assets/lib/greensock/TimelineMax.min.js',
+  '../app/assets/lib/greensock/TweenMax.min.js',
+  '../app/assets/lib/c6media/c6lib.video.js',
+  'e2e/env.js',
+  '../app/assets/scripts/c6/app.js',
+  '../app/assets/scripts/c6/services/services.js',
+  '../app/assets/scripts/c6/controllers/controllers.js',
+  '../app/assets/scripts/c6/animations/animations.js',
+  '../app/assets/scripts/c6/directives/directives.js',
+  '../app/assets/scripts/c6/directives/videonode.js',
   ANGULAR_SCENARIO,
   ANGULAR_SCENARIO_ADAPTER,
-  'test/e2e/**/*.js'
+  'e2e/**/*.js'
 ];
 
 // list of files to exclude
@@ -49,3 +61,9 @@ captureTimeout = 5000;
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
 singleRun = false;
+
+proxies =  {
+  '/': 'http://localhost:9000'
+};
+
+urlRoot = '/__e2e/';

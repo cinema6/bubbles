@@ -258,21 +258,21 @@ angular.module('c6.ctrl',['c6.svc'])
 			time = video.player.currentTime,
 			ts,
 			duration,
-			index;
+			inActiveArray;
 		
 		annotations.forEach(function(annotation) {
 			ts = annotation.ts;
 			duration = annotation.duration;
-			index = annotation.index;
+			inActiveArray = activeAnnotations.indexOf(annotation) !== -1;
 			
-			if (time >= ts && time <= (ts + duration)) {
-				if (!activeAnnotations[index]) {
-					self.activeAnnotations[index] = annotation;
+			if ((time >= ts) && (time <= (ts + duration))) {
+				if (!inActiveArray) {
+					self.activeAnnotations.push(annotation);
 					$log.log('Activated annotation: ' + annotation.text);
 				}
 			} else {
-				if (activeAnnotations[index]) {
-					self.activeAnnotations.splice(index, 1);
+				if (inActiveArray) {
+					self.activeAnnotations.splice(activeAnnotations.indexOf(annotation), 1);
 					$log.log('Deactivated annotation: ' + annotation.text);
 				}
 			}
@@ -283,8 +283,8 @@ angular.module('c6.ctrl',['c6.svc'])
 		$location.path('/entry/' + $routeParams.category + '/end');
 	}
     
-    this.annotationIsActive = function(index) {
-	    return this.activeAnnotations[index]? true : false;
+    this.annotationIsActive = function(annotation) {
+	    return self.activeAnnotations.indexOf(annotation) !== -1;
     }
     
     $scope.annoCtrl = this;

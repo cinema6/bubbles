@@ -129,10 +129,10 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       },
-      /*e2e: {
-        configFile: 'test/karma.e2e.conf.js',
-        singleRun: true
-      }*/
+      e2e: {
+        configFile: 'test/karma-e2e.conf.js',
+        singleRun: false
+      }
     },
     concat: {
       dist: {
@@ -260,8 +260,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     //'jshint',
-    'clean:server',
-    'connect:test',
+   'clean:server',
+    'livereload-start',
+    'connect:livereload',
     'karma'
   ]);
 

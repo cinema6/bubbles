@@ -47,6 +47,28 @@ angular.module('c6.dir.screenJack',[])
 	}
 }])
 
+.directive('c6IosKeyboard', ['$window', '$document', function($window, $document) {
+	return function(scope, element, attrs) {
+		if ($window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+			if (attrs.c6IosKeyboard === 'input') {
+				element.bind('focus', function() {
+					scope.$emit('c6-ios-keyboard-up');
+				});
+				element.bind('blur', function() {
+					scope.$emit('c6-ios-keyboard-down');
+				});
+			} else if (attrs.c6IosKeyboard === 'target') {
+				scope.$on('c6-ios-keyboard-up', function() {
+					element.addClass('c6-ios-keyboard-up');
+				});
+				scope.$on('c6-ios-keyboard-down', function() {
+					element.removeClass('c6-ios-keyboard-up');
+				});
+			}
+		}
+	}
+}])
+
 .directive('c6On', ['$log', function($log) {
 	return {
 		scope: true,

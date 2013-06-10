@@ -20,7 +20,7 @@
   <body class="paperTexture ng-cloak"> <!-- class toggles on for the experience -->
 
     <div class="experience">
-      <span class="c6bar"></span> 
+      <span class="c6bar">&nbsp;</span> 
       
       <div ng-view ng-animate="currentRoute + '-partial'"></div>
       
@@ -39,7 +39,10 @@
           	ng-show="annoCtrl.annotationIsActive(a)"
           	ng-animate="appCtrl.experience.anim + '-annotation'"
           	ng-class="a.cls.join(' ') + ' annotation'">
-            <span>{{a.text}}</span><div>&nbsp;</div>
+            <div class="a-border">&nbsp;</div>
+            <span class="a-text">{{a.text}}&nbsp;</span>
+            <div class="a-tail-top">&nbsp;</div>
+            <div class="a-tail-bottom">&nbsp;</div>
 		  </li>
         </ul>
         <div class="transition_blackFade">&nbsp;</div>

@@ -4,23 +4,26 @@ html { height: 100%; width: 100%;}
 body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;}
 button {border: none; cursor: pointer; padding: 0; margin: 0;}
 ul {list-style: none;}
-.paperTexture { background: url('../media/bg_tile.jpg') repeat;}
-.ir {width:0; height:0; display: block; overflow: hidden; }
-.c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0;}
-.experience {position: fixed; width:100%; height: 100%}
 button:disabled {opacity: 0.5;}
+input {cursor: text;}
 
-#player {position: absolute; margin: 0 auto; width:100%; height: 100%; z-index: 9; opacity: 0;}
-.transition_blackFade{background: #000; height: 100%; width: 100%; z-index: -20; position: fixed; top: 0; opacity: 0;}
+.ir {width:0; height:0; display: block; overflow: hidden; }
+.hidden {display: none;}
+.disabled {opacity: 0.5;}
+
+.paperTexture { background: url('../media/bg_tile.jpg') repeat;}
+.c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0; }
+.experience {position: fixed; width:100%; height: 100%}
 
 .viewport { 
     height: 684px; 
     width: 1280px; 
     margin: -396px 0 0 -640px; 
-    position: fixed; 
+    position: absolute; 
     top: 50%; 
     left: 50%; 
     font-size: 28px; }
+
 
 /*      START SCREEN BEGIN      */
     .startScreen {position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5;
@@ -92,7 +95,7 @@ button:disabled {opacity: 0.5;}
             background: url('../media/paperball.png') no-repeat bottom right;
             width: 100%; 
             height: 100%;
-            position: fixed;
+            position: absolute;
             bottom: 0;
             right: -400px;
             z-index: -1;
@@ -101,18 +104,18 @@ button:disabled {opacity: 0.5;}
 
 
 /*      INPUT SCREEN BEGIN      */
-    .inputScreen {width: 100%; height: 100%; position: absolute; z-index: 4;  opacity: 1;
+    .inputScreen {width: 100%; height: 100%; position: absolute; z-index: 4;  opacity: 1; 
         -ms-transform-origin: 100% 0%; /* IE 9 */
         -moz-transform-origin: 100% 0%; /* Firefox */
         -o-transform-origin: 100% 0%; /* Opera */
         -webkit-transform-origin: 100% 0%; /* Safari and Chrome */
         transform-origin: 100% 0%;
 
-        -ms-transform: rotate(-90deg); /* IE 9 */
-        -moz-transform: rotate(-90deg); /* Firefox */
-        -o-transform: rotate(-90deg); /* Opera */
-        -webkit-transform: rotate(-90deg); /* Safari and Chrome */
-        transform: rotate(-90deg);
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -moz-transform: rotate(0deg); /* Firefox */
+        -o-transform: rotate(0deg); /* Opera */
+        -webkit-transform: rotate(0deg); /* Safari and Chrome */
+        transform: rotate(0deg);
         
         display:block;}
 
@@ -121,7 +124,7 @@ button:disabled {opacity: 0.5;}
         background: none; 
         height: 308px;
         width: 722px;
-        position: fixed;
+        position: absolute;
         top: 45%;
         left: 50%;
         margin: -120px 0  0 -361px;
@@ -129,29 +132,44 @@ button:disabled {opacity: 0.5;}
 
         .inputScreen__directions {display: inline-block; width: 100%; height: 4.9%; margin: 0; text-align: center; font-size: 16px; color: #252525;}
         .question__query {width: 100%; height: 11%; margin: 3% 0 0 0; text-align: center; font-size: 32px; display: block; }
-        .question__characterCount {font-size: 15px; width: 77.2%; text-align: right; margin: 1% 0 0 11.4%; }
+        .question__characterCount {font-size: 15px; width: 77.2%; text-align: right; margin: 14% 0 0 6.8%; position: absolute;}
+        .question__group {padding: 0;}
 
         .question__userAnswer {
             border: 0;
-            background: url('../media/inputLine.jpg') bottom center no-repeat;
+            background: none;
             font-family: "Courier Prime", Courier, Times, serif;
             font-size: 28px;
             font-weight: 700;
             color: #c20000;
-            width: 78%;
-            cursor: text;
-            margin: 10% 0 0 11%;
+            width: 68%;
+            top: 50%;
+            left: 50%;
+            margin: 0 0 0 -34%;
+            position: absolute;
+            z-index: 1;
          }
-         .question__userAnswer:focus {outline:none; background: url('../media/inputLine.jpg') bottom center no-repeat;}
+         .question__userAnswer:focus {outline:none;}
+
+         .question__inputSpace {
+            position: absolute; 
+            background: url('../media/inputLine.jpg') bottom center no-repeat;
+            height: 13%; 
+            width: 68%;
+            top: 50%;
+            left: 50%;
+            margin: 0 0 0 -34%;
+            z-index: -1;
+        }
             
         .question__btnPrevious {
             background: url('../media/btn_previous_default.png') no-repeat bottom left; 
             background-size: 100% auto;
             height: 10%; 
             width: 4%; 
-            margin: -7% 0 0 0;
-            position: relative;
-            float: left; 
+            margin: 9% 0 0 0;
+            position: absolute;
+            left: 0;
             z-index: 5;
             text-indent: 200%;
             white-space: nowrap;
@@ -163,9 +181,9 @@ button:disabled {opacity: 0.5;}
             background: url('../media/btn_next_default.png') no-repeat bottom right; 
             height: 10%; 
             width: 4%; 
-            margin: -7% 0 0 0;
-            position: relative;
-            float: right; 
+            margin: 9% 0 0 0;
+            position: absolute;
+            right: 0;
             z-index: 5;
             text-indent: 200%;
             white-space: nowrap;
@@ -179,7 +197,7 @@ button:disabled {opacity: 0.5;}
             height: 19%;
             position: absolute; 
             left: 36.5%;
-            margin: 5% 0 0 0;
+            margin: 20% 0 0 0;
          }
          .question__btnStart:active {background: url('../media/btn_start_tap.png') center no-repeat;}
 
@@ -198,7 +216,7 @@ button:disabled {opacity: 0.5;}
         .progressDock {
             height: 30px;
             width: 200px;
-            position: fixed;
+            position: absolute;
             text-align: center;
             bottom: 0;
             left: 50%;
@@ -211,7 +229,7 @@ button:disabled {opacity: 0.5;}
         margin: 48px 0 0 10px;
         width: 100%;
         height: 100%;
-        position: fixed;
+        position: absolute;
         z-index: 0;
      } 
 
@@ -219,7 +237,7 @@ button:disabled {opacity: 0.5;}
         background: url('../media/paperball.png') no-repeat bottom left; 
         width: 100%;
         height: 100%;
-        position: fixed;
+        position: absolute;
         z-index: 0;
         bottom: -300px;
         left: -300px;
@@ -227,8 +245,79 @@ button:disabled {opacity: 0.5;}
 /*      INPUT SCREEN END        */
 
 
+/*      EXPERIENCE BEGIN         */
+ .transition_blackFade {
+    background: #000; 
+    height: 100%; 
+    width: 100%; 
+    z-index: -20;
+    position: fixed; 
+    top: 0; 
+    opacity: 1;
+ }
+
+ /*[c6-annotations-player] {
+    position: relative;
+    width: 100%;
+ }*/
+
+ #player {
+    position: absolute; 
+    margin: 0 auto; 
+    width:100%; 
+    height: 100%; 
+    z-index: 9; 
+    opacity: 1;
+ }
+
+ .annotations {
+    list-style: none;
+    padding: 0px;
+    height: 684px;
+    width: 1280px; 
+    margin: -396px 0 0 -640px; 
+    position: fixed; 
+    top: 45%; 
+    left: 50%;
+    z-index: 100;
+    bottom: 100px;
+ }
+
+    /*.annotation {
+        position: absolute;
+        min-height: 40px;
+        padding: 20px;
+        background-color: #fff;
+        border: 4px solid #000;
+        border-radius: 25px;
+    }*/
+
+        .a-text {
+            display: block;
+            text-align: center;
+            padding: 5% 10%;
+        }
+
+        .a-tail-top {
+            height: 50%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: -35%;
+        }
+
+        .a-tail-bottom {
+            height: 50%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: -35%;    
+        }
+/*      EXPERIENCE END           */
+
+
 /*      END SCREEN BEGIN        */
-    .endScreen {width: 100%; height: 100%; position: absolute; opacity: 0; 
+    .endScreen {width: 100%; height: 100%; position: absolute; opacity: 1; 
         -ms-transform-origin: 100% 0%; /* IE 9 */
         -moz-transform-origin: 100% 0%; /* Firefox */
         -o-transform-origin: 100% 0%; /* Opera */
@@ -280,7 +369,7 @@ button:disabled {opacity: 0.5;}
             background-size: 30.54% auto;
             height: 54px;
             width: 1026px;
-            position: fixed;
+            position: absolute;
             bottom: 0;
             left: 50%;
             margin: 0 0 0 -513px;

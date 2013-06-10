@@ -8,9 +8,6 @@
     //Categories Animations (into Input)
 	 .animation('categories-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
-			setup: function() {
-				
-			},
 			start: function($oldView, done) {
 				if($rootScope.currentRoute === 'input') {
 					$log.log('Animating from "categories" to "input"');
@@ -32,7 +29,8 @@
 				        "-o-transform-origin" : "100% 0%",
 				        "transform-origin" : "100% 0%",
 				        "display": "block",
-				        "opacity": "1"
+				        "opacity": "1",
+				        "left": "0px"
 				      });
 				      $log.log("* Input Styles Reset *");
 				    }
@@ -42,14 +40,18 @@
         				transformOrigin: "0% 0%", 
 				        rotation: "90deg", 
 				        ease: Power3.easeIn, 
-				        alpha: 0})
-				    .to(inputScreen, 2, {   
-				        rotation: "0deg", 
-				        ease: Power3.easeOut, 
-				        alpha: 1}, "-=0.5")
+				        alpha: 0,
+				        left: "-=1000px"
+				    })
+				    .from(inputScreen, 2, {   
+				        rotation: "-90deg", 
+				        ease: Power4.easeOut, 
+				        alpha: 0,
+				        left: "1000px"
+				    }, "-=0.5")
 					.eventCallback('onComplete', done);
 					
-					inputReset();
+					//inputReset();
 					tl_startInput.play();
 					tl_startInput.seek(0);
 				} else {
@@ -62,26 +64,44 @@
     //Input Animations (into Categories else Experience)
 	 .animation('input-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
+			setup: function($oldView) {
+					$(".inputScreen").css({
+				        "-webkit-transform": "rotate(0deg)", 
+				        "-moz-transform": "rotate(0deg)", 
+				        "-ms-transform": "rotate(0deg)", 
+				        "-o-transform": "rotate(0deg)", 
+				        "transform": "rotate(0deg)", 
+				        "-webkit-transform-origin" : "100% 0%",
+				        "-moz-transform-origin" : "100% 0%",
+				        "-ms-transform-origin" : "100% 0%",
+				        "-o-transform-origin" : "100% 0%",
+				        "transform-origin" : "100% 0%",
+				        "display": "block",
+				        "opacity": "1",
+				        "left": "0px"
+				      });
+				},
 			start: function($oldView, done) {
 				if ($rootScope.currentRoute === 'categories') {
 					$log.log('Animating from "input" to "categories"');
 					var tl_inputStart   = new TimelineLite({paused: true}),
-						videoPlayer		= document.getElementById("player"),
 						startScreen     = $(".startScreen"),
 						inputScreen     = $(".inputScreen");
-		
+
 					// ANIMATION TIMELINE //
 					tl_inputStart.to(inputScreen, 2, {
 						transformOrigin: "100% 0%", 
 						rotation: "-90deg", 
 						ease: Power3.easeIn, 
-						alpha: 0
+						opacity: 0,
+						left: "+=1000px"
 					})
 					.from(startScreen, 2, {
 						transformOrigin: "0% 0%",
 						rotation: "90deg",
 						ease: Power3.easeOut,
-						alpha: 0
+						opacity: 0,
+						left: "-=1000px"
 					}, "-=0.5")
 					.eventCallback('onComplete', done);
 					
@@ -93,12 +113,21 @@
 						inputScreen     = $(".inputScreen"),
 						transition      = $(".transition_blackFade");						
 
+					// reset styles
+				    function fadeReset() {
+				    	transition.css({
+				        "opacity": "0"
+				      });
+				    	console.log("* Fade Styles Reset *");
+				    }	
+
 					// ANIMATION TIMELINE
 					tl_inputExp.to(inputScreen, 2, {opacity: 0})
              			.to(transition, 2, {opacity: 1}, "-=1")
              			.to(inputScreen, 0.1, {display: "none"})
              			.eventCallback('onComplete', done);
 
+             		fadeReset();
              		tl_inputExp.play();
         			tl_inputExp.seek(0);	
 
@@ -180,7 +209,7 @@
 					tl_endVid	= new TimelineLite({paused: true});
 
 				tl_endVid.to(endScreen, 2, {opacity: 0})
-             		.to(transition, 2, {opacity: 1}, "-=1")
+             		.to(transition, 2, {opacity: 1}, "-=0.5")
            			.eventCallback('onComplete', done);
 
 		        tl_endVid.play(); 
@@ -214,12 +243,14 @@
 			        transformOrigin: "100% 0%", 
 			        rotation: "-90deg", 
 			        ease: Power3.easeIn, 
-			        alpha: 0
+			        alpha: 0,
+			        left: "1000px"
 			     })
-			     .to(startScreen, 2, {
-			        rotation: "0deg",
+			     .from(startScreen, 2, {
+			        rotation: "90deg",
 			        ease: Power3.easeOut,
-			        alpha: 1
+			        alpha: 0,
+			        left: "-=1000px"
 			     }, "-=0.5")
 			     .eventCallback('onComplete', done);
 
@@ -233,20 +264,24 @@
 	 }])
 
 //								  // 
-//        VIDEO ANIMATIONS        //
+//     VIDEO PLAYER ANIMATIONS    //
 //								  //
 
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
+			setup: function() {
+
+			},
 			start: function($playerDiv, done) {
 				$log.log('Fade in Video Experience');
 				var videoPlayer	= document.getElementById("player"), 
 				tl_vidIn 		= new TimelineLite({paused: true});
 
 				//ANIMATION TIMELINE
-				tl_vidIn.to(videoPlayer, 2, {display: "block", opacity: 1}, "+=2")
+				tl_vidIn.from(videoPlayer, 2, {opacity: 0}, "+=2")
 				.eventCallback('onComplete', done);
 
+				
 				tl_vidIn.play();
 				setTimeout(function() {
        				videoPlayer.play()
@@ -276,15 +311,14 @@
 //								  // 
 //     INPUT FORM ANIMATIONS      //
 //								  //
-
+	
+	//input screen
 	.animation('start-button-enter', [function() {
 		return {
 			setup: function($startButton) {
-				// Setup the button for animation.
 				$startButton.hide();
 			},
 			start: function($startButton, done) {
-				// Don't forget to call the done function!
 				$startButton.fadeIn(done);
 			}
 		}
@@ -293,8 +327,28 @@
 	.animation('start-button-leave', [function() {
 		return {
 			start: function($startButton, done) {
-				// Don't forget to call the done function!
 				$startButton.fadeOut(done);
+			}
+		}
+	}])
+
+	.animation('response-next-leave', [function() {
+		return {
+			setup: function(input) {
+			//	annotation.attr('disabled','disabled');
+			},
+			start: function(input, done) {
+				console.log('New Question Leave');
+				var tl_nextLeave  = new TimelineLite;
+
+				tl_nextLeave.to(input, 1, {
+					"left": "-=150px", 
+					alpha: 0, 
+					ease: Power4.easeIn, 
+				})
+				.eventCallback('onComplete', done);
+
+				//look up jquery function to disable, enable oncomplete, done after
 			}
 		}
 	}])
@@ -302,26 +356,15 @@
 	.animation('response-next-enter', [function() {
 		return {
 			start: function(input, done) {
-				console.log('time to animate next (enter)');
-				done();
-			}
-		}
-	}])
-	
-	.animation('response-next-leave', [function() {
-		return {
-			start: function(input, done) {
-				console.log('time to animate next (leave)');
-				done();
-			}
-		}
-	}])
-	
-	.animation('response-previous-enter', [function() {
-		return {
-			start: function(input, done) {
-				console.log('time to animate previous (enter)');
-				done();
+				console.log('New Question Enter');
+				var tl_nextEnter  = new TimelineLite;
+
+				tl_nextEnter.from(input, 1, {
+					"left": "+=150px", 
+					alpha: 0, 
+					ease: Elastic.easeOut
+				}, "+=1")
+				.eventCallback('onComplete', done);
 			}
 		}
 	}])
@@ -329,17 +372,55 @@
 	.animation('response-previous-leave', [function() {
 		return {
 			start: function(input, done) {
-				console.log('time to animate previous (leave)');
-				done();
+				console.log('Prev Question Leave');
+				var tl_prevLeave  = new TimelineLite;
+
+				tl_prevLeave.to(input, 1, {
+					"left": "+=150px", 
+					alpha: 0, 
+					ease: Power4.easeIn
+				})
+				.eventCallback('onComplete', done);
 			}
 		}
 	}])
 	
+	.animation('response-previous-enter', [function() {
+		return {
+			start: function(input, done) {
+				console.log('Previous Question Enter');
+				var tl_prevEnter  = new TimelineLite;
+
+				tl_prevEnter.from(input, 1, {
+					"left": "-=150px", 
+					alpha: 0, 
+					ease: Elastic.easeOut
+				}, "+=1")
+				.eventCallback('onComplete', done);
+			}
+		}
+	}])
+
+	//action experience
 	.animation('action-annotation-show', [function() {
 		return {
+			setup: function(annotation) {
+					annotation.css({
+					"opacity": "1"
+				});
+			},
 			start: function(annotation, done) {
 				console.log('animate in action bubble');
-				done();
+				var tl_actionShow  	= new TimelineLite,
+					aText			= $(".a-text");
+
+				tl_actionShow.from(annotation, 0.3, {
+					alpha:0, 
+					scale:2, 
+					ease:Back.easeOut
+				})
+				.eventCallback('onComplete', done);
+			
 			}
 		}
 	}])
@@ -348,8 +429,11 @@
 		return {
 			start: function(annotation, done) {
 				console.log('animate out action bubble');
-				done();
+				var tl_actionHide  = new TimelineLite;
+
+				tl_actionHide.to(annotation, 0.5, {alpha: 0})
+				.eventCallback('onComplete', done);
 			}
 		}
 	}])
-})();
+ })();

@@ -21,9 +21,9 @@
 	                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
 	                    	ng-disabled="appCtrl.inExperience"
 	                    	c6-on="experienceStart: {$this.prop('disabled', true); $this.blur();}"
-	                    	c6-autofocus
 	                    	maxlength="{{prompt.sizeLimit}}"
 	                        class="question__userAnswer"
+				c6-autofocus
 	                        type="text"
 	                        name="response"
 	                        autocomplete="off">

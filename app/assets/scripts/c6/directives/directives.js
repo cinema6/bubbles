@@ -38,8 +38,6 @@ angular.module('c6.dir.screenJack',[])
 				.css("font-size", (actionFont * scaleFactor))
 				.css("margin-top", ((baseH * scaleFactor) / -2))
 				.css("margin-left", ((baseW * scaleFactor) / -2));
-
-
 		});
 		
 		//Resize content immediately when page is loded
@@ -47,20 +45,24 @@ angular.module('c6.dir.screenJack',[])
 	}
 }])
 
-.directive('c6IosKeyboard', ['$window', '$document', function($window, $document) {
+.directive('c6IosKeyboard', ['$window', '$timeout', '$document', function($window, $timeout, $document) {
 	return function(scope, element, attrs) {
 		if ($window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-			if (attrs.c6IosKeyboard === 'input') {
-				element.bind('focus', function() {
+			if (attrs.c6IosKeyboard === 'input') { 
+				element.bind('click', function() {
 					scope.$emit('c6-ios-keyboard-up');
 				});
 				element.bind('blur', function() {
-					scope.$emit('c6-ios-keyboard-down');
+					$timeout(function() {
+						scope.$emit('c6-ios-keyboard-down');
+					}, 0);
 				});
-			} else if (attrs.c6IosKeyboard === 'target') {
+			} else if (attrs.c6IosKeyboard === 'target') { 
 				scope.$on('c6-ios-keyboard-up', function() {
+					$window.scrollTo(0, 0);
 					element.addClass('c6-ios-keyboard-up');
 				});
+
 				scope.$on('c6-ios-keyboard-down', function() {
 					element.removeClass('c6-ios-keyboard-up');
 				});

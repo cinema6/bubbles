@@ -284,6 +284,7 @@
 				
 				tl_vidIn.play();
 				setTimeout(function() {
+       				videoPlayer.load()
        				videoPlayer.play()
        			}, 1800);
        			tl_vidIn.seek(0);
@@ -351,15 +352,17 @@
 		}
 	}])
 	
-	.animation('response-next-enter', [function() {
+	.animation('response-next-enter', ['$window', function($window) {
 		return {
 			setup: function(input) {
-				input.prop('disabled', true);
+				if (!$window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {	
+					input.prop('disabled', true);
 
-				setTimeout(function() {
-					input.prop('disabled', false);
-					input.focus();
-				}, 1250)
+					setTimeout(function() {
+						input.prop('disabled', false);
+						input.focus();
+					}, 1250)
+				}
 			},
 			start: function(input, done) {
 				console.log('New Question Enter');
@@ -394,15 +397,17 @@
 		}
 	}])
 	
-	.animation('response-previous-enter', [function() {
+	.animation('response-previous-enter', ['$window', function($window) {
 		return {
 			setup: function(input) {
-				input.prop('disabled', true);
+				if (!$window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {	
+					input.prop('disabled', true);
 
-				setTimeout(function() {
-					input.prop('disabled', false);
-					input.focus();
-				}, 1250)
+					setTimeout(function() {
+						input.prop('disabled', false);
+						input.focus();
+					}, 1250)
+				}
 			},
 			start: function(input, done) {
 				console.log('Previous Question Enter');

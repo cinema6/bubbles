@@ -1,0 +1,61 @@
+<!--        INPUT SCREEN      -->
+<div class="inputScreen" >
+    <!--artwork-->
+     <header class="inputScreen__logo"><h1 class="ir">Screenjacked</h1></header>           
+     <div class="inputScreen__bgArtwork">&nbsp;</div>
+    
+    <!--content-->
+     <button class="inputScreen__btnClose" ng-click="appCtrl.goToRoute('/');"><span class="ir">Close</span></button> 
+     
+     <div>   
+        <form class="content" >
+            <ul class="question__group" c6-ios-keyboard="target">
+                <li class="question">
+                    <h1 class="question__number">Question {{inputCtrl.currentPromptIndex()+1}}</h1>
+                    <h2 class="question__query">{{inputCtrl.currentPrompt.query}}</h2>
+                    <input
+                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
+                    	ng-disabled="appCtrl.inExperience"
+                    	c6-on="newPrompt: {$this.focus();}, experienceStart: {$this.prop('disabled', true); $this.blur();}"
+                    	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
+                        class="question__userAnswer"
+                        type="text"
+                        type="text"
+                        name="response"
+                        c6-ios-keyboard="input"
+                        autocomplete="off">
+                    </input>
+                    <div class="question__inputSpace">&nbsp;</div>
+                </li>
+                <button
+                class="question__btnStart"
+                ng-if="inputCtrl.isDone()"
+                ng-animate="'start-button'"
+                ng-disabled="!inputCtrl.currentResponse()"
+                ng-click="inputCtrl.startExperience();">
+                <span class="ir">Start</span>
+            </button>
+            
+            <button
+                class="question__btnNext"
+                ng-disabled="!inputCtrl.canGoForward()"
+                ng-click="inputCtrl.nextQuestion();"
+                name="next">
+                <span class="ir">Next</span>
+            </button>
+                        
+            <button
+                class="question__btnPrevious"
+                ng-disabled="!inputCtrl.canGoBack()"
+                ng-click="inputCtrl.prevQuestion();"
+                name="prev">
+                <span class="ir">Prev</span>
+            </button>
+            <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
+            </ul>
+
+            
+        </form></div>
+        <footer class="progressDock">Page {{inputCtrl.currentPromptIndex() + 1}} of {{inputCtrl.totalPrompts()}}</footer>
+     
+</div>

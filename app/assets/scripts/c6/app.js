@@ -41,14 +41,14 @@ var dependencies = [
 ];
 
 angular.module('c6.app', dependencies)
-  .config(['$routeProvider',function ($routeProvider) {
+  .config(['$routeProvider', 'environment', function ($routeProvider, env) {
     $routeProvider
       .when('/', {
         templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
         controller: 'C6CategoryListCtrl'
       })
       .when('/entry/:category', {
-        templateUrl: __C6_APP_BASE_URL__ + '/views/input.html',
+        templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
         controller: 'C6InputCtrl'
       })
 	      .when('/entry/:category/experience', {

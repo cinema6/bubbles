@@ -125,6 +125,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$rootScope.currentRoute = 'input';
 
 	$scope.$watch('inputCtrl.currentPromptIndex()', function(newValue, oldValue) {
+		$scope.$broadcast('newPrompt');
 		if (newValue > oldValue) {
 			$scope.inputCtrl.currentDirection = 'next';
 		} else if (newValue < oldValue) {

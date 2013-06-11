@@ -55,11 +55,11 @@ angular.module('c6.dir.screenJack',[])
 				element.bind('blur', function() {
 					$timeout(function() {
 						scope.$emit('c6-ios-keyboard-down');
-					}, 45);
+					}, 0);
 				});
 			} else if (attrs.c6IosKeyboard === 'target') { 
 				scope.$on('c6-ios-keyboard-up', function() {
-					window.scrollTo(0, 0);
+					$window.scrollTo(0, 0);
 					element.addClass('c6-ios-keyboard-up');
 				});
 

@@ -284,6 +284,7 @@
 				
 				tl_vidIn.play();
 				setTimeout(function() {
+       				videoPlayer.load()
        				videoPlayer.play()
        			}, 1800);
        			tl_vidIn.seek(0);

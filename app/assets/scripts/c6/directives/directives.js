@@ -75,6 +75,16 @@ angular.module('c6.dir.screenJack',[])
 	}
 }])
 
+.directive('c6AnimateOnEvent', ['$animator', function($animator) {
+	return function(scope, element, attrs) {
+		var animator = $animator(scope, attrs);
+		
+		scope.$on(attrs.c6AnimateOnEvent, function() {
+			animator.animate(attrs.c6AnimateOnEvent, element);
+		});
+	}
+}])
+
 .directive('c6On', ['$log', function($log) {
 	return {
 		scope: true,

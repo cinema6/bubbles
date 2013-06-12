@@ -27,6 +27,12 @@
                     </input>
                     <div class="question__inputSpace">&nbsp;</div>
                 </li>
+                <div
+                	ng-show="inputCtrl.currentResponseIsValid()"
+                	c6-animate-on-event="modelValidated"
+                	ng-animate="{show: 'valid-show', hide: 'valid-hide', modelValidated: 'valid-validated'}">
+                		Check Goes Here.
+                </div>
                 <button
                 class="question__btnStart"
                 ng-if="inputCtrl.isDone()"

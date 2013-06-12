@@ -13,7 +13,6 @@ function PromptModel(experience) {
     this.defSizeLimit    = (experience.defSizeLimit) ? experience.defSizeLimit : 30;
     this.prompts         = [];
     this.responses       = [];
-    this.validations     = [];
     for (var i = 0; i < experience.prompts.length; i++) {
         var q = experience.prompts[i];
         if (q instanceof Object) {
@@ -35,7 +34,6 @@ function PromptModel(experience) {
             throw localException('Unknown question type: ' + typeof q);
         }
        this.responses.push(null);
-       this.validations.push(null);
     }
 }
 
@@ -143,11 +141,7 @@ angular.module('c6.ctrl',['c6.svc'])
 			$scope.inputCtrl.currentDirection = 'previous';
 		}
 	});
-	
-	$scope.$watch('inputCtrl.promptModel.validations', function() {
-		$scope.$broadcast('modelValidated');
-	}, true);
-	
+		
     $scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
     
     this.promptModel = new PromptModel($scope.appCtrl.experience);
@@ -168,11 +162,9 @@ angular.module('c6.ctrl',['c6.svc'])
     }
     this.currentDirection = null;
     this.nextQuestion = function() {
-		if (this.currentResponse()) this.promptModel.validations[this.currentPromptIndex()] = true;
 		this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() + 1];
     }
     this.prevQuestion = function() {
-		if (this.currentResponse()) this.promptModel.validations[this.currentPromptIndex()] = true;
 	    this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() - 1];
     }
     this.canGoBack = function() {

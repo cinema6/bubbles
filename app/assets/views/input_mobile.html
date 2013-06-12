@@ -35,7 +35,7 @@
                     <div class="question__inputSpace">&nbsp;</div>
                 </li>
                 <div
-                	ng-if="inputCtrl.currentResponse().length"
+                	ng-if="inputCtrl.currentResponse().length? true : false"
                     ng-animate="'valid'"
                     class="question__inputCheck">
                 		<span class="ir">Input Accepted</span>

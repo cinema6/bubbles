@@ -280,13 +280,11 @@
 				//ANIMATION TIMELINE
 				tl_vidIn.from(videoPlayer, 2, {opacity: 0}, "+=2")
 				.eventCallback('onComplete', done);
-
 				
 				tl_vidIn.play();
 				setTimeout(function() {
-       				videoPlayer.load()
        				videoPlayer.play()
-       			}, 1800);
+       			}, 1850);
        			tl_vidIn.seek(0);
 			}	
 		}

@@ -234,12 +234,11 @@ input {cursor: text;}
             position: absolute; 
             left: 36.5%;
             top: 75%;
-            
          }
             @media screen and (max-width: 768px) {
                 .question__btnStart {
                     width: 50%;
-                    top: 50%;
+                    top: 70%;
                     left: 25%;
                 }
             }

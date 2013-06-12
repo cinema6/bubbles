@@ -280,13 +280,11 @@
 				//ANIMATION TIMELINE
 				tl_vidIn.from(videoPlayer, 2, {opacity: 0}, "+=2")
 				.eventCallback('onComplete', done);
-
 				
 				tl_vidIn.play();
 				setTimeout(function() {
-       				videoPlayer.load()
        				videoPlayer.play()
-       			}, 1800);
+       			}, 1850);
        			tl_vidIn.seek(0);
 			}	
 		}
@@ -463,6 +461,25 @@
 		return {
 			start: function(element, done) {
 				element.fadeOut(2000, done);
+			}
+		}
+	}])
+	
+	.animation('prompt-enter', [function() {
+		return {
+			setup: function(prompt) {
+				prompt.hide();
+			},
+			start: function(prompt, done) {
+				prompt.fadeIn(done);
+			}
+		}
+	}])
+	
+	.animation('prompt-leave', [function() {
+		return {
+			start: function(prompt, done) {
+				prompt.fadeOut(done);
 			}
 		}
 	}])

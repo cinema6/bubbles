@@ -260,7 +260,7 @@ angular.module('c6lib.video', [])
 				video.pause();
 				video.currentTime = 0;
 				video.muted = false;
-			}, 250);
+			}, 50);
 		});
 	}
 }])

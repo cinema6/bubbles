@@ -36,23 +36,25 @@ input {cursor: text;}
 
      /* content */
          .category__group {
-            width: 81.41%;
-            height: 91.62%;
-            left: 18%;
-            top: 12%;
+            width: 71.41%;
+            height: 81.62%;
+            left: 14%;
+            top: 0%;
             position: absolute; 
             z-index: 1;
+            padding: 10%;
             -ms-transform: rotate(-15deg); /* IE 9 */
             -moz-transform: rotate(-15deg); /* Firefox */
             -o-transform: rotate(-15deg); /* Opera */
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
             transform: rotate(-15deg);
             list-style-type: none;
+            
          }
 
          .startScreen__directions { 
             color: #c20000; 
-            margin: 2% 0 0 36.31%; 
+            margin: 5% 0 0 42.31%; 
             font-size:114.29%; 
             font-weight: 300;
             -ms-transform: rotate(-15deg); /* IE 9 */
@@ -200,7 +202,19 @@ input {cursor: text;}
             margin: 0 0 0 -34%;
             z-index: -1;
         }
-            
+        
+        /* ipad only */
+        .question__inputCheck {
+            background: url("../media/input_check.png") right no-repeat;
+            height: 32px;
+            width: 68%;
+            top: 50%;
+            left: 50%;
+            margin: 0 0 0 -34%;
+            position: absolute;
+            z-index: -2;
+        }
+
         .question__btnPrevious {
             background: url('../media/btn_previous_default.png') no-repeat bottom left; 
             background-size: 100% auto;

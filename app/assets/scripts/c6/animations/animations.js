@@ -311,7 +311,7 @@
 //     INPUT FORM ANIMATIONS      //
 //								  //
 	
-	//input screen
+	// input screen ----------------//
 	.animation('start-button-enter', [function() {
 		return {
 			setup: function($startButton) {
@@ -421,7 +421,30 @@
 		}
 	}])
 
-	//action bubbles
+	// ipad only ----------------//
+	.animation('valid-leave', [function() {
+		return {
+			/*setup: function() {
+				element.show();
+			},*/
+			start: function(element, done) {
+				element.fadeOut(500, done);
+			}
+		}
+	}])
+	
+	.animation('valid-enter', [function() {
+		return {
+			setup: function(element) {
+				element.hide();
+			},
+			start: function(element, done) {
+				element.fadeIn(1000, done);
+			}
+		}
+	}])
+
+	//action bubbles ----------------//
 	.animation('action-annotation-show', [function() {
 		return {
 			setup: function(annotation) {
@@ -457,21 +480,5 @@
 		}
 	}])
 	
-	.animation('valid-hide', [function() {
-		return {
-			start: function(element, done) {
-				element.fadeOut(2000, done);
-			}
-		}
-	}])
-	
-	.animation('valid-validated', [function() {
-		return {
-			start: function(element, done) {
-				element.fadeIn(1000, function() {
-					element.fadeOut(1000, done);
-				})
-			}
-		}
-	}]);
+
  })();

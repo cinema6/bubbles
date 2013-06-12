@@ -465,6 +465,25 @@
 		}
 	}])
 	
+	.animation('prompt-enter', [function() {
+		return {
+			setup: function(prompt) {
+				prompt.hide();
+			},
+			start: function(prompt, done) {
+				prompt.fadeIn(done);
+			}
+		}
+	}])
+	
+	.animation('prompt-leave', [function() {
+		return {
+			start: function(prompt, done) {
+				prompt.fadeOut(done);
+			}
+		}
+	}])
+	
 	.animation('valid-validated', [function() {
 		return {
 			start: function(element, done) {

@@ -458,4 +458,22 @@
 			}
 		}
 	}])
+	
+	.animation('valid-hide', [function() {
+		return {
+			start: function(element, done) {
+				element.fadeOut(2000, done);
+			}
+		}
+	}])
+	
+	.animation('valid-validated', [function() {
+		return {
+			start: function(element, done) {
+				element.fadeIn(1000, function() {
+					element.fadeOut(1000, done);
+				})
+			}
+		}
+	}]);
  })();

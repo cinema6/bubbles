@@ -54,8 +54,12 @@ angular.module('c6.dir.screenJack',[])
 				});
 				element.bind('blur', function() {
 					$timeout(function() {
-						scope.$emit('c6-ios-keyboard-down');
-					}, 0);
+						if (!element.is(':focus')) {
+							scope.$emit('c6-ios-keyboard-down');
+						} else {
+							$window.scrollTo(0, 0);
+						}
+					}, 50);
 				});
 			} else if (attrs.c6IosKeyboard === 'target') { 
 				scope.$on('c6-ios-keyboard-up', function() {
@@ -68,6 +72,16 @@ angular.module('c6.dir.screenJack',[])
 				});
 			}
 		}
+	}
+}])
+
+.directive('c6AnimateOnEvent', ['$animator', function($animator) {
+	return function(scope, element, attrs) {
+		var animator = $animator(scope, attrs);
+		
+		scope.$on(attrs.c6AnimateOnEvent, function() {
+			animator.animate(attrs.c6AnimateOnEvent, element);
+		});
 	}
 }])
 

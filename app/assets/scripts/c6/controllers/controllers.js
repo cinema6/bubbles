@@ -13,6 +13,7 @@ function PromptModel(experience) {
     this.defSizeLimit    = (experience.defSizeLimit) ? experience.defSizeLimit : 30;
     this.prompts         = [];
     this.responses       = [];
+    this.validations     = [];
     for (var i = 0; i < experience.prompts.length; i++) {
         var q = experience.prompts[i];
         if (q instanceof Object) {
@@ -34,6 +35,7 @@ function PromptModel(experience) {
             throw localException('Unknown question type: ' + typeof q);
         }
        this.responses.push(null);
+       this.validations.push(null);
     }
 }
 
@@ -120,17 +122,23 @@ angular.module('c6.ctrl',['c6.svc'])
     var obj = vsvc.getCategories();
     $scope.categories = obj.categories;
 }])
-.controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'c6VideoListingService', function($log, $scope, $rootScope, $routeParams, vsvc) {
+.controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$timeout', 'c6VideoListingService', function($log, $scope, $rootScope, $routeParams, $timeout, vsvc) {
+	var self = this;
     $log.log('Creating C6InputCtrl: ' + $routeParams.category);
 	$rootScope.currentRoute = 'input';
 
 	$scope.$watch('inputCtrl.currentPromptIndex()', function(newValue, oldValue) {
+		$scope.$broadcast('newPrompt');
 		if (newValue > oldValue) {
 			$scope.inputCtrl.currentDirection = 'next';
 		} else if (newValue < oldValue) {
 			$scope.inputCtrl.currentDirection = 'previous';
 		}
 	});
+	
+	$scope.$watch('inputCtrl.promptModel.validations', function() {
+		$scope.$broadcast('modelValidated');
+	}, true);
 	
     $scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
     
@@ -141,6 +149,9 @@ angular.module('c6.ctrl',['c6.svc'])
     this.currentResponse = function() {
 	    return this.promptModel.responses[this.currentPromptIndex()];
     }
+    this.currentResponseIsValid = function(prompt) {
+	    return (this.currentResponse() && this.promptModel.validations[this.currentPromptIndex()])? true : false;
+    }
     this.currentPromptIndex = function() {
 	    return this.promptModel.prompts.indexOf(this.currentPrompt);
     }
@@ -149,9 +160,11 @@ angular.module('c6.ctrl',['c6.svc'])
     }
     this.currentDirection = null;
     this.nextQuestion = function() {
-	    this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() + 1];
+		if (this.currentResponse()) this.promptModel.validations[this.currentPromptIndex()] = true;
+		this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() + 1];
     }
     this.prevQuestion = function() {
+		if (this.currentResponse()) this.promptModel.validations[this.currentPromptIndex()] = true;
 	    this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() - 1];
     }
     this.canGoBack = function() {

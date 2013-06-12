@@ -311,7 +311,7 @@
 //     INPUT FORM ANIMATIONS      //
 //								  //
 	
-	//input screen
+	// input screen ----------------//
 	.animation('start-button-enter', [function() {
 		return {
 			setup: function($startButton) {
@@ -421,76 +421,25 @@
 		}
 	}])
 
-	//action bubbles
-	.animation('action-annotation-show', [function() {
+	// ipad only ----------------//
+	.animation('valid-leave', [function() {
 		return {
-			setup: function(annotation) {
-					annotation.css({
-					"opacity": "1"
-				});
-			},
-			start: function(annotation, done) {
-				console.log('animate in action bubble');
-				var tl_actionShow  	= new TimelineLite,
-					aText			= $(".a-text");
-
-				tl_actionShow.from(annotation, 0.3, {
-					alpha:0, 
-					scale:2, 
-					ease:Back.easeOut
-				})
-				.eventCallback('onComplete', done);
-			
-			}
-		}
-	}])
-	
-	.animation('action-annotation-hide', [function() {
-		return {
-			start: function(annotation, done) {
-				console.log('animate out action bubble');
-				var tl_actionHide  = new TimelineLite;
-
-				tl_actionHide.to(annotation, 0.5, {alpha: 0})
-				.eventCallback('onComplete', done);
-			}
-		}
-	}])
-	
-	.animation('valid-hide', [function() {
-		return {
+			/*setup: function() {
+				element.show();
+			},*/
 			start: function(element, done) {
-				element.fadeOut(2000, done);
+				element.fadeOut(500, done);
 			}
 		}
 	}])
 	
-	.animation('prompt-enter', [function() {
+	.animation('valid-enter', [function() {
 		return {
-			setup: function(prompt) {
-				prompt.hide();
+			setup: function(element) {
+				element.hide();
 			},
-			start: function(prompt, done) {
-				prompt.fadeIn(done);
-			}
-		}
-	}])
-	
-	.animation('prompt-leave', [function() {
-		return {
-			start: function(prompt, done) {
-				prompt.fadeOut(done);
-			}
-		}
-	}])
-	
-	.animation('valid-validated', [function() {
-		return {
 			start: function(element, done) {
-				element.fadeIn(1000, function() {
-					element.fadeOut(1000, done);
-				})
+				element.fadeIn(1000, done);
 			}
 		}
-	}]);
- })();
+	}])

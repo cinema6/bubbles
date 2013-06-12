@@ -12,7 +12,14 @@
             <ul class="question__group" c6-ios-keyboard="target">
                 <li class="question">
                     <h1 class="question__number">Question {{inputCtrl.currentPromptIndex()+1}}</h1>
-                    <h2 class="question__query">{{inputCtrl.currentPrompt.query}}</h2>
+                    <div ng-repeat="prompt in inputCtrl.promptModel.prompts">
+	                    <h2
+	                    	class="question__query"
+	                    	ng-if="inputCtrl.currentPromptIndex() === $index"
+	                    	ng-animate="'prompt'">
+	                    		{{inputCtrl.promptModel.prompts[$index].query}}
+	                    </h2>
+                    </div>
                     <input
                     	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                     	ng-disabled="appCtrl.inExperience"

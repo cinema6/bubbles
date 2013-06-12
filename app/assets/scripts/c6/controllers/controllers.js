@@ -310,5 +310,4 @@ angular.module('c6.ctrl',['c6.svc'])
     
     $scope.annoCtrl = this;
 }]);
-
 })();

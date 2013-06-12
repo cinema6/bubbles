@@ -1,0 +1,43 @@
+<div class="endScreen" c6-resize>
+         <!--artwork-->
+        <header class="endScreen__logo"><img src="assets/media/logo_rippedPaper.png"><!--<h1 class="ir">Screenjacked</h1>--></header>
+        <div class="startScreen__bgArtwork"></div>
+        
+        <!--content-->
+        <div class="viewport">
+            
+            <video class="video" c6video c6-src="assets/media/not_over.mp4" controls></video>
+            <menu class="vidMenu">
+<<<<<<< Updated upstream
+                <button class="vidMenu__btnReplay" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}/experience');" name="replay"><span class="ir">Replay</span></button>
+                <!--<button class="vidMenu__btnEdit" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}');"name="edit"><span class="ir">Edit</span></button>-->
+=======
+                <button class="vidMenu__btnReplay" ng-click="appCtrl.goToRoute('/experience');" name="replay"><span class="ir">Replay</span></button>
+
+                <button class="vidMenu__btnEdit" ng-click="appCtrl.goToRoute('/experience');"name="edit"><span class="ir">Edit</span></button>
+>>>>>>> Stashed changes
+                <button class="vidMenu__btnNewVid" ng-click="appCtrl.goToRoute('/');" name="newVid"><span class="ir">Make a new video</span></button>
+            </menu>
+        </div>
+        <footer class="shareMenu"><span class="ir">Share with others:</span>
+            <button class="shareMenu__btnEmail" name="email"><span class="ir">Share through Email</span></button>
+            
+            <button
+            	c6-share="twitter"
+            	share-url="http://apple.com/"
+            	share-description="This is Apple, Inc."
+            	class="shareMenu__btnTwitter"
+            	name="twitter"><span class="ir">Share on Twitter</span>
+            </button>
+            
+            <button
+            	c6-share="facebook"
+            	share-url="http://www.apple.com"
+            	share-title="Apple, Inc."
+            	share-description="This is an awesome description!"
+            	share-image="http://www.itscanfixthat.com/wp-content/uploads/2013/02/apple-icon.gif"
+            	class="shareMenu__btnFacebook"
+            	name="facebook"><span class="ir">Share on Facebook</span>
+            </button>
+        </footer>
+     </div>

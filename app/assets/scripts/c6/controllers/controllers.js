@@ -116,11 +116,19 @@ angular.module('c6.ctrl',['c6.svc'])
                                         'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
     $log.log('Creating cCategoryListCtrl');
 	$rootScope.currentRoute = 'categories';
-	
+
 	$scope.appCtrl.experience = null;
 	
-    var obj = vsvc.getCategories();
-    $scope.categories = obj.categories;
+	this.categories = vsvc.getCategories().categories;
+	
+	this.loadCategory = function(category) {
+		category = angular.lowercase(category);
+		
+		$scope.appCtrl.experience = vsvc.getExperienceByCategory(category);
+		$scope.appCtrl.goToRoute('/entry/' + category);
+	}
+	
+    $scope.catCtrl = this;
 }])
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$timeout', 'c6VideoListingService', function($log, $scope, $rootScope, $routeParams, $timeout, vsvc) {
 	var self = this;

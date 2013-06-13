@@ -18,7 +18,23 @@
   <body class="paperTexture ng-cloak"> <!-- class toggles on for the experience -->
 
     <div class="experience">
-      <span class="c6bar">&nbsp;</span> 
+      <!--#c6Bar-->
+      <div id="c6Bar">
+        <ul>
+            <li id="c6Bar_logo"><a href="#" title="Cinema6"><img src="assets/media/c6/c6logo64x64.png" alt="Cinema6" width="32"></a></li>
+            <li id="c6Bar_screenjacked"><a href="#" title="Screenjacked"><span class="ir">Screenjacked</span></a></li>
+            <li id="c6Bar_settings" class="hasDropdown">
+                <a href="#" title="Settings" id="btn_settings" class="clearfix">
+                    <span class="icon_gear"><span class="ir">Settings</span></span>
+                    <span class="icon_dropdown"><span class="ir">Drop Down</span></span>
+                </a>
+                <ul id="settings-dropdown" class="dropdown stack">
+                    <li><a href="#" title="Close" id="btn_exitExp">Close</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div>
+      <!--#c6Bar-->
       
       <div ng-view ng-animate="currentRoute + '-partial'"></div>
       

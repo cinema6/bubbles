@@ -68,11 +68,11 @@
 						textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]'),
 						message = 'Hello!';
 					
-					expect(counter.text()).toBe('24');
+					expect(counter.text()).toBe('18');
 					
 					for (var i = 0, length = message.length; i < length; i++) {
 						textField.enter(message.substring(0, i + 1));
-						expect(counter.text()).toBe(24 - (i + 1) + '');
+						expect(counter.text()).toBe(18 - (i + 1) + '');
 					}
 				});
 			});

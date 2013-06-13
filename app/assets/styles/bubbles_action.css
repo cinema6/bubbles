@@ -3,7 +3,7 @@
 .annotation {
     position: absolute;
     font-family: "uppercut-angle", georgia, serif;
-    font-size:100%;
+    font-size:85%;
     line-height: 100%;
     color: #111111;
     z-index: 100;
@@ -21,14 +21,24 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: url('../media/action/annotation-bottomRight.png') no-repeat bottom right,
-                url('../media/action/annotation-bottomLeft.png') no-repeat bottom left,
-                url('../media/action/annotation-topRight.png') no-repeat top right,
-                url('../media/action/annotation-topLeft.png') no-repeat top left,
-                url('../media/action/annotation-right.png') repeat-y right, 
+    z-index: 101;
+    background: url('../media/action/annotation-right.png') repeat-y right, 
                 url('../media/action/annotation-left.png') repeat-y left, 
                 url('../media/action/annotation-top.png') repeat-x top, 
                 url('../media/action/annotation-bottom.png') repeat-x bottom;
+}
+
+.a-corners {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 102;
+    background: url('../media/action/annotation-bottomRight.png') no-repeat bottom right,
+                url('../media/action/annotation-bottomLeft.png') no-repeat bottom left,
+                url('../media/action/annotation-topRight.png') no-repeat top right,
+                url('../media/action/annotation-topLeft.png') no-repeat top left
 }
 
 /* bubble and tail positioning */

@@ -1,12 +1,12 @@
 <div class="endScreen" c6-resize>
          <!--artwork-->
-        <header class="endScreen__logo"><img src="assets/media/logo_rippedPaper.png"><!--<h1 class="ir">Screenjacked</h1>--></header>
+        <header class="endScreen__logo"><img ng-src="assets/media/logo_rippedPaper_{{appCtrl.category()}}.png"></header>
         <div class="startScreen__bgArtwork"></div>
         
         <!--content-->
         <div class="viewport">
             
-            <div class="video"><span class="ir">[ Actual video content will replace this span ]</span></div>
+            <img class="vidFrame" ng-src="assets/media/vidFrame_{{appCtrl.category()}}.jpg">
             <menu class="vidMenu">
                 <button class="vidMenu__btnReplay" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}/experience');" name="replay"><span class="ir">Replay</span></button>
                 <!--<button class="vidMenu__btnEdit" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}');"name="edit"><span class="ir">Edit</span></button>-->

@@ -10,7 +10,8 @@ angular.module('c6.dir.screenJack',[])
 			var baseW = 1280,
 				baseH = 684,
 				mainFont = 28,
-				actionFont = 20,
+				actionFont = 32,
+
 			
 				//find current dimensions of window
 				winH = $window.innerHeight,

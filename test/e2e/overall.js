@@ -261,13 +261,51 @@
 				sleep(1);
 				expect(video.css('opacity')).toBe('1');
 			});
-			
 			it('should display the annotations at the correct moments in the video.', function() {
 				var $injector = angular.injector(['ng', 'c6.app']),
 					$q = $injector.get('$q'),
 					vsvc = $injector.get('c6VideoListingService');
 									
 				expect(checkForBubbles('#player', vsvc.getExperienceByCategory('action'))).toBe(true);
+			});
+			it('should transition to the end screen when the video ends.', function() {
+				video.query(function(videoEl, done) {
+					videoEl.on('timeupdate', function(event) {
+						if (event.target.currentTime === event.target.duration) {
+							done();
+						}
+					});
+				});
+				sleep(3);
+				
+				expect(element('.endScreen').count()).toBe(1);
+				expect(browser().window().hash()).toBe('/entry/action/end');
+			});
+		});
+		describe('the end screen', function() {
+			beforeEach(function() {
+				sleep(1);
+				browser().navigateTo('/#/entry/action/end');
+				sleep(1);
+			});
+			
+			describe('the replay button', function() {
+				it('should return to the experience.', function() {
+					element('.vidMenu__btnReplay').click();
+					sleep(5);
+					
+					expect(browser().window().hash()).toBe('/entry/action/experience');
+					expect(element('#player').css('opacity')).toBe('1');
+				});
+			});
+			describe('the make a new video button', function() {
+				it('should return to the categories page.', function() {
+					element('.vidMenu__btnNewVid').click();
+					sleep(4);
+					
+					expect(browser().window().hash()).toBe('/');
+					expect(element('.startScreen').count()).toBe(1);
+				});
 			});
 		});
 	});

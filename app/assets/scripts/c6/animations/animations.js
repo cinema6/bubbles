@@ -14,26 +14,6 @@
 					var tl_startInput   = new TimelineLite({paused: true}),
 						startScreen     = $(".startScreen"),
 						inputScreen     = $(".inputScreen");
-					
-					// resets styles
-					function inputReset() {
-				      inputScreen.css({
-				        "-webkit-transform": "rotate(-90deg)", 
-				        "-moz-transform": "rotate(-90deg)", 
-				        "-ms-transform": "rotate(-90deg)", 
-				        "-o-transform": "rotate(-90deg)", 
-				        "transform": "rotate(-90deg)", 
-				        "-webkit-transform-origin" : "100% 0%",
-				        "-moz-transform-origin" : "100% 0%",
-				        "-ms-transform-origin" : "100% 0%",
-				        "-o-transform-origin" : "100% 0%",
-				        "transform-origin" : "100% 0%",
-				        "display": "block",
-				        "opacity": "1",
-				        "left": "0px"
-				      });
-				      $log.log("* Input Styles Reset *");
-				    }
 
 					// ANIMATION TIMELINE //
 					tl_startInput.to(startScreen, 2, {
@@ -51,7 +31,6 @@
 				    }, "-=0.5")
 					.eventCallback('onComplete', done);
 					
-					//inputReset();
 					tl_startInput.play();
 					tl_startInput.seek(0);
 				} else {
@@ -271,7 +250,7 @@
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			setup: function() {
-
+				
 			},
 			start: function($playerDiv, done) {
 				$log.log('Fade in Video Experience');
@@ -279,7 +258,7 @@
 				tl_vidIn 		= new TimelineLite({paused: true});
 
 				//ANIMATION TIMELINE
-				tl_vidIn.from(videoPlayer, 2, {opacity: 0}, "+=2")
+				tl_vidIn.to(videoPlayer, 2, {opacity: 1}, "+=2")
 				.eventCallback('onComplete', done);
 				
 				tl_vidIn.play();
@@ -299,7 +278,6 @@
 				tl_vidOut		= new TimelineLite({paused: true});
 
 				tl_vidOut.to(videoPlayer, 1.5, {opacity: 0}, "-=2")
-				.to(videoPlayer, 0.1, {display: "none"})
 				.eventCallback('onComplete', done);
 
 				tl_vidOut.play();

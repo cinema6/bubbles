@@ -443,7 +443,44 @@
 			}
 		}
 	}])
+
+	//action bubbles ----------------//
+	.animation('action-annotation-show', [function() {
+		return {
+			setup: function(annotation) {
+					annotation.css({
+					"opacity": "1"
+				});
+			},
+			start: function(annotation, done) {
+				console.log('animate in action bubble');
+				var tl_actionShow  	= new TimelineLite,
+					aText			= $(".a-text");
+
+				tl_actionShow.from(annotation, 0.3, {
+					alpha:0, 
+					scale:2, 
+					ease:Back.easeOut
+				})
+				.eventCallback('onComplete', done);
+			
+			}
+		}
+	}])
 	
+	.animation('action-annotation-hide', [function() {
+		return {
+			start: function(annotation, done) {
+				console.log('animate out action bubble');
+				var tl_actionHide  = new TimelineLite;
+
+				tl_actionHide.to(annotation, 0.5, {alpha: 0})
+				.eventCallback('onComplete', done);
+			}
+		}
+	}])
+	
+
 	.animation('prompt-enter', [function() {
 		return {
 			setup: function(prompt) {
@@ -454,7 +491,7 @@
 			}
 		}
 	}])
-
+	
 	.animation('prompt-leave', [function() {
 		return {
 			start: function(prompt, done) {

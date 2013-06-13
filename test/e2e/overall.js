@@ -1,6 +1,32 @@
 (function() {
 	'use strict';
 	
+	angular.scenario.dsl('checkForBubbles', function() {
+		return function(videoSelector, experience) {
+			return this.addFutureAction('checking for bubbles in the video', function(appWindow, $document, done) {
+				var video = $document.find(videoSelector);
+				
+				video.on('timeupdate', function(event) {
+					var time = event.target.currentTime;
+					
+					if (time === event.target.duration) {
+						done(null, true);
+					}
+					
+					experience.annotations.notes.forEach(function(annotation, index) {
+						if (time >= annotation.ts && time <= annotation.ts + (annotation.duration || experience.annotations.options.duration)) {
+							var bubble = $document.find('.lee-' + index);
+							
+							if (bubble.css('display') === 'none') {
+								done('expected bubble with timestamp ' + annotation.ts + ' to be visisble', false);
+							}
+						}
+					});
+				});
+			});
+		}
+	});
+	
 	describe('Screenjacked', function() {
 		describe('The categories screen', function() {
 			beforeEach(function() {
@@ -140,6 +166,109 @@
 					});
 				});
 			});
-		})
+			describe('the start button', function() {
+				var textField,
+					prev,
+					next,
+					start,
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+				beforeEach(function() {
+					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
+					prev = element('.question__btnPrevious');
+					next = element('.question__btnNext');
+					start = element('.question__btnStart');
+				});
+				
+				it('should only be in the DOM when the final question is on-screen.', function() {
+					responses.forEach(function(response, index) {
+						if (index !== 9) {
+							expect(start.count()).toBe(0);
+							textField.enter(response);
+							next.click();
+							sleep(2);
+						} else {
+							expect(start.count()).toBe(1);
+						}
+					});
+				});
+				it('should be disabled until you enter the final response', function() {
+					responses.forEach(function(response, index) {
+						if (index !== 9) {
+							textField.enter(response);
+							next.click();
+							sleep(2);
+						} else {
+							expect(start.attr('disabled')).toBe('disabled');
+							textField.enter(response);
+							expect(start.attr('disabled')).toBe(undefined);
+						}
+					});
+				});
+				
+				describe('clicking', function() {
+					beforeEach(function() {
+						responses.forEach(function(response, index) {
+							textField.enter(response);
+							
+							if (index !== 9) {
+								next.click();
+								sleep(2);
+							}
+						});
+						
+						start.click();
+						sleep(3);
+					});
+					
+					it('should autoplay the video.', function() {
+						expect(element('#player').prop('paused')).toBe(false);
+					});
+					it('should change the url', function() {
+						expect(browser().window().hash()).toBe('/entry/action/experience');
+					});
+				});
+			});
+		});
+		describe('the experience', function() {
+			var textField,
+				next,
+				start,
+				video,
+				responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+			beforeEach(function() {
+				sleep(1);
+				browser().navigateTo('/#entry/action');
+				sleep(1);
+				
+				textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
+				next = element('.question__btnNext');
+				start = element('.question__btnStart');
+				video = element('#player');
+				
+				responses.forEach(function(response, index) {
+					textField.enter(response);
+					if (index !== 9) {
+						next.click();
+						sleep(1.5);
+					} else {
+						start.click();
+						sleep(3);
+					}
+				});
+			});
+			
+			it('should display the video', function() {
+				sleep(1);
+				expect(video.css('opacity')).toBe('1');
+			});
+			
+			it('should display the annotations at the correct moments in the video.', function() {
+				var $injector = angular.injector(['ng', 'c6.app']),
+					$q = $injector.get('$q'),
+					vsvc = $injector.get('c6VideoListingService');
+									
+				expect(checkForBubbles('#player', vsvc.getExperienceByCategory('action'))).toBe(true);
+			});
+		});
 	});
 })();

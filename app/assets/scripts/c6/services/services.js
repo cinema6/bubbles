@@ -45,27 +45,27 @@ angular.module('c6.svc',[])
                         'cls'     : ['lee-${index}', 'annotation']
                         },
                      'notes'  : [
-                        { 'ts':  7,'template':'${1}', 'duration':1 },
+                        { 'ts':  7,'template':'${1}', 'duration':1.5 },
                         { 'ts': 16,'template':'My dramatic entrance' },
                         { 'ts': 18,'template':'Must look tough' },
                         { 'ts': 20,'template':'Crazy ${2} stare', 'duration': 2 },
                         { 'ts': 22,'template':'${2} ${3}' },
                         { 'ts': 39,'template':'Get Out' },
                         { 'ts': 41,'template':'Or I will crush your ${4} into ${5}', 'duration':2 },
-                        { 'ts': 52,'template':'${4}!!!', 'duration':1 },
-                        { 'ts': 62,'template':'${5}!!!', 'duration':2 },
-                        { 'ts': 78,'template':'${6}!!!', 'duration':1 },
-                        { 'ts': 86,'template':'${6}???', 'duration':1.5 },
+                        { 'ts': 52,'template':'${4}!!!', 'duration':1.5 },
+                        { 'ts': 61.5,'template':'${5}!!!', 'duration':2 },
+                        { 'ts': 80.5, 'template':'${6}!!!', 'duration':2 },
+                        { 'ts': 86,'template':'${6}???', 'duration':2 },
                         { 'ts': 95,'template':'No, handcuffs of ${7}!' },
                         { 'ts':100,'template':'Bruce Lee > ${7}!', 'duration':2 },
-                        { 'ts':116,'template':'I\'m ${8}!', 'duration': 1.5 },
-                        { 'ts':118,'template':'No, you\'re a dumb Ewok', 'duration': 1.5 },
+                        { 'ts':115.5,'template':'I\'m ${8}!', 'duration': 2 },
+                        { 'ts':118,'template':'No, you\'re a dumb Ewok', 'duration': 2 },
                         { 'ts':120,'template':'Shut up stupid!', 'duration':2 },
-                        { 'ts':123,'template':'Good comeback ${9}', 'duration':1.5 },
+                        { 'ts':123,'template':'Good comeback ${9}', 'duration':2 },
                         { 'ts':125,'template':'${10}', 'duration':2 },
-                        { 'ts':127,'template':'That made no sense', 'duration':1.5 },
-                        { 'ts':130,'template':'${6}?', 'duration':1 },
-                        { 'ts':132,'template':'${2} ${3}!', 'duration':1 }
+                        { 'ts':127,'template':'That made no sense', 'duration':2 },
+                        { 'ts':129.5,'template':'${6}?', 'duration':2 },
+                        { 'ts':131.5,'template':'${2} ${3}!', 'duration':1.5 }
                     ]
                 }
             };
@@ -125,14 +125,16 @@ angular.module('c6.svc',[])
                 'id'          : '1',
                 'title'       : 'Something Special',
                 'views'       : 993,
-                'src'         : baseUrl + '/media/not_over',
-                'defSizeLimit': 32,
+                'src'         : baseUrl + '/media/romance/not_over',
+                'css'         : baseUrl + '/styles/bubbles_romance.css',
+                'anim'        : 'romance',
+                'defSizeLimit': 18,
                 'prompts'   : [
                     'strong smell',
                     'bodily function',
                     { query : 'exuberant expression' },
                     'animal',
-                    { query : 'animal', sizeLimit : 25},
+                    { query : 'animal', sizeLimit : 18},
                     'type of bread',
                     'famous A-list celebrity',
                     'Fight move',
@@ -142,18 +144,18 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'       : 'bubble',
                         'duration'   : 4,
-                        'cls'        : ['notebook-${index}', 'annotation__romance']
+                        'cls'        : ['notebook-${index}', 'annotation']
                     },
                     'notes' : [
                        { 'ts':11,'template':'Weird, smells like ${1}!' },
-                       { 'ts':16,'template':'Damn she knows I just ${2}.' },
-                       { 'ts':19,'template':'Rain Diversion ${3}!' },
-                       { 'ts':27,'template':'Casual laugh, think about a mutant ${4} ${5}.' },
-                       { 'ts':34,'template':'${4} ${5}!!' },
-                       { 'ts':39,'template':'Must counter or he\'ll think I\'m boring like ${6}.' },
+                       { 'ts':16,'template':'Damn she knows I just ${2}.', 'duration' : 3 },
+                       { 'ts':19,'template':'Rain Diversion ${3}!', 'duration' : 2 },
+                       { 'ts':27,'template':'Casual laugh, think about a mutant ${4} ${5}.', 'duration' : 3 },
+                       { 'ts':34,'template':'${4} ${5}!!', 'duration' : 2.5 },
+                       { 'ts':38,'template':'Must counter or he\'ll think I\'m boring like ${6}.' },
                        { 'ts':43,'template':'Commence over-acting.  Channel ${7}.' },
-                       { 'ts':54,'template':'umm WTF was that? She must ${8} ${9}.' },
-                       { 'ts':58,'template':'I love ${9}.' }
+                       { 'ts':55,'template':'umm WTF was that? She must ${8} ${9}.', 'duration' : 2.5 },
+                       { 'ts':58,'template':'I love ${9}.', 'duration': 2 }
                     ]
                 }
             };

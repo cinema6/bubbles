@@ -332,7 +332,7 @@ input {cursor: text;}
             }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .question__btnStart {
-                    top: 60%;
+                    top: 65%;
                 }
             }
 
@@ -355,7 +355,7 @@ input {cursor: text;}
                     width: 50px;
                 }
             }     
-         .inputScreen__btnClose:active {background: url('../media/btn_close_tap.png');}
+         .inputScreen__btnClose:active {background: url('../media/btn_close_tap.png'); background-size: cover;}
 
         .progressDock {
             height: 30px;
@@ -412,6 +412,19 @@ input {cursor: text;}
     opacity: 1;
  }
 
+ .experience__logo {
+    top: 46px;
+    left: 12px;
+    position: fixed;
+    z-index: 99;
+    opacity: 1;
+    width: 25%;
+ }
+    .experience__logo img {
+        height: auto;
+        width: 100%;
+    }
+
  #player {
     position: absolute; 
     margin: 0 auto; 
@@ -437,24 +450,24 @@ input {cursor: text;}
             display: block;
             text-align: center;
             padding: 5%;
-            width: 100%;
+            width: 90%;
         }
 
         .a-tail-top {
-            height: 35px;
+            height: 25%;
             width: 100%;
             position: absolute;
             left: 0;
-            top: -25px;
+            top: -18%;
             z-index: 105;
         }
 
         .a-tail-bottom {
-            height: 35px;
+            height: 25%;
             width: 100%;
             position: absolute;
             left: 0;
-            bottom: -25px; 
+            bottom: -18%; 
             z-index: 105;   
         }
 /*      EXPERIENCE END           */

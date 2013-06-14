@@ -90,19 +90,24 @@
 					$log.log('Animating from "input" to "experience"');
 					var	tl_inputExp     = new TimelineLite({paused: true}),
 						inputScreen     = $(".inputScreen"),
-						transition      = $(".transition_blackFade");						
+						transition      = $(".transition_blackFade"),
+						logo			= $(".experience__logo");						
 
 					// reset styles
 				    function fadeReset() {
 				    	transition.css({
-				        "opacity": "0"
-				      });
+				        	"opacity": "0"
+				      	});
+				    	logo.css({
+				    		"opacity": "0"
+				    	});
 				    	console.log("* Fade Styles Reset *");
 				    }	
 
 					// ANIMATION TIMELINE
 					tl_inputExp.to(inputScreen, 2, {opacity: 0})
              			.to(transition, 2, {opacity: 1}, "-=1")
+             			.to(logo, 2, {opacity: 1}, "-=1")
              			.to(inputScreen, 0.1, {display: "none"})
              			.eventCallback('onComplete', done);
 
@@ -126,6 +131,7 @@
 					var tl_expEnd   = new TimelineLite({paused: true}),
 						endScreen   = $(".endScreen"),
 						transition  = $(".transition_blackFade"),
+						logo 		= $(".experience__logo"),
 						videoPlayer = document.getElementById("player");
 					
 					// reset styles
@@ -161,6 +167,7 @@
 
 					// ANIMATION TIMELINE //
 					tl_expEnd.to(transition, 3, {opacity: 0})
+						.to(logo, 2, {opacity: 0}, "-=3")
 						.to(endScreen, 2, {opacity: 1}, "-=2.5")   
 					 	.eventCallback('onComplete', done);
 					
@@ -185,10 +192,12 @@
 				$log.log('Animating from "end" to "experience"');
 					transition 	= $(".transition_blackFade"),
 					endScreen	= $(".endScreen"),
+					logo		= $(".experience__logo"),
 					tl_endVid	= new TimelineLite({paused: true});
 
 				tl_endVid.to(endScreen, 2, {opacity: 0})
              		.to(transition, 2, {opacity: 1}, "-=0.5")
+             		.to(logo, 2, {opacity: 1}, "-=2")
            			.eventCallback('onComplete', done);
 
 		        tl_endVid.play(); 
@@ -332,7 +341,7 @@
 			},
 			start: function(annotation, done) {
 				console.log('animate in fantasy bubble');
-				var tl_fantasyShow  	= new TimelineLite,
+				var tl_fantasyShow  = new TimelineLite,
 					aText			= $(".a-text");
 
 				tl_fantasyShow.from(annotation, 0.3, {
@@ -357,6 +366,43 @@
 			}
 		}
 	}])
+
+	//romance bubbles ----------------//
+	.animation('romance-annotation-show', [function() {
+		return {
+			setup: function(annotation) {
+					annotation.css({
+					"opacity": "1"
+				});
+			},
+			start: function(annotation, done) {
+				console.log('animate in romance bubble');
+				var tl_romanceShow  = new TimelineLite,
+					aText			= $(".a-text");
+
+				tl_romanceShow.from(annotation, 0.3, {
+					alpha:0, 
+					scale:2, 
+					ease:Back.easeOut
+				})
+				.eventCallback('onComplete', done);
+			
+			}
+		}
+	}])
+	
+	.animation('romance-annotation-hide', [function() {
+		return {
+			start: function(annotation, done) {
+				console.log('animate out romance bubble');
+				var tl_romanceHide  = new TimelineLite;
+
+				tl_romanceHide.to(annotation, 0.5, {alpha: 0})
+				.eventCallback('onComplete', done);
+			}
+		}
+	}])
+
 //								  // 
 //     INPUT FORM ANIMATIONS      //
 //								  //

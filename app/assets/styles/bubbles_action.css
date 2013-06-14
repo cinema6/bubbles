@@ -9,6 +9,7 @@
     z-index: 100;
     min-height: 2%;
     min-width: 10%;
+    max-width: 35%;
     padding: 11px 11px ;
     background: url('../media/action/annotation-body.png');
     background-clip: content-box;
@@ -41,23 +42,34 @@
                 url('../media/action/annotation-topLeft.png') no-repeat top left
 }
 
+/* css overrides */
+.a-tail-bottom {
+        height: 44%;
+        bottom: -28%;
+}
+
+.a-tail-top {
+        height: 44%;
+        top: -28%;
+}
+
 /* bubble and tail positioning */
 .lee-0 { top: 20%; left: 60%; } 
 .lee-0 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
 
-.lee-1 { top: 20%; left: 20%; } 
+.lee-1 { top: 23%; left: 25%; } 
 .lee-1 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 20% 0; background-size: contain;}
 
-.lee-2 { top: 35%; left: 30%; } 
+.lee-2 { top: 46%; left: 35%; } 
 .lee-2 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
 
-.lee-3 { top: 65%; left: 25%; } 
+.lee-3 { top: 75%; left: 25%; } 
 .lee-3 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 25% 0; background-size: contain;}
 
 .lee-4 { top: 30%; left: 22%; } 
 .lee-4 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 15% 0; background-size: contain;}
 
-.lee-5 { top: 25%; left: 7%; } 
+.lee-5 { top: 27%; left: 7%; } 
 .lee-5 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 75% 0; background-size: contain;}
 
 .lee-6 { top: 65%; left: 35%; } 
@@ -66,31 +78,31 @@
 .lee-7 { top: 20%; left: 50%; } 
 .lee-7 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 15% 0; background-size: contain;}
 
-.lee-8 { top: 25%; left: 60%; } 
-.lee-8 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
+.lee-8 { top: 75%; left: 5%; } 
+.lee-8 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 70% 0; background-size: contain;}
 
-.lee-9 { top: 80%; left: 25%; } 
-.lee-9 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 85% 0; background-size: contain;}
+.lee-9 { top: 35%; left: 12%; } 
+.lee-9 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 85% 0; background-size: contain;}
 
 .lee-10 { top: 20%; left: 35%; } 
 .lee-10 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 80% 0; background-size: contain;}
 
-.lee-11 { top: 10%; left: 10%; } 
-.lee-11 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 90% 0; background-size: contain;}
+.lee-11 { top: 70%; left: 5%; } 
+.lee-11 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 90% 0; background-size: contain;}
 
-.lee-12 { top: 10%; left: 75%; } 
-.lee-12 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
+.lee-12 { top: 70%; left: 70%; } 
+.lee-12 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 10% 0; background-size: contain;}
 
-.lee-13 { top: 75%; left: 35%; } 
+.lee-13 { top: 75%; left: 25%; } 
 .lee-13 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 85% 0; background-size: contain;}
 
-.lee-14 { top: 20%; left: 33%; } 
-.lee-14 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 80% 0; background-size: contain;}
+.lee-14 { top: 25%; left: 25%; } 
+.lee-14 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 90% 0; background-size: contain;}
 
 .lee-15 { top: 20%; left: 58%; } 
 .lee-15 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
 
-.lee-16 { top: 23%; left: 30%; } 
+.lee-16 { top: 22%; left: 25%; } 
 .lee-16 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 90% 0; background-size: contain;}
 
 .lee-17 { top: 20%; left: 60%; } 

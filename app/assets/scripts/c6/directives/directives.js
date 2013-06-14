@@ -10,8 +10,7 @@ angular.module('c6.dir.screenJack',[])
 			var baseW = 1280,
 				baseH = 684,
 				mainFont = 28,
-				actionFont = 32,
-
+				annotationFont = 32,
 			
 				//find current dimensions of window
 				winH = $window.innerHeight,
@@ -36,7 +35,7 @@ angular.module('c6.dir.screenJack',[])
 			//apply to bubble font sizes
 			$(".annotations").height(baseH * scaleFactor)
 				.width(baseW * scaleFactor)
-				.css("font-size", (actionFont * scaleFactor))
+				.css("font-size", (annotationFont * scaleFactor))
 				.css("margin-top", ((baseH * scaleFactor) / -2))
 				.css("margin-left", ((baseW * scaleFactor) / -2));
 		});

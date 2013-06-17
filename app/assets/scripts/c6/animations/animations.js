@@ -5,31 +5,39 @@
 //        PARTIALS ANIMATIONS     //
 //								  //
 	
-    //Categories Animations (into Input)
+    //Categories Animations
      .animation('categories-partial-enter', [function () {
 		return {
-			setup: function($inputScreen) {
-				$inputScreen.css({
+			setup: function() { 
+				$(".inputScreen").css({
 				    "-webkit-transform": "rotate(-150deg)", 
-				    "-moz-transform": "rotate(-150deg)", 
-			        "-ms-transform": "rotate(-150deg)", 
-			        "-o-transform": "rotate(-150deg)", 
+				    	"-moz-transform": "rotate(-150deg)", 
+			        	"-ms-transform": "rotate(-150deg)", 
+			        	"-o-transform": "rotate(-150deg)", 
 			        "opacity": "0",
 			        "left": "-1000px",
 			        "top" : "-1800px"
 			      }); 
-				var startScreen = $(".startScreen");
+				
+				$(".endScreen").css({
+				    "-webkit-transform": "rotate(-150deg)", 
+				    	"-moz-transform": "rotate(-150deg)", 
+			        	"-ms-transform": "rotate(-150deg)", 
+			        	"-o-transform": "rotate(-150deg)", 
+			        "opacity": "0",
+			        "left": "-1000px",
+			        "top" : "-1800px"
+			      }); 
 
-				startScreen.css({
+				$(".startScreen").css({
 					"bottom": "0px",
 					"left":"0px"
-				})
+				  });
 				}
 			}
 		}])
 	 .animation('categories-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
-
 			start: function($oldView, done) {
 				if($rootScope.currentRoute === 'input') {
 					$log.log('Animating from "categories" to "input"');
@@ -56,6 +64,32 @@
 					
 					tl_startInput.play();
 					tl_startInput.seek(0);
+				} else if ($rootScope.currentRoute === 'end') { 
+					$log.log('Animating from "categories" to "end"');
+					var tl_startEnd	= new TimelineLite({paused: true}),
+						startScreen	= $(".startScreen"),
+						endScreen	= $(".endScreen");
+
+					// ANIMATION TIMELINE //
+					tl_startEnd.to(startScreen, 2, {
+				        rotation: "90deg", 
+				        ease: Power3.easeIn, 
+				        alpha: 0,
+				        left: "-500px",
+				        bottom: "-1500px"
+				    })
+				    .to(endScreen, 2, {   
+				        rotation: "0deg", 
+				        ease: Power4.easeOut, 
+				        opacity: 1,
+				        left: "0px",
+				        top: "0px"
+				    }, "-=0.5")
+					.eventCallback('onComplete', done);
+					
+					tl_startEnd.play();
+					tl_startEnd.seek(0);
+
 				} else {
 					done();
 				}
@@ -66,8 +100,8 @@
     //Input Animations (into Categories else Experience)
      .animation('input-partial-enter', [function () {
      	return {
-     		setup: function($startScreen) {
-     			$startScreen.css({
+     		setup: function() {
+     			$(".startScreen").css({
      				"-webkit-transform": "rotate(90deg)", 
 				  		"-moz-transform": "rotate(90deg)", 
 				    	"-ms-transform": "rotate(90deg)", 
@@ -77,24 +111,20 @@
 			        "left" : "-500px",
 			        "bottom" : "-1500px"
      			});
+
+     			$(".transition_blackFade").css({
+     				"opacity": "0"
+     			});
+
+     			$(".experience__logo").css({
+				    "opacity": "0"
+				});
      		}
      	}
      }])
 
 	 .animation('input-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
-			setup: function($oldView) {
-					$(".inputScreen").css({
-				        "-webkit-transform": "rotate(0deg)", 
-				        	"-moz-transform": "rotate(0deg)", 
-				        	"-ms-transform": "rotate(0deg)", 
-				        	"-o-transform": "rotate(0deg)", 
-				        	"transform": "rotate(0deg)", 
-				        "opacity": "1",
-				        "left": "0px",
-				        "bottom" : "0px"
-				      });
-				},
 			start: function($oldView, done) {
 				if ($rootScope.currentRoute === 'categories') {
 					$log.log('Animating from "input" to "categories"');
@@ -115,7 +145,7 @@
 						ease: Power3.easeOut,
 						opacity: 1,
 						left: "0px",
-						top: "0px"
+						bottom: "0px"
 					}, "-=0.5")
 					.eventCallback('onComplete', done);
 					
@@ -128,17 +158,6 @@
 						transition      = $(".transition_blackFade"),
 						logo			= $(".experience__logo");						
 
-					// reset styles
-				    function fadeReset() {
-				    	transition.css({
-				        	"opacity": "0"
-				      	});
-				    	logo.css({
-				    		"opacity": "0"
-				    	});
-				    	console.log("* Fade Styles Reset *");
-				    }	
-
 					// ANIMATION TIMELINE
 					tl_inputExp.to(inputScreen, 2, {opacity: 0})
              			.to(transition, 2, {opacity: 1}, "-=1")
@@ -146,7 +165,6 @@
              			.to(inputScreen, 0.1, {display: "none"})
              			.eventCallback('onComplete', done);
 
-             		fadeReset();
              		tl_inputExp.play();
         			tl_inputExp.seek(0);	
 
@@ -156,8 +174,30 @@
 			}
 		} 
 	 }])
-
+		
 	//Experience Animations (into End Screen)
+	 .animation('experience-partial-enter', [function () {
+     	return {
+     		setup: function() {
+	 			var videoPlayer = document.getElementById("player");
+	 				videoPlayer.style.display === "block";
+					videoPlayer.style.opacity === "0";
+
+				$(".endScreen").css({
+				    "-webkit-transform": "rotate(0deg)", 
+				    	"-moz-transform": "rotate(0deg)", 
+			        	"-ms-transform": "rotate(0deg)", 
+			        	"-o-transform": "rotate(0deg)", 
+			        	"transform": "rotate(0deg)",
+			        "opacity": "0"
+	 			});
+
+	 			$(".transition_blackFade").css({
+				    "opacity": "1"
+				});
+	 		}
+	 	}
+	 }])
 	 .animation('experience-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($playerDiv, done) {
@@ -168,50 +208,15 @@
 						transition  = $(".transition_blackFade"),
 						logo 		= $(".experience__logo"),
 						videoPlayer = document.getElementById("player");
-					
-					// reset styles
-					function vidReset() {
-				      videoPlayer.style.display==="block";
-				      videoPlayer.style.opacity==="0";
-				      console.log("* Vid Styles Reset *");
-				    }
-
-				    function endReset() {
-				      endScreen.css({
-				        "-webkit-transform": "rotate(0deg)", 
-				        	"-moz-transform": "rotate(0deg)", 
-				        	"-ms-transform": "rotate(0deg)", 
-				        	"-o-transform": "rotate(0deg)", 
-				        	"transform": "rotate(0deg)", 
-				        "-webkit-transform-origin" : "100% 0%",
-				        	"-moz-transform-origin" : "100% 0%",
-				        	"-ms-transform-origin" : "100% 0%",
-				        	"-o-transform-origin" : "100% 0%",
-				        	"transform-origin" : "100% 0%",
-				        "opacity": "0"
-				      });
-				      console.log("* End Styles Reset *");      
-				    }
-
-				    function fadeReset() {
-				    	transition.css({
-				        "opacity": "1"
-				      });
-				    	console.log("* Fade Styles Reset *");
-				    }
 
 					// ANIMATION TIMELINE //
 					tl_expEnd.to(transition, 3, {opacity: 0})
 						.to(logo, 2, {opacity: 0}, "-=3")
 						.to(endScreen, 2, {opacity: 1}, "-=2.5")   
 					 	.eventCallback('onComplete', done);
-					
-					fadeReset();
-					vidReset();
-          			endReset();
+
 					tl_expEnd.play();
 					tl_expEnd.seek(0);
-
 				} else {
 					done();
 				}
@@ -220,6 +225,22 @@
 	 }])
 	
 	//End Animation (into Video else Categories)
+	 .animation('end-partial-enter', [function () {
+     	return {
+     		setup: function($startScreen) {
+     			$startScreen.css({
+     				"-webkit-transform": "rotate(90deg)", 
+				  		"-moz-transform": "rotate(90deg)", 
+				    	"-ms-transform": "rotate(90deg)", 
+			        	"-o-transform": "rotate(90deg)", 
+			        	"transform": "rotate(90deg)", 
+			        "opacity" : "1",
+			        "left" : "-500px",
+			        "bottom" : "-1500px"
+     			});
+     		}
+     	}
+     }])
 	 .animation('end-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($oldView, done) {
@@ -244,40 +265,24 @@
 					startScreen	= $(".startScreen"),
 					tl_endStart	= new TimelineLite({paused: true});	
 
-				function startReset() {
-					startScreen.css({
-				        "-webkit-transform": "rotate(90deg)", 
-				        "-moz-transform": "rotate(90deg)", 
-				        "-ms-transform": "rotate(90deg)", 
-				        "-o-transform": "rotate(90deg)", 
-				        "transform": "rotate(90deg)", 
-				        "-webkit-transform-origin" : "0% 0%",
-				        "-moz-transform-origin" : "0% 0%",
-				        "-ms-transform-origin" : "0% 0%",
-				        "-o-transform-origin" : "0% 0%",
-				        "transform-origin" : "0% 0%",
-				        "opacity": "0",
-				        "display": "block"
-				      });
-				}
-
 				//ANIMATION TIMELINE
 				tl_endStart.to(endScreen, 2, { 
-			        transformOrigin: "100% 0%", 
+			        transformOrigin: "0% 0%", 
 			        rotation: "-90deg", 
-			        ease: Power3.easeIn, 
-			        alpha: 0,
-			        left: "1000px"
+					ease: Power3.easeIn, 
+					opacity: 0,
+					left: "-1000px",
+					top: "-1800px"
 			     })
-			     .from(startScreen, 2, {
-			        rotation: "90deg",
-			        ease: Power3.easeOut,
-			        alpha: 0,
-			        left: "-=1000px"
-			     }, "-=0.5")
+			     .to(startScreen, 2, {
+						rotation: "0deg",
+						ease: Power3.easeOut,
+						opacity: 1,
+						left: "0px",
+						bottom: "0px"
+					}, "-=0.5")
 			     .eventCallback('onComplete', done);
 
-			     startReset();
 			     tl_endStart.play();
 			     tl_endStart.seek(0);
 			} else {
@@ -376,7 +381,6 @@
 			},
 			start: function(annotation, done) {
 				console.log('animate in fantasy bubble');
-			var tl_fantasyShow  	= new TimelineLite,
 				var tl_fantasyShow  = new TimelineLite,
 					aText			= $(".a-text");
 
@@ -559,7 +563,9 @@
 				prompt.hide();
 			},
 			start: function(prompt, done) {
-				prompt.fadeIn(done);
+				setTimeout(function() {
+					prompt.fadeIn(done);
+				}, 750)
 			}
 		}
 	}])
@@ -594,5 +600,4 @@
 			}
 		}
 	}])
- })();
  })();

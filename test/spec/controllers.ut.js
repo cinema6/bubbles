@@ -76,7 +76,7 @@ describe('Controllers', function() {
 			expect(scope.appCtrl.experience).toBe(null);
 		});
 		it('Should add the service\'s categories to the scope.', function() {
-			expect(typeof scope.categories === 'object').toBe(true);
+			expect(typeof scope.catCtrl.categories === 'object').toBe(true);
 		});
 	});
 	
@@ -474,14 +474,14 @@ describe('Controllers', function() {
 			controller.setActiveAnnotations(event, video);
 			expect(active.length).toBe(0);
 			
-			video.player.currentTime = 65.487;
+			video.player.currentTime = 63.487;
 			controller.setActiveAnnotations(event, video);
 			expect(active).toContain(annotations[8]);
 			
-			video.player.currentTime = 120;
+			video.player.currentTime = 119.5;
 			controller.setActiveAnnotations(event, video);
 			expect(active).toContain(annotations[14]);
-			expect(active).toContain(annotations[15]);
+			expect(active).not.toContain(annotations[15]);
 			
 			video.player.currentTime = 120.01;
 			controller.setActiveAnnotations(event, video);
@@ -572,14 +572,14 @@ describe('Controllers', function() {
 			controller.setActiveAnnotations(event, video);
 			expect(isActive(annotations[7])).toBe(false);
 			
-			video.player.currentTime = 65.487;
+			video.player.currentTime = 63.487;
 			controller.setActiveAnnotations(event, video);
 			expect(isActive(annotations[8])).toBe(true);
 			
-			video.player.currentTime = 120;
+			video.player.currentTime = 119.5;
 			controller.setActiveAnnotations(event, video);
 			expect(isActive(annotations[14])).toBe(true);
-			expect(isActive(annotations[15])).toBe(true);
+			expect(isActive(annotations[15])).toBe(false);
 			
 			video.player.currentTime = 120.01;
 			controller.setActiveAnnotations(event, video);

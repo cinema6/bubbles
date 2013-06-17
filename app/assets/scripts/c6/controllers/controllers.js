@@ -297,7 +297,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	}
     
     this.annotationIsActive = function(annotation) {
-	    return self.activeAnnotations.indexOf(annotation) !== -1;
+	    return self.activeAnnotations.indexOf(annotation) !== -1 && $scope.appCtrl.inExperience;
     }
     
     $scope.annoCtrl = this;

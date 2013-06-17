@@ -376,6 +376,7 @@
 			},
 			start: function(annotation, done) {
 				console.log('animate in fantasy bubble');
+			var tl_fantasyShow  	= new TimelineLite,
 				var tl_fantasyShow  = new TimelineLite,
 					aText			= $(".a-text");
 
@@ -593,4 +594,5 @@
 			}
 		}
 	}])
+ })();
  })();

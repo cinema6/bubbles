@@ -6,7 +6,8 @@ basePath = '';
 // list of files / patterns to load in the browser
 files = [
   '../app/assets/lib/jquery/jquery.min.js',
-  '../app/assets/lib/angular/angular.min.js',
+  ANGULAR_SCENARIO,
+  ANGULAR_SCENARIO_ADAPTER,
   '../app/assets/lib/greensock/TimelineMax.min.js',
   '../app/assets/lib/greensock/TweenMax.min.js',
   '../app/assets/lib/c6media/c6lib.video.js',
@@ -17,8 +18,6 @@ files = [
   '../app/assets/scripts/c6/animations/animations.js',
   '../app/assets/scripts/c6/directives/directives.js',
   '../app/assets/scripts/c6/directives/videonode.js',
-  ANGULAR_SCENARIO,
-  ANGULAR_SCENARIO_ADAPTER,
   'e2e/**/*.js'
 ];
 

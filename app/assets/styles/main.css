@@ -104,7 +104,19 @@ input {cursor: text;}
 /*         C6 BAR END           */
 
 /*      START SCREEN BEGIN      */
-    .startScreen {position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5; display: block;}
+    .startScreen {position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5; display: block;
+        -ms-transform-origin: 0% 0%; /* IE 9 */
+        -moz-transform-origin: 0% 0%; /* Firefox */
+        -o-transform-origin: 0% 0%; /* Opera */
+        -webkit-transform-origin: 0% 0%; /* Safari and Chrome */
+        transform-origin: 0% 0%;
+
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -moz-transform: rotate(0deg); /* Firefox */
+        -o-transform: rotate(0deg); /* Opera */
+        -webkit-transform: rotate(0deg); /* Safari and Chrome */
+        transform: rotate(0deg);        
+    }
 
      /* content */
          .category__group {
@@ -203,12 +215,12 @@ input {cursor: text;}
 
 
 /*      INPUT SCREEN BEGIN      */
-    .inputScreen {width: 100%; height: 100%; position: absolute; z-index: 4;  opacity: 1; display: block;
-        -ms-transform-origin: 100% 0%; /* IE 9 */
-        -moz-transform-origin: 100% 0%; /* Firefox */
-        -o-transform-origin: 100% 0%; /* Opera */
-        -webkit-transform-origin: 100% 0%; /* Safari and Chrome */
-        transform-origin: 100% 0%;
+    .inputScreen {width: 100%; height: 100%; position: absolute; z-index: 4; opacity: 1; display: block;
+        -ms-transform-origin: 0% 0%; /* IE 9 */
+        -moz-transform-origin: 0% 0%; /* Firefox */
+        -o-transform-origin: 0% 0%; /* Opera */
+        -webkit-transform-origin: 0% 0%; /* Safari and Chrome */
+        transform-origin: 0% 0%;
 
         -ms-transform: rotate(0deg); /* IE 9 */
         -moz-transform: rotate(0deg); /* Firefox */
@@ -385,7 +397,7 @@ input {cursor: text;}
      .inputScreen__bgArtwork {
         background: url('../media/paperball.png') no-repeat bottom left; 
         width: 100%;
-        height: 100%;
+        height: 150%;
         position: absolute;
         z-index: 0;
         bottom: -300px;

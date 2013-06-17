@@ -6,8 +6,30 @@
 //								  //
 	
     //Categories Animations (into Input)
+     .animation('categories-partial-enter', [function () {
+		return {
+			setup: function($inputScreen) {
+				$inputScreen.css({
+				    "-webkit-transform": "rotate(-150deg)", 
+				    "-moz-transform": "rotate(-150deg)", 
+			        "-ms-transform": "rotate(-150deg)", 
+			        "-o-transform": "rotate(-150deg)", 
+			        "opacity": "0",
+			        "left": "-1000px",
+			        "top" : "-1800px"
+			      }); 
+				var startScreen = $(".startScreen");
+
+				startScreen.css({
+					"bottom": "0px",
+					"left":"0px"
+				})
+				}
+			}
+		}])
 	 .animation('categories-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
+
 			start: function($oldView, done) {
 				if($rootScope.currentRoute === 'input') {
 					$log.log('Animating from "categories" to "input"');
@@ -17,17 +39,18 @@
 
 					// ANIMATION TIMELINE //
 					tl_startInput.to(startScreen, 2, {
-        				transformOrigin: "0% 0%", 
 				        rotation: "90deg", 
 				        ease: Power3.easeIn, 
 				        alpha: 0,
-				        left: "-=1000px"
+				        left: "-500px",
+				        bottom: "-1500px"
 				    })
-				    .from(inputScreen, 2, {   
-				        rotation: "-90deg", 
+				    .to(inputScreen, 2, {   
+				        rotation: "0deg", 
 				        ease: Power4.easeOut, 
-				        alpha: 0,
-				        left: "1000px"
+				        opacity: 1,
+				        left: "0px",
+				        top: "0px"
 				    }, "-=0.5")
 					.eventCallback('onComplete', done);
 					
@@ -39,25 +62,37 @@
 			}
 		}
 	 }])
-	
+
     //Input Animations (into Categories else Experience)
+     .animation('input-partial-enter', [function () {
+     	return {
+     		setup: function($startScreen) {
+     			$startScreen.css({
+     				"-webkit-transform": "rotate(90deg)", 
+				  		"-moz-transform": "rotate(90deg)", 
+				    	"-ms-transform": "rotate(90deg)", 
+			        	"-o-transform": "rotate(90deg)", 
+			        	"transform": "rotate(90deg)", 
+			        "opacity" : "1",
+			        "left" : "-500px",
+			        "bottom" : "-1500px"
+     			});
+     		}
+     	}
+     }])
+
 	 .animation('input-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			setup: function($oldView) {
 					$(".inputScreen").css({
 				        "-webkit-transform": "rotate(0deg)", 
-				        "-moz-transform": "rotate(0deg)", 
-				        "-ms-transform": "rotate(0deg)", 
-				        "-o-transform": "rotate(0deg)", 
-				        "transform": "rotate(0deg)", 
-				        "-webkit-transform-origin" : "100% 0%",
-				        "-moz-transform-origin" : "100% 0%",
-				        "-ms-transform-origin" : "100% 0%",
-				        "-o-transform-origin" : "100% 0%",
-				        "transform-origin" : "100% 0%",
-				        "display": "block",
+				        	"-moz-transform": "rotate(0deg)", 
+				        	"-ms-transform": "rotate(0deg)", 
+				        	"-o-transform": "rotate(0deg)", 
+				        	"transform": "rotate(0deg)", 
 				        "opacity": "1",
-				        "left": "0px"
+				        "left": "0px",
+				        "bottom" : "0px"
 				      });
 				},
 			start: function($oldView, done) {
@@ -69,18 +104,18 @@
 
 					// ANIMATION TIMELINE //
 					tl_inputStart.to(inputScreen, 2, {
-						transformOrigin: "100% 0%", 
 						rotation: "-90deg", 
 						ease: Power3.easeIn, 
 						opacity: 0,
-						left: "+=1000px"
+						left: "-1000px",
+						top: "-1800px"
 					})
-					.from(startScreen, 2, {
-						transformOrigin: "0% 0%",
-						rotation: "90deg",
+					.to(startScreen, 2, {
+						rotation: "0deg",
 						ease: Power3.easeOut,
-						opacity: 0,
-						left: "-=1000px"
+						opacity: 1,
+						left: "0px",
+						top: "0px"
 					}, "-=0.5")
 					.eventCallback('onComplete', done);
 					
@@ -144,15 +179,15 @@
 				    function endReset() {
 				      endScreen.css({
 				        "-webkit-transform": "rotate(0deg)", 
-				        "-moz-transform": "rotate(0deg)", 
-				        "-ms-transform": "rotate(0deg)", 
-				        "-o-transform": "rotate(0deg)", 
-				        "transform": "rotate(0deg)", 
+				        	"-moz-transform": "rotate(0deg)", 
+				        	"-ms-transform": "rotate(0deg)", 
+				        	"-o-transform": "rotate(0deg)", 
+				        	"transform": "rotate(0deg)", 
 				        "-webkit-transform-origin" : "100% 0%",
-				        "-moz-transform-origin" : "100% 0%",
-				        "-ms-transform-origin" : "100% 0%",
-				        "-o-transform-origin" : "100% 0%",
-				        "transform-origin" : "100% 0%",
+				        	"-moz-transform-origin" : "100% 0%",
+				        	"-ms-transform-origin" : "100% 0%",
+				        	"-o-transform-origin" : "100% 0%",
+				        	"transform-origin" : "100% 0%",
 				        "opacity": "0"
 				      });
 				      console.log("* End Styles Reset *");      

@@ -12,6 +12,7 @@ angular.module('c6.svc',[])
                         'Action',
                         'Romance',
                         'SciFi-Fantasy',
+                        'Horror'
                     ]
         };
     };
@@ -38,7 +39,7 @@ angular.module('c6.svc',[])
                     '80\'s female sitcom star',
                     'Type of candy'
                     ],
-                'annotations' : {
+                'annotations' : [{
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
@@ -67,7 +68,7 @@ angular.module('c6.svc',[])
                         { 'ts':130,'template':'${6}?', 'duration':1 },
                         { 'ts':132,'template':'${2} ${3}!', 'duration':1 }
                     ]
-                }
+                }]
             };
         } else
         if (category === 'scifi-fantasy') {
@@ -91,7 +92,7 @@ angular.module('c6.svc',[])
                     'place',
                     'baby animal'
                     ],
-                'annotations' : {
+                'annotations' : [{
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
@@ -118,7 +119,49 @@ angular.module('c6.svc',[])
                         { 'ts': 84,'template':'${7} ${8}', 'duration' : 2 },
                         { 'ts': 95,'template':'I just took a ${7} in my pants', 'duration' : 4 }
                     ]
-                }
+                }]
+            };
+        } else
+        if (category === 'horror') {
+            return {
+                'id'         : '4',
+                'title'      : 'Scary Movie',
+                'views'      : 1000,
+                'src'         : null,
+                'css'         : baseUrl + '/styles/bubbles_horror.css',
+                'anim'        : 'horror',
+                'defSizeLimit': 18,
+                'prompts'     : [
+                    'animal',
+                    'color',
+                    'type of drug',
+                    'profession',
+                    'school supply',
+                    'verb',
+                    'synonym for feces',
+                    'mode of transportation',
+                    'type of sports equipment',
+                    'body part'
+                    ],
+                'annotations' : [{
+                    'options' : {
+                        'type'      : 'talkie',
+                        'duration'  : 4,
+                        'cls'     : ['scary-${index}', 'annotation']
+                        },
+                     'notes'  : [
+		                 { "ts" : "8", "template" : "Hi, is my ${1} OK?" },
+		                 { "ts" : "12", "template" : "Its Mrs. Von ${2} Burger, are you alright?"  },
+		                 { "ts" : "16", "template" : "Are you on ${3}?" },
+		                 { "ts" : "19", "template" : "Popcorn ${3}?" },
+		                 { "ts" : "22", "template" : "My ${1} better be OK!" },
+		                 { "ts" : "25", "template" : "What?" },
+		                 { "ts" : "29", "template" : "About ${3}?" },
+		                 { "ts" : "31", "template" : "Did your ${4} give you the ${3}?"  },
+		                 { "ts" : "35", "template" : "Well does this ${3} movie have a name?" },
+		                 { "ts" : "46", "template" : "listen to me you little ${5}  ${3} head. You need to hang up now and start to ${6} your ${7} together. I\"m getting in my ${8} and coming home and I am going to get my ${9} and put it through your ${3} filled ${10}. You better not touch my ${1} or give it any of your damn ${3}. This is Mrs. Von ${2} Burger. Goodbye." }
+                    ]
+                }]
             };
         }
         return  {
@@ -138,7 +181,7 @@ angular.module('c6.svc',[])
                     'Fight move',
                     'plural vegetable'
                 ],
-                'annotations' :  {
+                'annotations' :  [{
                     'options' : {
                         'type'       : 'bubble',
                         'duration'   : 4,
@@ -155,7 +198,7 @@ angular.module('c6.svc',[])
                        { 'ts':54,'template':'umm WTF was that? She must ${8} ${9}.' },
                        { 'ts':58,'template':'I love ${9}.' }
                     ]
-                }
+                }]
             };
     };
 

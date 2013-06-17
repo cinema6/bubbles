@@ -37,7 +37,7 @@ function PromptModel(experience) {
     }
 }
 
-function AnnotationsModel(experience) {
+function AnnotationsModel(annotations) {
     var localException = function(msg) {
         return {
           'name'     : 'AnnotationsModel',
@@ -45,22 +45,22 @@ function AnnotationsModel(experience) {
           'toString' : function() { return this.name + ': ' + this.message; }
         };
       };
-    this.videoSrc        = experience.src;    
+    //this.videoSrc        = experience.src;    
     this.annotations     = [];
-    for (var i = 0; i < experience.annotations.notes.length; i++) {
-        var a = experience.annotations.notes[i],
+    for (var i = 0; i < annotations.notes.length; i++) {
+        var a = annotations.notes[i],
             n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
             text : null, index : i
             };
-        if (experience.annotations.options){
+        if (annotations.options){
             if (!n.type) {
-                n.type = experience.annotations.options.type;
+                n.type = annotations.options.type;
             }
             if (!n.duration) {
-                n.duration = experience.annotations.options.duration;
+                n.duration = annotations.options.duration;
             }
             if (!n.cls) {
-                var eCls = experience.annotations.options.cls;
+                var eCls = annotations.options.cls;
                 if (eCls instanceof Array) {
                     var lenCls = eCls.length;
                     n.cls = [];
@@ -200,7 +200,7 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$routeParams', function($log, $scope, $rootScope, $location, $routeParams){
     $log.log('Creating C6AnnotationsCtrl');
     var self = this;
-    
+        
     var interpolate = function(tmpl,data) {
         var patt  = /\${(\d+)}/,
             dataLen,
@@ -248,7 +248,16 @@ angular.module('c6.ctrl',['c6.svc'])
 	});
 	
 	$scope.$watch('appCtrl.experience', function(experience) {
-		if (experience) { self.model = new AnnotationsModel($scope.appCtrl.experience); }
+		if (experience) {
+			experience.annotations.forEach(function(annotations) {
+				if (annotations.options.type === 'bubble') {
+					console.log('set model');
+					self.model = new AnnotationsModel(annotations);
+				} else {
+					self.model = null;
+				}
+			});
+		}
 	});
 	
 	$scope.$watch('appCtrl.inExperience', function(yes) {
@@ -266,7 +275,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.activeAnnotations = [];
 	
 	this.setActiveAnnotations = function(event, video) {
-		var annotations = self.model.annotations,
+		var annotations = self.model? self.model.annotations : [],
 			activeAnnotations = self.activeAnnotations,
 			time = video.player.currentTime,
 			ts,

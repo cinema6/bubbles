@@ -68,11 +68,11 @@
 						textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]'),
 						message = 'Hello!';
 					
-					expect(counter.text()).toBe('18');
+					expect(counter.text()).toContain('18');
 					
 					for (var i = 0, length = message.length; i < length; i++) {
 						textField.enter(message.substring(0, i + 1));
-						expect(counter.text()).toBe(18 - (i + 1) + '');
+						expect(counter.text()).toContain(18 - (i + 1) + '');
 					}
 				});
 			});
@@ -179,28 +179,16 @@
 					start = element('.question__btnStart');
 				});
 				
-				it('should only be in the DOM when the final question is on-screen.', function() {
+				it('should not be in the DOM until you enter the final response', function() {
 					responses.forEach(function(response, index) {
+						expect(start.count()).toBe(0);
 						if (index !== 9) {
-							expect(start.count()).toBe(0);
 							textField.enter(response);
 							next.click();
 							sleep(2);
 						} else {
+							textField.enter(response);
 							expect(start.count()).toBe(1);
-						}
-					});
-				});
-				it('should be disabled until you enter the final response', function() {
-					responses.forEach(function(response, index) {
-						if (index !== 9) {
-							textField.enter(response);
-							next.click();
-							sleep(2);
-						} else {
-							expect(start.attr('disabled')).toBe('disabled');
-							textField.enter(response);
-							expect(start.attr('disabled')).toBe(undefined);
 						}
 					});
 				});

@@ -121,7 +121,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/assets/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/assets/scripts/**/{,*/}*.js'
       ]
     },
     karma: {

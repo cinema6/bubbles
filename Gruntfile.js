@@ -55,7 +55,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
@@ -73,7 +73,8 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'test')
+              mountFolder(connect, 'test'),
+              mountFolder(connect, yeomanConfig.app)
             ];
           }
         }
@@ -127,6 +128,10 @@ module.exports = function (grunt) {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
+      },
+      e2e: {
+        configFile: 'test/karma-e2e.conf.js',
+        singleRun: false
       }
     },
     concat: {
@@ -254,9 +259,10 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
-    'jshint',
-    'clean:server',
-    'connect:test',
+    //'jshint',
+   'clean:server',
+    'livereload-start',
+    'connect:livereload',
     'karma'
   ]);
 

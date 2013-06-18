@@ -3,176 +3,167 @@
 
 'use strict';
 angular.module('c6.dir.screenJack',[])
-.directive('c6Question', [function(){
-    return  function(scope,iElement, iAttrs) {
-                if (iAttrs.c6Question) {
-                    var pos = iAttrs.c6Question.replace(/\s+/g,'').split(',');
-                    scope.$emit('onAddedQuestion',iElement,parseInt(pos[0]),
-                                                            (pos[1] === 'true'));
-                }
-    };
+.directive('c6Resize', ['$window', function($window) {
+	return function($scope, $element, $attrs) {
+		$($window).resize(function() {
+			// set variable dimensions for viewport
+			var baseW = 1280,
+				baseH = 684,
+				mainFont = 28,
+				annotationFont = 32,
+			
+				//find current dimensions of window
+				winH = $window.innerHeight,
+				winW = $window.innerWidth,
+			
+				//find scale factor
+				scaleH = winH / baseH,
+				scaleW = winW / baseW,
+				scaleFactor = Math.min(scaleH, scaleW);
+			
+			//apply new dimensions to viewport
+			$element.find(".viewport").height(baseH * scaleFactor)
+				.width(baseW * scaleFactor)
+				.css("font-size", (mainFont * scaleFactor))
+				.css("margin-top", ((baseH * scaleFactor) / -2))
+				.css("margin-left", ((baseW * scaleFactor) / -2));
+			
+			//feed screen divs window dimensions
+			$element.height(winH).width(winW);
+			$(".shareMenu").height(54 * scaleFactor).width(1026 * scaleFactor).css("margin-left", ((1026 * scaleFactor) / -2)); 
+			
+			//apply to bubble font sizes
+			$(".annotations").height(baseH * scaleFactor)
+				.width(baseW * scaleFactor)
+				.css("font-size", (annotationFont * scaleFactor))
+				.css("margin-top", ((baseH * scaleFactor) / -2))
+				.css("margin-left", ((baseW * scaleFactor) / -2));
+		});
+		
+		//Resize content immediately when page is loded
+		$($window).resize();
+	}
 }])
-.directive('c6PromptInterface',['$log',function($log) {
-    $log.log('Creating c6WordSelect');
-    return {
-        controller : 'c6PromptCtrl',
-        link :       function(scope,iElt,iAttr,ctrl) {
-            $log.log('Linking c6WordSelect');
-            var prevElt = $('[name=prev]'),
-                nextElt = $('[name=next]'),
-                currentIndex = 0 ,
-                questionElts = [],
-                sigPromptStart = false;
 
-            scope.currQuestNo = function () { return currentIndex + 1; };
-            scope.questionCount = function() { return questionElts.length; };
-            prevElt.attr('disabled','disabled');
-            nextElt.attr('disabled','disabled');
+.directive('c6IosKeyboard', ['$window', '$timeout', '$document', function($window, $timeout, $document) {
+	return function(scope, element, attrs) {
+		if ($window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+			if (attrs.c6IosKeyboard === 'input') { 
+				element.bind('click', function() {
+					scope.$emit('c6-ios-keyboard-up');
+				});
+				element.bind('blur', function() {
+					$timeout(function() {
+						if (!element.is(':focus')) {
+							scope.$emit('c6-ios-keyboard-down');
+						} else {
+							$window.scrollTo(0, 0);
+						}
+					}, 50);
+				});
+			} else if (attrs.c6IosKeyboard === 'target') { 
+				scope.$on('c6-ios-keyboard-up', function() {
+					$window.scrollTo(0, 0);
+					element.addClass('c6-ios-keyboard-up');
+				});
 
-            var buttonStates = function(){
-                if (currentIndex === 0) {
-                    nextElt.text('Next');
-                    prevElt.attr('disabled','disabled');
-                } else
-                if (currentIndex === (questionElts.length - 1)) {
-                    nextElt.text('Done');
-                } else {
-                    if (prevElt.attr('disabled')){
-                        prevElt.removeAttr('disabled');
-                    }
-                    if (nextElt.text() === 'Done') {
-                        nextElt.text('Next');
-                    }
-                }
-                if (!ctrl.model.responses[currentIndex]){
-                    nextElt.attr('disabled','disabled');
-                } else {
-                    nextElt.removeAttr('disabled');
-                }
-            };
-            scope.prevQuestion = function(){
-                if (currentIndex > 0) {
-                    questionElts[currentIndex--].addClass('hidden');
-                    questionElts[currentIndex].removeClass('hidden');
-                    questionElts[currentIndex].find('input').get(0).focus();
-                    buttonStates();
-                }
-            };
-
-            scope.nextQuestion = function(){
-                if (currentIndex === questionElts.length - 1){
-                    $log.log('Done wiht questions!');
-                    iElt.addClass('hidden');
-                    scope.$emit('promptsComplete',ctrl.model.responses);
-                }
-                else {
-                    if ((sigPromptStart === false) && (currentIndex === 0)) {
-                        sigPromptStart = true;
-                        scope.$emit('promptsStart');
-                    }
-                    questionElts[currentIndex++].addClass('hidden');
-                    questionElts[currentIndex].removeClass('hidden');
-                    questionElts[currentIndex].find('input').get(0).focus();
-                    buttonStates();
-                } 
-            };
-
-            scope.$on('onAddedQuestion',function(evt,elt,idx,last){
-                questionElts.push(elt);
-                $(elt.find('input').get(0)).keyup(function(e){
-                    if ((e.keyCode == 13) || (e.keyCode == 9)) {
-                        scope.$apply(function(){
-                            scope.nextQuestion(); 
-                        });
-                    }
-                });
-                if (last === true) {
-                    scope.$emit('expReady');
-                }
-
-                scope.$watch('promptCtrl.model.responses[' + idx + ']',function(newVal){
-                    if (currentIndex === idx) {
-                        if (!newVal) {
-                            if (!nextElt.attr('disabled')) {
-                                nextElt.attr('disabled','disabled');
-                            }
-                        } else {
-                            if (nextElt.attr('disabled')) {
-                                nextElt.removeAttr('disabled'); 
-                            }
-                        }
-                    }
-                },true );
-
-            });
-
-            scope.$on('expReady',function(){
-                $log.log('Ready with ' + questionElts.length + ' questions.');
-                sigPromptStart = false;
-                questionElts[currentIndex].removeClass('hidden');
-                questionElts[currentIndex].find('input').get(0).focus();
-            });
-        }
-    };
+				scope.$on('c6-ios-keyboard-down', function() {
+					element.removeClass('c6-ios-keyboard-up');
+				});
+			}
+		}
+	}
 }])
-.directive('c6AnnotationsPlayer',['$log',function($log) {
-    $log.log('Creating c6AnnotationsPlay');
-    return {
-        controller : 'c6AnnotationsCtrl',
-        link : function(scope,iElt,iAttr,ctrl) {
-            $log.log('Link c6AnnotationsPlayer: ' + scope.expCtrl.model.title);
-            var vid = scope.videos.player,
-                noteElts = {},
-                currNotes = [];
 
-            $log.info('got the player: ' + vid);
+.directive('c6AnimateOnEvent', ['$animator', function($animator) {
+	return function(scope, element, attrs) {
+		var animator = $animator(scope, attrs);
+		
+		scope.$on(attrs.c6AnimateOnEvent, function() {
+			animator.animate(attrs.c6AnimateOnEvent, element);
+		});
+	}
+}])
 
-            scope.$on('promptsStart',function(){
-                vid.loadSource(ctrl.model.videoSrc); 
-            });
-            
-            scope.$on('promptsComplete',function(evt,responses){
-                ctrl.interpolateTemplates(responses);
-                iElt.find('li').each(function(idx,elt){
-                    var $elt      = angular.element(elt),
-                        note      = ctrl.model.annotations[idx];
-                    note.cls.forEach(function(c){
-                        $elt.addClass(c);
-                    });
-                    noteElts[('note' + note.index)] = $elt;
-                });
-                vid.el.removeClass('hidden');
-                vid.video().play();
-                vid.video().focus();
-            });
+.directive('c6On', ['$log', function($log) {
+	return {
+		scope: true,
+		link: function($scope, $element, $attrs) {
+			$scope.$this = $element;
+			
+			var events = [],
+				expressions = [];
+			
+			for (var i = 0, string = $attrs.c6On, length = string.length, onEvent = true, onExpression = false, curEvent = '', curExpression = ''; i < length; i++) {
+				var curChar = string.charAt(i);
+				
+				if (onEvent) {
+					if (curChar !== ':') {
+						curEvent += curChar;
+					} else {
+						onEvent = false;
+						events.push(curEvent);
+						curEvent = '';
+					}
+				} else if (onExpression) {
+					if (curChar !== '}') {
+						curExpression += curChar;
+					} else {
+						onExpression = false;
+						expressions.push(curExpression);
+						curExpression = '';
+					}
+				} else {
+					if (curChar === '{') {
+						onExpression = true;
+					} else if ([' ', ',', '{'].indexOf(curChar) === -1) {
+						curEvent += curChar;
+						onEvent = true;
+					}
+				}
+			}
+			
+			events.forEach(function(event, i) {
+				$scope.$on(event, function() {
+					$log.log('c6-on responding to ' + event);
+					$scope.$eval(expressions[i]);
+				});
+			});
+		}
+	} 
+}])
 
-            var fnActivate = function(note){
-                var className   = 'note' + note.index,
-                    $elt        = noteElts[className];
-                $elt.removeClass('hidden');
-                $log.info('Activate note: ' + className);
-                currNotes.push(note);
-            };
+.directive('c6Autofocus', [function() {
+	return function(scope, element, attrs) {
+		element.focus();
+	}
+}])
 
-            var fnDeactivate = function(note){
-                var className = 'note' + note.index,
-                $elt = noteElts[className];
-                $elt.addClass('hidden');
-                for (var i = 0; i < currNotes.length; i++){
-                    if (currNotes[i] === note){
-                        $log.info('Remove note ' + note.index + ' from currnotes');
-                        currNotes.splice(i,1);
-                    }
-                }
-
-            };
-
-            scope.$on('video-timeupdate',function(evt,vid){
-                //$log.info(vid + ': ' + vid.video().currentTime);
-                ctrl.timerUpdate(vid.video().currentTime,currNotes,fnActivate,fnDeactivate);
-            });
-        }
-    };
+.directive('c6Share', ['$window', '$document', '$location', function($window, $document, $location) {
+	return function(scope, element, attrs) {		
+		element.click(function() {
+			var config = {
+				url: encodeURIComponent(attrs.shareUrl? attrs.shareUrl : $location.absUrl()),
+				title: encodeURIComponent(attrs.shareTitle? attrs.shareTitle : $document.attr('title')),
+				description: attrs.shareDescription? encodeURIComponent(attrs.shareDescription) : null,
+				image: attrs.shareImage? encodeURIComponent(attrs.shareImage) : null
+			};
+			
+			if (attrs.c6Share === 'facebook') {
+				var url = 'http://www.facebook.com/sharer.php?s=100&p[title]='+ config.title
+					+ '&p[summary]=' + config.description
+					+ '&p[url]=' + config.url
+					+ '&p[images][0]=' + config.image
+					+ '&';
+				
+				$window.open(url, 'sharer', 'toolbar=0, status=0, width=548, height=325');
+			} else if (attrs.c6Share === 'twitter') {
+				var data = config.description? ('text=' + config.description + encodeURIComponent(': ') + config.url) : ('url=' + config.url);
+				var url = 'https://twitter.com/share?' + data;
+				
+				$window.open(url, 'sharer', 'toolbar=0, status=0, width=550, height=450');
+			}
+		});
+	}
 }]);
-
 })();

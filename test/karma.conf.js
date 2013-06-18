@@ -16,6 +16,7 @@ files = [
 */
   '../app/assets/scripts/c6/services/services.js',
   '../app/assets/scripts/c6/controllers/controllers.js',
+  '../app/assets/scripts/c6/directives/directives.js',
   'spec/**/*.js'
 ];
 

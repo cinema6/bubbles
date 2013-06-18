@@ -35,21 +35,30 @@ var browserVersion = (function(){
 var dependencies = [
     'c6.ctrl',
     'c6.svc',
+    'c6.anim',
     'c6.dir.screenJack',
-    'c6.dir.videoNode'
+    'c6lib.video'
 ];
 
 angular.module('c6.app', dependencies)
-  .config(['$routeProvider',function ($routeProvider) {
+  .config(['$routeProvider', 'environment', function ($routeProvider, env) {
     $routeProvider
       .when('/', {
         templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
-        controller: 'c6CategoryListCtrl'
+        controller: 'C6CategoryListCtrl'
       })
       .when('/entry/:category', {
-        templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
-        controller: 'c6ExperienceCtrl'
+        templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
+        controller: 'C6InputCtrl'
       })
+	      .when('/entry/:category/experience', {
+		      template: '<!-- Foo -->',
+		      controller: 'C6ExperienceCtrl'
+	      })
+	      .when('/entry/:category/end', {
+		      templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
+		      controller: 'C6EndCtrl'
+	      })
       .otherwise({
         redirectTo: '/'
       });

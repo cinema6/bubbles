@@ -1,7 +1,19 @@
-<div>
-    <ul>
-        <li ng-repeat="category in categories">
-            <a href="#/entry/{{category | lowercase}}"> {{category}} </a> 
-        </li>
-    </ul>
+<div class="startScreen" c6-resize>
+    <!--artwork-->
+     <header class="startScreen__logo"><h1 class="ir">Screenjacked</h1></header>
+     <div class="startScreen__bgArtwork">&nbsp;</div>
+
+    <!--content-->
+     <div class="viewport">
+        <h1 class="startScreen__directions">choose one</h1>
+        <ul class="category__group">
+            <li class="category__item" ng-repeat="category in catCtrl.categories">
+                <button class="category__frame" name="{{category}}" ng-click="catCtrl.loadCategory(category);">
+                    <img class="category__art" ng-src="assets/media/vidThumb_{{category}}.jpg">
+                </button>
+                <!--<h3 class="category__name">{{category}}</h3>-->
+            </li>
+        </ul>
+     </div>
+
 </div>

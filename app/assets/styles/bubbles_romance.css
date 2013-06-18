@@ -1,0 +1,93 @@
+/* Fantasy Video Experience specific styles */
+
+@font-face {
+    font-family: LadylikeBB;
+    src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),
+        url('../media/romance/ladylikebb-webfont.woff') format('woff'), 
+        url('../media/romance/ladylikebb-webfont.eot') format('embedded-opentype'), 
+        url('../media/romance/ladylikebb-webfont.svg#ladylike_bbregular') format('svg'); /* mobile browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+.annotation {
+    position: absolute;
+    font-family: "LadylikeBB", "courier prime", georgia, serif;
+    font-size:130%;
+    line-height: 100%;
+    color: #352e2e;
+    z-index: 100;
+    min-height: 12%;
+    min-width: 15%;
+    max-width: 35%;
+    padding: 11px;
+    vertical-align: middle;
+    background: url('../media/romance/annotation-body.png');
+    background-clip: content-box;
+    opacity: 1;
+}
+
+.a-border {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 101;
+    background: url('../media/romance/annotation-right.png') repeat-y right, 
+                url('../media/romance/annotation-left.png') repeat-y left, 
+                url('../media/romance/annotation-top.png') repeat-x top, 
+                url('../media/romance/annotation-bottom.png') repeat-x bottom;
+}
+
+.a-corners {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 102;
+    background: url('../media/romance/annotation-bottomRight.png') no-repeat bottom right,
+                url('../media/romance/annotation-bottomLeft.png') no-repeat bottom left,
+                url('../media/romance/annotation-topRight.png') no-repeat top right,
+                url('../media/romance/annotation-topLeft.png') no-repeat top left
+}
+
+/* css overrides */
+.a-tail-bottom {
+        height: 38%;
+        bottom: -22%;
+}
+
+.a-tail-top {
+        height: 36%;
+        top: -22%;
+}
+
+/* bubble and tail positioning */
+.notebook-0 { top: 25%; left: 53%; }
+.notebook-0 .a-tail-bottom {background: url('../media/romance/tailThought-bottomLeft.png') no-repeat 20% 0; background-size: contain;}
+
+.notebook-1 { top: 28%; left: 10%; }
+.notebook-1 .a-tail-bottom {background: url('../media/romance/tailThought-bottomRight.png') no-repeat 80% 0; background-size: contain;}
+
+.notebook-2 { top: 65%; left: 15%; }
+.notebook-2 .a-tail-top {background: url('../media/romance/tailThought-topRight.png') no-repeat 80% 0; background-size: contain;}
+
+.notebook-3 { top: 30%; left: 6%; }
+.notebook-3 .a-tail-bottom {background: url('../media/romance/tailThought-bottomRight.png') no-repeat 80% 0; background-size: contain;}
+
+.notebook-4 { top: 65%; left: 20%; }
+.notebook-4 .a-tail-top {background: url('../media/romance/tailSpeech-topRight.png') no-repeat 80% 0; background-size: contain;}
+
+.notebook-5 { top: 20%; left: 45%; }
+.notebook-5 .a-tail-bottom {background: url('../media/romance/tailThought-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
+
+.notebook-6 { top: 65%; left: 50%; }
+.notebook-6 .a-tail-top {background: url('../media/romance/tailThought-topLeft.png') no-repeat 10% 0; background-size: contain;}
+
+.notebook-7 { top: 65%; left: 10%; }
+.notebook-7 .a-tail-top {background: url('../media/romance/tailSpeech-topRight.png') no-repeat 80% 0; background-size: contain;}
+
+.notebook-8 { top: 25%; left: 50%; }
+.notebook-8 .a-tail-bottom {background: url('../media/romance/tailSpeech-bottomLeft.png') no-repeat 20% 0; background-size: contain;}

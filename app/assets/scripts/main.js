@@ -12,15 +12,19 @@ var c6Scripts;
 if (__C6_BUILD_VERSION__) {
     c6Scripts = [ 'scripts/c6app.min' ];
 } else {
-    c6Scripts = [   'scripts/c6/app',
+    c6Scripts = [   'assets/lib/c6media/c6lib.video.js',
+    				'scripts/c6/app',
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
+                    'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives',
                     'scripts/c6/directives/videonode'
                     ];
 }
 
 require([   'lib/jquery/jquery.min',
+            'lib/greensock/TimelineMax.min',
+            'lib/greensock/TweenMax.min'
             /*'lib/jqueryui/jquery-ui.min'*/], function(){
 
     require(['lib/angular/angular.min'],function(){

@@ -78,17 +78,17 @@ angular.module('c6.svc',[])
                 'src'         : baseUrl + '/media/fantasy/lotr',
                 'css'         : baseUrl + '/styles/bubbles_fantasy.css',
                 'anim'        : 'fantasy',
-                'defSizeLimit': 18,
+                'defSizeLimit': 15,
                 'prompts'     : [
                     'favorite past time (past tense)',
-                    'romantic pet nickname',
+                    { query : 'romantic pet nickname', sizeLimit : 12},
                     'fruit',
                     'body part',
                     'verb',
                     'plural noun',
                     'synonym for feces',
                     'noun',
-                    'place',
+                    { query : 'place', sizeLimit : 14},
                     'baby animal'
                     ],
                 'annotations' : {

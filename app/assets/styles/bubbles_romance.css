@@ -17,7 +17,8 @@
     line-height: 100%;
     color: #352e2e;
     z-index: 100;
-    min-height: 12%;
+    min-height: 8%;
+    max-height: 24%;
     min-width: 15%;
     max-width: 35%;
     padding: 11px;
@@ -55,27 +56,27 @@
 
 /* css overrides */
 .a-tail-bottom {
-        height: 38%;
-        bottom: -22%;
+        height: 30px;
+        bottom: -11px;
 }
 
 .a-tail-top {
-        height: 36%;
-        top: -22%;
+        height: 30px;
+        top: -11px;
 }
 
 /* bubble and tail positioning */
 .notebook-0 { top: 25%; left: 53%; }
 .notebook-0 .a-tail-bottom {background: url('../media/romance/tailThought-bottomLeft.png') no-repeat 20% 0; background-size: contain;}
 
-.notebook-1 { top: 28%; left: 10%; }
+.notebook-1 { top: 35%; left: 10%; }
 .notebook-1 .a-tail-bottom {background: url('../media/romance/tailThought-bottomRight.png') no-repeat 80% 0; background-size: contain;}
 
-.notebook-2 { top: 65%; left: 15%; }
+.notebook-2 { top: 62%; left: 15%; }
 .notebook-2 .a-tail-top {background: url('../media/romance/tailThought-topRight.png') no-repeat 80% 0; background-size: contain;}
 
-.notebook-3 { top: 30%; left: 6%; }
-.notebook-3 .a-tail-bottom {background: url('../media/romance/tailThought-bottomRight.png') no-repeat 80% 0; background-size: contain;}
+.notebook-3 { top: 48%; left: 6%;}
+.notebook-3 .a-tail-top {background: url('../media/romance/tailThought-topRight.png') no-repeat 80% 0; background-size: contain;}
 
 .notebook-4 { top: 65%; left: 20%; }
 .notebook-4 .a-tail-top {background: url('../media/romance/tailSpeech-topRight.png') no-repeat 80% 0; background-size: contain;}
@@ -86,7 +87,7 @@
 .notebook-6 { top: 65%; left: 50%; }
 .notebook-6 .a-tail-top {background: url('../media/romance/tailThought-topLeft.png') no-repeat 10% 0; background-size: contain;}
 
-.notebook-7 { top: 65%; left: 10%; }
+.notebook-7 { top: 55%; left: 10%; }
 .notebook-7 .a-tail-top {background: url('../media/romance/tailSpeech-topRight.png') no-repeat 80% 0; background-size: contain;}
 
 .notebook-8 { top: 25%; left: 50%; }

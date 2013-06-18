@@ -32,7 +32,7 @@ reporters = ['progress'];
 port = 8080;
 
 // cli runner port
-runnerPort = 9100;
+runnerPort = 9101;
 
 // enable / disable colors in the output (reporters and logs)
 colors = true;
@@ -52,7 +52,7 @@ autoWatch = false;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome'];
+browsers = ['Chrome', 'IE'];
 
 // If browser does not capture in given timeout [ms], kill it
 captureTimeout = 5000;

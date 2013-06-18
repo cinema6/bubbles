@@ -8,7 +8,7 @@
     color: #111111;
     z-index: 100;
     min-height: 2%;
-    min-width: 10%;
+    min-width: 25%;
     max-width: 35%;
     padding: 11px 11px ;
     background: url('../media/action/annotation-body.png');
@@ -90,8 +90,8 @@
 .lee-11 { top: 70%; left: 5%; } 
 .lee-11 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 90% 0; background-size: contain;}
 
-.lee-12 { top: 70%; left: 70%; } 
-.lee-12 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 10% 0; background-size: contain;}
+.lee-12 { top: 72%; left: 60%; } 
+.lee-12 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 15% 0; background-size: contain;}
 
 .lee-13 { top: 75%; left: 25%; } 
 .lee-13 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 85% 0; background-size: contain;}

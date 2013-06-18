@@ -432,7 +432,7 @@ input {cursor: text;}
     top: 0; 
     opacity: 1;
  }
-
+ .experience__group {height: 100%; width:100%;}
  .experience__logo {
     top: 46px;
     left: 12px;

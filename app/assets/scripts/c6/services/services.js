@@ -27,16 +27,16 @@ angular.module('c6.svc',[])
                 'anim'        : 'action',
                 'defSizeLimit': 18,
                 'prompts'     : [
-                    'Salutation',
+                    { query : 'Salutation', sizeLimit : 12},
                     'Animal',
                     'Superhero',
-                    'Body Part (plural)',
-                    'Plural noun',
-                    'Animal Noise',
+                    { query : 'Body Part (plural)', sizeLimit : 10},
+                    { query : 'Plural noun', sizeLimit : 10},
+                    { query : 'Animal Noise', sizeLimit : 10},
                     'Greek God',
                     'Character from Star Wars',
                     '80\'s female sitcom star',
-                    'Type of candy'
+                    { query : 'Type of candy', sizeLimit : 12},
                     ],
                 'annotations' : {
                     'options' : {

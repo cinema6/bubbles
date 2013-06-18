@@ -447,94 +447,76 @@
 //     INPUT FORM ANIMATIONS      //
 //								  //
 	
-	// input screen ----------------//
-	.animation('start-button-enter', [function() {
+ // input screen ----------------//
+
+	//   start button   //
+	 .animation('start-button-enter', [function() {
 		return {
 			setup: function($startButton) {
-				$startButton.hide();
+				$startButton.css({
+					"-ms-transform": "rotateX(90deg) scale(1.1)",
+						"-moz-transform": "rotateX(90deg) scale(1.1)",
+						"-o-transform": "rotateX(90deg) scale(1.1)",
+						"-webkit-transform": "rotateX(90deg) scale(1.1)",
+						"transform": "rotateX(90deg) scale(1.1)",
+					"-ms-transform-origin": "50% 0%",
+						"-moz-transform-origin": "50% 0%",
+						"-o-transform-origin": "50% 0%",
+						"-webkit-transform-origin": "50% 0%",
+						"transform-origin": "50% 0%"
+				});
 			},
 			start: function($startButton, done) {
-				$startButton.fadeIn(done);
-			}
-		}
-	}])
-	
-	.animation('start-button-leave', [function() {
-		return {
-			start: function($startButton, done) {
-				$startButton.fadeOut(done);
-			}
-		}
-	}])
+				var tl_startShow = new TimelineLite;
 
-	.animation('response-next-leave', [function() {
-		return {
-			setup: function(input) {
-				input.prop('disabled', true);
-			},
-			start: function(input, done) {
-				console.log('New Question Leave');
-				var tl_nextLeave  = new TimelineLite;
-
-				tl_nextLeave.to(input, 1, {
-					"left": "-=150px", 
-					alpha: 0, 
-					ease: Power4.easeIn, 
-				})
-				.eventCallback('onComplete', done);
-			}
-		}
-	}])
-	
-	.animation('response-next-enter', ['$window', function($window) {
-		return {
-			setup: function(input) {
-				if (!$window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {	
-					input.prop('disabled', true);
-
-					setTimeout(function() {
-						input.prop('disabled', false);
-						input.focus();
-					}, 1250)
-				}
-			},
-			start: function(input, done) {
-				console.log('New Question Enter');
-				var tl_nextEnter  = new TimelineLite;
-
-				tl_nextEnter.from(input, 1, {
-					"left": "+=150px", 
-					alpha: 0, 
+				tl_startShow.to($startButton, 2, {
+					rotationX: "0deg",
+					scale: "1",
 					ease: Elastic.easeOut
-				}, "+=1")
-				.eventCallback('onComplete', done);
+				})
 			}
 		}
-	}])
+	 }])
 	
-	.animation('response-previous-leave', [function() {
+	 .animation('start-button-leave', [function() {
 		return {
-			setup: function(input) {
-				input.prop('disabled', true);
-			},
-			start: function(input, done) {
-				console.log('Prev Question Leave');
-				var tl_prevLeave  = new TimelineLite;
+			start: function($startButton, done) {
+				var tl_startHide = new TimelineLite;
 
-				tl_prevLeave.to(input, 1, {
-					"left": "+=150px", 
-					alpha: 0, 
+				tl_startHide.to($startButton, 1, {
+					rotationX: "90deg",
+					scale: "1.1",
 					ease: Power4.easeIn
 				})
+			}
+		}
+	 }])
+
+	//   next button   //
+	 .animation('response-next-leave', [function() {
+		return {
+			setup: function(response) {
+				response.find(".question__input").prop('disabled', true);
+			},
+			start: function(response, done) {
+				var tl_nextLeave  = new TimelineLite,
+					input 		  = response.find(".question__input");
+
+				tl_nextLeave.to(response, 1, {
+					"left": "-=200px", 
+					alpha: 0, 
+					ease: Power3.easeIn, 
+					scale: 0.6
+				})
 				.eventCallback('onComplete', done);
 			}
 		}
-	}])
-	
-	.animation('response-previous-enter', ['$window', function($window) {
+	 }])
+	 .animation('response-next-enter', ['$window', function($window) {
 		return {
-			setup: function(input) {
+			setup: function(response) {
 				if (!$window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {	
+				var input = response.find(".question__input");
 					input.prop('disabled', true);
 
 					setTimeout(function() {
@@ -543,43 +525,108 @@
 					}, 1250)
 				}
 			},
-			start: function(input, done) {
-				console.log('Previous Question Enter');
-				var tl_prevEnter  = new TimelineLite;
+			start: function(response, done) {
+				var tl_nextEnter  = new TimelineLite;
 
-				tl_prevEnter.from(input, 1, {
-					"left": "-=150px", 
+				tl_nextEnter.from(response, 1, {
+					"left": "+=200fpx", 
 					alpha: 0, 
-					ease: Elastic.easeOut
+					ease: Elastic.easeOut,
+					scale: 0.6
 				}, "+=1")
 				.eventCallback('onComplete', done);
 			}
 		}
-	}])
+	 }]) 
 
-	.animation('prompt-enter', [function() {
+	 
+	//   prev button   //
+	 .animation('response-previous-leave', [function() {
+		return {
+			setup: function(response) {
+				response.find(".question__input").prop('disabled', true);
+			},
+			start: function(response, done) {
+				var tl_prevLeave  = new TimelineLite;
+
+				tl_prevLeave.to(response, 1, {
+					"left": "+=200px", 
+					alpha: 0, 
+					ease: Power3.easeIn, 
+					scale: 0.6
+				})
+				.eventCallback('onComplete', done);
+			}
+		}
+	 }])
+	
+	 .animation('response-previous-enter', ['$window', function($window) {
+		return {
+			setup: function(response) {
+				if (!$window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {	
+				var input = response.find(".question__input");
+					input.prop('disabled', true);
+
+					setTimeout(function() {
+						input.prop('disabled', false);
+						input.focus();
+					}, 1250)
+				}
+			},
+			start: function(response, done) {
+				var tl_prevEnter  = new TimelineLite;
+
+				tl_prevEnter.from(response, 1, {
+					"left": "-=200px", 
+					alpha: 0, 
+					ease: Elastic.easeOut,
+					scale: 0.6
+				}, "+=1")
+				.eventCallback('onComplete', done);
+			}
+		}
+	 }])
+
+	//   prompt/question   // 
+	 .animation('prompt-leave', [function() {
+		return {
+			start: function(prompt, done) {
+				var tl_promptLeave  = new TimelineLite;
+
+				tl_promptLeave.to(prompt, 1, {
+					"top": "-=50px", 
+					autoAlpha: 0, 
+					ease: Power3.easeIn, 
+					scale: 0.8,
+				})
+				.eventCallback('onComplete', done);
+			}
+		}
+	 }])
+
+	 .animation('prompt-enter', [function() {
 		return {
 			setup: function(prompt) {
 				prompt.hide();
 			},
 			start: function(prompt, done) {
-				setTimeout(function() {
-					prompt.fadeIn(done);
-				}, 750)
+				var tl_promptEnter  = new TimelineLite;
+
+				prompt.show();
+
+				tl_promptEnter.from(prompt, 1, {
+					"top": "+=50px", 
+					autoAlpha: 0, 
+					ease: Elastic.easeOut,
+					scale: 0.8,
+				}, "+=1")
+				.eventCallback('onComplete', done);
 			}
 		}
-	}])
-	
-	.animation('prompt-leave', [function() {
-		return {
-			start: function(prompt, done) {
-				prompt.fadeOut(done);
-			}
-		}
-	}])
+	 }])
 
 	// ipad only ----------------//
-	.animation('valid-leave', [function() {
+	 .animation('valid-leave', [function() {
 		return {
 			/*setup: function() {
 				element.show();
@@ -588,9 +635,9 @@
 				element.fadeOut(500, done);
 			}
 		}
-	}])
+	 }])
 	
-	.animation('valid-enter', [function() {
+	 .animation('valid-enter', [function() {
 		return {
 			setup: function(element) {
 				element.hide();
@@ -599,5 +646,5 @@
 				element.fadeIn(1000, done);
 			}
 		}
-	}])
+	 }])
  })();

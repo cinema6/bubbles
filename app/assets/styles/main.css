@@ -4,12 +4,12 @@ html { height: 100%; width: 100%;}
 body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;}
 button {border: none; cursor: pointer; padding: 0; margin: 0;}
 ul {list-style: none;}
-button:disabled {opacity: 0.5;}
+button:disabled {opacity: 0.15;}
 input {cursor: text;}
 
 .ir {width:0; height:0; display: block; overflow: hidden; }
 .hidden {display: none;}
-.disabled {opacity: 0.5;}
+.disabled {opacity: 0.15;}
 
 .paperTexture { background: url('../media/bg_tile.jpg') repeat;}
 .c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0; }
@@ -240,66 +240,83 @@ input {cursor: text;}
         margin: -120px 0  0 -361px;
       }
         @media screen and (max-width: 768px) {
-            .content {
-                width: 480px;
-                margin: -70px 0  0 -240px;
-                position: absolute;
-            }
+            .content { width: 480px; margin: -70px 0  0 -240px; position: absolute;}
         }
 
         .question__group {padding: 0;}
-        .question__number {display: inline-block; width: 100%; height: 4.9%; margin: 2% 0 0 0; text-align: center; font-size: 16px; color: #252525;}
-        .question__query {width: 100%; height: 11%; margin: 1% 0 0 0; text-align: center; font-size: 32px; display: block; }
-        
-        .question__characterCount {
-            font-size: 15px; 
-            width: 68%; 
-            text-align: right; 
-            top: 65%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            position: absolute;
-        }
+            .question__prompt {
+                opacity: 1;
+                position: absolute;
+                width: 75%;
+                text-align: center;
+                top: 5%;
+                left: 50%;
+                margin: 0 0 0 -37.5%;
+            }
 
-        .question__userAnswer {
-            border: 0;
-            background: none;
-            font-family: "Courier Prime", Courier, Times, serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: #c20000;
-            width: 68%;
-            top: 50%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            position: absolute;
-            z-index: 1;
-         }
-         .question__userAnswer:focus {outline:none;}
-         .question__userAnswer::-ms-clear {display:none;} /*remove X from IE10*/
+                .question__number {
+                    display: inline-block; 
+                    width: 100%; 
+                    height: 4.9%; 
+                    margin: 2% 0 0 0; 
+                    text-align: center; 
+                    font-size: 16px; 
+                    color: #252525; 
+                    opacity: 1;
+                }
 
-         .question__inputSpace {
-            position: absolute; 
-            background: url('../media/inputLine.jpg') bottom center no-repeat;
-            height: 13%; 
-            width: 68%;
-            top: 50%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            z-index: -1;
-        }
-        
-        /* ipad only */
-        .question__inputCheck {
-            background: url("../media/input_check.png") right no-repeat;
-            height: 32px;
-            width: 68%;
-            top: 50%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            position: absolute;
-            z-index: -2;
-        }
+                .question__query {
+                    width: 100%; 
+                    height: 11%; 
+                    margin: 1% 0 0 0; 
+                    text-align: center; 
+                    font-size: 32px; 
+                    display: block; 
+                    opacity: 1;
+                }
+            
+            .question__userAnswer {
+                position: absolute;
+                width: 68%;
+                height: 10%;
+                top: 50%;
+                left: 50%;
+                margin: 0 0 0 -34%;
+            }
+                .question__input {
+                    width: 100%;
+                    border: 0;
+                    background-color: none;
+                    background: url('../media/inputLine.jpg') bottom center no-repeat;
+                    font-family: "Courier Prime", Courier, Times, serif;
+                    font-size: 28px;
+                    font-weight: 700;
+                    color: #c20000;
+                    z-index: 1;
+                 }
+                 .question__input:focus {outline:none;}
+                 .question__input::-ms-clear {display:none;} /*remove X from IE10*/
+
+                 .question__characterCount {
+                    width: 100%;
+                    height: 21px;
+                    font-size: 15px; 
+                    text-align: right; 
+                    position: absolute;
+                    top: 16px;
+                }
+
+                /* ipad only */
+                .question__inputCheck {
+                    background: url("../media/input_check.png") right no-repeat;
+                    height: 32px;
+                    width: 68%;
+                    top: 50%;
+                    left: 50%;
+                    margin: 0 0 0 -34%;
+                    position: absolute;
+                    z-index: -2;
+                }
 
         .question__btnPrevious {
             background: url('../media/btn_previous_default.png') no-repeat bottom left; 
@@ -312,7 +329,7 @@ input {cursor: text;}
             margin: 5% 0 0 0;
             z-index: 5;  
          }
-         .question__btnPrevious:active {background: url('../media/btn_previous_tap.png') no-repeat bottom left; background-size: 100% auto;}
+            .question__btnPrevious:active {background: url('../media/btn_previous_tap.png') no-repeat bottom left; background-size: 100% auto;}
 
         .question__btnNext {
             background: url('../media/btn_next_default.png') no-repeat bottom right; 
@@ -324,7 +341,7 @@ input {cursor: text;}
             position: absolute;
             z-index: 5;  
          }
-         .question__btnNext:active {background: url('../media/btn_next_tap.png') no-repeat bottom right;}
+            .question__btnNext:active {background: url('../media/btn_next_tap.png') no-repeat bottom right;}
 
         .question__btnStart {
             background: url('../media/btn_start_default.png') center no-repeat; 
@@ -335,21 +352,16 @@ input {cursor: text;}
             left: 36.5%;
             top: 75%;
          }
+            .question__btnStart:active {background: url('../media/btn_start_tap.png') center no-repeat;}
+
             @media screen and (max-width: 768px) {
-                .question__btnStart {
-                    width: 50%;
-                    top: 70%;
-                    left: 25%;
-                }
+                .question__btnStart { width: 50%; top: 70%; left: 25%; }
             }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                .question__btnStart {
-                    top: 65%;
-                }
+                .question__btnStart { top: 65%;}
             }
 
-         .question__btnStart:active {background: url('../media/btn_start_tap.png') center no-repeat;}
-
+         
         .inputScreen__btnClose {
             background: url('../media/btn_close_default.png');
             background-size: cover;
@@ -361,13 +373,10 @@ input {cursor: text;}
             display: block;
             z-index: 1;
          }
-            @media screen and (max-width: 768px) {
-                .inputScreen__btnClose {
-                    height: 42px;
-                    width: 50px;
-                }
-            }     
          .inputScreen__btnClose:active {background: url('../media/btn_close_tap.png'); background-size: cover;}
+            @media screen and (max-width: 768px) {
+                .inputScreen__btnClose { height: 42px; width: 50px; }
+            }     
 
         .progressDock {
             height: 30px;

@@ -13,35 +13,35 @@
                 <li class="question">
                     
                     <div ng-repeat="prompt in inputCtrl.promptModel.prompts">
-                        
+
 	                    <div ng-if="inputCtrl.currentPromptIndex() === $index"
-                            ng-animate="'prompt'">
+                            ng-animate="'prompt'" class="question__prompt">
                             <h1 class="question__number">Question {{$index+1}}</h1>
                             <h2 class="question__query">{{inputCtrl.promptModel.prompts[$index].query}}</h2>
                         </div>
-
+                        <div class="question__userAnswer"
+                            ng-if="$index === inputCtrl.currentPromptIndex()"
+                            ng-animate="'response-' + inputCtrl.currentDirection" >
 	                    <input
-	                    	ng-if="$index === inputCtrl.currentPromptIndex()"
-	                    	ng-animate="'response-' + inputCtrl.currentDirection"
 	                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
 	                    	ng-disabled="appCtrl.inExperience"
 	                    	c6-on="experienceStart: {$this.prop('disabled', true); $this.blur();}"
 	                    	c6-autofocus
 	                    	maxlength="{{prompt.sizeLimit}}"
-	                        class="question__userAnswer"
+	                        class="question__input"
 	                        type="text"
 	                        type="text"
 	                        name="response"
 	                        autocomplete="off">
 	                    </input>
-                        <div class="question__inputSpace">&nbsp;</div>
+                        <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}
+                        </h6>
                     </div>
                 </li>
                 <button
                 class="question__btnStart"
-                ng-if="inputCtrl.isDone()"
+                ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
                 ng-animate="'start-button'"
-                ng-disabled="!inputCtrl.currentResponse()"
                 ng-click="inputCtrl.startExperience();">
                 <span class="ir">Start</span>
             </button>
@@ -61,7 +61,7 @@
                 name="prev">
                 <span class="ir">Prev</span>
             </button>
-            <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
+            
             </ul>
 
             

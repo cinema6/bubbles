@@ -27,6 +27,7 @@
                         	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         	ng-disabled="appCtrl.inExperience"
                         	c6-on="newPrompt: {$this.focus();}, experienceStart: {$this.prop('disabled', true); $this.blur();}"
+                        	c6-sfx="{keydown: 'type'}"
                         	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
                             class="question__input"
                             type="text"
@@ -54,6 +55,7 @@
             
             <button
                 class="question__btnNext"
+                c6-sfx="{click: 'bell'}"
                 ng-disabled="!inputCtrl.canGoForward()"
                 ng-click="inputCtrl.nextQuestion();"
                 name="next">

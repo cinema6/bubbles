@@ -179,7 +179,7 @@ input {cursor: text;}
             margin-top: -28.96%;
             margin-left: -19.56%;
             width: 100%;
-            height: 200%;
+            height: 160%;
             z-index: -1;
             position: absolute;
          }    
@@ -194,7 +194,7 @@ input {cursor: text;}
                 }
             }
 
-         .startScreen__bgArtwork {
+        .startScreen__bgArtwork {
             background: url('../media/paperball.png') no-repeat bottom right;
             width: 100%; 
             height: 100%;
@@ -540,24 +540,21 @@ input {cursor: text;}
 
     /* artwork */
      .endScreen__logo {
-        margin: -31% 0 0 -18%; 
-        width: 125%;
-        height: 10px;
+        width: 1000px;
+        margin: -305px 0 0 -185px;
         position: absolute;
-        top: 0;
-        left: 0;
         z-index: 2;
-        overflow: visible;
-        background: white;
-     }
+    }
         @media screen and (max-width: 768px) {
             .endScreen__logo {
-                margin: -24% 0 0 -18%;
+                width: 600px;
+                margin: -160px 0 0 -110px;
             } 
         }
         @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
             .endScreen__logo {
-                margin: -46% 0 0 -18%;
+                width: 1000px;
+                margin: -305px 0 0 -185px;
             }
         }
 

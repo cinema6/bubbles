@@ -7,13 +7,13 @@ angular.module('c6.svc',[])
 	return $window.AudioContext || $window.webkitAudioContext;
 }])
 
-.service('C6SfxService', ['C6AudioContext', '$http', '$q', '$rootScope', function(C6AudioContext, $http, $q, $rootScope) {
+.service('C6SfxService', ['C6AudioContext', '$http', '$q', '$rootScope', '$log', function(C6AudioContext, $http, $q, $rootScope, $log) {
 	function C6Sfx(config) {
 		var buffer,
 			players = [];
 			
 		var createPlayerInstance = function() {
-			console.log('creating instance');
+			$log.log('creating instance');
 			var instance = new Audio(config.src + '.' + self.extensionForFormat(self.bestFormat()));
 			players.push(instance);
 			return instance;

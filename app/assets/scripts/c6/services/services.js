@@ -3,6 +3,82 @@
 'use strict';
 
 angular.module('c6.svc',[])
+.factory('C6AudioContext', ['$window', function($window) {
+	return $window.AudioContext || $window.webkitAudioContext;
+}])
+
+.service('C6SfxService', ['C6AudioContext', '$http', '$q', '$rootScope', function(C6AudioContext, $http, $q, $rootScope) {
+	function C6Sfx(config) {
+		var buffer;
+		
+		this.name = config.name;
+		this.src = config.src;
+		this.isLoaded = false;
+		
+		this.load = function() {
+			var self = this,
+				waitForIt = $q.defer();
+			
+			$http({
+				method: 'GET',
+				url: self.src,
+				responseType: 'arraybuffer'
+			}).then(function(response) {
+				context.decodeAudioData(response.data, function(buff) {
+					buffer = buff;
+					$rootScope.$apply(function() {
+						waitForIt.resolve(self);
+						self.isLoaded = true;
+					});
+				});
+			});
+			
+			return waitForIt.promise;
+		}
+		
+		this.play = function() {
+			var source = context.createBufferSource();
+			source.buffer = buffer;
+			
+			source.connect(context.destination);
+			
+			source.start? source.start(0) : source.noteOn(0);
+		}
+	}
+	
+	var self = this,
+		sounds = [],
+		context = new C6AudioContext();
+		
+	this.loadSounds = function(soundConfigs) {
+		soundConfigs.forEach(function(config) {
+			var sfx = new C6Sfx(config);
+			sounds.push(sfx);
+			sfx.load();
+		});
+	};
+	
+	this.getSoundByName = function(name) {
+		var toReturn;
+		sounds.forEach(function(sound) {
+			if (sound.name === name) {
+				toReturn = sound;
+			}
+		});
+		return toReturn;
+	};
+	
+	this.playSound = function(name) {
+		this.getSoundByName(name).play();
+	};
+	
+	this.playSoundOnEvent = function(sound, event) {
+		$rootScope.$on(event, function() {
+			self.playSound(sound);
+		});
+	}
+}])
+
 .factory('c6VideoListingService',['$log','appBaseUrl',function($log,baseUrl){
     $log.log('Creating c6VideoListingService');
     var service          = {};

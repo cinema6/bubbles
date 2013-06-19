@@ -26,10 +26,10 @@
 	                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
 	                    	ng-disabled="appCtrl.inExperience"
 	                    	c6-on="experienceStart: {$this.prop('disabled', true); $this.blur();}"
+	                    	c6-sfx="{keydown: 'type'}"
 	                    	c6-autofocus
 	                    	maxlength="{{prompt.sizeLimit}}"
 	                        class="question__input"
-	                        type="text"
 	                        type="text"
 	                        name="response"
 	                        autocomplete="off">
@@ -50,6 +50,7 @@
                 class="question__btnNext"
                 ng-disabled="!inputCtrl.canGoForward()"
                 ng-click="inputCtrl.nextQuestion();"
+                c6-sfx="{click: 'bell'}"
                 name="next">
                 <span class="ir">Next</span>
             </button>

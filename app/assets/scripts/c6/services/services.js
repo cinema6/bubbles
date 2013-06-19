@@ -9,46 +9,86 @@ angular.module('c6.svc',[])
 
 .service('C6SfxService', ['C6AudioContext', '$http', '$q', '$rootScope', function(C6AudioContext, $http, $q, $rootScope) {
 	function C6Sfx(config) {
-		var buffer;
+		var buffer,
+			players = [];
+			
+		var createPlayerInstance = function() {
+			console.log('creating instance');
+			var instance = new Audio(config.src + '.' + self.extensionForFormat(self.bestFormat()));
+			players.push(instance);
+			return instance;
+		};
 		
 		this.name = config.name;
 		this.src = config.src;
 		this.isLoaded = false;
 		
 		this.load = function() {
-			var self = this,
-				waitForIt = $q.defer();
-			
-			$http({
-				method: 'GET',
-				url: self.src,
-				responseType: 'arraybuffer'
-			}).then(function(response) {
-				context.decodeAudioData(response.data, function(buff) {
-					buffer = buff;
-					$rootScope.$apply(function() {
-						waitForIt.resolve(self);
-						self.isLoaded = true;
+			if (context) {
+				this.load = function() {
+					var me = this,
+						waitForIt = $q.defer();
+					
+					$http({
+						method: 'GET',
+						url: this.src + '.' + self.extensionForFormat(self.bestFormat()),
+						responseType: 'arraybuffer'
+					}).then(function(response) {
+						context.decodeAudioData(response.data, function(buff) {
+							buffer = buff;
+							$rootScope.$apply(function() {
+								waitForIt.resolve(me);
+								self.isLoaded = true;
+							});
+						});
 					});
-				});
-			});
-			
-			return waitForIt.promise;
+					
+					return waitForIt.promise;
+				};
+				this.load();
+			} else {
+				this.load = function() {
+					players = [];
+					
+					for (var i = 0; i < 3; i++) {
+						createPlayerInstance();
+					}
+				};
+				this.load();
+			}
 		}
 		
 		this.play = function() {
-			var source = context.createBufferSource();
-			source.buffer = buffer;
-			
-			source.connect(context.destination);
-			
-			source.start? source.start(0) : source.noteOn(0);
+			if (context) {
+				this.play = function() {
+					var source = context.createBufferSource();
+					source.buffer = buffer;
+					
+					source.connect(context.destination);
+					
+					source.start? source.start(0) : source.noteOn(0);
+				};
+				this.play();
+			} else {
+				this.play = function() {
+					players.some(function(player, index) {
+						if (player.paused || player.ended) {
+							player.currentTime = 0;
+							player.play();
+							return true;
+						} else if (index === players.length - 1) {
+							createPlayerInstance().play();
+						}
+					});
+				};
+				this.play();
+			}
 		}
 	}
 	
 	var self = this,
 		sounds = [],
-		context = new C6AudioContext();
+		context = C6AudioContext? new C6AudioContext() : null;
 		
 	this.loadSounds = function(soundConfigs) {
 		soundConfigs.forEach(function(config) {
@@ -77,6 +117,45 @@ angular.module('c6.svc',[])
 			self.playSound(sound);
 		});
 	}
+	
+	this.bestFormat = function(formats) {
+		var goodFormats = [],
+		greatFormats = [],
+		audio = new Audio();
+		formats = formats? formats : this.validFormats;
+
+		if (Object.prototype.toString.call(formats) !== '[object Array]') {
+			throw new TypeError('You must pass in an array of format strings.');
+		}
+
+		formats.forEach(function(format) {
+			var decision = audio.canPlayType(format);
+
+			if (decision === 'probably') {
+				greatFormats.push(format);
+			} else if (decision === 'maybe') {
+				goodFormats.push(format);
+			}
+		});
+
+		if (greatFormats.length) {
+			return greatFormats[0];
+		} else {
+			return goodFormats[0];
+		}
+
+		audio = null;
+	};
+	
+	this.validFormats = ['audio/mp3', 'audio/ogg'];
+
+	this.extensionForFormat = function(format) {
+		return format.split('/').pop();
+	};
+
+	this.formatForExtension = function(extension) {
+		return 'audio/' + extension;
+	};
 }])
 
 .factory('c6VideoListingService',['$log','appBaseUrl',function($log,baseUrl){

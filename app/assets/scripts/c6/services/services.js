@@ -42,10 +42,10 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
-                        'cls'     : ['lee-${index}', 'annotation']
+                        'cls'     : ['lee-${index}']
                         },
                      'notes'  : [
-                        { 'ts':  7,'template':'${1}', 'duration':1.5 },
+                        { 'ts':  7,'template':'${1}', 'duration':1.5, tail: { type: 'thought', pos: 'top' } },
                         { 'ts': 16,'template':'My dramatic entrance' },
                         { 'ts': 18,'template':'Must look tough' },
                         { 'ts': 20,'template':'Crazy ${2} stare', 'duration': 2 },
@@ -95,7 +95,7 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
-                        'cls'     : ['lotr-${index}', 'annotation']
+                        'cls'     : ['lotr-${index}']
                         },
                      'notes'  : [
                         { 'ts':  3,'template':'I\'ll always remember' },
@@ -144,7 +144,7 @@ angular.module('c6.svc',[])
                     'options' : {
                         'type'       : 'bubble',
                         'duration'   : 4,
-                        'cls'        : ['notebook-${index}', 'annotation']
+                        'cls'        : ['notebook-${index}']
                     },
                     'notes' : [
                        { 'ts':11,'template':'Weird, smells like ${1}!' },

@@ -1,4 +1,7 @@
 (function() {
+	/*global $:false, jQuery:false */
+	'use strict';
+	
 	angular.module('c6.anim', [])
 
 //								  // 

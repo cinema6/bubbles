@@ -13,12 +13,11 @@ if (__C6_BUILD_VERSION__) {
     c6Scripts = [ 'scripts/c6app.min' ];
 } else {
     c6Scripts = [   'assets/lib/c6media/c6lib.video.js',
-    				'scripts/c6/app',
+                    'scripts/c6/app',
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
                     'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives',
-                    'scripts/c6/directives/videonode'
                     ];
 }
 

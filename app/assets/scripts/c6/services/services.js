@@ -45,7 +45,7 @@ angular.module('c6.svc',[])
                         'cls'     : ['lee-${index}']
                         },
                      'notes'  : [
-                        { 'ts':  7,'template':'${1}', 'duration':1.5 },
+                        { 'ts':  7,'template':'${1}', 'duration':1.5, tail: { type: 'thought', pos: 'top' } },
                         { 'ts': 16,'template':'My dramatic entrance' },
                         { 'ts': 18,'template':'Must look tough' },
                         { 'ts': 20,'template':'Crazy ${2} stare', 'duration': 2 },

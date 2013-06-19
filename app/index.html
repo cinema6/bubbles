@@ -38,7 +38,7 @@
       
       <div ng-view ng-animate="currentRoute + '-partial'"></div>
       
-      <div ng-controller="C6AnnotationsCtrl" ng-show="appCtrl.inExperience" ng-animate="'video'">
+      <div ng-controller="C6AnnotationsCtrl" ng-show="appCtrl.inExperience" ng-animate="'video'" class="experience__group">
         <div class="experience__logo"><img ng-src="assets/media/logo_vid_{{appCtrl.category()}}.png"></div>
         <video
         	id="player"
@@ -54,12 +54,14 @@
           	ng-show="annoCtrl.annotationIsActive(a)"
           	ng-animate="appCtrl.experience.anim + '-annotation'"
           	ng-class="a.cls.join(' ') + ' annotation'">
-            <div class="a-corners">&nbsp;</div>
-            <div class="a-border">&nbsp;</div>
-            <span class="a-text">{{a.text}}&nbsp;</span>
-            <div class="a-tail-top">&nbsp;</div>
-            <div class="a-tail-bottom">&nbsp;</div>
-		  </li>
+            <div class="a-border">
+              <div class="a-corners">
+                <div class="a-tail-top"> <!-- make this tail class dynamic so it switches based on what is needed -->
+                  <span class="a-text">{{a.text}}</span>
+                </div>
+              </div>
+            </div>
+		      </li>
         </ul>
         <div class="transition_blackFade">&nbsp;</div>
       </div>

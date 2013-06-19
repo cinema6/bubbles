@@ -13,26 +13,31 @@
 		return {
 			setup: function() { 
 				$(".inputScreen").css({
-				    "-webkit-transform": "rotate(-150deg)", 
-				    	"-moz-transform": "rotate(-150deg)", 
-			        	"-ms-transform": "rotate(-150deg)", 
-			        	"-o-transform": "rotate(-150deg)", 
+				    "-webkit-transform": "rotate(-30deg)", 
+				    	"-moz-transform": "rotate(-30deg)", 
+			        	"-ms-transform": "rotate(-30deg)", 
+			        	"-o-transform": "rotate(-30deg)", 
 			        "opacity": "0",
-			        "left": "-1000px",
+			        "left": "400px",
 			        "top" : "-1800px"
 			      }); 
 				
 				$(".endScreen").css({
-				    "-webkit-transform": "rotate(-150deg)", 
-				    	"-moz-transform": "rotate(-150deg)", 
-			        	"-ms-transform": "rotate(-150deg)", 
-			        	"-o-transform": "rotate(-150deg)", 
+				    "-webkit-transform": "rotate(30deg)", 
+				    	"-moz-transform": "rotate(30deg)", 
+			        	"-ms-transform": "rotate(30deg)", 
+			        	"-o-transform": "rotate(30deg)", 
 			        "opacity": "0",
-			        "left": "-1000px",
-			        "top" : "-1800px"
+			        "left": "-2400px",
+			        "top" : "-200px"
 			      }); 
 
 				$(".startScreen").css({
+					"-webkit-transform": "rotate(0deg)", 
+				  		"-moz-transform": "rotate(0deg)", 
+				    	"-ms-transform": "rotate(0deg)", 
+			        	"-o-transform": "rotate(0deg)", 
+			        	"transform": "rotate(0deg)", 
 					"bottom": "0px",
 					"left":"0px"
 				  });
@@ -50,7 +55,7 @@
 
 					// ANIMATION TIMELINE //
 					tl_startInput.to(startScreen, 2, {
-				        rotation: "90deg", 
+				        rotation: "45deg", 
 				        ease: Power3.easeIn, 
 				        alpha: 0,
 				        left: "-500px",
@@ -67,6 +72,7 @@
 					
 					tl_startInput.play();
 					tl_startInput.seek(0);
+
 				} else if ($rootScope.currentRoute === 'end') { 
 					$log.log('Animating from "categories" to "end"');
 					var tl_startEnd	= new TimelineLite({paused: true}),
@@ -75,11 +81,11 @@
 
 					// ANIMATION TIMELINE //
 					tl_startEnd.to(startScreen, 2, {
-				        rotation: "90deg", 
+				        rotation: "-20deg", 
 				        ease: Power3.easeIn, 
 				        alpha: 0,
-				        left: "-500px",
-				        bottom: "-1500px"
+				        left: "1800px",
+				        bottom: "400px"
 				    })
 				    .to(endScreen, 2, {   
 				        rotation: "0deg", 
@@ -105,11 +111,11 @@
      	return {
      		setup: function() {
      			$(".startScreen").css({
-     				"-webkit-transform": "rotate(90deg)", 
-				  		"-moz-transform": "rotate(90deg)", 
-				    	"-ms-transform": "rotate(90deg)", 
-			        	"-o-transform": "rotate(90deg)", 
-			        	"transform": "rotate(90deg)", 
+     				"-webkit-transform": "rotate(45deg)", 
+				  		"-moz-transform": "rotate(45deg)", 
+				    	"-ms-transform": "rotate(45deg)", 
+			        	"-o-transform": "rotate(45deg)", 
+			        	"transform": "rotate(45deg)", 
 			        "opacity" : "1",
 			        "left" : "-500px",
 			        "bottom" : "-1500px"
@@ -137,10 +143,10 @@
 
 					// ANIMATION TIMELINE //
 					tl_inputStart.to(inputScreen, 2, {
-						rotation: "-90deg", 
+						rotation: "-30deg", 
 						ease: Power3.easeIn, 
 						opacity: 0,
-						left: "-1000px",
+						left: "-400px",
 						top: "-1800px"
 					})
 					.to(startScreen, 2, {
@@ -198,13 +204,17 @@
 	 			$(".transition_blackFade").css({
 				    "opacity": "1"
 				});
+
+				$(".inputScreen").css({
+					"opacity": "0"
+				})
 	 		}
 	 	}
 	 }])
 	 .animation('experience-partial-leave', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
 			start: function($playerDiv, done) {
-				if($rootScope.currentRoute === 'end') {
+				if ($rootScope.currentRoute === 'end') {
 					$log.log('Animating from "experience" to "end"');
 					var tl_expEnd   = new TimelineLite({paused: true}),
 						endScreen   = $(".endScreen"),
@@ -220,6 +230,24 @@
 
 					tl_expEnd.play();
 					tl_expEnd.seek(0);
+
+				} else if ($rootScope.currentRoute === 'input') {
+					$log.log('Animating from "experience" to "input"');
+					var	tl_expInput     = new TimelineLite({paused: true}),
+						inputScreen     = $(".inputScreen"),
+						transition      = $(".transition_blackFade"),
+						logo			= $(".experience__logo");						
+
+					// ANIMATION TIMELINE
+					tl_expInput.to(logo, 2, {opacity: 0})
+						.to(transition, 2, {opacity: 0}, "-=1")
+						.to(inputScreen, 2, {opacity: 1}, "-=1.5")
+						.to(inputScreen, 0.1, {display: "block"})
+             			.eventCallback('onComplete', done);
+
+             		tl_expInput.play();
+        			tl_expInput.seek(0);
+
 				} else {
 					done();
 				}
@@ -232,14 +260,14 @@
      	return {
      		setup: function($startScreen) {
      			$startScreen.css({
-     				"-webkit-transform": "rotate(90deg)", 
-				  		"-moz-transform": "rotate(90deg)", 
-				    	"-ms-transform": "rotate(90deg)", 
-			        	"-o-transform": "rotate(90deg)", 
-			        	"transform": "rotate(90deg)", 
+     				"-webkit-transform": "rotate(-20deg)", 
+				  		"-moz-transform": "rotate(-20deg)", 
+				    	"-ms-transform": "rotate(-20deg)", 
+			        	"-o-transform": "rotate(-20deg)", 
+			        	"transform": "rotate(-20deg)", 
 			        "opacity" : "1",
-			        "left" : "-500px",
-			        "bottom" : "-1500px"
+			        "left" : "1800px",
+			        "bottom" : "400px"
      			});
      		}
      	}
@@ -270,19 +298,18 @@
 
 				//ANIMATION TIMELINE
 				tl_endStart.to(endScreen, 2, { 
-			        transformOrigin: "0% 0%", 
-			        rotation: "-90deg", 
+			        rotation: "30deg", 
 					ease: Power3.easeIn, 
 					opacity: 0,
-					left: "-1000px",
-					top: "-1800px"
+					left: "-2400px",
+					top: "-200px"
 			     })
-			     .to(startScreen, 2, {
+			    .to(startScreen, 2, {
 						rotation: "0deg",
 						ease: Power3.easeOut,
 						opacity: 1,
 						left: "0px",
-						bottom: "0px"
+						bottom: "0px",
 					}, "-=0.5")
 			     .eventCallback('onComplete', done);
 
@@ -505,11 +532,10 @@
 				var tl_nextLeave  = new TimelineLite,
 					input 		  = response.find(".question__input");
 
-				tl_nextLeave.to(response, 1, {
-					"left": "-=200px", 
-					alpha: 0, 
-					ease: Power3.easeIn, 
-					scale: 0.6
+				tl_nextLeave.to(response, 0.5, {
+					rotationX: "90deg",
+					scale: "1.1",
+					ease: Power4.easeIn
 				})
 				.eventCallback('onComplete', done);
 			}
@@ -531,17 +557,15 @@
 			start: function(response, done) {
 				var tl_nextEnter  = new TimelineLite;
 
-				tl_nextEnter.from(response, 1, {
-					"left": "+=200fpx", 
-					alpha: 0, 
-					ease: Elastic.easeOut,
-					scale: 0.6
+				tl_nextEnter.from(response, 1.5, {
+					rotationX: "90deg",
+					scale: "1.1",
+					ease: Power4.easeOut
 				}, "+=1")
 				.eventCallback('onComplete', done);
 			}
 		}
 	 }]) 
-
 	 
 	//   prev button   //
 	 .animation('response-previous-leave', [function() {
@@ -552,11 +576,10 @@
 			start: function(response, done) {
 				var tl_prevLeave  = new TimelineLite;
 
-				tl_prevLeave.to(response, 1, {
-					"left": "+=200px", 
-					alpha: 0, 
-					ease: Power3.easeIn, 
-					scale: 0.6
+				tl_prevLeave.to(response, 0.5, {
+					rotationX: "90deg",
+					scale: "1.1",
+					ease: Power4.easeIn
 				})
 				.eventCallback('onComplete', done);
 			}
@@ -579,11 +602,10 @@
 			start: function(response, done) {
 				var tl_prevEnter  = new TimelineLite;
 
-				tl_prevEnter.from(response, 1, {
-					"left": "-=200px", 
-					alpha: 0, 
-					ease: Elastic.easeOut,
-					scale: 0.6
+				tl_prevEnter.from(response, 1.5, {
+					rotationX: "90deg",
+					scale: "1.1",
+					ease: Power4.easeOut
 				}, "+=1")
 				.eventCallback('onComplete', done);
 			}
@@ -593,14 +615,22 @@
 	//   prompt/question   // 
 	 .animation('prompt-leave', [function() {
 		return {
+			setup: function(prompt) {
+				prompt.css({
+					"-ms-transform-origin": "50% 0%",
+						"-moz-transform-origin": "50% 0%",
+						"-o-transform-origin": "50% 0%",
+						"-webkit-transform-origin": "50% 0%",
+						"transform-origin": "50% 0%"
+				});
+			},
 			start: function(prompt, done) {
 				var tl_promptLeave  = new TimelineLite;
 
-				tl_promptLeave.to(prompt, 1, {
-					"top": "-=50px", 
-					autoAlpha: 0, 
-					ease: Power3.easeIn, 
-					scale: 0.8,
+				tl_promptLeave.to(prompt, 0.5, {
+					rotationX: "90deg",
+					scale: "1.1",
+					ease: Power4.easeIn
 				})
 				.eventCallback('onComplete', done);
 			}
@@ -611,17 +641,23 @@
 		return {
 			setup: function(prompt) {
 				prompt.hide();
+				prompt.css({
+					"-ms-transform-origin": "50% 0%",
+						"-moz-transform-origin": "50% 0%",
+						"-o-transform-origin": "50% 0%",
+						"-webkit-transform-origin": "50% 0%",
+						"transform-origin": "50% 0%"
+				});
 			},
 			start: function(prompt, done) {
 				var tl_promptEnter  = new TimelineLite;
 
 				prompt.show();
 
-				tl_promptEnter.from(prompt, 1, {
-					"top": "+=50px", 
-					autoAlpha: 0, 
-					ease: Elastic.easeOut,
-					scale: 0.8,
+				tl_promptEnter.from(prompt, 1.5, {
+					rotationX: "90deg",
+					scale: "1.1",
+					ease: Power4.easeOut
 				}, "+=1")
 				.eventCallback('onComplete', done);
 			}

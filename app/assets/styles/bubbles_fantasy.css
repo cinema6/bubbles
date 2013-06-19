@@ -10,7 +10,7 @@
     font-style: normal;
 }
 
-.annotation {
+/*.annotation {
     position: absolute;
     font-family: "SherwoodRegular", "courier prime", georgia, serif;
     font-size:100%;
@@ -18,7 +18,7 @@
     color: #fff;
     z-index: 100;
     min-height: 12%;
-    min-width: 15%;
+    min-width: 24%;
     max-width: 30%; 
     padding: 2px 2px;
     vertical-align: middle;
@@ -53,9 +53,41 @@
                 url('../media/fantasy/annotation-topRight.png') no-repeat right top,
                 url('../media/fantasy/annotation-bottomRight.png') no-repeat bottom right,
                 url('../media/fantasy/annotation-bottomLeft.png') no-repeat left bottom;           
+}*/
+
+.annotation {
+    position: absolute;
+    max-width: 35%;
+    min-width: 27%;
+    padding: 2px;
+    font-family: "SherwoodRegular", "courier prime", georgia, serif;
+    font-size: 100%;
+    line-height: 100%;
+    color: #fff;
+    background: url('../media/fantasy/annotation-body.png');
+    background-clip: content-box;
+    
+    opacity: 1;
+    overflow: hidden;
 }
 
-/* css overrides */
+    .a-border {
+        margin: 0px;
+        background: url('../media/fantasy/annotation-right.png') repeat-y right, 
+                    url('../media/fantasy/annotation-left.png') repeat-y left, 
+                    url('../media/fantasy/annotation-top.png') repeat-x top, 
+                    url('../media/fantasy/annotation-bottom.png') repeat-x bottom;
+    }
+
+    /*.a-corners {
+        margin: 0;
+        background: url('../media/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
+                    url('../media/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
+                    url('../media/fantasy/annotation-topRight.png') no-repeat 100% 0%,
+                    url('../media/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
+                }*/
+
+/* css overrides 
 .a-text {padding: 12% 6%;}
 
 .a-tail-bottom {
@@ -66,62 +98,62 @@
 .a-tail-top {
         height: 48px;
         top: -40px;
-}
+}*/
 
 /* bubble and tail positioning */
-.lotr-0 { top: 25%; left: 55%; }
-.lotr-0 .a-tail-bottom {background: url('../media/fantasy/tail-bottomLeft.png') no-repeat 70% 0; background-size: contain;}
+.lotr-0 { margin-top: 7%; margin-left: 50%; }
+/*.lotr-0 .a-tail-bottom {background: url('../media/fantasy/tail-bottomLeft.png') no-repeat 70% 0; background-size: contain;}*/
 
-.lotr-1 { top: 65%; left: 60%; }
-.lotr-1 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 80% 0; background-size: contain;}
+.lotr-1 { margin-top: 25%; margin-left: 60%; }
+/*.lotr-1 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-2 { top: 75%; left: 10%; }
-.lotr-2 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}
+.lotr-2 { margin-top: 35%; margin-left: 5%; }
+/*.lotr-2 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-3 { top: 75%; left: 60%; }
-.lotr-3 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}
+.lotr-3 { margin-top: 30%; margin-left: 50%; }
+/*.lotr-3 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-4 { top: 64%; left: 64%; }
-.lotr-4 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 25% 0; background-size: contain;}
+.lotr-4 { margin-top: 29%; margin-left: 60%; }
+/*.lotr-4 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 25% 0; background-size: contain;}*/
 
-.lotr-5 { top: 25%; left: 10%; }
-.lotr-5 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 50% 0; background-size: contain;}
+.lotr-5 { margin-top: 12%; margin-left: 10%; }
+/*.lotr-5 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 50% 0; background-size: contain;}*/
 
-.lotr-6 { top: 45%; left: 10%; }
-.lotr-6 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 50% 0; background-size: contain;}
+.lotr-6 { margin-top: 20%; margin-left: 7%; }
+/*.lotr-6 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 50% 0; background-size: contain;}*/
 
-.lotr-7 { top: 63%; left: 5%; }
-.lotr-7 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}
+.lotr-7 { margin-top: 26%; margin-left: 7%; }
+/*.lotr-7 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-8 { top: 25%; left: 10%; }
-.lotr-8 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 50% 0; background-size: contain;}
+.lotr-8 { margin-top: 30%; margin-left: 5%; }
+/*.lotr-8 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 50% 0; background-size: contain;}*/
 
-.lotr-9 { top: 65%; left: 5%; }
-.lotr-9 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}
+.lotr-9 { margin-top: 15%; margin-left: 4%;; }
+/*.lotr-9 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-10 { top: 65%; left: 5%; }
-.lotr-10 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 70% 0; background-size: contain;}
+.lotr-10 { margin-top: 30%; margin-left: 5%; }
+/*.lotr-10 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 70% 0; background-size: contain;}*/
 
-.lotr-11 { top: 30%; left: 5%; }
-.lotr-11 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 70% 0; background-size: contain;}
+.lotr-11 { margin-top: 15%; margin-left: 8%; }
+/*.lotr-11 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 70% 0; background-size: contain;}*/
 
-.lotr-12 { top: 25%; left: 65%; }
-.lotr-12 .a-tail-bottom {background: url('../media/fantasy/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
+.lotr-12 { margin-top: 6%; margin-left: 60%; }
+/*.lotr-12 .a-tail-bottom {background: url('../media/fantasy/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}*/
 
-.lotr-13 { top: 30%; left: 10%; }
-.lotr-13 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 60% 0; background-size: contain;}
+.lotr-13 { margin-top: 28%; margin-left: 6%; }
+/*.lotr-13 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 60% 0; background-size: contain;}*/
 
-.lotr-14 { top: 25%; left: 58%; }
-.lotr-14 .a-tail-bottom {background: url('../media/fantasy/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}
+.lotr-14 { margin-top: 6%; margin-left: 55%;; }
+/*.lotr-14 .a-tail-bottom {background: url('../media/fantasy/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}*/
 
-.lotr-15 { top: 54%; left: 5%; }
-.lotr-15 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}
+.lotr-15 { margin-top: 35%; margin-left: 6%; }
+/*.lotr-15 .a-tail-top {background: url('../media/fantasy/tail-topRight.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-16 { top: 62%; left: 33%; }
-.lotr-16 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 80% 0; background-size: contain;}
+.lotr-16 { margin-top: 25%; margin-left: 28%; }
+/*.lotr-16 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-17 { top: 70%; left: 65%; }
-.lotr-17 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 80% 0; background-size: contain;}
+.lotr-17 { margin-top: 30%; margin-left: 61%; }
+/*.lotr-17 .a-tail-top {background: url('../media/fantasy/tail-topLeft.png') no-repeat 80% 0; background-size: contain;}*/
 
-.lotr-18 { top: 25%; left: 5%; }
-.lotr-18 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 60% 0; background-size: contain;}
+.lotr-18 { margin-top: 20%; margin-left: 5%; }
+/*.lotr-18 .a-tail-bottom {background: url('../media/fantasy/tail-bottomRight.png') no-repeat 60% 0; background-size: contain;}*/

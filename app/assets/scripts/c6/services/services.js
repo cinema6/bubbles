@@ -3,18 +3,20 @@
 'use strict';
 
 angular.module('c6.svc',[])
+
+.service()
+
 .factory('c6VideoListingService',['$log','appBaseUrl',function($log,baseUrl){
     $log.log('Creating c6VideoListingService');
     var service          = {};
 
     service.getCategories = function() {
-        return { 'categories' : [
+        return [
                         'Action',
                         'Romance',
                         'SciFi-Fantasy',
                         'Horror'
                     ]
-        };
     };
 
     service.getExperienceByCategory = function(category) {

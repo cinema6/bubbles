@@ -2,7 +2,97 @@
 
 'use strict';
 
-function PromptModel(experience) {
+angular.module('c6.ctrl',['c6.svc'])
+
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$routeParams', function($log, $scope, $location, $routeParams) {
+	$log.log('Creating C6AppCtrl');
+	var self = this;
+	
+	this.inExperience = false;
+	this.goToRoute = function(route) {
+		$location.path(route);
+	}
+	this.currentCategory = function() {
+		return $routeParams.category? $routeParams.category : null;
+	}
+	
+	$scope.appCtrl = this;
+	
+	$scope.$on('$routeChangeSuccess', function() {
+		if (!$location.path().match(/\/experience/) && self.inExperience) {
+			self.inExperience = false;
+		}
+	});
+}])
+
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$routeParams', function($log, $scope, $rootScope, $location, $routeParams){
+    $log.log('Creating C6AnnotationsCtrl');
+    var self = this;
+    
+    this.annotationsModel = null;
+    
+    this.src = null;
+    
+	this.activeAnnotations = [];
+	
+	this.setActiveAnnotations = function(event, video) {
+		var annotations = self.model? self.model.annotations : [],
+			activeAnnotations = self.activeAnnotations,
+			time = video.player.currentTime,
+			ts,
+			duration,
+			inActiveArray;
+		
+		annotations.forEach(function(annotation) {
+			ts = annotation.ts;
+			duration = annotation.duration;
+			inActiveArray = activeAnnotations.indexOf(annotation) !== -1;
+			
+			if ((time >= ts) && (time <= (ts + duration))) {
+				if (!inActiveArray) {
+					self.activeAnnotations.push(annotation);
+					$log.log('Activated annotation: ' + annotation.text);
+				}
+			} else {
+				if (inActiveArray) {
+					self.activeAnnotations.splice(activeAnnotations.indexOf(annotation), 1);
+					$log.log('Deactivated annotation: ' + annotation.text);
+				}
+			}
+		});
+	};
+	
+	this.goToEnd = function() {
+		$location.path('/entry/' + $routeParams.category + '/end');
+	}
+    
+    this.annotationIsActive = function(annotation) {
+	    return self.activeAnnotations.indexOf(annotation) !== -1 && $scope.appCtrl.inExperience;
+    }
+    
+    $scope.annoCtrl = this;
+}])
+
+.controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
+                                        'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
+    $log.log('Creating cCategoryListCtrl');
+	$rootScope.currentRoute = 'categories';
+	
+	this.categories = vsvc.getCategories();
+	
+	this.loadCategory = function(category) {
+		/*category = angular.lowercase(category);
+		
+		$scope.appCtrl.experience = vsvc.getExperienceByCategory(category);
+		console.log($scope.appCtrl.experience);*/
+		$scope.appCtrl.goToRoute('/entry/' + category);
+	}
+	
+    $scope.catCtrl = this;
+}])
+
+
+/*function PromptModel(experience) {
     var localException = function(msg) {
         return {
           'name'     : 'PromptModel',
@@ -123,6 +213,7 @@ angular.module('c6.ctrl',['c6.svc'])
 		category = angular.lowercase(category);
 		
 		$scope.appCtrl.experience = vsvc.getExperienceByCategory(category);
+		console.log($scope.appCtrl.experience);
 		$scope.appCtrl.goToRoute('/entry/' + category);
 	}
 	
@@ -310,5 +401,5 @@ angular.module('c6.ctrl',['c6.svc'])
     }
     
     $scope.annoCtrl = this;
-}]);
+}]);*/
 })();

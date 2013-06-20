@@ -3,6 +3,175 @@
 'use strict';
 
 angular.module('c6.svc',[])
+.factory('C6AudioContext', ['$window', function($window) {
+	return $window.AudioContext || $window.webkitAudioContext;
+}])
+
+.service('C6SfxService', ['C6AudioContext', '$http', '$q', '$rootScope', '$window', '$log', function(C6AudioContext, $http, $q, $rootScope, $window, $log) {
+	function C6Sfx(config) {
+		var buffer,
+			players = [];
+
+		var createPlayerInstance = function() {
+			$log.log('creating instance');
+			var instance = new Audio(config.src + '.' + self.extensionForFormat(self.bestFormat()));
+			players.push(instance);
+			return instance;
+		};
+
+		this.name = config.name;
+		this.src = config.src;
+		this.isLoaded = false;
+
+		this.load = function() {
+			if (context) {
+				this.load = function() {
+					var me = this,
+						waitForIt = $q.defer();
+
+					$http({
+						method: 'GET',
+						url: this.src + '.' + self.extensionForFormat(self.bestFormat()),
+						responseType: 'arraybuffer'
+					}).then(function(response) {
+						context.decodeAudioData(response.data, function(buff) {
+							buffer = buff;
+							$rootScope.$apply(function() {
+								waitForIt.resolve(me);
+								self.isLoaded = true;
+							});
+						});
+					});
+
+					return waitForIt.promise;
+				};
+				this.load();
+			} else {
+				this.load = function() {
+					players = [];
+
+					for (var i = 0; i < 3; i++) {
+						createPlayerInstance();
+					}
+				};
+				this.load();
+			}
+		};
+
+		this.play = function() {
+			if (context) {
+				this.play = function() {
+					var source = context.createBufferSource();
+					source.buffer = buffer;
+
+					source.connect(context.destination);
+
+					return source.start? source.start(0) : source.noteOn(0);
+				};
+				this.play();
+			} else {
+				this.play = function() {
+					players.some(function(player, index) {
+						if (player.paused || player.ended) {
+							player.currentTime = 0;
+							player.play();
+							return true;
+						} else if (index === players.length - 1) {
+							createPlayerInstance().play();
+						}
+					});
+				};
+				this.play();
+			}
+		};
+
+		if ((!context && self.isMobileSafari) || !$window.Audio) {
+			var dummyFunction = function() {};
+
+			for (var key in this) {
+				if (this.hasOwnProperty(key)) {
+					if (typeof this[key] === 'function') {
+						this[key] = dummyFunction;
+					}
+				}
+			}
+		}
+	}
+
+	var self = this,
+		sounds = [],
+		context = C6AudioContext? new C6AudioContext() : null;
+
+	this.loadSounds = function(soundConfigs) {
+		soundConfigs.forEach(function(config) {
+			var sfx = new C6Sfx(config);
+			sounds.push(sfx);
+			sfx.load();
+		});
+	};
+
+	this.getSoundByName = function(name) {
+		var toReturn;
+		sounds.forEach(function(sound) {
+			if (sound.name === name) {
+				toReturn = sound;
+			}
+		});
+		return toReturn;
+	};
+
+	this.playSound = function(name) {
+		this.getSoundByName(name).play();
+	};
+
+	this.playSoundOnEvent = function(sound, event) {
+		$rootScope.$on(event, function() {
+			self.playSound(sound);
+		});
+	};
+
+	this.bestFormat = function(formats) {
+		var goodFormats = [],
+		greatFormats = [],
+		audio = new Audio();
+		formats = formats? formats : this.validFormats;
+
+		if (Object.prototype.toString.call(formats) !== '[object Array]') {
+			throw new TypeError('You must pass in an array of format strings.');
+		}
+
+		formats.forEach(function(format) {
+			var decision = audio.canPlayType(format);
+
+			if (decision === 'probably') {
+				greatFormats.push(format);
+			} else if (decision === 'maybe') {
+				goodFormats.push(format);
+			}
+		});
+
+		if (greatFormats.length) {
+			return greatFormats[0];
+		} else {
+			return goodFormats[0];
+		}
+
+		audio = null;
+	};
+
+	this.validFormats = ['audio/mp3', 'audio/ogg'];
+
+	this.extensionForFormat = function(format) {
+		return format.split('/').pop();
+	};
+
+	this.formatForExtension = function(extension) {
+		return 'audio/' + extension;
+	};
+
+	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+}])
+
 .factory('c6VideoListingService',['$log','appBaseUrl',function($log,baseUrl){
     $log.log('Creating c6VideoListingService');
     var service          = {};
@@ -27,16 +196,17 @@ angular.module('c6.svc',[])
                 'anim'        : 'action',
                 'defSizeLimit': 18,
                 'prompts'     : [
-                    { query : 'Salutation', sizeLimit : 12},
+                    'Salutation',                    { query : 'Salutation', sizeLimit : 12},
                     'Animal',
                     'Superhero',
+
                     { query : 'Body Part (plural)', sizeLimit : 10},
                     { query : 'Plural noun', sizeLimit : 10},
                     { query : 'Animal Noise', sizeLimit : 10},
                     'Greek God',
                     'Character from Star Wars',
                     '80\'s female sitcom star',
-                    { query : 'Type of candy', sizeLimit : 12},
+                    'Type of candy'                    { query : 'Type of candy', sizeLimit : 12},
                     ],
                 'annotations' : {
                     'options' : {
@@ -45,6 +215,7 @@ angular.module('c6.svc',[])
                         'cls'     : ['lee-${index}']
                         },
                      'notes'  : [
+                        { 'ts':  7,template':'${1}', 'duration':1.5 },
                         { 'ts':  7,'template':'${1}', 'duration':1.5, tail: { type: 'thought', pos: 'top' } },
                         { 'ts': 16,'template':'My dramatic entrance' },
                         { 'ts': 18,'template':'Must look tough' },
@@ -78,17 +249,17 @@ angular.module('c6.svc',[])
                 'src'         : baseUrl + '/media/fantasy/lotr',
                 'css'         : baseUrl + '/styles/bubbles_fantasy.css',
                 'anim'        : 'fantasy',
-                'defSizeLimit': 15,
+                'defSizeLimit': 18,                'defSizeLimit': 15,
                 'prompts'     : [
                     'favorite past time (past tense)',
-                    { query : 'romantic pet nickname', sizeLimit : 12},
+                    'romantic pet nickname',                    { query : 'romantic pet nickname', sizeLimit : 12},
                     'fruit',
                     'body part',
                     'verb',
                     'plural noun',
                     'synonym for feces',
                     'noun',
-                    { query : 'place', sizeLimit : 14},
+                    'place',                    { query : 'place', sizeLimit : 14},
                     'baby animal'
                     ],
                 'annotations' : {

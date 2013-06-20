@@ -2,7 +2,7 @@
 (function(){
 
 'use strict';
-angular.module('c6.dir.screenJack',[])
+angular.module('c6.dir.screenJack',['c6.svc'])
 .directive('c6Resize', ['$window', function($window) {
 	return function($scope, $element) {
 		$($window).resize(function() {
@@ -42,6 +42,24 @@ angular.module('c6.dir.screenJack',[])
 
 		//Resize content immediately when page is loded
 		$($window).resize();
+	};
+}])
+
+.directive('c6Sfx', ['C6SfxService', function(sfxSvc) {
+	return function(scope, element, attrs) {
+		var config = scope.$eval(attrs.c6Sfx),
+			event,
+			soundName,
+			playSound = function() {
+				sfxSvc.playSound(soundName);
+			};
+
+		for (event in config) {
+			if (config.hasOwnProperty(event)) {
+				soundName = config[event];
+				element.bind(event, playSound);
+			}
+		}
 	};
 }])
 

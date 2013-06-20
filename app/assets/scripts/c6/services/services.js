@@ -248,14 +248,14 @@ angular.module('c6.svc',[])
                 'anim'        : 'fantasy',
                 'defSizeLimit': 18,
                 'prompts'     : [
-                    'favorite past time (past tense)',
+                    'farm animal',
                     'romantic pet nickname',
                     'fruit',
                     'body part',
                     'verb',
                     'plural noun',
                     'synonym for feces',
-                    'noun',
+                    'vegetable',
                     'place',
                     'baby animal'
                     ],
@@ -267,15 +267,15 @@ angular.module('c6.svc',[])
                         },
                      'notes'  : [
                         { 'ts':  3,'template':'I\'ll always remember' },
-                        { 'ts':  5,'template':'The times we ${1} together', 'duration' : 2 },
-                        { 'ts':  9,'template':'${2}', 'duration' : 3 },
-                        { 'ts': 12,'template':'${3} ${4}', 'duration' : 3},
-                        { 'ts': 23,'template':'Wonder if he knows I ${1} with everyone' },
+                        { 'ts':  5,'template':'The times we milked the ${1} together', 'duration' : 2 },
+                        { 'ts': 10.5,'template':'${2}', 'duration' : 2 },
+                        { 'ts': 11,'template':'${3} ${4}', 'duration' : 2},
+                        { 'ts': 24.5,'template':'Wonder if he knows I milked the ${1} with everyone', 'duration' : 3 },
                         { 'ts': 29,'template':'Yes, I know..', 'duration' : 3 },
                         { 'ts': 32,'template':'but I don\'t care', 'duration' : 3 },
                         { 'ts': 35,'template':'Because I ${5} ${6} with Gandalf' },
-                        { 'ts': 41,'template':'${3} ${4}', 'duration' : 3 },
-                        { 'ts': 49,'template':'What a ${7} ${8}' },
+                        { 'ts': 41,'template':'${2}', 'duration' : 3 },
+                        { 'ts': 49,'template':'Your ${7} smells like rotten ${8}', 'duration' : 5.5 },
                         { 'ts': 58,'template':'I\'m ready to go to ${9}!' },
                         { 'ts': 63,'template':'Get over here you tiny ${7}', 'duration' : 2 },
                         { 'ts': 68,'template':'I hope they have ${6} in ${9}', 'duration' : 2 },
@@ -283,8 +283,8 @@ angular.module('c6.svc',[])
                         { 'ts': 78,'template':'Hope this ${10} can swim', 'duration' : 2 },
                         { 'ts': 82,'template':'${2}', 'duration' : 4 },
                         { 'ts': 83,'template':'${2}', 'duration' : 3 },
-                        { 'ts': 84,'template':'${7} ${8}', 'duration' : 2 },
-                        { 'ts': 95,'template':'I just took a ${7} in my pants', 'duration' : 4 }
+                        { 'ts': 84,'template':'${8} ${7}', 'duration' : 2 },
+                        { 'ts': 95,'template':'I just took a ${7} in my pants', 'duration' : 5 }
                     ]
                 }
             };

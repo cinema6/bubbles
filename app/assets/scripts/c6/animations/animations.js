@@ -368,7 +368,7 @@
 				console.log('animate out action bubble');
 				var tl_actionHide  = new TimelineLite;
 
-				tl_actionHide.to(annotation, 0.5, {alpha: 0})
+				tl_actionHide.to(annotation, 0.25, {alpha: 0})
 				.eventCallback('onComplete', done);
 			}
 		}

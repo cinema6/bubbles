@@ -201,10 +201,10 @@ angular.module('c6.svc',[])
                     'Superhero',
                     'Body Part (plural)',
                     'Plural noun',
-                    'Animal Noise',
-                    'Greek God',
+                    'Household appliance',
+                    'Sesame Street character',
                     'Character from Star Wars',
-                    '80\'s female sitcom star',
+                    'TV personality',
                     'Type of candy'
                     ],
                 'annotations' : {
@@ -214,26 +214,25 @@ angular.module('c6.svc',[])
                         'cls'     : ['lee-${index}']
                         },
                      'notes'  : [
-                        { 'ts':  7,'template':'${1}', 'duration':1.5 },
+                        { 'ts': 7.25,'template':'${1}', 'duration':1.25 },
                         { 'ts': 16,'template':'My dramatic entrance' },
                         { 'ts': 18,'template':'Must look tough' },
                         { 'ts': 20,'template':'Crazy ${2} stare', 'duration': 2 },
                         { 'ts': 22,'template':'${2} ${3}' },
                         { 'ts': 39,'template':'Get Out' },
                         { 'ts': 41,'template':'Or I will crush your ${4} into ${5}', 'duration':2 },
-                        { 'ts': 52,'template':'${4}!!!', 'duration':1.5 },
-                        { 'ts': 61.5,'template':'${5}!!!', 'duration':2 },
-                        { 'ts': 80.5, 'template':'${6}!!!', 'duration':2 },
-                        { 'ts': 86,'template':'${6}???', 'duration':2 },
-                        { 'ts': 95,'template':'No, handcuffs of ${7}!' },
+                        { 'ts': 50,'template':'What can I say to make them leave?', 'duration':2.5 },
+                        { 'ts': 60,'template':'${5}!!!', 'duration':2 },
+                        { 'ts': 86,'template':'Did I leave the ${6} on???', 'duration':2 },
+                        { 'ts': 95,'template':'Handcuffs of Drunken ${7}!!' },
                         { 'ts':100,'template':'Bruce Lee > ${7}!', 'duration':2 },
-                        { 'ts':115.5,'template':'I\'m ${8}!', 'duration': 2 },
+                        { 'ts':116, 'template':'I\'m ${8}!', 'duration': 2 },
                         { 'ts':118,'template':'No, you\'re a dumb Ewok', 'duration': 2 },
                         { 'ts':120,'template':'Shut up stupid!', 'duration':2 },
                         { 'ts':123,'template':'Good comeback ${9}', 'duration':2 },
                         { 'ts':125,'template':'${10}', 'duration':2 },
-                        { 'ts':127,'template':'That made no sense', 'duration':2 },
-                        { 'ts':129.5,'template':'${6}?', 'duration':2 },
+                        { 'ts':127.5,'template':'That made no sense', 'duration':1.5 },
+                        { 'ts':129.5,'template':'${6}?', 'duration':1.5 },
                         { 'ts':131.5,'template':'${2} ${3}!', 'duration':1.5 }
                     ]
                 }

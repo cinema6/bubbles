@@ -95,7 +95,8 @@ angular.module('c6.ctrl',['c6.svc'])
 	sfxSvc.loadSounds([
 		{ name: 'type', src: appBase + '/media/tw_strike' },
 		{ name: 'bell', src: appBase + '/media/tw_bell' },
-		{ name: 'pop', src: appBase + '/media/pop_1' }
+		{ name: 'pop', src: appBase + '/media/pop_1' },
+		{ name: 'yank', src: appBase + '/media/tw_yank' }
 	]);
 	sfxSvc.playSoundOnEvent('pop', 'annotationActivated');
 

@@ -49,6 +49,7 @@
                 class="question__btnStart"
                 ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
                 ng-animate="'start-button'"
+                c6-sfx="{click: 'yank'}"
                 ng-click="inputCtrl.startExperience();">
                 <span class="ir">Start</span>
             </button>

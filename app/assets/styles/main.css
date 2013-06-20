@@ -449,10 +449,12 @@ input {cursor: text;}
 
  #player {
     position: relative; 
-    margin: 0 auto; 
     padding: 1%;
-    width: 98%; 
-    height: 98%; 
+    width: 90%; 
+    height: 90%;
+    margin-left: -46%;
+    top: 30px; 
+    left: 50%;
     z-index: 5; 
     opacity: 0;
  }

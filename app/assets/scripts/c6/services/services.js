@@ -7,7 +7,7 @@ angular.module('c6.svc',[])
 	return $window.AudioContext || $window.webkitAudioContext;
 }])
 
-.service('C6SfxService', ['C6AudioContext', '$http', '$q', '$rootScope', '$log', function(C6AudioContext, $http, $q, $rootScope, $log) {
+.service('C6SfxService', ['C6AudioContext', '$http', '$q', '$rootScope', '$window', '$log', function(C6AudioContext, $http, $q, $rootScope, $window, $log) {
 	function C6Sfx(config) {
 		var buffer,
 			players = [];
@@ -84,6 +84,16 @@ angular.module('c6.svc',[])
 				this.play();
 			}
 		}
+		
+		if (!context && self.isMobileSafari) {
+			for (var key in this) {
+				if (this.hasOwnProperty(key)) {
+					if (typeof this[key] === 'function') {
+						this[key] = function() {};
+					}
+				}
+			}
+		}
 	}
 	
 	var self = this,
@@ -156,6 +166,8 @@ angular.module('c6.svc',[])
 	this.formatForExtension = function(extension) {
 		return 'audio/' + extension;
 	};
+	
+	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
 }])
 
 .factory('c6VideoListingService',['$log','appBaseUrl',function($log,baseUrl){

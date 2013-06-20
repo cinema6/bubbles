@@ -85,7 +85,7 @@ angular.module('c6.svc',[])
 			}
 		}
 		
-		if (!context && self.isMobileSafari) {
+		if ((!context && self.isMobileSafari) || !$window.Audio) {
 			for (var key in this) {
 				if (this.hasOwnProperty(key)) {
 					if (typeof this[key] === 'function') {

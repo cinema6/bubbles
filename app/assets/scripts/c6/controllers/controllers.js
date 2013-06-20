@@ -88,9 +88,17 @@ function AnnotationsModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$routeParams', function($log, $scope, $location, $routeParams) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$routeParams', 'C6SfxService', 'appBaseUrl', function($log, $scope, $location, $routeParams, sfxSvc, appBase) {
 	$log.log('Creating C6AppCtrl');
 	var self = this;
+
+	sfxSvc.loadSounds([
+		{ name: 'type', src: appBase + '/media/tw_strike' },
+		{ name: 'bell', src: appBase + '/media/tw_bell' },
+		{ name: 'pop', src: appBase + '/media/pop_1' },
+		{ name: 'yank', src: appBase + '/media/tw_yank' }
+	]);
+	sfxSvc.playSoundOnEvent('pop', 'annotationActivated');
 
 	this.experience = null;
 	this.inExperience = false;
@@ -279,6 +287,7 @@ angular.module('c6.ctrl',['c6.svc'])
 			if ((time >= ts) && (time <= (ts + duration))) {
 				if (!inActiveArray) {
 					self.activeAnnotations.push(annotation);
+					$scope.$emit('annotationActivated');
 					$log.log('Activated annotation: ' + annotation.text);
 				}
 			} else {

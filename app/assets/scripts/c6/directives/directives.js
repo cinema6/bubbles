@@ -48,16 +48,19 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 .directive('c6Sfx', ['C6SfxService', function(sfxSvc) {
 	return function(scope, element, attrs) {
 		var config = scope.$eval(attrs.c6Sfx),
-			event;
-		
+			event,
+			soundName,
+			playSound = function() {
+				sfxSvc.playSound(soundName);
+			};
+
 		for (event in config) {
 			if (config.hasOwnProperty(event)) {
-				element.bind(event, function() {
-					sfxSvc.playSound(config[event]);
-				});
+				soundName = config[event];
+				element.bind(event, playSound);
 			}
 		}
-	}
+	};
 }])
 
 .directive('c6IosKeyboard', ['$window', '$timeout', function($window, $timeout) {

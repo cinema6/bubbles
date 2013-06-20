@@ -11,24 +11,24 @@ angular.module('c6.svc',[])
 	function C6Sfx(config) {
 		var buffer,
 			players = [];
-			
+
 		var createPlayerInstance = function() {
 			$log.log('creating instance');
 			var instance = new Audio(config.src + '.' + self.extensionForFormat(self.bestFormat()));
 			players.push(instance);
 			return instance;
 		};
-		
+
 		this.name = config.name;
 		this.src = config.src;
 		this.isLoaded = false;
-		
+
 		this.load = function() {
 			if (context) {
 				this.load = function() {
 					var me = this,
 						waitForIt = $q.defer();
-					
+
 					$http({
 						method: 'GET',
 						url: this.src + '.' + self.extensionForFormat(self.bestFormat()),
@@ -42,31 +42,31 @@ angular.module('c6.svc',[])
 							});
 						});
 					});
-					
+
 					return waitForIt.promise;
 				};
 				this.load();
 			} else {
 				this.load = function() {
 					players = [];
-					
+
 					for (var i = 0; i < 3; i++) {
 						createPlayerInstance();
 					}
 				};
 				this.load();
 			}
-		}
-		
+		};
+
 		this.play = function() {
 			if (context) {
 				this.play = function() {
 					var source = context.createBufferSource();
 					source.buffer = buffer;
-					
+
 					source.connect(context.destination);
-					
-					source.start? source.start(0) : source.noteOn(0);
+
+					return source.start? source.start(0) : source.noteOn(0);
 				};
 				this.play();
 			} else {
@@ -83,23 +83,25 @@ angular.module('c6.svc',[])
 				};
 				this.play();
 			}
-		}
-		
+		};
+
 		if ((!context && self.isMobileSafari) || !$window.Audio) {
+			var dummyFunction = function() {};
+
 			for (var key in this) {
 				if (this.hasOwnProperty(key)) {
 					if (typeof this[key] === 'function') {
-						this[key] = function() {};
+						this[key] = dummyFunction;
 					}
 				}
 			}
 		}
 	}
-	
+
 	var self = this,
 		sounds = [],
 		context = C6AudioContext? new C6AudioContext() : null;
-		
+
 	this.loadSounds = function(soundConfigs) {
 		soundConfigs.forEach(function(config) {
 			var sfx = new C6Sfx(config);
@@ -107,7 +109,7 @@ angular.module('c6.svc',[])
 			sfx.load();
 		});
 	};
-	
+
 	this.getSoundByName = function(name) {
 		var toReturn;
 		sounds.forEach(function(sound) {
@@ -117,17 +119,17 @@ angular.module('c6.svc',[])
 		});
 		return toReturn;
 	};
-	
+
 	this.playSound = function(name) {
 		this.getSoundByName(name).play();
 	};
-	
+
 	this.playSoundOnEvent = function(sound, event) {
 		$rootScope.$on(event, function() {
 			self.playSound(sound);
 		});
-	}
-	
+	};
+
 	this.bestFormat = function(formats) {
 		var goodFormats = [],
 		greatFormats = [],
@@ -156,7 +158,7 @@ angular.module('c6.svc',[])
 
 		audio = null;
 	};
-	
+
 	this.validFormats = ['audio/mp3', 'audio/ogg'];
 
 	this.extensionForFormat = function(format) {
@@ -166,7 +168,7 @@ angular.module('c6.svc',[])
 	this.formatForExtension = function(extension) {
 		return 'audio/' + extension;
 	};
-	
+
 	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
 }])
 

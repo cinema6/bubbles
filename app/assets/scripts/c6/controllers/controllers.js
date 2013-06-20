@@ -203,7 +203,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.endCtrl = this;
 }])
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$routeParams', 'C6SfxService', function($log, $scope, $rootScope, $location, $routeParams, sfxSvc){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$routeParams', function($log, $scope, $rootScope, $location, $routeParams){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this;
 

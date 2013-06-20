@@ -247,7 +247,7 @@ angular.module('c6.svc',[])
                 'src'         : baseUrl + '/media/fantasy/lotr',
                 'css'         : baseUrl + '/styles/bubbles_fantasy.css',
                 'anim'        : 'fantasy',
-                'defSizeLimit': 18, 
+                'defSizeLimit': 18,
                 'prompts'     : [
                     'favorite past time (past tense)',
                     { query : 'romantic pet nickname', sizeLimit : 12},

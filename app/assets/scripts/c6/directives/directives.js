@@ -22,22 +22,22 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				scaleFactor = Math.min(scaleH, scaleW);
 
 			//apply new dimensions to viewport
-			$element.find(".viewport").height(baseH * scaleFactor)
+			$element.find('.viewport').height(baseH * scaleFactor)
 				.width(baseW * scaleFactor)
-				.css("font-size", (mainFont * scaleFactor))
-				.css("margin-top", ((baseH * scaleFactor) / -2))
-				.css("margin-left", ((baseW * scaleFactor) / -2));
-			
+				.css('font-size', (mainFont * scaleFactor))
+				.css('margin-top', ((baseH * scaleFactor) / -2))
+				.css('margin-left', ((baseW * scaleFactor) / -2));
+
 			//feed screen divs window dimensions
 			$element.height(winH).width(winW);
-			$(".shareMenu").height(54 * scaleFactor).width(1026 * scaleFactor).css("margin-left", ((1026 * scaleFactor) / -2)); 
-			
+			$('.shareMenu').height(54 * scaleFactor).width(1026 * scaleFactor).css('margin-left', ((1026 * scaleFactor) / -2));
+
 			//apply to bubble font sizes
-			$(".annotations").height(baseH * scaleFactor)
-				.width(baseW * scaleFactor)
-				.css("font-size", (annotationFont * scaleFactor))
-				.css("margin-top", ((baseH * scaleFactor) / -2))
-				.css("margin-left", ((baseW * scaleFactor) / -2));
+			$('.annotations').height(624 * scaleFactor)
+				.width(1280 * scaleFactor)
+				.css('font-size', (annotationFont * scaleFactor))
+				.css('margin-top', ((624 * scaleFactor) / -2))
+				.css('margin-left', ((1280 * scaleFactor) / -2));
 		});
 
 		//Resize content immediately when page is loded

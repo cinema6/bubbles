@@ -411,6 +411,7 @@ module.exports = function (grunt) {
         grunt.task.run('release');
         grunt.task.run('mvbuild');
         grunt.task.run('link');
+        grunt.task.run('rmbuild');
     });
     
     grunt.registerTask('rmbuild','Remove old copies of the install',function(){

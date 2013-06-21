@@ -85,6 +85,7 @@ angular.module('c6.ctrl',['c6.svc'])
 		    	self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
 	    	}
 	    	if (txt2SpchModel) {
+	    		self.videoCanPlay = false;
 		    	txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, $scope.appCtrl.promptModel.responses);
 		    	$scope.appCtrl.experience.src = null;
 		    	annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {

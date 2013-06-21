@@ -59,7 +59,7 @@ module.exports = function (grunt) {
           '{.tmp,<%= props.app %>}/assets/styles/{,*/}*.css',
           '{.tmp,<%= props.app %>}/assets/scripts/{,*/}*.js',
           '{.tmp,<%= props.app %>}/assets/scripts/c6/{,*/}*.js',
-          '<%= props.app %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= props.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         tasks: ['livereload']
       }
@@ -118,6 +118,31 @@ module.exports = function (grunt) {
             replacement: '<%= props.version() %>',
             path: '<%= props.dist %>/index.html'
         },
+        categories: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/categories.html'
+        },
+        input: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/input.html'
+        },
+        input_mobile: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/input_mobile.html'
+        },
+        end: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/end.html'
+        },
+        experience: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/experience.html'
+        },
         main: {
             pattern: 'undefined',
             replacement: '\'<%= props.version() %>\'',
@@ -151,7 +176,7 @@ module.exports = function (grunt) {
             '<%= props.app %>/assets/scripts/c6/services/services.js',
             '<%= props.app %>/assets/scripts/c6/controllers/controllers.js',
             '<%= props.app %>/assets/scripts/c6/directives/directives.js',
-            '<%= props.app %>/assets/scripts/c6/directives/videonode.js'
+            '<%= props.app %>/assets/scripts/c6/animations/animations.js'
           ]
         }
       }

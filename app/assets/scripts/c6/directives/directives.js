@@ -33,11 +33,11 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 			$('.shareMenu').height(54 * scaleFactor).width(1026 * scaleFactor).css('margin-left', ((1026 * scaleFactor) / -2));
 
 			//apply to bubble font sizes
-			$('.annotations').height(624 * scaleFactor)
-				.width(1280 * scaleFactor)
+			$('.annotations').height(524 * scaleFactor)
+				.width(1180 * scaleFactor)
 				.css('font-size', (annotationFont * scaleFactor))
-				.css('margin-top', ((624 * scaleFactor) / -2))
-				.css('margin-left', ((1280 * scaleFactor) / -2));
+				.css('margin-top', ((524 * scaleFactor) / -2))
+				.css('margin-left', ((1180 * scaleFactor) / -2));
 		});
 
 		//Resize content immediately when page is loded

@@ -372,7 +372,7 @@
 			start: function(annotation, done) {
 				var actionHide  = new TimelineLite();
 
-				actionHide.to(annotation, 0.3, {alpha: 0})
+				actionHide.to(annotation, 0.25, {alpha: 0})
 				.eventCallback('onComplete', done);
 			}
 		};

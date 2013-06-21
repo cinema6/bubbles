@@ -39,7 +39,9 @@
       <div ng-view ng-animate="currentRoute + '-partial'"></div>
       
       <div ng-controller="C6AnnotationsCtrl" ng-show="appCtrl.inExperience" ng-animate="'video'" class="experience__group">
-        <div class="experience__logo"><img ng-src="assets/media/logo_vid_{{appCtrl.category()}}.png"></div>
+          <div class="experience__logo">
+              <img ng-src="{{appCtrl.category() ? ('assets/media/logo_vid_' + appCtrl.category() + '.png') : null }}">
+          </div>
         <video
         	id="player"
         	c6video

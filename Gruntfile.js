@@ -118,6 +118,11 @@ module.exports = function (grunt) {
             replacement: '<%= props.version() %>',
             path: '<%= props.dist %>/index.html'
         },
+        index2: {
+            pattern: 'ng-app="c6.app" ',
+            replacement: '',
+            path: '<%= props.dist %>/index.html'
+        },
         categories: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',

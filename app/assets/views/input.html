@@ -1,7 +1,7 @@
 <!--        INPUT SCREEN      -->
 <div class="inputScreen">
     <!--artwork-->
-     <header class="inputScreen__logo"><img ng-src="assets/media/logo_small_{{appCtrl.category()}}.png"></header>           
+     <header class="inputScreen__logo"><img ng-src="assets/media/logo_small_{{appCtrl.currentCategory()}}.png"></header>           
      <div class="inputScreen__bgArtwork">&nbsp;</div>
     
     <!--content-->
@@ -26,9 +26,8 @@
 	                    	ng-disabled="appCtrl.inExperience"
 	                    	c6-on="experienceStart: {$this.prop('disabled', true); $this.blur();}"
 	                    	c6-autofocus
-	                    	maxlength="{{prompt.sizeLimit}}"
+	                    	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
 	                        class="question__userAnswer"
-	                        type="text"
 	                        type="text"
 	                        name="response"
 	                        autocomplete="off">

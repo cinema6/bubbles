@@ -1,10 +1,171 @@
 (function(){
-
 'use strict';
+
+function TalkieModel(annotations, extension) {
+	var options = annotations.options;
+	this.options = {
+		effect: options.effect,
+		level: options.level,
+		vid: options.vid + '.' + extension,
+		voice: options.voice
+	};
+    this.annotations = [];
+    
+    annotations.notes.forEach(function(annotation, index) {
+    	var note = {
+	    	ts: annotation.ts,
+	    	template: annotation.template,
+	    	text: null
+    	};
+	    this.annotations.push(note);
+    }, this);
+}
+
+function BubblesModel(annotations) {
+    var localException = function(msg) {
+        return {
+          'name'     : 'AnnotationsModel',
+          'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
+          'toString' : function() { return this.name + ': ' + this.message; }
+        };
+      };
+    this.annotations     = [];
+    for (var i = 0; i < annotations.notes.length; i++) {
+        var a = annotations.notes[i],
+            n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
+            text : null, index : i
+            };
+        if (annotations.options){
+            if (!n.type) {
+                n.type = annotations.options.type;
+            }
+            if (!n.duration) {
+                n.duration = annotations.options.duration;
+            }
+            if (!n.cls) {
+                var eCls = annotations.options.cls;
+                if (eCls instanceof Array) {
+                    var lenCls = eCls.length;
+                    n.cls = [];
+                    for (var j = 0; j < lenCls; j++) {
+                        n.cls.push(eCls[j]);
+                    }
+                }
+            }
+        }
+        
+        if (n.cls instanceof Array) {
+            for (var j = 0; j < n.cls.length; j++) {
+                n.cls[j] = n.cls[j].replace('${index}',n.index);
+            }
+        }
+        
+        if (!n.type){ throw localException('Missing Property (type): ' + JSON.stringify(a));} 
+        if (!n.ts)  { throw localException('Missing Property (ts): ' + JSON.stringify(a));} 
+        if (!n.duration) { throw localException('Missing Property (duration): ' + 
+                JSON.stringify(a));} 
+        if (!n.template){ throw localException('Missing Property (template): ' 
+                + JSON.stringify(a));} 
+
+        this.annotations.push(n);
+    }
+}
 
 angular.module('c6.svc',[])
 
-.service()
+.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
+    var interpolate = function(tmpl,data) {
+        var patt  = /\${(\d+)}/,
+            dataLen,
+            match;
+
+        if (!data) {
+            return tmpl;
+        }
+
+        if ((data instanceof Array) === false) {
+            throw new TypeError('Data parameter must be an array.'); 
+        }
+
+        dataLen = data.length;
+//        $log.info('Template:' + tmpl); 
+        while((match = patt.exec(tmpl)) !== null) {
+//            $log.info('Match: ' + JSON.stringify(match));
+            var idx = (match[1] - 1);
+            if (idx < 0) {
+                throw new RangeError('Template parameters should start at ${1}');
+            }
+            if (idx >= dataLen) {
+                throw new RangeError('Invalid template parameter (too high): ' + match[0]);
+            }
+            tmpl = tmpl.replace(match[0],data[idx]);
+        }
+        return tmpl;
+    };
+	
+	this.getAnnotationsModelByType = function(type, annotations) {
+		var toReturn,
+			klass;
+			
+		if (type === 'bubble') {
+			klass = BubblesModel;
+		} else if (type === 'talkie') {
+			klass = TalkieModel;
+		}
+		
+		annotations.forEach(function(annoConfig) {
+			if (annoConfig.options.type === type) {
+				toReturn = new klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
+			}
+		});
+		return toReturn;
+	};
+	
+	this.interpolateAnnotations = function(annoModel, responses) {
+        var annoLength = annoModel.annotations.length;
+        $log.info('Interpolate ' + annoLength + ' annotations with ' + responses.length + ' responses.');
+//       for (var x = 0; x < data.length; x++) {
+//            $log.info('DATA[' + x + ']: [' + data[x] + ']');
+//        }
+        for (var i = 0; i < annoLength; i++) {
+            var a = annoModel.annotations[i];
+            a.text = interpolate(a.template,responses);
+            $log.info('Annotation [' + i + ']: ' + a.text);
+        }
+        
+        return annoModel;
+	}
+	
+	this.fetchText2SpeechVideoUrl = function(model) {
+		var requestBodyObject = {
+			video: model.options.vid,
+			tts: {
+				voice: model.options.voice,
+				effect: model.options.effect,
+				level: model.options.level
+			},
+			script: []
+		},
+			url = $q.defer();
+		
+		model.annotations.forEach(function(annotation) {
+			var line = {
+				ts: annotation.ts,
+				line: annotation.text
+			};
+			
+			requestBodyObject.script.push(line);
+		});
+		
+		$http.post('http://localhost:9000/dub/create', requestBodyObject).then(function(response) {
+			url.resolve(response.data.output);
+		}, function(error) {
+			$log.error(error);
+		});
+		
+		return url.promise;
+	};
+}])
 
 .factory('c6VideoListingService',['$log','appBaseUrl',function($log,baseUrl){
     $log.log('Creating c6VideoListingService');
@@ -148,8 +309,10 @@ angular.module('c6.svc',[])
                 'annotations' : [{
                     'options' : {
                         'type'      : 'talkie',
-                        'duration'  : 4,
-                        'cls'     : ['scary-${index}', 'annotation']
+                        'vid'       : 'scream',
+                        'voice'     : 'Allison',
+                        'effect'    : 'R',
+                        'level'     : '3',
                         },
                      'notes'  : [
 		                 { "ts" : "8", "template" : "Hi, is my ${1} OK?" },

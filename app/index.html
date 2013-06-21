@@ -39,6 +39,7 @@
       <div ng-view ng-animate="currentRoute + '-partial'"></div>
       
       <div ng-controller="C6AnnotationsCtrl" ng-show="appCtrl.inExperience" ng-animate="'video'">
+      	<div ng-if="(appCtrl.inExperience && !annoCtrl.videoCanPlay)">HELLO!!!</div>
         <video
         	id="player"
         	c6video
@@ -49,7 +50,7 @@
         </video>
         <ul class="annotations">
           <li
-          	ng-repeat="a in annoCtrl.model.annotations"
+          	ng-repeat="a in annoCtrl.annotationsModel.annotations"
           	ng-show="annoCtrl.annotationIsActive(a)"
           	ng-animate="appCtrl.experience.anim + '-annotation'"
           	ng-class="a.cls.join(' ') + ' annotation'">

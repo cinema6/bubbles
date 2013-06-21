@@ -1,140 +1,142 @@
 /* Action Video Experience specific styles */
 
-/*.annotation {
+
+.a-style {
     position: absolute;
-    font-family: "uppercut-angle", georgia, serif;
-    font-size:85%;
-    line-height: 100%;
-    color: #111111;
-    z-index: 100;
-    min-height: 2%;
-    min-width: 25%;
-    max-width: 35%;
-    padding: 11px 11px ;
+    padding: 11px;
     background: url('../media/action/annotation-body.png');
-    background-clip: content-box;
-    opacity: 1;
+    background-clip: content-box;            
+    min-width: 10%;
+    max-width: 25%;
 }
 
-.a-border {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 101;
+.a-frame {
     background: url('../media/action/annotation-right.png') repeat-y right, 
                 url('../media/action/annotation-left.png') repeat-y left, 
                 url('../media/action/annotation-top.png') repeat-x top, 
                 url('../media/action/annotation-bottom.png') repeat-x bottom;
+    margin: -11px;
 }
+    .a-deco-right {
+        position: absolute;
+        background: url('../media/action/annotation-bottomRight.png') no-repeat bottom right,
+                    url('../media/action/annotation-topRight.png') no-repeat top right;
+        height: 100%; width: 12px;
+        top: 0;
+        right: 0;
+    }  
+    .a-deco-left {
+        position: absolute;
+        background: url('../media/action/annotation-bottomLeft.png') no-repeat bottom left,
+                    url('../media/action/annotation-topLeft.png') no-repeat top left;
+        height: 100%; width: 12px;
+        top: 0;
+        left: 0;
+    } 
 
-.a-corners {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 102;
-    background: url('../media/action/annotation-bottomRight.png') no-repeat bottom right,
-                url('../media/action/annotation-bottomLeft.png') no-repeat bottom left,
-                url('../media/action/annotation-topRight.png') no-repeat top right,
-                url('../media/action/annotation-topLeft.png') no-repeat top left
-}*/
-
-.annotation {
-    position: absolute;
-    max-width: 30%;
-    min-width: 18%;
-    padding: 11px;
+.a-text {
+    width: 80%;
+    padding: 8% 10%;
+    margin: 0 auto;
+    text-align: center;
     font-family: "uppercut-angle", "courier prime", georgia, serif;
-    font-size: 85%;
+    font-size: 65%;
     line-height: 100%;
     color: #111111;
-    background: url('../media/action/annotation-body.png');
-    background-clip: content-box;
-    opacity: 1;
 }
 
-    .a-border {
-        margin: -11px;
-        background: url('../media/action/annotation-right.png') repeat-y right, 
-                    url('../media/action/annotation-left.png') repeat-y left, 
-                    url('../media/action/annotation-top.png') repeat-x top, 
-                    url('../media/action/annotation-bottom.png') repeat-x bottom;
-    }
+/* tail styles */
+.a-tail-bottomLeft-speech {
+    position: absolute;
+    background: url('../media/action/bottomLeft-speech.png') no-repeat 20% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    bottom: -25%;
+    left: 0;
+}
 
-    .a-corners {
-        background: url('../media/action/annotation-bottomRight.png') no-repeat bottom right,
-                    url('../media/action/annotation-bottomLeft.png') no-repeat bottom left,
-                    url('../media/action/annotation-topRight.png') no-repeat top right,
-                    url('../media/action/annotation-topLeft.png') no-repeat top left
-    }
+.a-tail-bottomRight-speech {
+    position: absolute;
+    background: url('../media/action/bottomRight-speech.png') no-repeat 88% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    bottom: -25%;
+    left: 0;
+}
 
-/* CSS REWRITE */
+.a-tail-topLeft-speech {
+    position: absolute;
+    background: url('../media/action/topLeft-speech.png') no-repeat 20% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    top: -25%;
+    left: 0;
+}
 
+.a-tail-topRight-speech {
+    position: absolute;
+    background: url('../media/action/topRight-speech.png') no-repeat 88% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    top: -25%;
+    left: 0;
+}
 
+.a-tail-bottomLeft-thought {
+    position: absolute;
+    background: url('../media/action/bottomLeft-thought.png') no-repeat 20% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    bottom: -30%;
+    left: 0;
+}
+
+.a-tail-bottomRight-thought {
+    position: absolute;
+    background: url('../media/action/bottomRight-thought.png') no-repeat 88% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    bottom: -30%;
+    left: 0;
+}
+
+.a-tail-topLeft-thought {
+    position: absolute;
+    background: url('../media/action/topLeft-thought.png') no-repeat 20% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    top: -30%;
+    left: 0;
+}
+
+.a-tail-topRight-thought {
+    position: absolute;
+    background: url('../media/action/topRight-thought.png') no-repeat 88% 0%; 
+    background-size: contain;
+    height: 35%; width: 100%;
+    top: -30%;
+    left: 0;
+}
 
 /* bubble and tail positioning */
 .lee-0 { margin-top: 10%; margin-left: 58%; } 
-/*.lee-0 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}*/
-
 .lee-1 { margin-top: 5%; margin-left: 25%; } 
-/*.lee-1 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 20% 0; background-size: contain;}*/
-
 .lee-2 { margin-top: 15%; margin-left: 33%; } 
-/*.lee-2 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}*/
-
 .lee-3 { margin-top: 34%; margin-left: 23%; } 
-/*.lee-3 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 25% 0; background-size: contain;}*/
-
 .lee-4 { margin-top: 10%; margin-left: 30%; } 
-/*.lee-4 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 15% 0; background-size: contain;}*/
-
 .lee-5 { margin-top: 12%; margin-left: 37%; } 
-/*.lee-5 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 75% 0; background-size: contain;}*/
-
 .lee-6 { margin-top: 30%; margin-left: 40%; } 
-/*.lee-6 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 5% 0; background-size: contain;}*/
-
 .lee-7 { margin-top: 10%; margin-left: 60%; } 
-/*.lee-7 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 15% 0; background-size: contain;}*/
-
 .lee-8 { margin-top: 35%; margin-left: 5%; } 
-/*.lee-8 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 70% 0; background-size: contain;}*/
-
 .lee-9 { margin-top: 30%; margin-left: 12%; } 
-/*.lee-9 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 85% 0; background-size: contain;}*/
-
 .lee-10 { margin-top: 10%; margin-left: 25%; } 
-/*.lee-10 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 80% 0; background-size: contain;}*/
-
 .lee-11 { margin-top: 33%; margin-left: 5%; } 
-/*.lee-11 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 90% 0; background-size: contain;}*/
-
 .lee-12 { margin-top: 33%; margin-left: 62%; } 
-/*.lee-12 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 15% 0; background-size: contain;}*/
-
 .lee-13 { margin-top: 30%; margin-left: 15%; } 
-/*.lee-13 .a-tail-top {background: url('../media/action/tail-topRight.png') no-repeat 85% 0; background-size: contain;}*/
-
 .lee-14 { margin-top: 8%; margin-left: 25%; } 
-/*.lee-14 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 90% 0; background-size: contain;}*/
-
 .lee-15 { margin-top: 9%; margin-left: 58%; } 
-/*.lee-15 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}*/
-
 .lee-16 { margin-top: 8%; margin-left: 25%; } 
-/*.lee-16 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 90% 0; background-size: contain;}*/
-
 .lee-17 { margin-top: 12%; margin-left: 60%; } 
-/*.lee-17 .a-tail-bottom {background: url('../media/action/tail-bottomLeft.png') no-repeat 10% 0; background-size: contain;}*/
-
 .lee-18 { margin-top: 8%; margin-left: 30%; } 
-/*.lee-18 .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 90% 0; background-size: contain;}*/
-
 .lee-19 { margin-top: 10%; margin-left: 70%; } 
-/*.lee-19 .a-tail-top {background: url('../media/action/tail-topLeft.png') no-repeat 5% 0; background-size: contain;}*/
-
 .lee-20 { margin-top: 32%; margin-left: 10%; } 
-/*.lee-20  .a-tail-bottom {background: url('../media/action/tail-bottomRight.png') no-repeat 85% 0; background-size: contain;}*/

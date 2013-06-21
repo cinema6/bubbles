@@ -53,13 +53,14 @@
           	ng-repeat="a in annoCtrl.model.annotations"
           	ng-show="annoCtrl.annotationIsActive(a)"
           	ng-animate="appCtrl.experience.anim + '-annotation'"
-          	ng-class="a.cls.join(' ') + ' annotation'">
-            <div class="a-border">
-              <div class="a-corners">
-                <div ng-class="'a-tail-' + a.tail.pos + ' a-tail-' + a.tail.type">
-                  <span class="a-text">{{a.text}}</span>
+          	ng-class="' annotation'">
+            <div class="a-style" ng-class="a.cls.join(' ')">
+              <div class="a-frame">
+                <div class="a-text">
+                  {{a.text}}
+                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
+                  <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div><!---->
                 </div>
-              </div>
             </div>
 		      </li>
         </ul>

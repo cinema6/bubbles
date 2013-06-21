@@ -459,19 +459,17 @@ input {cursor: text;}
     opacity: 0;
  }
 
- .annotations {
+ .annotations{
     z-index: 100;
     position: absolute;
     padding: 0;
     left: 50%; 
     top: 50%;
  }
-        .a-text {   
-            display: block;
-            width: 84%;
-            padding: 8%;
-            text-align: center;
-        }
+    .annotation {   
+        position: relative;
+        opacity: 1;
+    }
 /*      EXPERIENCE END           */
 
 

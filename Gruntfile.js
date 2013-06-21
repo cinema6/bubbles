@@ -299,8 +299,8 @@ module.exports = function (grunt) {
   grunt.registerTask('release',function(type){
     type = type ? type : 'patch';
 //    grunt.task.run('test');
-    grunt.task.run('bumpup:' + type);
-    grunt.task.run('updatePackageVersion');
+//    grunt.task.run('bumpup:' + type);
+//    grunt.task.run('updatePackageVersion');
     grunt.task.run('build');
   });
 

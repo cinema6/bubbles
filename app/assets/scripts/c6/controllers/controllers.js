@@ -108,6 +108,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.category = function() {
 		return $routeParams.category;
 	};
+	this.sfxSvc = sfxSvc;
 
 	$scope.appCtrl = this;
 

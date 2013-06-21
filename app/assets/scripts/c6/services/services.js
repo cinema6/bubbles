@@ -196,16 +196,16 @@ angular.module('c6.svc',[])
                 'anim'        : 'action',
                 'defSizeLimit': 18,
                 'prompts'     : [
-                    'Salutation',
+                    { query : 'Salutation', sizeLimit : 12},
                     'Animal',
                     'Superhero',
-                    'Body Part (plural)',
-                    'Plural noun',
+                    { query : 'Body Part (plural)', sizeLimit : 10},
+                    { query : 'Plural noun', sizeLimit : 10},
                     'Household appliance',
                     'Sesame Street character',
                     'Character from Star Wars',
                     'TV personality',
-                    'Type of candy'
+                    { query : 'Type of candy', sizeLimit : 12},
                     ],
                 'annotations' : {
                     'options' : {
@@ -249,14 +249,14 @@ angular.module('c6.svc',[])
                 'defSizeLimit': 18,
                 'prompts'     : [
                     'farm animal',
-                    'romantic pet nickname',
+                    { query : 'romantic pet nickname', sizeLimit : 12},
                     'fruit',
                     'body part',
                     'verb',
                     'plural noun',
                     'synonym for feces',
                     'vegetable',
-                    'place',
+                    { query : 'place', sizeLimit : 14},
                     'baby animal'
                     ],
                 'annotations' : {

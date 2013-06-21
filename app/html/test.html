@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+  <head>
+<script type="text/javascript" src="../assets/lib/jquery/jquery.js"></script>
+<style>
+ .annotation__group {
+    position: absolute;
+    padding: 0;
+    left: 50%; 
+    top: 50%;
+
+    list-style: none;
+    background: black;
+ }
+
+  .annotation {
+    position: relative;
+    opacity: 1;
+
+    margin: 10% 0 0 10%; /*.notebook-0*/
+  }
+
+    .a-text {
+      width: 70%;
+      padding: 14%;
+      margin: 0 auto;
+      text-align: center;
+      font-family: "SherwoodRegular", "courier prime", georgia, serif;
+      font-size: 100%;
+      line-height: 100%;
+      color: #fff;
+    }
+
+      .a-tail-bottomLeft-speech {
+        position: absolute;
+        background: url('../assets/media/fantasy/bottomLeft-speech.png') no-repeat 10% 0%; 
+        height: 42px; width: 100%;
+        bottom: -36px;
+        left: 0;
+      }
+
+      .a-tail-bottomRight-speech {
+        position: absolute;
+        background: url('../assets/media/fantasy/bottomRight-speech.png') no-repeat 35% 0%; 
+        height: 42px; width: 100%;
+        bottom: -36px;
+        left: 0;
+      }
+
+      .a-tail-topLeft-speech {
+        position: absolute;
+        background: url('../assets/media/fantasy/topLeft-speech.png') no-repeat 65% 0%; 
+        height: 42px; width: 100%;
+        top: -36px;
+        left: 0;
+      }
+
+      .a-tail-topRight-speech {
+        position: absolute;
+        background: url('../assets/media/fantasy/topRight-speech.png') no-repeat 80% 0%; 
+        height: 42px; width: 100%;
+        top: -36px;
+        left: 0;
+      }
+
+      .a-tail-bottomLeft-thought {
+        position: absolute;
+        background: url('../assets/media/fantasy/bottomLeft-thought.png') no-repeat 10% 0%; 
+        height: 24px; width: 100%;
+        bottom: -24px;
+        left: 0;
+      }
+
+      .a-tail-bottomRight-thought {
+        position: absolute;
+        background: url('../assets/media/fantasy/bottomRight-thought.png') no-repeat 35% 0%; 
+        height: 24px; width: 100%;
+        bottom: -24px;
+        left: 0;
+      }
+
+      .a-tail-topLeft-thought {
+        position: absolute;
+        background: url('../assets/media/fantasy/topLeft-thought.png') no-repeat 65% 0%; 
+        height: 24px; width: 100%;
+        top: -26px;
+        left: 0;
+      }
+
+      .a-tail-topRight-thought {
+        position: absolute;
+        background: url('../assets/media/fantasy/topRight-thought.png') no-repeat 90% 0%; 
+        height: 24px; width: 100%;
+        top: -26px;
+        left: 0;
+      }
+
+    .a-deco-right {
+      position: absolute;
+      background: url('../assets/media/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
+      height: 68px; width: 71px;
+      bottom: -14px;
+      right: -14px;
+    }  
+
+    .a-deco-left {
+      position: absolute;
+      background: url('../assets/media/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
+      height: 68px; width: 71px;
+      top: -14px;
+      left: -14px;
+    }  
+
+    .a-frame {
+      background: url('../assets/media/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
+                  url('../assets/media/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
+                  url('../assets/media/fantasy/annotation-topRight.png') no-repeat 100% 0%,
+                  url('../assets/media/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
+      margin: 0px;
+    }
+
+    .a-style {
+      position: absolute;
+      border-radius: 40px;
+      background: url('../assets/media/fantasy/annotation-right.png') repeat-y right, 
+                  url('../assets/media/fantasy/annotation-left.png') repeat-y left, 
+                  url('../assets/media/fantasy/annotation-top.png') repeat-x top, 
+                  url('../assets/media/fantasy/annotation-bottom.png') repeat-x bottom,
+                  url('../assets/media/fantasy/annotation-body.png');
+      min-width: 12%;
+      max-width: 35%;
+    }
+</style>
+
+  </head>
+  <body>
+      
+        <ul class="annotation__group"> <!--orig ".annotations" -->
+          <li class='annotation'>
+            <div class="a-style">
+              <div class="a-frame"> <!--orig ".a-corner" -->
+                <div class="a-text">test 
+                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
+                  <div class="a-tail-topRight-speech"></div>
+                </div>
+              </div>
+            </div>
+           </li>
+        </ul>
+
+
+
+<script>
+ // CONTENT SCALING //
+    $(window).resize(function() {
+        // set variable dimensions for viewport
+        var baseW = 1280,
+            baseH = 684,
+            fontSize = 28,
+
+        //find current dimensions of window
+            winH = window.innerHeight,
+            winW = window.innerWidth,
+        
+        //find scale factor
+            scaleH = winH / baseH,
+            scaleW = winW / baseW,
+            scaleFactor = Math.min(scaleH, scaleW);
+        
+        //apply new dimensions to viewport
+        $(".annotation__group").height(baseH * scaleFactor)
+                      .width(baseW * scaleFactor)
+                      .css("font-size", (fontSize * scaleFactor))
+                      .css("margin-top", ((baseH * scaleFactor) / -2))
+                      .css("margin-left", ((baseW * scaleFactor) / -2));
+
+        //feed screen divs window dimensions
+        $("#startScreen").height(winH).width(winW);
+        $("#inputScreen").height(winH).width(winW);
+        $("#endScreen").height(winH).width(winW); 
+        $(".menu_share").height(54 * scaleFactor).width(1026 * scaleFactor).css("margin-left", ((1026 * scaleFactor) / -2)); 
+        
+
+     })
+    
+    //Resize content immediately when page is loded
+    .resize();
+ </script>
+
+  </body>
+</html>

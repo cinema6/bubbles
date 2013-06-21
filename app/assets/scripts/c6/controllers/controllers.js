@@ -49,7 +49,7 @@ function AnnotationsModel(experience) {
 	this.annotations	 = [];
 	for (var i = 0; i < experience.annotations.notes.length; i++) {
 		var a = experience.annotations.notes[i],
-			n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
+			n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls, tail: a.tail,
 			text : null, index : i
 			};
 		if (experience.annotations.options){
@@ -108,6 +108,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.category = function() {
 		return $routeParams.category;
 	};
+	this.sfxSvc = sfxSvc;
 
 	$scope.appCtrl = this;
 

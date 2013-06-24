@@ -2,37 +2,120 @@
 'use strict';
 describe('Controllers', function() {
 	var __C6_APP_BASE_URL__ = 'assets';
-	
+
 	var $rootScope,
 		appCtrl,
 		$location,
 		vsvc;
 	
 	beforeEach(function() {
-	    module(function($provide){
-	        $provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
-	        $provide.value('$location', {
-	        	_path: null,
-		        path: function(path) {
-		        	if (path) { this._path = path; }
-			        return this._path;
-		        }
-	        });
-	        $provide.value('$routeParams', {
-		        category: 'action'
-	        });
-	    });
-	    module('c6.svc');
-	    module('c6.ctrl');
+		module('c6.svc');
+		module(function($provide){
+			$provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
+			$provide.value('$location', {
+				_path: null,
+				path: function(path) {
+					if (path) { this._path = path; }
+						return this._path;
+				}
+			});
+			$provide.value('$routeParams', {
+				category: 'action'
+			});
+			$provide.value('c6VideoListingService', {
+				getCategories: function() {
+			        return {
+			        	'categories' : [
+			        		'Action',
+							'Romance',
+							'SciFi-Fantasy',
+						]
+					};
+				},
+				getExperienceByCategory: function(category) {
+					if (category === 'action') {
+						return {
+							'id'			 : '2',
+							'title'		 : 'Battle for Revenge (MOCK)',
+							'views'		 : 1000,
+							'src'		 : __C6_APP_BASE_URL__ + '/media/action/bruce_lee',
+							'css'		 : __C6_APP_BASE_URL__ + '/styles/bubbles_action.css',
+							'anim'		 : 'action',
+							'defSizeLimit': 18,
+							'prompts'	 : [
+								{ query : 'Salutation', sizeLimit : 15},
+								'Animal',
+								'Superhero',
+								{ query : 'Body Part (plural)', sizeLimit : 10},
+								{ query : 'Pizza topping', sizeLimit : 10},
+								'Household appliance',
+								'Sesame Street character',
+								'Star Wars villian',
+								'TV personality',
+								{ query : 'Type of candy', sizeLimit : 12},
+							],
+							'annotations' : {
+								'options' : {
+									'type'	   : 'bubble',
+									'duration'  : 4,
+									'cls'	 : ['lee-${index}']
+								},
+								'notes'	 : [
+									{ 'ts': 7.25,'template':'${1}', 
+									   'duration' : 1.25, tail: {type:'speech', pos: 'bottomLeft'} },
+									{ 'ts': 16,'template':'My dramatic entrance',
+									   'duration' : 2, tail: {type:'thought', pos: 'bottomLeft'} },
+									{ 'ts': 18,'template':'Must look tough', 
+									   'duration' : 2, tail: {type:'thought', pos: 'bottomLeft'} },
+									{ 'ts': 20,'template':'Crazy ${2} stare',
+									   'duration': 2, tail: {type:'thought', pos: 'bottomLeft'} },
+									{ 'ts': 22,'template':'${2} ${3}', 
+									   tail: {type:'thought', pos: 'bottomLeft'}},
+									{ 'ts': 40.5,'template':'Or I\'ll pound your ${4} into ${5}', 
+									   'duration':2.5, tail: {type:'thought', pos: 'bottomLeft'} },
+									{ 'ts': 50,'template':'Say something clever to make them leave...', 
+									   'duration':2.5, tail: {type:'thought', pos: 'bottomLeft'} },
+									{ 'ts': 60,'template':'${5}!!!',
+									   'duration':2, tail: {type:'thought', pos: 'bottomLeft'} },
+									{ 'ts': 86,'template':'Did I leave the ${6} on???',
+									   'duration':2, tail: {type:'thought', pos: 'bottomRight'} },
+									{ 'ts': 95,'template':'Handcuffs of Drunken ${7}!!',
+									   tail: {type:'speech', pos: 'bottomRight'} },
+									{ 'ts':99.5,'template':'Bruce Lee drunker than ${7}!',
+									   'duration':2.5, tail: {type:'speech', pos: 'bottomLeft'} },
+									{ 'ts':116, 'template':'I\'m ${8}!',
+									   'duration': 2, tail: {type:'speech', pos: 'bottomLeft'} },
+									{ 'ts':118,'template':'No, you\'re a dumb Ewok',
+									   'duration': 2, tail: {type:'speech', pos: 'bottomRight'} },
+									{ 'ts':120,'template':'Shut up stupid!',
+									   'duration':2, tail: {type:'speech', pos: 'bottomLeft'} },
+									{ 'ts':123,'template':'Good comeback ${9}',
+									   'duration':2, tail: {type:'speech', pos: 'bottomRight'} },
+									{ 'ts':125,'template':'${10}',
+									   'duration':2, tail: {type:'speech', pos: 'bottomLeft'} },
+									{ 'ts':127.5,'template':'That made no sense',
+									   'duration':1.5, tail: {type:'speech', pos: 'bottomRight'} },
+									{ 'ts':129.5,'template':'${6}?',
+									   'duration':1.5, tail: {type:'speech', pos: 'bottomLeft'} },
+									{ 'ts':131.5,'template':'${2} ${3}!',
+									   'duration':1.5, tail: {type:'thought', pos: 'bottomRight'} }
+								]
+							}
+						};
+					}
+				}
+			});
+		});
+		module('c6.ctrl');
 	});
 	
 	beforeEach(inject(function ($controller, _$rootScope_, _$location_, c6VideoListingService) {
-	    $rootScope = _$rootScope_;
-	    $location = _$location_;
-	    vsvc = c6VideoListingService;
-	    appCtrl = $controller('C6AppCtrl', {
-	        $scope: _$rootScope_
-	    });
+		$rootScope = _$rootScope_;
+		$location = _$location_;
+		vsvc = c6VideoListingService;
+		appCtrl = $controller('C6AppCtrl', {
+			$scope: _$rootScope_
+		});
 	}));
 	
 	describe('Controller: C6AppCtrl', function() {
@@ -378,7 +461,7 @@ describe('Controllers', function() {
 			
 			scope.appCtrl.inExperience = false;
 			scope.$digest();
-			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'apples', 'oink', 'zeus', 'darth vader', 'uhh', 'butterfinger'];
+			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
 			scope.appCtrl.inExperience = true;
 			scope.$digest();
 			
@@ -388,22 +471,20 @@ describe('Controllers', function() {
 			expect(annotations[2].text).toBe('Must look tough');
 			expect(annotations[3].text).toBe('Crazy cow stare');
 			expect(annotations[4].text).toBe('cow superman');
-			expect(annotations[5].text).toBe('Get Out');
-			expect(annotations[6].text).toBe('Or I will crush your knees into apples');
-			expect(annotations[7].text).toBe('knees!!!');
-			expect(annotations[8].text).toBe('apples!!!');
-			expect(annotations[9].text).toBe('oink!!!');
-			expect(annotations[10].text).toBe('oink???');
-			expect(annotations[11].text).toBe('No, handcuffs of zeus!');
-			expect(annotations[12].text).toBe('Bruce Lee > zeus!');
-			expect(annotations[13].text).toBe('I\'m darth vader!');
-			expect(annotations[14].text).toBe('No, you\'re a dumb Ewok');
-			expect(annotations[15].text).toBe('Shut up stupid!');
-			expect(annotations[16].text).toBe('Good comeback uhh');
-			expect(annotations[17].text).toBe('butterfinger');
-			expect(annotations[18].text).toBe('That made no sense');
-			expect(annotations[19].text).toBe('oink?');
-			expect(annotations[20].text).toBe('cow superman!');
+			expect(annotations[5].text).toBe('Or I\'ll pound your knees into mushrooms');
+			expect(annotations[6].text).toBe('Say something clever to make them leave...');
+			expect(annotations[7].text).toBe('mushrooms!!!');
+			expect(annotations[8].text).toBe('Did I leave the oven on???');
+			expect(annotations[9].text).toBe('Handcuffs of Drunken elmo!!');
+			expect(annotations[10].text).toBe('Bruce Lee drunker than elmo!');
+			expect(annotations[11].text).toBe('I\'m darth vader!');
+			expect(annotations[12].text).toBe('No, you\'re a dumb Ewok');
+			expect(annotations[13].text).toBe('Shut up stupid!');
+			expect(annotations[14].text).toBe('Good comeback oprah');
+			expect(annotations[15].text).toBe('butterfinger');
+			expect(annotations[16].text).toBe('That made no sense');
+			expect(annotations[17].text).toBe('oven?');
+			expect(annotations[18].text).toBe('cow superman!');
 		});
 		it('Should figure out what annotations should be on-screen.', function() {
 			// Setup some actual annotations.
@@ -415,7 +496,7 @@ describe('Controllers', function() {
 				},
 				event = null;
 			scope.appCtrl.experience = vsvc.getExperienceByCategory('action');
-			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'apples', 'oink', 'zeus', 'darth vader', 'uhh', 'butterfinger'];
+			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
 			scope.appCtrl.inExperience = true;
 			scope.$digest();
 			
@@ -425,7 +506,7 @@ describe('Controllers', function() {
 			controller.setActiveAnnotations(event, video);
 			expect(active.length).toBe(0);
 			
-			video.player.currentTime = 7;
+			video.player.currentTime = 7.25;
 			controller.setActiveAnnotations(event, video);
 			expect(active).toContain(annotations[0]);
 			
@@ -444,13 +525,11 @@ describe('Controllers', function() {
 			
 			video.player.currentTime = 20;
 			controller.setActiveAnnotations(event, video);
-			expect(active).toContain(annotations[1]);
 			expect(active).toContain(annotations[2]);
 			expect(active).toContain(annotations[3]);
 			
 			video.player.currentTime = 22;
 			controller.setActiveAnnotations(event, video);
-			expect(active).toContain(annotations[2]);
 			expect(active).toContain(annotations[3]);
 			expect(active).toContain(annotations[4]);
 			
@@ -460,33 +539,33 @@ describe('Controllers', function() {
 			
 			video.player.currentTime = 41;
 			controller.setActiveAnnotations(event, video);
-			expect(active).toContain(annotations[6]);
+			expect(active).toContain(annotations[5]);
 			
 			video.player.currentTime = 45;
 			controller.setActiveAnnotations(event, video);
 			expect(active.length).toBe(0);
 			
-			video.player.currentTime = 53;
+			video.player.currentTime = 52;
 			controller.setActiveAnnotations(event, video);
-			expect(active).toContain(annotations[7]);
+			expect(active).toContain(annotations[6]);
 			
-			video.player.currentTime = 60;
+			video.player.currentTime = 59.9999;
 			controller.setActiveAnnotations(event, video);
 			expect(active.length).toBe(0);
 			
-			video.player.currentTime = 63.487;
+			video.player.currentTime = 61.487;
 			controller.setActiveAnnotations(event, video);
-			expect(active).toContain(annotations[8]);
+			expect(active).toContain(annotations[7]);
 			
 			video.player.currentTime = 119.5;
 			controller.setActiveAnnotations(event, video);
-			expect(active).toContain(annotations[14]);
-			expect(active).not.toContain(annotations[15]);
+			expect(active).toContain(annotations[12]);
+			expect(active).not.toContain(annotations[13]);
 			
 			video.player.currentTime = 120.01;
 			controller.setActiveAnnotations(event, video);
-			expect(active).not.toContain(annotations[14]);
-			expect(active).toContain(annotations[15]);
+			expect(active).not.toContain(annotations[12]);
+			expect(active).toContain(annotations[13]);
 		});
 		it('Should tell if an annotation is active, passing in that annotation', function() {
 			var active = controller.activeAnnotations,
@@ -516,7 +595,7 @@ describe('Controllers', function() {
 			expect(isActive(annotations[11])).toBe(false);
 			expect(isActive(annotations[17])).toBe(false);
 			
-			video.player.currentTime = 7;
+			video.player.currentTime = 7.25;
 			controller.setActiveAnnotations(event, video);
 			expect(isActive(annotations[0])).toBe(true);
 			expect(isActive(annotations[3])).toBe(false);
@@ -537,14 +616,14 @@ describe('Controllers', function() {
 			
 			video.player.currentTime = 20;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[1])).toBe(true);
+			expect(isActive(annotations[1])).toBe(false);
 			expect(isActive(annotations[2])).toBe(true);
 			expect(isActive(annotations[3])).toBe(true);
 			expect(isActive(annotations[0])).toBe(false);
 			
 			video.player.currentTime = 22;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[2])).toBe(true);
+			expect(isActive(annotations[2])).toBe(false);
 			expect(isActive(annotations[3])).toBe(true);
 			expect(isActive(annotations[4])).toBe(true);
 			expect(isActive(annotations[1])).toBe(false);
@@ -558,33 +637,29 @@ describe('Controllers', function() {
 			
 			video.player.currentTime = 41;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[6])).toBe(true);
+			expect(isActive(annotations[5])).toBe(true);
 			
 			video.player.currentTime = 45;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[6])).toBe(false);
+			expect(isActive(annotations[5])).toBe(false);
 			
-			video.player.currentTime = 53;
+			video.player.currentTime = 52.5;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[7])).toBe(true);
+			expect(isActive(annotations[6])).toBe(true);
 			
 			video.player.currentTime = 60;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[7])).toBe(false);
-			
-			video.player.currentTime = 63.487;
-			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[8])).toBe(true);
-			
+			expect(isActive(annotations[6])).toBe(false);
+						
 			video.player.currentTime = 119.5;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[14])).toBe(true);
-			expect(isActive(annotations[15])).toBe(false);
+			expect(isActive(annotations[12])).toBe(true);
+			expect(isActive(annotations[13])).toBe(false);
 			
 			video.player.currentTime = 120.01;
 			controller.setActiveAnnotations(event, video);
-			expect(isActive(annotations[14])).toBe(false);
-			expect(isActive(annotations[15])).toBe(true);
+			expect(isActive(annotations[12])).toBe(false);
+			expect(isActive(annotations[13])).toBe(true);
 		});
 	});
 });

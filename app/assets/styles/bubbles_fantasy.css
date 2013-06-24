@@ -43,7 +43,7 @@
     margin: 0 auto;
     text-align: center;
     font-family: "SherwoodRegular", "courier prime", georgia, serif;
-    font-size: 70%;
+    font-size: 105%;
     line-height: 100%;
     color: #fff;
 }
@@ -123,11 +123,19 @@
 }
 
 /* positioning */
-.lotr-0 { top: 6%; left: 4%; }
-.lotr-1 { top: 30%; left: 5%; }
-.lotr-2 { top: 35%; left: 30%; }
-.lotr-3 { top: 32%; left: 50%; }
-.lotr-4 { top: 29%; left: 65%; }
+.lotr-0 { top: 6%; left: -1%; max-width: 22% }
+.lotr-0 .a-tail-bottomRight-thought {  
+    background: url('../media/fantasy/bottomRight-thought.png') no-repeat 75% 0%; 
+ }
+
+.lotr-1 { top: 45%; left: -1%; }
+.lotr-1 .a-tail-topRight-thought {  
+    background: url('../media/fantasy/topRight-thought.png') no-repeat 65% 0%; 
+ }
+
+.lotr-2 { top: 12%; left: 32%; }
+.lotr-3 { top: 62%; left: 60%; }
+.lotr-4 { top: 29%; left: 73%; }
 .lotr-5 { top: 8%; left: 78%; }
 .lotr-6 { top: 35%; left: 75%; }
 .lotr-7 { top: 30%; left: 70%; }

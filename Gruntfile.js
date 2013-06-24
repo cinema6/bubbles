@@ -464,4 +464,23 @@ module.exports = function (grunt) {
             }
         }
     });
+
+    grunt.registerTask('gitversion','Get a version number using git commit', function(){
+        var done = this.async();
+        grunt.util.spawn({
+            cmd     : 'git',
+            args    : ['log','-n1','--format="%h"']
+        },function(err,result,code){
+            if (err) {
+                grunt.log.errorlns('Failed to get gitversion: ' + err);
+                done(false);
+            }
+            var props = grunt.config.get('props');
+            props.gitVersion = result.stdout.replace(/\"/g,'');
+            grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion); 
+            grunt.config.set('props',props);
+            done(true);
+        });
+    });
+
 };

@@ -4,7 +4,8 @@ var fs          = require('fs-extra'),
     lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
-    };
+    },
+    os = require('os');    
 
 module.exports = function (grunt) {
   // load all grunt tasks
@@ -169,7 +170,7 @@ module.exports = function (grunt) {
         singleRun: true
       },
       e2e: {
-        configFile: 'test/karma-e2e.conf.js',
+        configFile: 'test/karma-e2e.' + os.platform() + '.conf.js',
         singleRun: false
       }
     },

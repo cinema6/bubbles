@@ -315,16 +315,16 @@ angular.module('c6.svc',[])
                         'level'     : '3',
                         },
                      'notes'  : [
-		                 { "ts" : "8", "template" : "Hi, is my ${1} OK?" },
-		                 { "ts" : "12", "template" : "Its Mrs. Von ${2} Burger, are you alright?"  },
-		                 { "ts" : "16", "template" : "Are you on ${3}?" },
-		                 { "ts" : "19", "template" : "Popcorn ${3}?" },
-		                 { "ts" : "22", "template" : "My ${1} better be OK!" },
-		                 { "ts" : "25", "template" : "What?" },
-		                 { "ts" : "29", "template" : "About ${3}?" },
-		                 { "ts" : "31", "template" : "Did your ${4} give you the ${3}?"  },
-		                 { "ts" : "35", "template" : "Well does this ${3} movie have a name?" },
-		                 { "ts" : "46", "template" : "listen to me you little ${5}  ${3} head. You need to hang up now and start to ${6} your ${7} together. I\"m getting in my ${8} and coming home and I am going to get my ${9} and put it through your ${3} filled ${10}. You better not touch my ${1} or give it any of your damn ${3}. This is Mrs. Von ${2} Burger. Goodbye." }
+		                 { "ts" : "7.70", "template" : "Hi, is my ${1} OK?" },
+		                 { "ts" : "11.83", "template" : "Its Mrs. Von ${2} Burger, are you alright?"  },
+		                 { "ts" : "17.67", "template" : "Are you on ${3}?" },
+		                 { "ts" : "20.00", "template" : "Popcorn ${3}?" },
+		                 { "ts" : "21.92", "template" : "My ${1} better be OK!" },
+		                 { "ts" : "25.92", "template" : "What?" },
+		                 { "ts" : "28.75", "template" : "About ${3}?" },
+		                 { "ts" : "30.75", "template" : "Did your ${4} give you the ${3}?"  },
+		                 { "ts" : "35.08", "template" : "Well does this ${3} movie have a name?" },
+		                 { "ts" : "46.38", "template" : "listen to me you little ${5}  ${3} head. You need to hang up now and start to ${6} your ${7} together. I\"m getting in my ${8} and coming home and I am going to get my ${9} and put it through your ${3} filled ${10}. You better not touch my ${1} or give it any of your damn ${3}. This is Mrs. Von ${2} Burger. Goodbye." }
                     ]
                 }]
             };

@@ -5,7 +5,7 @@ var fs          = require('fs-extra'),
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
     },
-    os = require('os');    
+    os = require('os');
 
 module.exports = function (grunt) {
   // load all grunt tasks

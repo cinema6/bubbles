@@ -1,19 +1,20 @@
 /* Romance Video Experience specific styles */
 
+.annotation {
+    min-width: 25%;
+    max-width: 30%;
+}
 
 .a-style {
-    position: absolute;
+    position: relative;
     border-radius: 50px;
     background: url('../media/romance/annotation-body.png');
     background-clip: content-box;
     padding: 8px;
-    min-width: 10%;
-    max-width: 25%;
 }
     @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
         .a-style {
-            border-radius: 41%;
-            position: relative;
+            border-radius: 45%;
         }
     }
 
@@ -48,8 +49,8 @@
     } 
 
 .a-text {
-    width: 72%;
-    padding: 14%;
+    width: 84%;
+    padding: 12% 8%;
     margin: 0 auto;
     text-align: center;
     font-family: "LadylikeBB", "courier prime", georgia, serif;
@@ -137,12 +138,12 @@
     }
 
 /* bubble and tail positioning */
-.notebook-0 { margin-top: 6%; margin-left: 57%; }
-.notebook-1 { margin-top: 8%; margin-left: 12%; }
-.notebook-2 { margin-top: 28%; margin-left: 18%; }
-.notebook-3 { margin-top: 24%; margin-left: 14%; }
-.notebook-4 { margin-top: 28%; margin-left: 15%; }
-.notebook-5 { margin-top: 5%; margin-left: 48%; }
-.notebook-6 { margin-top: 28%; margin-left: 55%; }
-.notebook-7 { margin-top: 25%; margin-left: 14%; }
-.notebook-8 { margin-top: 8%; margin-left: 48%; }
+.notebook-0 { top: 6%; left: 57%; }
+.notebook-1 { top: 8%; left: 8%; }
+.notebook-2 { top: 52%; left: 18%; }
+.notebook-3 { top: 65%; left: 10%; }
+.notebook-4 { top: 45%; left: 10%; }
+.notebook-5 { top: 5%; left: 48%; }
+.notebook-6 { top: 65%; left: 55%; }
+.notebook-7 { top: 65%; left: 8%; }
+.notebook-8 { top: 8%; left: 48%; }

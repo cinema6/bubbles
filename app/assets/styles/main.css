@@ -467,7 +467,7 @@ input {cursor: text;}
     top: 50%;
  }
     .annotation {   
-        position: relative;
+        position: absolute;
         opacity: 1;
     }
 /*      EXPERIENCE END           */

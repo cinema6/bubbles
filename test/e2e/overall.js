@@ -68,11 +68,11 @@
 						textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]'),
 						message = 'Hello!';
 					
-					expect(counter.text()).toContain('12');
+					expect(counter.text()).toContain('15');
 					
 					for (var i = 0, length = message.length; i < length; i++) {
 						textField.enter(message.substring(0, i + 1));
-						expect(counter.text()).toContain(12 - (i + 1) + '');
+						expect(counter.text()).toContain(15 - (i + 1) + '');
 					}
 				});
 			});
@@ -81,8 +81,8 @@
 					prev,
 					next,
 					query,
-					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'],
-					prompts = ['Salutation', 'Animal', 'Superhero', 'Body Part (plural)', 'Plural noun', 'Animal Noise', 'Greek God', 'Character from Star Wars', '80\'s female sitcom star', 'Type of candy'];
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'],
+					prompts = ['Salutation', 'Animal', 'Superhero', 'Body Part (plural)', 'Pizza topping', 'Household appliance', 'Sesame Street character', 'Star Wars villian', 'TV personality', 'Type of candy'];
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					query = element('.question__query');
@@ -144,7 +144,7 @@
 					next,
 					questionNumber,
 					progressDock,
-					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'];
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					prev = element('.question__btnPrevious');
@@ -171,7 +171,7 @@
 					prev,
 					next,
 					start,
-					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'];
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					prev = element('.question__btnPrevious');
@@ -222,7 +222,7 @@
 				next,
 				start,
 				video,
-				responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+				responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'];
 			beforeEach(function() {
 				sleep(1);
 				browser().navigateTo('/#entry/action');

@@ -344,7 +344,7 @@ angular.module('c6.svc',[])
                         'Action',
                         'Romance',
                         'SciFi-Fantasy',
-                        'Horror'
+                        //'Horror'
                     ]
     };
 

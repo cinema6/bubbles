@@ -133,7 +133,6 @@ input {cursor: text;}
             -webkit-transform: rotate(-15deg); /* Safari and Chrome */
             transform: rotate(-15deg);
             list-style-type: none;
-            
          }
 
          .startScreen__directions { 
@@ -172,25 +171,30 @@ input {cursor: text;}
 
      /* artwork */
          .startScreen__logo {
-            background: url('../media/logo_pen.png') no-repeat top left;
-            background-size: 61.66% auto;            
+            background: url('../media/logo_pen800.png') no-repeat top left;
+            background-size: contain;
             top: 0;
             left: 0;
-            margin-top: -28.96%;
-            margin-left: -19.56%;
-            width: 100%;
+            margin-top: -380px;
+            margin-left: -250px;
+            width: 800px;
             height: 200%;
             z-index: -1;
             position: absolute;
          }    
             @media only screen and (max-width: 768px) {
                 .startScreen__logo {
-                    margin-top: -23.96%;
+                    background: url('../media/logo_pen600.png') no-repeat top left;
+                    width: 600px;
+                    margin-top: -275px;
+                    margin-left: -200px;
                 } 
             }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .startScreen__logo {
-                    margin: -44% 0 0 0;
+                    background: url('../media/logo_pen600.png') no-repeat top left;
+                    width: 600px;
+                    margin: -270px 0 0 -200px;
                 }
             }
 

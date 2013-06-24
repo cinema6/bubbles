@@ -1,15 +1,17 @@
 /* Action Video Experience specific styles */
 
 .annotation {
-    min-width: 18%;
-    max-width: 25%;
+    min-width: 28%;
+    max-width: 40%;
 }
 
 .a-style {
     position: relative;
     padding: 11px;
     background: url('../media/action/annotation-body.png');
-    background-clip: content-box;            }
+    background-clip: content-box;
+}
+
 .a-frame {
     background: url('../media/action/annotation-right.png') repeat-y right, 
                 url('../media/action/annotation-left.png') repeat-y left, 
@@ -35,12 +37,12 @@
     } 
 
 .a-text {
-    width: 80%;
-    padding: 8% 10%;
+    width: 90%;
+    padding: 8% 5%;
     margin: 0 auto;
     text-align: center;
     font-family: "uppercut-angle", "courier prime", georgia, serif;
-    font-size: 95%;
+    font-size: 105%;
     line-height: 100%;
     color: #111111;
 }
@@ -130,8 +132,8 @@
 .lee-7 { top: 12%; left: 60%; }
 .lee-8 { top: 6%; left: 18%; }
 .lee-9 { top: 3%; left: 5%; }
-.lee-10 { top: 3%; left: 70%; }
-.lee-11 { top: 5%; left: 75%; }
+.lee-10 { top: 3%; left: 62%; }
+.lee-11 { top: 5%; left: 62%; }
 .lee-12 { top: 5%; left: 28%; }
 .lee-13 {top: 8%; left: 58%; }
 .lee-14 {top: 5%; left: 28%; }

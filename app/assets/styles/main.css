@@ -450,11 +450,11 @@ input {cursor: text;}
  #player {
     position: relative; 
     padding: 1%;
-    width: 90%; 
+    width: 98%; 
     height: 90%;
     margin-left: -46%;
     top: 30px; 
-    left: 50%;
+    left: 47%;
     z-index: 5; 
     opacity: 0;
  }

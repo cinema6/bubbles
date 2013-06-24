@@ -55,7 +55,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.appCtrl = this;
 	
 	$scope.$watch('appCtrl.currentCategory()', function(category) {
-		if (self.experience.id !== vsvc.getExperienceByCategory(category).id) {
+		if ((self.experience? self.experience.id : null) !== vsvc.getExperienceByCategory(category).id) {
 			self.experience = category? vsvc.getExperienceByCategory(category) : null;
 		}
 	});

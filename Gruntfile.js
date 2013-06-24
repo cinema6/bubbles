@@ -469,17 +469,42 @@ module.exports = function (grunt) {
         var done = this.async();
         grunt.util.spawn({
             cmd     : 'git',
-            args    : ['log','-n1','--format="%h"']
+            args    : ['log','-n1','--format={ \"version\" : \"%h\", \"date\" : \"%ct\"}']
         },function(err,result,code){
             if (err) {
                 grunt.log.errorlns('Failed to get gitversion: ' + err);
-                done(false);
+                return done(false);
             }
             var props = grunt.config.get('props');
-            props.gitVersion = result.stdout.replace(/\"/g,'');
-            grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion); 
+            props.gitVersion = JSON.parse(result.stdout);
+            if ((props.gitVersion.version === undefined) || 
+                            (props.gitVersion.date === undefined)) {
+                grunt.log.errorlns('Failed to parse version.');
+                return done(false); 
+            }
+            grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion.version);
             grunt.config.set('props',props);
-            done(true);
+            return done(true);
+        });
+    });
+
+    grunt.registerTask('gitstatus','Make surethere are no pending commits', function(){
+        var done = this.async();
+        grunt.util.spawn({
+            cmd     : 'git',
+            args    : ['status','--porcelain']
+        },function(err,result,code){
+            if (err) {
+                grunt.log.errorlns('Failed to get git status: ' + err);
+                done(false);
+            }
+            if (result.stdout === '""'){
+                grunt.log.writelns('No pending commits.');
+                done(true);
+            }
+            grunt.log.errorlns('Please commit pending changes');
+            grunt.log.errorlns(result.stdout.replace(/\"/g,''));
+            done(false);
         });
     });
 

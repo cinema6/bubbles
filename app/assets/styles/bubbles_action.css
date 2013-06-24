@@ -5,7 +5,7 @@
     padding: 11px;
     background: url('../media/action/annotation-body.png');
     background-clip: content-box;            
-    min-width: 10%;
+    min-width: 18%;
     max-width: 25%;
 }
 .a-frame {
@@ -38,7 +38,7 @@
     margin: 0 auto;
     text-align: center;
     font-family: "uppercut-angle", "courier prime", georgia, serif;
-    font-size: 65%;
+    font-size: 95%;
     line-height: 100%;
     color: #111111;
 }

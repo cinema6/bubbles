@@ -72,13 +72,13 @@ module.exports = function (grunt) {
         hostname: '0.0.0.0'
       },
       proxies: [
-      	{
-	      	context: '/dub',
-	      	host: 'c6box.local',
-	      	port: 80,
-	      	https: false,
-	      	changeOrigin: false
-      	}
+        {
+	      context: '/dub',
+	      host: 'c6box.local',
+	      port: 80,
+	      https: false,
+	      changeOrigin: false
+        }
       ],
       livereload: {
         options: {

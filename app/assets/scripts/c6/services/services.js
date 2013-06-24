@@ -10,13 +10,13 @@ function TalkieModel(annotations, extension) {
 		voice: options.voice
 	};
     this.annotations = [];
-    
-    annotations.notes.forEach(function(annotation, index) {
-    	var note = {
-	    	ts: annotation.ts,
-	    	template: annotation.template,
-	    	text: null
-    	};
+
+    annotations.notes.forEach(function(annotation) {
+        var note = {
+	        ts: annotation.ts,
+	        template: annotation.template,
+	        text: null
+        };
 	    this.annotations.push(note);
     }, this);
 }
@@ -53,19 +53,19 @@ function BubblesModel(annotations) {
                 }
             }
         }
-        
+
         if (n.cls instanceof Array) {
-            for (var j = 0; j < n.cls.length; j++) {
-                n.cls[j] = n.cls[j].replace('${index}',n.index);
+            for (var k = 0; k < n.cls.length; k++) {
+                n.cls[k] = n.cls[k].replace('${index}',n.index);
             }
         }
-        
-        if (!n.type){ throw localException('Missing Property (type): ' + JSON.stringify(a));} 
-        if (!n.ts)  { throw localException('Missing Property (ts): ' + JSON.stringify(a));} 
-        if (!n.duration) { throw localException('Missing Property (duration): ' + 
-                JSON.stringify(a));} 
-        if (!n.template){ throw localException('Missing Property (template): ' 
-                + JSON.stringify(a));} 
+
+        if (!n.type){ throw localException('Missing Property (type): ' + JSON.stringify(a));}
+        if (!n.ts)  { throw localException('Missing Property (ts): ' + JSON.stringify(a));}
+        if (!n.duration) { throw localException('Missing Property (duration): ' +
+                JSON.stringify(a));}
+        if (!n.template){ throw localException('Missing Property (template): ' +
+            JSON.stringify(a));}
 
         this.annotations.push(n);
     }
@@ -83,11 +83,11 @@ angular.module('c6.svc',[])
         }
 
         if ((data instanceof Array) === false) {
-            throw new TypeError('Data parameter must be an array.'); 
+            throw new TypeError('Data parameter must be an array.');
         }
 
         dataLen = data.length;
-//        $log.info('Template:' + tmpl); 
+//        $log.info('Template:' + tmpl);
         while((match = patt.exec(tmpl)) !== null) {
 //            $log.info('Match: ' + JSON.stringify(match));
             var idx = (match[1] - 1);
@@ -101,25 +101,25 @@ angular.module('c6.svc',[])
         }
         return tmpl;
     };
-	
+
 	this.getAnnotationsModelByType = function(type, annotations) {
 		var toReturn,
-			klass;
-			
+			Klass;
+
 		if (type === 'bubble') {
-			klass = BubblesModel;
+			Klass = BubblesModel;
 		} else if (type === 'talkie') {
-			klass = TalkieModel;
+			Klass = TalkieModel;
 		}
-		
+
 		annotations.forEach(function(annoConfig) {
 			if (annoConfig.options.type === type) {
-				toReturn = new klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
+				toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
 			}
 		});
 		return toReturn;
 	};
-	
+
 	this.interpolateAnnotations = function(annoModel, responses) {
         var annoLength = annoModel.annotations.length;
         $log.info('Interpolate ' + annoLength + ' annotations with ' + responses.length + ' responses.');
@@ -131,10 +131,10 @@ angular.module('c6.svc',[])
             a.text = interpolate(a.template,responses);
             $log.info('Annotation [' + i + ']: ' + a.text);
         }
-        
+
         return annoModel;
-	}
-	
+	};
+
 	this.fetchText2SpeechVideoUrl = function(model) {
 		var requestBodyObject = {
 			video: model.options.vid,
@@ -146,22 +146,22 @@ angular.module('c6.svc',[])
 			script: []
 		},
 			url = $q.defer();
-		
+
 		model.annotations.forEach(function(annotation) {
 			var line = {
 				ts: annotation.ts,
 				line: annotation.text
 			};
-			
+
 			requestBodyObject.script.push(line);
 		});
-		
+
 		$http.post('http://localhost:9000/dub/create', requestBodyObject).then(function(response) {
 			url.resolve(response.data.output);
 		}, function(error) {
 			$log.error(error);
 		});
-		
+
 		return url.promise;
 	};
 }])
@@ -281,7 +281,7 @@ angular.module('c6.svc',[])
 			}
 		});
 		return toReturn;
-	}
+	};
 
 	this.playSound = function(name) {
 		this.getSoundByName(name).play();
@@ -345,7 +345,7 @@ angular.module('c6.svc',[])
                         'Romance',
                         'SciFi-Fantasy',
                         //'Horror'
-                    ]
+                    ];
     };
 
     service.getExperienceByCategory = function(category) {
@@ -503,16 +503,16 @@ angular.module('c6.svc',[])
                         'level'     : '3',
                         },
                      'notes'  : [
-		                 { "ts" : "7.70", "template" : "Hi, is my ${1} OK?" },
-		                 { "ts" : "11.83", "template" : "Its Mrs. Von ${2} Burger, are you alright?"  },
-		                 { "ts" : "17.67", "template" : "Are you on ${3}?" },
-		                 { "ts" : "20.00", "template" : "Popcorn ${3}?" },
-		                 { "ts" : "21.92", "template" : "My ${1} better be OK!" },
-		                 { "ts" : "25.92", "template" : "What?" },
-		                 { "ts" : "28.75", "template" : "About ${3}?" },
-		                 { "ts" : "30.75", "template" : "Did your ${4} give you the ${3}?"  },
-		                 { "ts" : "35.08", "template" : "Well does this ${3} movie have a name?" },
-		                 { "ts" : "46.38", "template" : "listen to me you little ${5}  ${3} head. You need to hang up now and start to ${6} your ${7} together. I\"m getting in my ${8} and coming home and I am going to get my ${9} and put it through your ${3} filled ${10}. You better not touch my ${1} or give it any of your damn ${3}. This is Mrs. Von ${2} Burger. Goodbye." }
+		                 { 'ts' : '7.70', 'template' : 'Hi, is my ${1} OK?' },
+		                 { 'ts' : '11.83', 'template' : 'Its Mrs. Von ${2} Burger, are you alright?'  },
+		                 { 'ts' : '17.67', 'template' : 'Are you on ${3}?' },
+		                 { 'ts' : '20.00', 'template' : 'Popcorn ${3}?' },
+		                 { 'ts' : '21.92', 'template' : 'My ${1} better be OK!' },
+		                 { 'ts' : '25.92', 'template' : 'What?' },
+		                 { 'ts' : '28.75', 'template' : 'About ${3}?' },
+		                 { 'ts' : '30.75', 'template' : 'Did your ${4} give you the ${3}?'  },
+		                 { 'ts' : '35.08', 'template' : 'Well does this ${3} movie have a name?' },
+		                 { 'ts' : '46.38', 'template' : 'listen to me you little ${5}  ${3} head. You need to hang up now and start to ${6} your ${7} together. I\'m getting in my ${8} and coming home and I am going to get my ${9} and put it through your ${3} filled ${10}. You better not touch my ${1} or give it any of your damn ${3}. This is Mrs. Von ${2} Burger. Goodbye.' }
                     ]
                 }]
             };

@@ -1,5 +1,6 @@
 'use strict';
-var _path       = require('path'),
+var fs          = require('fs-extra'),
+    path        = require('path'),
     lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
@@ -10,43 +11,55 @@ module.exports = function (grunt) {
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   // configurable paths
-  var getPackageVersion = function() {
-        var pkg       = grunt.file.readJSON(_path.join(__dirname,'package.json'));
-        return 'v' + pkg.version.replace(/\./g,'_');
-      },
-      yeomanConfig = {
-        app:    _path.join(__dirname,'app'),
-        dist:   _path.join(__dirname,'dist'),
-        version: getPackageVersion(),
-        distVer: function() { return _path.join(this.dist, this.version); },
+  var initProps = {
+        prefix      : process.env.HOME,
+        app         : path.join(__dirname,'app'),
+        dist        : path.join(__dirname,'dist'),
+        packageInfo : grunt.file.readJSON('package.json'),
         angular : {
-            'sourceDir' : _path.join(__dirname,'vendor','angular'),
-            'buildDir'  : _path.join(__dirname,'vendor','angular','build'),
-            'targetDir' : _path.join(__dirname,'app','assets','lib','angular')
+            'sourceDir' : path.join(__dirname,'vendor','angular'),
+            'buildDir'  : path.join(__dirname,'vendor','angular','build'),
+            'targetDir' : path.join(__dirname,'app','assets','lib','angular')
           },
         jquery : {
-            'sourceDir' : _path.join(__dirname,'vendor','jquery'),
-            'buildDir'  : _path.join(__dirname,'vendor','jquery','dist'),
-            'targetDir' : _path.join(__dirname,'app','assets','lib','jquery')
+            'sourceDir' : path.join(__dirname,'vendor','jquery'),
+            'buildDir'  : path.join(__dirname,'vendor','jquery','dist'),
+            'targetDir' : path.join(__dirname,'app','assets','lib','jquery')
           },
         jqueryui : {
-            'sourceDir' : _path.join(__dirname,'vendor','jqueryui'),
-            'buildDir'  : _path.join(__dirname,'vendor','jqueryui','dist'),
-            'targetDir' : _path.join(__dirname,'app','assets','lib','jqueryui')
+            'sourceDir' : path.join(__dirname,'vendor','jqueryui'),
+            'buildDir'  : path.join(__dirname,'vendor','jqueryui','dist'),
+            'targetDir' : path.join(__dirname,'app','assets','lib','jqueryui')
           }
       };
 
+    initProps.version     = function(){
+        return ('v' + this.packageInfo.version.replace(/\./g,'_'));
+    };
+    initProps.installDir = function() {
+        return (initProps.packageInfo.name + '_' + initProps.packageInfo.version);
+    };
+    initProps.installPath = function(){
+        return (path.join(initProps.prefix, 'releases', initProps.installDir()));
+    };
+    initProps.wwwPath = function(){
+        return path.join(initProps.prefix, 'www' );
+    };
+    initProps.distVersion= function() {
+        return path.join(this.dist, this.version());
+    };
+
   grunt.initConfig({
-    yeoman: yeomanConfig,
+    props: initProps,
     watch: {
       livereload: {
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '<%= yeoman.app %>/assets/views/{,*/}*.html',
-          '{.tmp,<%= yeoman.app %>}/assets/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/assets/scripts/{,*/}*.js',
-          '{.tmp,<%= yeoman.app %>}/assets/scripts/c6/{,*/}*.js',
-          '<%= yeoman.app %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= props.app %>/{,*/}*.html',
+          '<%= props.app %>/assets/views/{,*/}*.html',
+          '{.tmp,<%= props.app %>}/assets/styles/{,*/}*.css',
+          '{.tmp,<%= props.app %>}/assets/scripts/{,*/}*.js',
+          '{.tmp,<%= props.app %>}/assets/scripts/c6/{,*/}*.js',
+          '<%= props.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         tasks: ['livereload']
       }
@@ -63,7 +76,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
+              mountFolder(connect, initProps.app)
             ];
           }
         }
@@ -74,7 +87,7 @@ module.exports = function (grunt) {
             return [
               mountFolder(connect, '.tmp'),
               mountFolder(connect, 'test'),
-              mountFolder(connect, yeomanConfig.app)
+              mountFolder(connect, initProps.app)
             ];
           }
         }
@@ -87,32 +100,58 @@ module.exports = function (grunt) {
     },
     bumpup: 'package.json',
     clean: {
-      angular:  [ '<%= yeoman.angular.buildDir %>' ,'<%= yeoman.angular.targetDir %>' ] ,
-      jquery:   [ '<%= yeoman.jquery.buildDir %>'  ,'<%= yeoman.jquery.targetDir %>' ] ,
-      jqueryui: [ '<%= yeoman.jqueryui.buildDir %>','<%= yeoman.jqueryui.targetDir %>' ] ,
       dist: {
         files: [{
           dot: true,
           src: [
             '.tmp',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
+            '<%= props.dist %>/*',
+            '!<%= props.dist %>/.git*'
           ]
         }]
       },
-      server: '.tmp',
-      local: '/usr/local/share/nginx/demos/screenjack'
+      server: '.tmp'
     },
     sed: {
         index: {
             pattern: 'assets',
-            replacement: '<%= yeoman.version %>',
-            path: '<%= yeoman.dist %>/index.html'
+            replacement: '<%= props.version() %>',
+            path: '<%= props.dist %>/index.html'
+        },
+        index2: {
+            pattern: 'ng-app="c6.app" ',
+            replacement: '',
+            path: '<%= props.dist %>/index.html'
+        },
+        categories: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/categories.html'
+        },
+        input: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/input.html'
+        },
+        inputMobile: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/input_mobile.html'
+        },
+        end: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/end.html'
+        },
+        experience: {
+            pattern: 'assets',
+            replacement: '<%= props.version() %>',
+            path: '<%= props.distVersion() %>/views/experience.html'
         },
         main: {
             pattern: 'undefined',
-            replacement: '\'<%= yeoman.version %>\'',
-            path: '<%= yeoman.distVer() %>/scripts/main.js'
+            replacement: '\'<%= props.version() %>\'',
+            path: '<%= props.distVersion() %>/scripts/main.js'
         }
     },
     jshint: {
@@ -121,7 +160,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/assets/scripts/**/{,*/}*.js'
+        '<%= props.app %>/assets/scripts/**/{,*/}*.js'
       ]
     },
     karma: {
@@ -138,11 +177,11 @@ module.exports = function (grunt) {
       dist: {
         files: {
           '.tmp/scripts/c6app.js' : [
-            '<%= yeoman.app %>/assets/scripts/c6/app.js',
-            '<%= yeoman.app %>/assets/scripts/c6/services/services.js',
-            '<%= yeoman.app %>/assets/scripts/c6/controllers/controllers.js',
-            '<%= yeoman.app %>/assets/scripts/c6/directives/directives.js',
-            '<%= yeoman.app %>/assets/scripts/c6/directives/videonode.js'
+            '<%= props.app %>/assets/scripts/c6/app.js',
+            '<%= props.app %>/assets/scripts/c6/services/services.js',
+            '<%= props.app %>/assets/scripts/c6/controllers/controllers.js',
+            '<%= props.app %>/assets/scripts/c6/directives/directives.js',
+            '<%= props.app %>/assets/scripts/c6/animations/animations.js'
           ]
         }
       }
@@ -151,15 +190,15 @@ module.exports = function (grunt) {
         dist:    {
                     expand: true,
                     flatten: true,
-                    src:    ['<%= yeoman.app %>/assets/styles/{,*/}*.css'],
-                    dest: '<%= yeoman.distVer() %>/styles/'
+                    src:    ['<%= props.app %>/assets/styles/{,*/}*.css'],
+                    dest: '<%= props.distVersion() %>/styles/'
                  }
         },
     htmlmin: {
       dist: {
         options: {
           /*removeCommentsFromCDATA: true,
-          // https://github.com/yeoman/grunt-usemin/issues/44
+          // https://github.com/props/grunt-usemin/issues/44
           //collapseWhitespace: true,
           collapseBooleanAttributes: true,
           removeAttributeQuotes: true,
@@ -170,15 +209,15 @@ module.exports = function (grunt) {
         },
         files: [{
               expand: true,
-              cwd: '<%= yeoman.app %>',
+              cwd: '<%= props.app %>',
               src: ['*.html'],
-              dest: '<%= yeoman.dist %>'
+              dest: '<%= props.dist %>'
             },
             {
               expand: true,
-              cwd: '<%= yeoman.app %>/assets',
+              cwd: '<%= props.app %>/assets',
               src: ['views/*.html'],
-              dest: '<%= yeoman.distVer() %>'
+              dest: '<%= props.distVersion() %>'
             }
         ]
       }
@@ -186,7 +225,7 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '<%= yeoman.distVer() %>/scripts/c6app.min.js': [
+          '<%= props.distVersion() %>/scripts/c6app.min.js': [
             '.tmp/scripts/c6app.js'
           ],
         }
@@ -194,23 +233,23 @@ module.exports = function (grunt) {
     },
     copy: {
       angular: {
-        files: [{ expand: true, dot: true, cwd: '<%= yeoman.angular.buildDir %>',
-          dest: '<%= yeoman.angular.targetDir %>', src: [ '*.js', 'version.*' ] }]
+        files: [{ expand: true, dot: true, cwd: '<%= props.angular.buildDir %>',
+          dest: '<%= props.angular.targetDir %>', src: [ '*.js', 'version.*' ] }]
       },
       jquery: {
-        files: [{ expand: true, dot: true, cwd: '<%= yeoman.jquery.buildDir %>',
-          dest: '<%= yeoman.jquery.targetDir %>', src: [ '*.js', 'version.*' ] }]
+        files: [{ expand: true, dot: true, cwd: '<%= props.jquery.buildDir %>',
+          dest: '<%= props.jquery.targetDir %>', src: [ '*.js', 'version.*' ] }]
       },
       jqueryui: {
-        files: [{ expand: true, dot: true, cwd: '<%= yeoman.jqueryui.buildDir %>',
-          dest: '<%= yeoman.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
+        files: [{ expand: true, dot: true, cwd: '<%= props.jqueryui.buildDir %>',
+          dest: '<%= props.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
       },
       dist: {
         files: [{
               expand: true,
               dot: true,
-              cwd: '<%= yeoman.app %>',
-              dest: '<%= yeoman.dist %>',
+              cwd: '<%= props.app %>',
+              dest: '<%= props.dist %>',
               src: [
                 '*.{ico,txt}',
                 '.htaccess'
@@ -219,8 +258,8 @@ module.exports = function (grunt) {
           {
               expand: true,
               dot: true,
-              cwd: '<%= yeoman.app %>/assets',
-              dest: '<%= yeoman.distVer() %>',
+              cwd: '<%= props.app %>/assets',
+              dest: '<%= props.distVersion() %>',
               src: [
                 'img/**',
                 'media/**',
@@ -229,25 +268,36 @@ module.exports = function (grunt) {
               ]
         }]
       },
-      local:    {
+      release:    {
         files:  [{
               expand : true,
               dot    : true,
-              cwd    : _path.join(__dirname,'dist'),
+              cwd    : path.join(__dirname,'dist'),
               src    : ['**'],
-              dest   : '/usr/local/share/nginx/demos/screenjack'
+              dest   : '<%= props.installPath() %>',
               }]
         }
-    }
+    },
+        link : {
+                options : {
+                    overwrite: true,
+                    force    : true,
+                    mode     : '755'
+                },
+                www : {
+                    target : '<%= props.installPath() %>',
+                    link   : path.join('<%= props.wwwPath() %>','<%= props.packageInfo.name %>')
+                }
+        }
   });
 
   grunt.renameTask('regarde', 'watch');
 
   grunt.registerTask('updatePackageVersion', function(){
-    var yeocfg     = grunt.config.get('yeoman');
-    yeocfg.version = getPackageVersion();
-    grunt.config.set('yeoman',yeocfg);
-    grunt.log.writeln('Package Version is: ' + yeocfg.version);
+    var props     = grunt.config.get('props');
+    props.packageInfo = grunt.file.readJSON('package.json');
+    grunt.config.set('props',props);
+    grunt.log.writeln('Package Version is: ' + props.version());
   });
 
   grunt.registerTask('server', [
@@ -268,111 +318,194 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'test',
     'cssmin',
     'htmlmin',
     'concat',
     'copy:dist',
-    'uglify'
+    'uglify',
+    'sed'
   ]);
 
   grunt.registerTask('release',function(type){
     type = type ? type : 'patch';
-    grunt.task.run('clean:dist');
-    grunt.task.run('test');
-    grunt.task.run('bumpup:' + type);
-    grunt.task.run('updatePackageVersion');
-    grunt.task.run('cssmin');
-    grunt.task.run('htmlmin');
-    grunt.task.run('concat');
-    grunt.task.run('copy:dist');
-    grunt.task.run('uglify');
-    grunt.task.run('sed');
-    grunt.task.run('clean:local');
-    grunt.task.run('copy:local');
+//    grunt.task.run('test');
+//    grunt.task.run('bumpup:' + type);
+//    grunt.task.run('updatePackageVersion');
+    grunt.task.run('build');
   });
 
   grunt.registerTask('default', ['release']);
-  /*****************************************************
-   * Vendor submodules
-   */
-  function npmInstallAndGrunt(fnComplete,sourceDir,gruntArgs) {
-      (function(done){
-              var opts = {
-                cmd : 'npm',
-                args : ['install'],
-                opts : {
-                  cwd : sourceDir,
-                  env : process.env
+
+    grunt.registerTask('mvbuild', 'Move the build to a release folder.', function(){
+        if (grunt.config.get('moved')){
+            grunt.log.writeln('Already moved!');
+            return;
+        }
+        var props = grunt.config.get('props'),
+            installPath = props.installPath();
+        grunt.log.writeln('Moving the module to ' + installPath);
+
+        if (fs.existsSync(installPath)){
+            grunt.log.writelns('Install dir (' + installPath +
+                                ') already exists, rotate.');
+
+            var stat = fs.statSync(installPath),
+                tag = stat.ctime.toISOString().replace(/\W/g,'');
+
+            fs.renameSync(installPath,installPath + '.' + tag);
+        }
+
+        grunt.task.run('copy:release');
+        grunt.config.set('moved',true);
+    });
+
+    grunt.registerMultiTask('link', 'Link release apps.', function(){
+        var opts = grunt.config.get('link.options'),
+            data = this.data;
+
+        if (!opts) {
+            opts = {};
+        }
+
+        if (!data.options){
+            data.options = {};
+        }
+
+        if (!opts.mode){
+            opts.mode = '0755';
+        }
+
+        if (opts){
+           Object.keys(opts).forEach(function(opt){
+                if (data.options[opt] === undefined){
+                    data.options[opt] = opts[opt];
                 }
-              };
-              grunt.util.spawn( opts, function(error, result, code) {
-                  if ((error) || (code)) {
-                    grunt.log.errorlns('npm install returns: error=' + error +
-                                        ', result=' + result +
-                                        ', code=' + code);
-                    done(false);
-                    return;
-                  }
-                  opts = {
-                    cmd : 'grunt',
-                    args : gruntArgs,
-                    opts : {
-                      cwd : sourceDir,
-                      env : process.env
-                    }
-                  };
-                  grunt.util.spawn( opts, function(error, result, code) {
-                    if ((error) || (code)) {
-                      grunt.log.errorlns('grunt package returns: error=' + error +
-                                          ', result=' + result +
-                                          ', code=' + code);
-                    }
-                    done(!error);
-                  });
-                });
-            })(fnComplete);
-    }
+           });
+        }
 
-  // Angular
-  grunt.registerTask('angular.build',   'Build angular', function(){
-      /*jshint validthis:true */
-      grunt.log.writeln('Building angular');
-      npmInstallAndGrunt(this.async(),
-          grunt.config.get('yeoman.angular.sourceDir'),['package']);
-  });
-  grunt.registerTask('angular.clean',   'Remove angular source & target dist',
-                                                                  ['clean:angular']);
-  grunt.registerTask('angular.install', 'Install angular', ['copy:angular']);
-  grunt.registerTask('angular',         'Build and install angular',
-          ['angular.clean','angular.build','angular.install']);
+        if (data.options.overwrite === true){
+            if (fs.existsSync(data.link)){
+                grunt.log.writelns('Removing old link: ' + data.link);
+                fs.unlinkSync(data.link);
+            }
+        }
 
-  // Jquery
-  grunt.registerTask('jquery.build',   'Build jquery', function(){
-      /*jshint validthis:true */
-      grunt.log.writeln('Building jquery');
-      npmInstallAndGrunt(this.async(),
-          grunt.config.get('yeoman.jquery.sourceDir'));
-  });
-  grunt.registerTask('jquery.clean',   'Remove jquery source & target dist',
-                                                                  ['clean:jquery']);
-  grunt.registerTask('jquery.install', 'Install jquery', ['copy:jquery']);
-  grunt.registerTask('jquery',         'Build and install jquery',
-          ['jquery.clean','jquery.build','jquery.install']);
+        if (data.options.force){
+            var linkDir = path.dirname(data.link);
+            if (!fs.existsSync(linkDir)){
+                grunt.log.writelns('Creating linkDir: ' + linkDir);
+                grunt.file.mkdir(linkDir, '0755');
+            }
+        }
 
-  // JqueryUI
-  grunt.registerTask('jqueryui.build',   'Build jqueryui', function(){
-      /*jshint validthis:true */
-      grunt.log.writeln('Building jqueryui');
-      npmInstallAndGrunt(this.async(),
-          grunt.config.get('yeoman.jqueryui.sourceDir'),['build']);
-  });
-  grunt.registerTask('jqueryui.clean',   'Remove jqueryui source & target dist',
-                                                                  ['clean:jqueryui']);
-  grunt.registerTask('jqueryui.install', 'Install jqueryui', ['copy:jqueryui']);
-  grunt.registerTask('jqueryui',         'Build and install jqueryui',
-          ['jqueryui.clean','jqueryui.build','jqueryui.install']);
+        grunt.log.writelns('Create link: ' + data.link + ' ==> ' + data.target);
+        fs.symlinkSync(data.target, data.link);
 
-  // All vendor
-  grunt.registerTask('vendor',['angular','jquery','videojs']);
+        grunt.log.writelns('Make link executable.');
+        fs.chmodSync(data.link,data.options.mode);
+
+        grunt.log.writelns(data.link + ' is ready.');
+    });
+
+    grunt.registerTask('install', 'Install', function(){
+        grunt.task.run('release');
+        grunt.task.run('mvbuild');
+        grunt.task.run('link');
+        grunt.task.run('rmbuild');
+    });
+
+    grunt.registerTask('rmbuild','Remove old copies of the install',function(){
+        var props       = grunt.config.get('props'),
+            installBase = props.packageInfo.name,
+            installPath = props.installPath(),
+            installRoot = path.dirname(installPath),
+            pattPart = new RegExp(installBase +  '_(\\d+)\\.(\\d+)\\.(\\d+)'),
+            pattFull = new RegExp(installBase +  '_\\d+\\.\\d+\\.\\d+\\.(\\d{8})T(\\d{9})Z'),
+            history     = grunt.config.get('rmbuild.history'),
+            contents = [];
+
+        if (history === undefined){
+            history = 2;
+        }
+        grunt.log.writelns('Max history: ' + history);
+
+        fs.readdirSync(installRoot).forEach(function(dir){
+            if (pattPart.test(dir)){
+                contents.push(dir);
+            }
+        });
+
+        if (contents){
+            var sorted = contents.sort(function(A,B){
+              var  mA = pattPart.exec(A),
+                   mB = pattPart.exec(B),
+                   i;
+               for (i = 1; i <= 3; i++){
+                   if (mA[i] !== mB[i]){
+                        return mA[i] - mB[i];
+                   }
+               }
+               // The version is the same
+               mA = pattFull.exec(A);
+               mB = pattFull.exec(B);
+               if (mA === null) { return 1; }
+               if (mB === null) { return -1; }
+               for (i = 1; i <= 2; i++){
+                   if (mA[i] !== mB[i]){
+                        return mA[i] - mB[i];
+                   }
+                }
+               return 1;
+            });
+            while (sorted.length > history){
+                var dir = sorted.shift();
+                grunt.log.writelns('remove: ' + dir);
+                fs.removeSync(path.join(installRoot,dir));
+            }
+        }
+    });
+
+    grunt.registerTask('gitversion','Get a version number using git commit', function(){
+        var done = this.async();
+        grunt.util.spawn({
+            cmd     : 'git',
+            args    : ['log','-n1','--format={ \"version\" : \"%h\", \"date\" : \"%ct\"}']
+        },function(err,result){
+            if (err) {
+                grunt.log.errorlns('Failed to get gitversion: ' + err);
+                return done(false);
+            }
+            var props = grunt.config.get('props');
+            props.gitVersion = JSON.parse(result.stdout);
+            if ((props.gitVersion.version === undefined) ||
+                            (props.gitVersion.date === undefined)) {
+                grunt.log.errorlns('Failed to parse version.');
+                return done(false);
+            }
+            grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion.version);
+            grunt.config.set('props',props);
+            return done(true);
+        });
+    });
+
+    grunt.registerTask('gitstatus','Make surethere are no pending commits', function(){
+        var done = this.async();
+        grunt.util.spawn({
+            cmd     : 'git',
+            args    : ['status','--porcelain']
+        },function(err,result){
+            if (err) {
+                grunt.log.errorlns('Failed to get git status: ' + err);
+                done(false);
+            }
+            if (result.stdout === '""'){
+                grunt.log.writelns('No pending commits.');
+                done(true);
+            }
+            grunt.log.errorlns('Please commit pending changes');
+            grunt.log.errorlns(result.stdout.replace(/\"/g,''));
+            done(false);
+        });
+    });
+
 };

@@ -1,6 +1,6 @@
 {
   "name": "bubbles",
-  "version": "0.0.11",
+  "version": "0.0.16",
   "description": "Cinema6 Bubble Thoughts demo.",
   "dependencies": {},
   "devDependencies": {
@@ -20,7 +20,8 @@
     "matchdep": "~0.1.1",
     "grunt-bumpup": "~0.2.0",
     "grunt-sed": "~0.1.1",
-    "phantomjs": "~1.9"
+    "phantomjs": "~1.9",
+    "fs-extra": "~0.6.1"
   },
   "engines": {
     "node": ">=0.8.0"

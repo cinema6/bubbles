@@ -55,7 +55,9 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.appCtrl = this;
 	
 	$scope.$watch('appCtrl.currentCategory()', function(category) {
-		self.experience = category? vsvc.getExperienceByCategory(category) : null;
+		if (self.experience.id !== vsvc.getExperienceByCategory(category).id) {
+			self.experience = category? vsvc.getExperienceByCategory(category) : null;
+		}
 	});
 	
 	$scope.$watch('appCtrl.experience', function(experience) {
@@ -152,8 +154,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.loadCategory = function(category) {
 		category = angular.lowercase(category);
 		
-		/*$scope.appCtrl.experience = vsvc.getExperienceByCategory(category);
-		console.log($scope.appCtrl.experience);*/
+		$scope.appCtrl.experience = vsvc.getExperienceByCategory(category);
 		$scope.appCtrl.goToRoute('/entry/' + category);
 	}
 	

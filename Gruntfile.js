@@ -471,17 +471,17 @@ module.exports = function (grunt) {
         grunt.util.spawn({
             cmd     : 'git',
             args    : ['log','-n1','--format={ \"version\" : \"%h\", \"date\" : \"%ct\"}']
-        },function(err,result,code){
+        },function(err,result){
             if (err) {
                 grunt.log.errorlns('Failed to get gitversion: ' + err);
                 return done(false);
             }
             var props = grunt.config.get('props');
             props.gitVersion = JSON.parse(result.stdout);
-            if ((props.gitVersion.version === undefined) || 
+            if ((props.gitVersion.version === undefined) ||
                             (props.gitVersion.date === undefined)) {
                 grunt.log.errorlns('Failed to parse version.');
-                return done(false); 
+                return done(false);
             }
             grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion.version);
             grunt.config.set('props',props);
@@ -494,7 +494,7 @@ module.exports = function (grunt) {
         grunt.util.spawn({
             cmd     : 'git',
             args    : ['status','--porcelain']
-        },function(err,result,code){
+        },function(err,result){
             if (err) {
                 grunt.log.errorlns('Failed to get git status: ' + err);
                 done(false);

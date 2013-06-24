@@ -37,7 +37,8 @@ module.exports = function (grunt) {
         return ('v' + this.packageInfo.version.replace(/\./g,'_'));
     };
     initProps.installDir = function() {
-        return (initProps.packageInfo.name + '_' + initProps.packageInfo.version);
+        //return (initProps.packageInfo.name + '_' + initProps.packageInfo.version);
+        return (initProps.packageInfo.name + '.' + initProps.gitVersion.date);
     };
     initProps.installPath = function(){
         return (path.join(initProps.prefix, 'releases', initProps.installDir()));
@@ -328,6 +329,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('release',function(type){
     type = type ? type : 'patch';
+    grunt.task.run('gitversion');
 //    grunt.task.run('test');
 //    grunt.task.run('bumpup:' + type);
 //    grunt.task.run('updatePackageVersion');
@@ -466,7 +468,23 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('gitversion','Get a version number using git commit', function(){
-        var done = this.async();
+        var done = this.async(),
+            handleVersionData = function(data){
+                var props = grunt.config.get('props');
+                if ((data.version === undefined) || (data.date === undefined)){
+                    grunt.log.errorlns('Failed to parse version.');
+                    return done(false); 
+                }
+                props.gitVersion = data;
+                grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion.version);
+                grunt.config.set('props',props);
+                return done(true);
+            };
+        
+        if (grunt.file.isFile('version.json')){
+            return handleVersionData(grunt.file.readJSON('version.json'));
+        }
+
         grunt.util.spawn({
             cmd     : 'git',
             args    : ['log','-n1','--format={ \"version\" : \"%h\", \"date\" : \"%ct\"}']
@@ -475,16 +493,7 @@ module.exports = function (grunt) {
                 grunt.log.errorlns('Failed to get gitversion: ' + err);
                 return done(false);
             }
-            var props = grunt.config.get('props');
-            props.gitVersion = JSON.parse(result.stdout);
-            if ((props.gitVersion.version === undefined) || 
-                            (props.gitVersion.date === undefined)) {
-                grunt.log.errorlns('Failed to parse version.');
-                return done(false); 
-            }
-            grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion.version);
-            grunt.config.set('props',props);
-            return done(true);
+            handleVersionData(JSON.parse(result.stdout));
         });
     });
 

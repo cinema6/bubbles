@@ -4,12 +4,12 @@ html { height: 100%; width: 100%;}
 body { margin: 0; padding: 0; font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;}
 button {border: none; cursor: pointer; padding: 0; margin: 0;}
 ul {list-style: none;}
-button:disabled {opacity: 0.5;}
+button:disabled {opacity: 0.15;}
 input {cursor: text;}
 
 .ir {width:0; height:0; display: block; overflow: hidden; }
 .hidden {display: none;}
-.disabled {opacity: 0.5;}
+.disabled {opacity: 0.15;}
 
 .paperTexture { background: url('../media/bg_tile.jpg') repeat;}
 .c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0; }
@@ -104,7 +104,19 @@ input {cursor: text;}
 /*         C6 BAR END           */
 
 /*      START SCREEN BEGIN      */
-    .startScreen {position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5; display: block;}
+    .startScreen {position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5; display: block;
+        -ms-transform-origin: 0% 0%; /* IE 9 */
+        -moz-transform-origin: 0% 0%; /* Firefox */
+        -o-transform-origin: 0% 0%; /* Opera */
+        -webkit-transform-origin: 0% 0%; /* Safari and Chrome */
+        transform-origin: 0% 0%;
+
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -moz-transform: rotate(0deg); /* Firefox */
+        -o-transform: rotate(0deg); /* Opera */
+        -webkit-transform: rotate(0deg); /* Safari and Chrome */
+        transform: rotate(0deg);        
+    }
 
      /* content */
          .category__group {
@@ -161,10 +173,11 @@ input {cursor: text;}
      /* artwork */
          .startScreen__logo {
             background: url('../media/logo_pen.png') no-repeat top left;
-            background-size: 42.66% auto;            
+            background-size: 61.66% auto;            
             top: 0;
             left: 0;
             margin-top: -28.96%;
+            margin-left: -19.56%;
             width: 100%;
             height: 200%;
             z-index: -1;
@@ -181,7 +194,7 @@ input {cursor: text;}
                 }
             }
 
-         .startScreen__bgArtwork {
+        .startScreen__bgArtwork {
             background: url('../media/paperball.png') no-repeat bottom right;
             width: 100%; 
             height: 100%;
@@ -203,12 +216,12 @@ input {cursor: text;}
 
 
 /*      INPUT SCREEN BEGIN      */
-    .inputScreen {width: 100%; height: 100%; position: absolute; z-index: 4;  opacity: 1; display: block;
-        -ms-transform-origin: 100% 0%; /* IE 9 */
-        -moz-transform-origin: 100% 0%; /* Firefox */
-        -o-transform-origin: 100% 0%; /* Opera */
-        -webkit-transform-origin: 100% 0%; /* Safari and Chrome */
-        transform-origin: 100% 0%;
+    .inputScreen {width: 100%; height: 100%; position: absolute; z-index: 4; opacity: 1; display: block;
+        -ms-transform-origin: 0% 0%; /* IE 9 */
+        -moz-transform-origin: 0% 0%; /* Firefox */
+        -o-transform-origin: 0% 0%; /* Opera */
+        -webkit-transform-origin: 0% 0%; /* Safari and Chrome */
+        transform-origin: 0% 0%;
 
         -ms-transform: rotate(0deg); /* IE 9 */
         -moz-transform: rotate(0deg); /* Firefox */
@@ -228,66 +241,83 @@ input {cursor: text;}
         margin: -120px 0  0 -361px;
       }
         @media screen and (max-width: 768px) {
-            .content {
-                width: 480px;
-                margin: -70px 0  0 -240px;
-                position: absolute;
-            }
+            .content { width: 480px; margin: -70px 0  0 -240px; position: absolute;}
         }
 
         .question__group {padding: 0;}
-        .question__number {display: inline-block; width: 100%; height: 4.9%; margin: 2% 0 0 0; text-align: center; font-size: 16px; color: #252525;}
-        .question__query {width: 100%; height: 11%; margin: 1% 0 0 0; text-align: center; font-size: 32px; display: block; }
-        
-        .question__characterCount {
-            font-size: 15px; 
-            width: 68%; 
-            text-align: right; 
-            top: 65%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            position: absolute;
-        }
+            .question__prompt {
+                opacity: 1;
+                position: absolute;
+                width: 75%;
+                text-align: center;
+                top: 5%;
+                left: 50%;
+                margin: 0 0 0 -37.5%;
+            }
 
-        .question__userAnswer {
-            border: 0;
-            background: none;
-            font-family: "Courier Prime", Courier, Times, serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: #c20000;
-            width: 68%;
-            top: 50%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            position: absolute;
-            z-index: 1;
-         }
-         .question__userAnswer:focus {outline:none;}
-         .question__userAnswer::-ms-clear {display:none;} /*remove X from IE10*/
+                .question__number {
+                    display: inline-block; 
+                    width: 100%; 
+                    height: 4.9%; 
+                    margin: 2% 0 0 0; 
+                    text-align: center; 
+                    font-size: 16px; 
+                    color: #252525; 
+                    opacity: 1;
+                }
 
-         .question__inputSpace {
-            position: absolute; 
-            background: url('../media/inputLine.jpg') bottom center no-repeat;
-            height: 13%; 
-            width: 68%;
-            top: 50%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            z-index: -1;
-        }
-        
-        /* ipad only */
-        .question__inputCheck {
-            background: url("../media/input_check.png") right no-repeat;
-            height: 32px;
-            width: 68%;
-            top: 50%;
-            left: 50%;
-            margin: 0 0 0 -34%;
-            position: absolute;
-            z-index: -2;
-        }
+                .question__query {
+                    width: 100%; 
+                    height: 11%; 
+                    margin: 1% 0 0 0; 
+                    text-align: center; 
+                    font-size: 32px; 
+                    display: block; 
+                    opacity: 1;
+                }
+            
+            .question__userAnswer {
+                position: absolute;
+                width: 68%;
+                height: 10%;
+                top: 50%;
+                left: 50%;
+                margin: 0 0 0 -34%;
+            }
+                .question__input {
+                    width: 100%;
+                    border: 0;
+                    background-color: none;
+                    background: url('../media/inputLine.jpg') bottom center no-repeat;
+                    font-family: "Courier Prime", Courier, Times, serif;
+                    font-size: 28px;
+                    font-weight: 700;
+                    color: #c20000;
+                    z-index: 1;
+                 }
+                 .question__input:focus {outline:none;}
+                 .question__input::-ms-clear {display:none;} /*remove X from IE10*/
+
+                 .question__characterCount {
+                    width: 100%;
+                    height: 21px;
+                    font-size: 15px; 
+                    text-align: right; 
+                    position: absolute;
+                    top: 16px;
+                }
+
+                /* ipad only */
+                .question__inputCheck {
+                    background: url("../media/input_check.png") right no-repeat;
+                    height: 32px;
+                    width: 68%;
+                    top: 50%;
+                    left: 50%;
+                    margin: 0 0 0 -34%;
+                    position: absolute;
+                    z-index: -2;
+                }
 
         .question__btnPrevious {
             background: url('../media/btn_previous_default.png') no-repeat bottom left; 
@@ -300,7 +330,7 @@ input {cursor: text;}
             margin: 5% 0 0 0;
             z-index: 5;  
          }
-         .question__btnPrevious:active {background: url('../media/btn_previous_tap.png') no-repeat bottom left; background-size: 100% auto;}
+            .question__btnPrevious:active {background: url('../media/btn_previous_tap.png') no-repeat bottom left; background-size: 100% auto;}
 
         .question__btnNext {
             background: url('../media/btn_next_default.png') no-repeat bottom right; 
@@ -312,7 +342,7 @@ input {cursor: text;}
             position: absolute;
             z-index: 5;  
          }
-         .question__btnNext:active {background: url('../media/btn_next_tap.png') no-repeat bottom right;}
+            .question__btnNext:active {background: url('../media/btn_next_tap.png') no-repeat bottom right;}
 
         .question__btnStart {
             background: url('../media/btn_start_default.png') center no-repeat; 
@@ -323,21 +353,16 @@ input {cursor: text;}
             left: 36.5%;
             top: 75%;
          }
+            .question__btnStart:active {background: url('../media/btn_start_tap.png') center no-repeat;}
+
             @media screen and (max-width: 768px) {
-                .question__btnStart {
-                    width: 50%;
-                    top: 70%;
-                    left: 25%;
-                }
+                .question__btnStart { width: 50%; top: 70%; left: 25%; }
             }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                .question__btnStart {
-                    top: 60%;
-                }
+                .question__btnStart { top: 65%;}
             }
 
-         .question__btnStart:active {background: url('../media/btn_start_tap.png') center no-repeat;}
-
+         
         .inputScreen__btnClose {
             background: url('../media/btn_close_default.png');
             background-size: cover;
@@ -349,13 +374,10 @@ input {cursor: text;}
             display: block;
             z-index: 1;
          }
+         .inputScreen__btnClose:active {background: url('../media/btn_close_tap.png'); background-size: cover;}
             @media screen and (max-width: 768px) {
-                .inputScreen__btnClose {
-                    height: 42px;
-                    width: 50px;
-                }
+                .inputScreen__btnClose { height: 42px; width: 50px; }
             }     
-         .inputScreen__btnClose:active {background: url('../media/btn_close_tap.png');}
 
         .progressDock {
             height: 30px;
@@ -385,7 +407,7 @@ input {cursor: text;}
      .inputScreen__bgArtwork {
         background: url('../media/paperball.png') no-repeat bottom left; 
         width: 100%;
-        height: 100%;
+        height: 150%;
         position: absolute;
         z-index: 0;
         bottom: -300px;
@@ -411,62 +433,53 @@ input {cursor: text;}
     top: 0; 
     opacity: 1;
  }
+ .experience__group {height: 100%; width:100%;}
+ .experience__logo {
+    top: 46px;
+    left: 12px;
+    position: fixed;
+    z-index: 99;
+    opacity: 1;
+    width: 25%;
+ }
+    .experience__logo img {
+        height: auto;
+        width: 100%;
+    }
 
  #player {
-    position: absolute; 
-    margin: 0 auto; 
-    width:100%; 
-    height: 100%; 
-    z-index: 9; 
+    position: relative; 
+    padding: 1%;
+    width: 90%; 
+    height: 90%;
+    margin-left: -46%;
+    top: 30px; 
+    left: 50%;
+    z-index: 5; 
     opacity: 0;
  }
 
- .annotations {
-    list-style: none;
-    padding: 0px;
-    height: 684px;
-    width: 1280px; 
-    margin: -396px 0 0 -640px; 
-    position: fixed; 
-    top: 45%; 
-    left: 50%;
+ .annotations{
     z-index: 100;
-    bottom: 100px;
+    position: absolute;
+    padding: 0;
+    left: 50%; 
+    top: 50%;
  }
-        .a-text {
-            display: block;
-            text-align: center;
-            padding: 5%;
-            width: 100%;
-        }
-
-        .a-tail-top {
-            height: 35px;
-            width: 100%;
-            position: absolute;
-            left: 0;
-            top: -25px;
-            z-index: 105;
-        }
-
-        .a-tail-bottom {
-            height: 35px;
-            width: 100%;
-            position: absolute;
-            left: 0;
-            bottom: -25px; 
-            z-index: 105;   
-        }
+    .annotation {   
+        position: relative;
+        opacity: 1;
+    }
 /*      EXPERIENCE END           */
 
 
 /*      END SCREEN BEGIN        */
     .endScreen {width: 100%; height: 100%; position: absolute; opacity: 1; 
-        -ms-transform-origin: 100% 0%; /* IE 9 */
-        -moz-transform-origin: 100% 0%; /* Firefox */
-        -o-transform-origin: 100% 0%; /* Opera */
-        -webkit-transform-origin: 100% 0%; /* Safari and Chrome */
-        transform-origin: 100% 0%;
+        -ms-transform-origin: 0% 0%; /* IE 9 */
+        -moz-transform-origin: 0% 0%; /* Firefox */
+        -o-transform-origin: 0% 0%; /* Opera */
+        -webkit-transform-origin: 0% 0%; /* Safari and Chrome */
+        transform-origin: 0% 0%;
 
         -ms-transform: rotate(0deg); /* IE 9 */
         -moz-transform: rotate(0deg); /* Firefox */
@@ -528,24 +541,21 @@ input {cursor: text;}
 
     /* artwork */
      .endScreen__logo {
-        margin: -31% 0 0 -18%; 
-        width: 125%;
-        height: 10px;
+        width: 1000px;
+        margin: -305px 0 0 -185px;
         position: absolute;
-        top: 0;
-        left: 0;
         z-index: 2;
-        overflow: visible;
-        background: white;
-     }
+    }
         @media screen and (max-width: 768px) {
             .endScreen__logo {
-                margin: -24% 0 0 -18%;
+                width: 600px;
+                margin: -160px 0 0 -110px;
             } 
         }
         @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
             .endScreen__logo {
-                margin: -46% 0 0 -18%;
+                width: 1000px;
+                margin: -305px 0 0 -185px;
             }
         }
 

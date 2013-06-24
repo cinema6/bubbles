@@ -1,7 +1,7 @@
 <!--        INPUT SCREEN      -->
 <div class="inputScreen" >
     <!--artwork-->
-     <header class="inputScreen__logo"><h1 class="ir">Screenjacked</h1></header>           
+     <header class="inputScreen__logo"><img ng-src="assets/media/logo_small_{{appCtrl.category()}}.png"></header>       
      <div class="inputScreen__bgArtwork">&nbsp;</div>
     
     <!--content-->
@@ -20,19 +20,24 @@
 	                    		{{inputCtrl.promptModel.prompts[$index].query}}
 	                    </h2>
                     </div>
-                    <input
-                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
-                    	ng-disabled="appCtrl.inExperience"
-                    	c6-on="newPrompt: {$this.focus();}, experienceStart: {$this.prop('disabled', true); $this.blur();}"
-                    	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
-                        class="question__userAnswer"
-                        type="text"
-                        type="text"
-                        name="response"
-                        c6-ios-keyboard="input"
-                        autocomplete="off">
-                    </input>
-                    <div class="question__inputSpace">&nbsp;</div>
+                    <div class="question__userAnswer"
+                        
+                        ng-animate="'response-' + inputCtrl.currentDirection" >
+                        <input
+                        	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
+                        	ng-disabled="appCtrl.inExperience"
+                        	c6-on="newPrompt: {$this.focus();}, experienceStart: {$this.prop('disabled', true); $this.blur();}"
+                        	c6-sfx="{keydown: 'type'}"
+                        	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
+                            class="question__input"
+                            type="text"
+                            type="text"
+                            name="response"
+                            c6-ios-keyboard="input"
+                            autocomplete="off">
+                        </input>
+                        <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
+                    </div>
                 </li>
                 <div
                 	ng-if="inputCtrl.currentResponse().length? true : false"
@@ -42,15 +47,16 @@
                 </div>
                 <button
                 class="question__btnStart"
-                ng-if="inputCtrl.isDone()"
+                ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
                 ng-animate="'start-button'"
-                ng-disabled="!inputCtrl.currentResponse()"
+                c6-sfx="{click: 'yank'}"
                 ng-click="inputCtrl.startExperience();">
                 <span class="ir">Start</span>
             </button>
             
             <button
                 class="question__btnNext"
+                c6-sfx="{click: 'bell'}"
                 ng-disabled="!inputCtrl.canGoForward()"
                 ng-click="inputCtrl.nextQuestion();"
                 name="next">
@@ -64,7 +70,7 @@
                 name="prev">
                 <span class="ir">Prev</span>
             </button>
-            <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
+            
             </ul>
 
             

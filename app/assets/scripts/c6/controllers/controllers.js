@@ -38,10 +38,19 @@ function PromptModel(experience) {
 
 angular.module('c6.ctrl',['c6.svc'])
 
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$routeParams', 'c6VideoListingService', function($log, $scope, $location, $routeParams, vsvc) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$routeParams', 'c6VideoListingService', 'appBaseUrl', 'C6SfxService', function($log, $scope, $location, $routeParams, vsvc, appBase, sfxSvc) {
 	$log.log('Creating C6AppCtrl');
 	var self = this;
 	
+	sfxSvc.loadSounds([
+		{ name: 'type', src: appBase + '/media/tw_strike' },
+		{ name: 'bell', src: appBase + '/media/tw_bell' },
+		{ name: 'pop', src: appBase + '/media/pop_1' },
+		{ name: 'yank', src: appBase + '/media/tw_yank' }
+	]);
+	sfxSvc.playSoundOnEvent('pop', 'annotationActivated');
+	
+	this.sfxSvc = sfxSvc;
 	this.inExperience = false;
 	this.experience = null;
 	this.promptModel = null;
@@ -122,6 +131,7 @@ angular.module('c6.ctrl',['c6.svc'])
 			if ((time >= ts) && (time <= (ts + duration))) {
 				if (!inActiveArray) {
 					self.activeAnnotations.push(annotation);
+					$scope.$emit('annotationActivated');
 					$log.log('Activated annotation: ' + annotation.text);
 				}
 			} else {

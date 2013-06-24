@@ -10,15 +10,13 @@ require.config({
 
 var c6Scripts;
 if (__C6_BUILD_VERSION__) {
-    c6Scripts = [ 'scripts/c6app.min' ];
+    c6Scripts = [   'scripts/c6app.min' ];
 } else {
-    c6Scripts = [   'assets/lib/c6media/c6lib.video.js',
-    				'scripts/c6/app',
+    c6Scripts = [   'scripts/c6/app',
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
                     'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives',
-                    'scripts/c6/directives/videonode'
                     ];
 }
 
@@ -28,8 +26,10 @@ require([   'lib/jquery/jquery.min',
             /*'lib/jqueryui/jquery-ui.min'*/], function(){
 
     require(['lib/angular/angular.min'],function(){
-        require(c6Scripts, function(){
-            angular.bootstrap(document, ['c6.app']);
+        require(['lib/c6media/c6lib.video.min'],function(){
+            require(c6Scripts, function(){
+                angular.bootstrap(document, ['c6.app']);
+            });
         });
     });
 });

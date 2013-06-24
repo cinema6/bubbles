@@ -306,6 +306,11 @@ input {cursor: text;}
                     position: absolute;
                     top: 16px;
                 }
+                    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
+                        .question__characterCount {
+                            width: 102%;
+                        }
+                    }
 
                 /* ipad only */
                 .question__inputCheck {
@@ -359,7 +364,7 @@ input {cursor: text;}
                 .question__btnStart { width: 50%; top: 70%; left: 25%; }
             }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                .question__btnStart { top: 65%;}
+                .question__btnStart { top: 70%;}
             }
 
          
@@ -452,7 +457,7 @@ input {cursor: text;}
     padding: 1%;
     width: 98%; 
     height: 90%;
-    margin-left: -46%;
+    margin-left: -47%;
     top: 30px; 
     left: 47%;
     z-index: 5; 

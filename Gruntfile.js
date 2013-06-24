@@ -171,7 +171,7 @@ module.exports = function (grunt) {
       },
       e2e: {
         configFile: 'test/karma-e2e.' + os.platform() + '.conf.js',
-        singleRun: false
+        singleRun: true
       }
     },
     concat: {
@@ -310,11 +310,11 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
-    //'jshint',
-   'clean:server',
+    'jshint',
+    'clean:server',
     'livereload-start',
     'connect:livereload',
-    'karma'
+    'karma:unit'
   ]);
 
   grunt.registerTask('build', [

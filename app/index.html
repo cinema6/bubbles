@@ -56,8 +56,8 @@
           	ng-repeat="a in annoCtrl.annotationsModel.annotations"
           	ng-show="annoCtrl.annotationIsActive(a)"
           	ng-animate="appCtrl.experience.anim + '-annotation'"
-          	ng-class="' annotation'">
-            <div class="a-style" ng-class="a.cls.join(' ')">
+          	ng-class="' annotation ' + a.cls.join(' ')">
+            <div class="a-style">
               <div class="a-frame">
                 <div class="a-text">
                   {{a.text}}

@@ -13,7 +13,7 @@ module.exports = function (grunt) {
 
   // configurable paths
   var initProps = {
-        prefix      : process.env['HOME'],
+        prefix      : process.env.HOME,
         app         : path.join(__dirname,'app'),
         dist        : path.join(__dirname,'dist'),
         packageInfo : grunt.file.readJSON('package.json'),
@@ -33,22 +33,22 @@ module.exports = function (grunt) {
             'targetDir' : path.join(__dirname,'app','assets','lib','jqueryui')
           }
       };
-    
+
     initProps.version     = function(){
         return ('v' + this.packageInfo.version.replace(/\./g,'_'));
     };
     initProps.installDir = function() {
         return (initProps.packageInfo.name + '_' + initProps.packageInfo.version);
-    }
+    };
     initProps.installPath = function(){
         return (path.join(initProps.prefix, 'releases', initProps.installDir()));
-    }
+    };
     initProps.wwwPath = function(){
         return path.join(initProps.prefix, 'www' );
-    }
-    initProps.distVersion= function() { 
-        return path.join(this.dist, this.version()); 
-    }
+    };
+    initProps.distVersion= function() {
+        return path.join(this.dist, this.version());
+    };
 
   grunt.initConfig({
     props: initProps,
@@ -144,7 +144,7 @@ module.exports = function (grunt) {
             replacement: '<%= props.version() %>',
             path: '<%= props.distVersion() %>/views/input.html'
         },
-        input_mobile: {
+        inputMobile: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',
             path: '<%= props.distVersion() %>/views/input_mobile.html'
@@ -285,7 +285,7 @@ module.exports = function (grunt) {
               dot    : true,
               cwd    : path.join(__dirname,'dist'),
               src    : ['**'],
-              dest   : '<%= props.installPath() %>', 
+              dest   : '<%= props.installPath() %>',
               }]
         }
     },
@@ -356,13 +356,13 @@ module.exports = function (grunt) {
         var props = grunt.config.get('props'),
             installPath = props.installPath();
         grunt.log.writeln('Moving the module to ' + installPath);
-        
+
         if (fs.existsSync(installPath)){
-            grunt.log.writelns('Install dir (' + installPath + 
+            grunt.log.writelns('Install dir (' + installPath +
                                 ') already exists, rotate.');
-           
+
             var stat = fs.statSync(installPath),
-                tag = stat.ctime.toISOString().replace(/\W/g,''); 
+                tag = stat.ctime.toISOString().replace(/\W/g,'');
 
             fs.renameSync(installPath,installPath + '.' + tag);
         }
@@ -370,7 +370,7 @@ module.exports = function (grunt) {
         grunt.task.run('copy:release');
         grunt.config.set('moved',true);
     });
-    
+
     grunt.registerMultiTask('link', 'Link release apps.', function(){
         var opts = grunt.config.get('link.options'),
             data = this.data;
@@ -386,7 +386,7 @@ module.exports = function (grunt) {
         if (!opts.mode){
             opts.mode = '0755';
         }
-    
+
         if (opts){
            Object.keys(opts).forEach(function(opt){
                 if (data.options[opt] === undefined){
@@ -403,7 +403,7 @@ module.exports = function (grunt) {
         }
 
         if (data.options.force){
-            var linkDir = path.dirname(data.link);        
+            var linkDir = path.dirname(data.link);
             if (!fs.existsSync(linkDir)){
                 grunt.log.writelns('Creating linkDir: ' + linkDir);
                 grunt.file.mkdir(linkDir, '0755');
@@ -415,17 +415,17 @@ module.exports = function (grunt) {
 
         grunt.log.writelns('Make link executable.');
         fs.chmodSync(data.link,data.options.mode);
-        
+
         grunt.log.writelns(data.link + ' is ready.');
     });
-    
+
     grunt.registerTask('install', 'Install', function(){
         grunt.task.run('release');
         grunt.task.run('mvbuild');
         grunt.task.run('link');
         grunt.task.run('rmbuild');
     });
-    
+
     grunt.registerTask('rmbuild','Remove old copies of the install',function(){
         var props       = grunt.config.get('props'),
             installBase = props.packageInfo.name,
@@ -433,9 +433,9 @@ module.exports = function (grunt) {
             installRoot = path.dirname(installPath),
             pattPart = new RegExp(installBase +  '_(\\d+)\\.(\\d+)\\.(\\d+)'),
             pattFull = new RegExp(installBase +  '_\\d+\\.\\d+\\.\\d+\\.(\\d{8})T(\\d{9})Z'),
-            history     = grunt.config.get('rmbuild.history'), 
+            history     = grunt.config.get('rmbuild.history'),
             contents = [];
-       
+
         if (history === undefined){
             history = 2;
         }
@@ -446,13 +446,14 @@ module.exports = function (grunt) {
                 contents.push(dir);
             }
         });
-        
+
         if (contents){
             var sorted = contents.sort(function(A,B){
               var  mA = pattPart.exec(A),
-                   mB = pattPart.exec(B);
-               for (var i = 1; i <= 3; i++){
-                   if (mA[i] != mB[i]){
+                   mB = pattPart.exec(B),
+                   i;
+               for (i = 1; i <= 3; i++){
+                   if (mA[i] !== mB[i]){
                         return mA[i] - mB[i];
                    }
                }
@@ -461,12 +462,12 @@ module.exports = function (grunt) {
                mB = pattFull.exec(B);
                if (mA === null) { return 1; }
                if (mB === null) { return -1; }
-               for (var i = 1; i <= 2; i++){
-                   if (mA[i] != mB[i]){
+               for (i = 1; i <= 2; i++){
+                   if (mA[i] !== mB[i]){
                         return mA[i] - mB[i];
                    }
                 }
-               return 1; 
+               return 1;
             });
             while (sorted.length > history){
                 var dir = sorted.shift();
@@ -475,4 +476,48 @@ module.exports = function (grunt) {
             }
         }
     });
+
+    grunt.registerTask('gitversion','Get a version number using git commit', function(){
+        var done = this.async();
+        grunt.util.spawn({
+            cmd     : 'git',
+            args    : ['log','-n1','--format={ \"version\" : \"%h\", \"date\" : \"%ct\"}']
+        },function(err,result){
+            if (err) {
+                grunt.log.errorlns('Failed to get gitversion: ' + err);
+                return done(false);
+            }
+            var props = grunt.config.get('props');
+            props.gitVersion = JSON.parse(result.stdout);
+            if ((props.gitVersion.version === undefined) ||
+                            (props.gitVersion.date === undefined)) {
+                grunt.log.errorlns('Failed to parse version.');
+                return done(false);
+            }
+            grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion.version);
+            grunt.config.set('props',props);
+            return done(true);
+        });
+    });
+
+    grunt.registerTask('gitstatus','Make surethere are no pending commits', function(){
+        var done = this.async();
+        grunt.util.spawn({
+            cmd     : 'git',
+            args    : ['status','--porcelain']
+        },function(err,result){
+            if (err) {
+                grunt.log.errorlns('Failed to get git status: ' + err);
+                done(false);
+            }
+            if (result.stdout === '""'){
+                grunt.log.writelns('No pending commits.');
+                done(true);
+            }
+            grunt.log.errorlns('Please commit pending changes');
+            grunt.log.errorlns(result.stdout.replace(/\"/g,''));
+            done(false);
+        });
+    });
+
 };

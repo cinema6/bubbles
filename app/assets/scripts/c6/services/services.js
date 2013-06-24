@@ -201,7 +201,7 @@ angular.module('c6.svc',[])
                     'Superhero',
                     { query : 'Body Part (plural)', sizeLimit : 10},
                     { query : 'Pizza topping', sizeLimit : 10},
-                    'Household appliance',
+                    { query : 'Household appliance', sizeLimit : 12},
                     'Sesame Street character',
                     'Star Wars villian',
                     'TV personality',

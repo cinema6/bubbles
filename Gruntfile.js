@@ -8,11 +8,11 @@ var fs          = require('fs-extra'),
     os = require('os');
 
 module.exports = function (grunt) {
-  // load all grunt tasks
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    // load all grunt tasks
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-  // configurable paths
-  var initProps = {
+    // configurable paths
+    var initProps = {
         prefix      : process.env.HOME,
         app         : path.join(__dirname,'app'),
         dist        : path.join(__dirname,'dist'),
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
             'buildDir'  : path.join(__dirname,'vendor','jqueryui','dist'),
             'targetDir' : path.join(__dirname,'app','assets','lib','jqueryui')
           }
-      };
+        };
 
     initProps.version     = function(){
         return this.gitLastCommit.commit;
@@ -44,8 +44,8 @@ module.exports = function (grunt) {
 
     initProps.installDir = function() {
         grunt.log.writelns('THIS: ' + Object.keys(this).toString());
-        return (this.name() + '.' + 
-                this.gitLastCommit.date + '.' + 
+        return (this.name() + '.' +
+                this.gitLastCommit.date + '.' +
                 this.gitLastCommit.commit);
     };
     initProps.installPath = function(){
@@ -58,284 +58,288 @@ module.exports = function (grunt) {
         return path.join(this.dist, this.gitLastCommit.commit);
     };
 
-  grunt.initConfig({
-    props: initProps,
-    watch: {
-      livereload: {
-        files: [
-          '<%= props.app %>/{,*/}*.html',
-          '<%= props.app %>/assets/views/{,*/}*.html',
-          '{.tmp,<%= props.app %>}/assets/styles/{,*/}*.css',
-          '{.tmp,<%= props.app %>}/assets/scripts/{,*/}*.js',
-          '{.tmp,<%= props.app %>}/assets/scripts/c6/{,*/}*.js',
-          '<%= props.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ],
-        tasks: ['livereload']
-      }
-    },
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '0.0.0.0'
-      },
-      livereload: {
-        options: {
-          middleware: function (connect) {
-            return [
-              lrSnippet,
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, initProps.app)
-            ];
-          }
-        }
-      },
-      test: {
-        options: {
-          middleware: function (connect) {
-            return [
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'test'),
-              mountFolder(connect, initProps.app)
-            ];
-          }
-        }
-      }
-    },
-    open: {
-      server: {
-        url: 'http://localhost:<%= connect.options.port %>'
-      }
-    },
-    bumpup: 'package.json',
-    clean: {
-      dist: {
-        files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            '<%= props.dist %>/*',
-            '!<%= props.dist %>/.git*'
-          ]
-        }]
-      },
-      server: '.tmp'
-    },
-    sed: {
-        index: {
-            pattern: 'assets',
-            replacement: '<%= props.version() %>',
-            path: '<%= props.dist %>/index.html'
-        },
-        index2: {
-            pattern: 'ng-app="c6.app" ',
-            replacement: '',
-            path: '<%= props.dist %>/index.html'
-        },
-        categories: {
-            pattern: 'assets',
-            replacement: '<%= props.version() %>',
-            path: '<%= props.distVersionPath() %>/views/categories.html'
-        },
-        input: {
-            pattern: 'assets',
-            replacement: '<%= props.version() %>',
-            path: '<%= props.distVersionPath() %>/views/input.html'
-        },
-        inputMobile: {
-            pattern: 'assets',
-            replacement: '<%= props.version() %>',
-            path: '<%= props.distVersionPath() %>/views/input_mobile.html'
-        },
-        end: {
-            pattern: 'assets',
-            replacement: '<%= props.version() %>',
-            path: '<%= props.distVersionPath() %>/views/end.html'
-        },
-        experience: {
-            pattern: 'assets',
-            replacement: '<%= props.version() %>',
-            path: '<%= props.distVersionPath() %>/views/experience.html'
-        },
-        main: {
-            pattern: 'undefined',
-            replacement: '\'<%= props.version() %>\'',
-            path: '<%= props.distVersionPath() %>/scripts/main.js'
-        }
-    },
-    jshint: {
-      options: {
-        jshintrc: '.jshintrc'
-      },
-      all: [
-        'Gruntfile.js',
-        '<%= props.app %>/assets/scripts/**/{,*/}*.js'
-      ]
-    },
-    karma: {
-      unit: {
-        configFile: 'test/karma.conf.js',
-        singleRun: true
-      },
-      e2e: {
-        configFile: 'test/karma-e2e.' + os.platform() + '.conf.js',
-        singleRun: true
-      }
-    },
-    concat: {
-      dist: {
-        files: {
-          '.tmp/scripts/c6app.js' : [
-            '<%= props.app %>/assets/scripts/c6/app.js',
-            '<%= props.app %>/assets/scripts/c6/services/services.js',
-            '<%= props.app %>/assets/scripts/c6/controllers/controllers.js',
-            '<%= props.app %>/assets/scripts/c6/directives/directives.js',
-            '<%= props.app %>/assets/scripts/c6/animations/animations.js'
-          ]
-        }
-      }
-    },
-    cssmin: {
-        dist:    {
-                    expand: true,
-                    flatten: true,
-                    src:    ['<%= props.app %>/assets/styles/{,*/}*.css'],
-                    dest: '<%= props.distVersionPath() %>/styles/'
-                 }
-        },
-    htmlmin: {
-      dist: {
-        options: {
-          /*removeCommentsFromCDATA: true,
-          // https://github.com/props/grunt-usemin/issues/44
-          //collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true*/
-        },
-        files: [{
-              expand: true,
-              cwd: '<%= props.app %>',
-              src: ['*.html'],
-              dest: '<%= props.dist %>'
-            },
-            {
-              expand: true,
-              cwd: '<%= props.app %>/assets',
-              src: ['views/*.html'],
-              dest: '<%= props.distVersionPath() %>'
+    grunt.initConfig( {
+        props: initProps,
+        watch: {
+            livereload: {
+                files: [
+                    '<%= props.app %>/{,*/}*.html',
+                    '<%= props.app %>/assets/views/{,*/}*.html',
+                    '{.tmp,<%= props.app %>}/assets/styles/{,*/}*.css',
+                    '{.tmp,<%= props.app %>}/assets/scripts/{,*/}*.js',
+                    '{.tmp,<%= props.app %>}/assets/scripts/c6/{,*/}*.js',
+                    '<%= props.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                ],
+                tasks: ['livereload']
             }
-        ]
-      }
-    },
-    uglify: {
-      dist: {
-        files: {
-          '<%= props.distVersionPath() %>/scripts/c6app.min.js': [
-            '.tmp/scripts/c6app.js'
-          ],
-        }
-      }
-    },
-    copy: {
-      angular: {
-        files: [{ expand: true, dot: true, cwd: '<%= props.angular.buildDir %>',
-          dest: '<%= props.angular.targetDir %>', src: [ '*.js', 'version.*' ] }]
-      },
-      jquery: {
-        files: [{ expand: true, dot: true, cwd: '<%= props.jquery.buildDir %>',
-          dest: '<%= props.jquery.targetDir %>', src: [ '*.js', 'version.*' ] }]
-      },
-      jqueryui: {
-        files: [{ expand: true, dot: true, cwd: '<%= props.jqueryui.buildDir %>',
-          dest: '<%= props.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
-      },
-      dist: {
-        files: [{
-              expand: true,
-              dot: true,
-              cwd: '<%= props.app %>',
-              dest: '<%= props.dist %>',
-              src: [
-                '*.{ico,txt}',
-                '.htaccess'
-              ]
-          },
-          {
-              expand: true,
-              dot: true,
-              cwd: '<%= props.app %>/assets',
-              dest: '<%= props.distVersionPath() %>',
-              src: [
-                'img/**',
-                'media/**',
-                'lib/**',
-                'scripts/main.js'
-              ]
-        }]
-      },
-      release:    {
-        files:  [{
-              expand : true,
-              dot    : true,
-              cwd    : path.join(__dirname,'dist'),
-              src    : ['**'],
-              dest   : '<%= props.installPath() %>',
-              }]
-        }
-    },
-        link : {
-                options : {
-                    overwrite: true,
-                    force    : true,
-                    mode     : '755'
-                },
-                www : {
-                    target : '<%= props.installPath() %>',
-                    link   : path.join('<%= props.linkPath() %>','<%= props.name() %>')
+        },
+        connect: {
+            options: {
+                port: 9000,
+                // Change this to '0.0.0.0' to access the server from outside.
+                hostname: '0.0.0.0'
+            },
+            livereload: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            lrSnippet,
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, initProps.app)
+                        ];
+                    }
                 }
+            },
+            test: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, 'test'),
+                            mountFolder(connect, initProps.app)
+                        ];
+                    }
+                }
+            }
+        },
+        open: {
+            server: {
+                url: 'http://localhost:<%= connect.options.port %>'
+            }
+        },
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '.tmp',
+                        '<%= props.dist %>/*',
+                        '!<%= props.dist %>/.git*'
+                    ]
+                }]
+            },
+            server: '.tmp'
+        },
+        sed: {
+            index: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.dist %>/index.html'
+            },
+            index2: {
+                pattern: 'ng-app="c6.app" ',
+                replacement: '',
+                path: '<%= props.dist %>/index.html'
+            },
+            categories: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views/categories.html'
+            },
+            input: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views/input.html'
+            },
+            inputMobile: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views/input_mobile.html'
+            },
+            end: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views/end.html'
+            },
+            experience: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views/experience.html'
+            },
+            main: {
+                pattern: 'undefined',
+                replacement: '\'<%= props.version() %>\'',
+                path: '<%= props.distVersionPath() %>/scripts/main.js'
+            }
+        },
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            all: [
+                'Gruntfile.js',
+                '<%= props.app %>/assets/scripts/**/{,*/}*.js'
+            ]
+        },
+        karma: {
+            unit: {
+                configFile: 'test/karma.conf.js',
+                singleRun: true
+            },
+            e2e: {
+                configFile: 'test/karma-e2e.' + os.platform() + '.conf.js',
+                singleRun: true
+            }
+        },
+        concat: {
+            dist: {
+                files: {
+                    '.tmp/scripts/c6app.js' : [
+                        '<%= props.app %>/assets/scripts/c6/app.js',
+                        '<%= props.app %>/assets/scripts/c6/services/services.js',
+                        '<%= props.app %>/assets/scripts/c6/controllers/controllers.js',
+                        '<%= props.app %>/assets/scripts/c6/directives/directives.js',
+                        '<%= props.app %>/assets/scripts/c6/animations/animations.js'
+                    ]
+                }
+            }
+        },
+        cssmin: {
+            dist: {
+                expand: true,
+                flatten: true,
+                src:    ['<%= props.app %>/assets/styles/{,*/}*.css'],
+                dest:   '<%= props.distVersionPath() %>/styles/'
+            }
+        },
+        htmlmin: {
+            dist: {
+                options: {
+                    /*removeCommentsFromCDATA: true,
+                    // https://github.com/props/grunt-usemin/issues/44
+                    //collapseWhitespace: true,
+                    collapseBooleanAttributes: true,
+                    removeAttributeQuotes: true,
+                    removeRedundantAttributes: true,
+                    useShortDoctype: true,
+                    removeEmptyAttributes: true,
+                    removeOptionalTags: true*/
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= props.app %>',
+                        src: ['*.html'],
+                        dest: '<%= props.dist %>'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= props.app %>/assets',
+                        src: ['views/*.html'],
+                        dest: '<%= props.distVersionPath() %>'
+                    }
+                ]
+            }
+        },
+        uglify: {
+            dist: {
+                files: {
+                    '<%= props.distVersionPath() %>/scripts/c6app.min.js': [
+                        '.tmp/scripts/c6app.js'
+                    ],
+                }
+            }
+        },
+        copy: {
+            angular: {
+                files: [{ expand: true, dot: true, cwd: '<%= props.angular.buildDir %>',
+                dest: '<%= props.angular.targetDir %>', src: [ '*.js', 'version.*' ] }]
+            },
+            jquery: {
+                files: [{ expand: true, dot: true, cwd: '<%= props.jquery.buildDir %>',
+                dest: '<%= props.jquery.targetDir %>', src: [ '*.js', 'version.*' ] }]
+            },
+            jqueryui: {
+                files: [{ expand: true, dot: true, cwd: '<%= props.jqueryui.buildDir %>',
+                dest: '<%= props.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
+            },
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= props.app %>',
+                        dest: '<%= props.dist %>',
+                        src: [
+                          '*.{ico,txt}',
+                          '.htaccess'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= props.app %>/assets',
+                        dest: '<%= props.distVersionPath() %>',
+                        src: [
+                          'img/**',
+                          'media/**',
+                          'lib/**',
+                          'scripts/main.js'
+                        ]
+                    }
+                ]
+            },
+            release:    {
+                files:  [
+                    {
+                        expand : true,
+                        dot    : true,
+                        cwd    : path.join(__dirname,'dist'),
+                        src    : ['**'],
+                        dest   : '<%= props.installPath() %>',
+                    }
+                ]
+            }
+        },
+        link : {
+            options : {
+                overwrite: true,
+                force    : true,
+                mode     : '755'
+            },
+            www : {
+                target : '<%= props.installPath() %>',
+                link   : path.join('<%= props.linkPath() %>','<%= props.name() %>')
+            }
         }
-  });
+    });
 
-  grunt.renameTask('regarde', 'watch');
+    grunt.renameTask('regarde', 'watch');
 
-  grunt.registerTask('server', [
-    'clean:server',
-    'livereload-start',
-    'connect:livereload',
-    'open',
-    'watch'
-  ]);
+    grunt.registerTask('server', [
+        'clean:server',
+        'livereload-start',
+        'connect:livereload',
+        'open',
+        'watch'
+    ]);
 
-  grunt.registerTask('test', [
-    'jshint',
-    'clean:server',
-    'livereload-start',
-    'connect:livereload',
-    'karma:unit'
-  ]);
+     grunt.registerTask('test', [
+        'jshint',
+        'clean:server',
+        'livereload-start',
+        'connect:livereload',
+        'karma:unit'
+     ]);
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'cssmin',
-    'htmlmin',
-    'concat',
-    'copy:dist',
-    'uglify',
-    'sed'
-  ]);
+     grunt.registerTask('build', [
+        'clean:dist',
+        'cssmin',
+        'htmlmin',
+        'concat',
+        'copy:dist',
+        'uglify',
+        'sed'
+    ]);
 
-  grunt.registerTask('release',function(type){
-    type = type ? type : 'patch';
-    grunt.task.run('gitLastCommit');
-//    grunt.task.run('test');
-    grunt.task.run('build');
-  });
+    grunt.registerTask('release',function(type){
+        type = type ? type : 'patch';
+        grunt.task.run('gitLastCommit');
+    //    grunt.task.run('test');
+        grunt.task.run('build');
+    });
 
-  grunt.registerTask('default', ['release']);
+    grunt.registerTask('default', ['release']);
 
     grunt.registerTask('mvbuild', 'Move the build to a release folder.', function(){
         if (grunt.config.get('moved')){
@@ -473,15 +477,15 @@ module.exports = function (grunt) {
                 grunt.log.writelns('GOT PROPS: ' + Object.keys(props).toString());
                 if ((data.commit === undefined) || (data.date === undefined)){
                     grunt.log.errorlns('Failed to parse version.');
-                    return done(false); 
+                    return done(false);
                 }
                 props.gitLastCommit = data;
-                grunt.log.writelns('Last git Commit: ' +  
+                grunt.log.writelns('Last git Commit: ' +
                     JSON.stringify(props.gitLastCommit,null,3));
                 grunt.config.set('props',props);
                 return done(true);
             };
-        
+
         if (grunt.file.isFile('version.json')){
             return handleVersionData(grunt.file.readJSON('version.json'));
         }

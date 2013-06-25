@@ -478,6 +478,11 @@ input {cursor: text;}
     .annotation {   
         position: absolute;
         opacity: 1;
+         -ms-transform-origin: 50% 50%; /* IE 9 */
+        -moz-transform-origin: 50% 50%; /* Firefox */
+        -o-transform-origin: 50% 50%; /* Opera */
+        -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
+        transform-origin: 50% 50%;
     }
 /*      EXPERIENCE END           */
 

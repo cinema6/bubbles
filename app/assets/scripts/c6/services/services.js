@@ -348,9 +348,9 @@ angular.module('c6.svc',[])
                         { 'ts': 83,'template':'${2}',
                             'duration' : 3, tail: {type:'thought', pos: 'topLeft'} },
                         { 'ts': 84,'template':'${8} ${7}',
-                            'duration' : 2, tail: {type:'thought', pos: 'topLeft'} },
+                            'duration' : 2, tail: {type:'thought', pos: 'bottomLeft'} },
                         { 'ts': 95,'template':'I just took a ${7} in my pants',
-                            'duration' : 5, tail: {type:'thought', pos: 'topRight'} }
+                            'duration' : 5, tail: {type:'thought', pos: 'bottomRight'} }
                         ]
                 }
             };

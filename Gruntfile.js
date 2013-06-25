@@ -43,9 +43,8 @@ module.exports = function (grunt) {
     };
 
     initProps.installDir = function() {
-        grunt.log.writelns('THIS: ' + Object.keys(this).toString());
         return (this.name() + '.' +
-                this.gitLastCommit.date + '.' +
+                this.gitLastCommit.date.toISOString().replace(/\W/g,'') + '.' +
                 this.gitLastCommit.commit);
     };
     initProps.installPath = function(){
@@ -323,6 +322,7 @@ module.exports = function (grunt) {
      ]);
 
      grunt.registerTask('build', [
+        'gitLastCommit',
         'clean:dist',
         'cssmin',
         'htmlmin',
@@ -334,7 +334,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('release',function(type){
         type = type ? type : 'patch';
-        grunt.task.run('gitLastCommit');
     //    grunt.task.run('test');
         grunt.task.run('build');
     });
@@ -349,17 +348,6 @@ module.exports = function (grunt) {
         var props = grunt.config.get('props'),
             installPath = props.installPath();
         grunt.log.writeln('Moving the module to ' + installPath);
-
-        if (fs.existsSync(installPath)){
-            grunt.log.writelns('Install dir (' + installPath +
-                                ') already exists, rotate.');
-
-            var stat = fs.statSync(installPath),
-                tag = stat.ctime.toISOString().replace(/\W/g,'');
-
-            fs.renameSync(installPath,installPath + '.' + tag);
-        }
-
         grunt.task.run('copy:release');
         grunt.config.set('moved',true);
     });
@@ -412,20 +400,39 @@ module.exports = function (grunt) {
         grunt.log.writelns(data.link + ' is ready.');
     });
 
-    grunt.registerTask('install', 'Install', function(){
-        grunt.task.run('release');
-        grunt.task.run('mvbuild');
-        grunt.task.run('link');
-        grunt.task.run('rmbuild');
+    grunt.registerTask('installCheck', 'Install check', function(){
+        var props = grunt.config.get('props'),
+            installPath = props.installPath();
+
+        if (fs.existsSync(installPath)){
+            grunt.log.errorlns('Install dir (' + installPath +
+                                ') already exists.');
+            return false;
+        }
     });
 
+    grunt.registerTask('install', [
+        'gitLastCommit',
+        'installCheck',
+        'release',
+        'mvbuild',
+        'link',
+        'installCleanup' 
+    ]);
+
+    grunt.registerTask('installCleanup', [
+        'gitLastCommit',
+        'rmbuild' 
+    ]);
+
     grunt.registerTask('rmbuild','Remove old copies of the install',function(){
+        this.requires(['gitLastCommit']);
         var props       = grunt.config.get('props'),
             installBase = props.name(),
             installPath = props.installPath(),
             installRoot = path.dirname(installPath),
-            pattPart = new RegExp(installBase +  '_(\\d+)\\.(\\d+)\\.(\\d+)'),
-            pattFull = new RegExp(installBase +  '_\\d+\\.\\d+\\.\\d+\\.(\\d{8})T(\\d{9})Z'),
+            pattPart = new RegExp(installBase),
+            pattFull = new RegExp(installBase +  '.(\\d{8})T(\\d{9})Z'),
             history     = grunt.config.get('rmbuild.history'),
             contents = [];
 
@@ -445,11 +452,6 @@ module.exports = function (grunt) {
               var  mA = pattPart.exec(A),
                    mB = pattPart.exec(B),
                    i;
-               for (i = 1; i <= 3; i++){
-                   if (mA[i] !== mB[i]){
-                        return mA[i] - mB[i];
-                   }
-               }
                // The version is the same
                mA = pattFull.exec(A);
                mB = pattFull.exec(B);
@@ -471,20 +473,24 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('gitLastCommit','Get a version number using git commit', function(){
-        var done = this.async(),
+        var props = grunt.config.get('props'),
+            done = this.async(),
             handleVersionData = function(data){
-                var props = grunt.config.get('props');
-                grunt.log.writelns('GOT PROPS: ' + Object.keys(props).toString());
                 if ((data.commit === undefined) || (data.date === undefined)){
                     grunt.log.errorlns('Failed to parse version.');
                     return done(false);
                 }
+                data.date = new Date(data.date * 1000);
                 props.gitLastCommit = data;
                 grunt.log.writelns('Last git Commit: ' +
                     JSON.stringify(props.gitLastCommit,null,3));
                 grunt.config.set('props',props);
                 return done(true);
             };
+        
+        if (props.gitLastCommit){
+            return done(true);
+        }
 
         if (grunt.file.isFile('version.json')){
             return handleVersionData(grunt.file.readJSON('version.json'));

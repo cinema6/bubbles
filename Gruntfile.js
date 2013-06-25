@@ -4,7 +4,8 @@ var fs          = require('fs-extra'),
     lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
-    };
+    },
+    os = require('os');
 
 module.exports = function (grunt) {
   // load all grunt tasks
@@ -34,20 +35,27 @@ module.exports = function (grunt) {
       };
 
     initProps.version     = function(){
-        return ('v' + this.packageInfo.version.replace(/\./g,'_'));
+        return this.gitLastCommit.commit;
     };
+
+    initProps.name        = function() {
+        return this.packageInfo.name;
+    };
+
     initProps.installDir = function() {
-        //return (initProps.packageInfo.name + '_' + initProps.packageInfo.version);
-        return (initProps.packageInfo.name + '.' + initProps.gitVersion.date);
+        grunt.log.writelns('THIS: ' + Object.keys(this).toString());
+        return (this.name() + '.' + 
+                this.gitLastCommit.date + '.' + 
+                this.gitLastCommit.commit);
     };
     initProps.installPath = function(){
-        return (path.join(initProps.prefix, 'releases', initProps.installDir()));
+        return (path.join(this.prefix, 'releases', this.installDir()));
     };
-    initProps.wwwPath = function(){
-        return path.join(initProps.prefix, 'www' );
+    initProps.linkPath = function(){
+        return path.join(this.prefix, 'www' );
     };
-    initProps.distVersion= function() {
-        return path.join(this.dist, this.version());
+    initProps.distVersionPath= function() {
+        return path.join(this.dist, this.gitLastCommit.commit);
     };
 
   grunt.initConfig({
@@ -127,32 +135,32 @@ module.exports = function (grunt) {
         categories: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',
-            path: '<%= props.distVersion() %>/views/categories.html'
+            path: '<%= props.distVersionPath() %>/views/categories.html'
         },
         input: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',
-            path: '<%= props.distVersion() %>/views/input.html'
+            path: '<%= props.distVersionPath() %>/views/input.html'
         },
         inputMobile: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',
-            path: '<%= props.distVersion() %>/views/input_mobile.html'
+            path: '<%= props.distVersionPath() %>/views/input_mobile.html'
         },
         end: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',
-            path: '<%= props.distVersion() %>/views/end.html'
+            path: '<%= props.distVersionPath() %>/views/end.html'
         },
         experience: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',
-            path: '<%= props.distVersion() %>/views/experience.html'
+            path: '<%= props.distVersionPath() %>/views/experience.html'
         },
         main: {
             pattern: 'undefined',
             replacement: '\'<%= props.version() %>\'',
-            path: '<%= props.distVersion() %>/scripts/main.js'
+            path: '<%= props.distVersionPath() %>/scripts/main.js'
         }
     },
     jshint: {
@@ -170,8 +178,8 @@ module.exports = function (grunt) {
         singleRun: true
       },
       e2e: {
-        configFile: 'test/karma-e2e.conf.js',
-        singleRun: false
+        configFile: 'test/karma-e2e.' + os.platform() + '.conf.js',
+        singleRun: true
       }
     },
     concat: {
@@ -192,7 +200,7 @@ module.exports = function (grunt) {
                     expand: true,
                     flatten: true,
                     src:    ['<%= props.app %>/assets/styles/{,*/}*.css'],
-                    dest: '<%= props.distVersion() %>/styles/'
+                    dest: '<%= props.distVersionPath() %>/styles/'
                  }
         },
     htmlmin: {
@@ -218,7 +226,7 @@ module.exports = function (grunt) {
               expand: true,
               cwd: '<%= props.app %>/assets',
               src: ['views/*.html'],
-              dest: '<%= props.distVersion() %>'
+              dest: '<%= props.distVersionPath() %>'
             }
         ]
       }
@@ -226,7 +234,7 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '<%= props.distVersion() %>/scripts/c6app.min.js': [
+          '<%= props.distVersionPath() %>/scripts/c6app.min.js': [
             '.tmp/scripts/c6app.js'
           ],
         }
@@ -260,7 +268,7 @@ module.exports = function (grunt) {
               expand: true,
               dot: true,
               cwd: '<%= props.app %>/assets',
-              dest: '<%= props.distVersion() %>',
+              dest: '<%= props.distVersionPath() %>',
               src: [
                 'img/**',
                 'media/**',
@@ -287,19 +295,12 @@ module.exports = function (grunt) {
                 },
                 www : {
                     target : '<%= props.installPath() %>',
-                    link   : path.join('<%= props.wwwPath() %>','<%= props.packageInfo.name %>')
+                    link   : path.join('<%= props.linkPath() %>','<%= props.name() %>')
                 }
         }
   });
 
   grunt.renameTask('regarde', 'watch');
-
-  grunt.registerTask('updatePackageVersion', function(){
-    var props     = grunt.config.get('props');
-    props.packageInfo = grunt.file.readJSON('package.json');
-    grunt.config.set('props',props);
-    grunt.log.writeln('Package Version is: ' + props.version());
-  });
 
   grunt.registerTask('server', [
     'clean:server',
@@ -310,11 +311,11 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
-    //'jshint',
-   'clean:server',
+    'jshint',
+    'clean:server',
     'livereload-start',
     'connect:livereload',
-    'karma'
+    'karma:unit'
   ]);
 
   grunt.registerTask('build', [
@@ -329,10 +330,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('release',function(type){
     type = type ? type : 'patch';
-    grunt.task.run('gitversion');
+    grunt.task.run('gitLastCommit');
 //    grunt.task.run('test');
-//    grunt.task.run('bumpup:' + type);
-//    grunt.task.run('updatePackageVersion');
     grunt.task.run('build');
   });
 
@@ -418,7 +417,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('rmbuild','Remove old copies of the install',function(){
         var props       = grunt.config.get('props'),
-            installBase = props.packageInfo.name,
+            installBase = props.name(),
             installPath = props.installPath(),
             installRoot = path.dirname(installPath),
             pattPart = new RegExp(installBase +  '_(\\d+)\\.(\\d+)\\.(\\d+)'),
@@ -467,16 +466,18 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('gitversion','Get a version number using git commit', function(){
+    grunt.registerTask('gitLastCommit','Get a version number using git commit', function(){
         var done = this.async(),
             handleVersionData = function(data){
                 var props = grunt.config.get('props');
-                if ((data.version === undefined) || (data.date === undefined)){
+                grunt.log.writelns('GOT PROPS: ' + Object.keys(props).toString());
+                if ((data.commit === undefined) || (data.date === undefined)){
                     grunt.log.errorlns('Failed to parse version.');
                     return done(false); 
                 }
-                props.gitVersion = data;
-                grunt.log.writelns('GIT Commit Version: ' +  props.gitVersion.version);
+                props.gitLastCommit = data;
+                grunt.log.writelns('Last git Commit: ' +  
+                    JSON.stringify(props.gitLastCommit,null,3));
                 grunt.config.set('props',props);
                 return done(true);
             };
@@ -487,10 +488,10 @@ module.exports = function (grunt) {
 
         grunt.util.spawn({
             cmd     : 'git',
-            args    : ['log','-n1','--format={ \"version\" : \"%h\", \"date\" : \"%ct\"}']
-        },function(err,result,code){
+            args    : ['log','-n1','--format={ "commit" : "%h", "date" : "%ct" , "subject" : "%s" }']
+        },function(err,result){
             if (err) {
-                grunt.log.errorlns('Failed to get gitversion: ' + err);
+                grunt.log.errorlns('Failed to get gitLastCommit: ' + err);
                 return done(false);
             }
             handleVersionData(JSON.parse(result.stdout));
@@ -502,7 +503,7 @@ module.exports = function (grunt) {
         grunt.util.spawn({
             cmd     : 'git',
             args    : ['status','--porcelain']
-        },function(err,result,code){
+        },function(err,result){
             if (err) {
                 grunt.log.errorlns('Failed to get git status: ' + err);
                 done(false);

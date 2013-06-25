@@ -1,13 +1,22 @@
 /* Romance Video Experience specific styles */
 
+.annotation {
+    min-width: 25%;
+    max-width: 30%;
+}
 
 .a-style {
-    position: absolute;
-    border-radius: 40px;
+    position: relative;
+    border-radius: 50px;
     background: url('../media/romance/annotation-body.png');
-    min-width: 10%;
-    max-width: 25%;
+    background-clip: content-box;
+    padding: 8px;
 }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
+        .a-style {
+            border-radius: 45%;
+        }
+    }
 
 .a-frame {
     border-radius: 65px;
@@ -18,117 +27,123 @@
     margin: -5px;
 }
 
-    .a-deco-right {
+   .a-deco-right {
         position: absolute;
         background: url('../media/romance/annotation-bottomRight.png') no-repeat bottom right,
                     url('../media/romance/annotation-topRight.png') no-repeat top right,
                     url('../media/romance/annotation-bottomLeft.png') no-repeat bottom left,
                     url('../media/romance/annotation-topLeft.png') no-repeat top left;
-        height: 103%; width: 102%;
-        top: 0;
-        left: 0;
-        margin: -1%;
-    }  
+        height: 94%; width: 97.5%;
+        top: 3%;
+        left: 1%;
+    } 
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
+            .a-deco-right {
+                width: 98.5%; height: 89%;
+                top: 6%;
+                
+            }
+        }
     .a-deco-left {
         /* deco right used for whole annotation */
     } 
 
 .a-text {
-    width: 80%;
-    padding: 16% 12%;
+    width: 84%;
+    padding: 12% 8%;
     margin: 0 auto;
     text-align: center;
     font-family: "LadylikeBB", "courier prime", georgia, serif;
-    font-size: 90%;
+    font-size: 185%;
     line-height: 100%;
     color: #352e2e;
 }
     @font-face {
-    font-family: LadylikeBB;
-    src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),
-        url('../media/romance/ladylikebb-webfont.woff') format('woff'), 
-        url('../media/romance/ladylikebb-webfont.eot') format('embedded-opentype'), 
-        url('../media/romance/ladylikebb-webfont.svg#ladylike_bbregular') format('svg'); 
-    font-weight: normal;
-    font-style: normal;
-}
+        font-family: LadylikeBB;
+        src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),
+            url('../media/romance/ladylikebb-webfont.woff') format('woff'), 
+            url('../media/romance/ladylikebb-webfont.eot') format('embedded-opentype'), 
+            url('../media/romance/ladylikebb-webfont.svg#ladylike_bbregular') format('svg'); 
+        font-weight: normal;
+        font-style: normal;
+    }
 
 /* tail styles */
-.a-tail-bottomLeft-speech {
-    position: absolute;
-    background: url('../media/romance/bottomLeft-speech.png') no-repeat 15% 0%; 
-    height: 22px; width: 100%;
-    bottom: -15px;
-    left: 0;
-}
+    .a-tail-bottomLeft-speech {
+        position: absolute;
+        background: url('../media/romance/bottomLeft-speech.png') no-repeat 15% 0%; 
+        height: 22px; width: 100%;
+        bottom: -5px;
+        left: 0;
+    }
 
-.a-tail-bottomRight-speech {
-    position: absolute;
-    background: url('../media/romance/bottomRight-speech.png') no-repeat 80% 0%; 
-    height: 22px; width: 100%;
-    bottom: -15px;
-    left: 0;
-}
+    .a-tail-bottomRight-speech {
+        position: absolute;
+        background: url('../media/romance/bottomRight-speech.png') no-repeat 80% 0%; 
+        height: 22px; width: 100%;
+        bottom: -5px;
+        left: 0;
+    }
 
-.a-tail-topLeft-speech {
-    position: absolute;
-    background: url('../media/romance/topLeft-speech.png') no-repeat 15% 0%; 
-    height: 22px; width: 100%;
-    top: -15px;
-    left: 0;
-}
+    .a-tail-topLeft-speech {
+        position: absolute;
+        background: url('../media/romance/topLeft-speech.png') no-repeat 15% 0%; 
+        height: 22px; width: 100%;
+        top: -5px;
+        left: 0;
+    }
 
-.a-tail-topRight-speech {
-    position: absolute;
-    background: url('../media/romance/topRight-speech.png') no-repeat 80% 0%; 
-    height: 22px; width: 100%;
-    top: -15px;
-    left: 0;
-}
+    .a-tail-topRight-speech {
+        position: absolute;
+        background: url('../media/romance/topRight-speech.png') no-repeat 80% 0%; 
+        height: 22px; width: 100%;
+        top: -5px;
+        left: 0;
+    }
 
-.a-tail-bottomLeft-thought {
-    position: absolute;
-    background: url('../media/romance/bottomLeft-thought.png') no-repeat 15% 0%; 
-    background-size: contain;
-    height: 30%; width: 100%;
-    bottom: -30%;
-    left: 0;
-}
+    .a-tail-bottomLeft-thought {
+        position: absolute;
+        background: url('../media/romance/bottomLeft-thought.png') no-repeat 15% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        bottom: -22%;
+        left: 0;
+    }
 
-.a-tail-bottomRight-thought {
-    position: absolute;
-    background: url('../media/romance/bottomRight-thought.png') no-repeat 80% 0%; 
-    background-size: contain;
-    height: 30%; width: 100%;
-    bottom: -30%;
-    left: 0;
-}
+    .a-tail-bottomRight-thought {
+        position: absolute;
+        background: url('../media/romance/bottomRight-thought.png') no-repeat 80% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        bottom: -22%;
+        left: 0;
+    }
 
-.a-tail-topLeft-thought {
-    position: absolute;
-    background: url('../media/romance/topLeft-thought.png') no-repeat 15% 0%; 
-    background-size: contain;
-    height: 30%; width: 100%;
-    top: -30%;
-    left: 0;
-}
+    .a-tail-topLeft-thought {
+        position: absolute;
+        background: url('../media/romance/topLeft-thought.png') no-repeat 15% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        top: -22%;
+        left: 0;
+    }
 
-.a-tail-topRight-thought {
-    position: absolute;
-    background: url('../media/romance/topRight-thought.png') no-repeat 80% 0%; 
-    background-size: contain;
-    height: 30%; width: 100%;
-    top: -30%;
-    left: 0;
-}
+    .a-tail-topRight-thought {
+        position: absolute;
+        background: url('../media/romance/topRight-thought.png') no-repeat 80% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        top: -22%;
+        left: 0;
+    }
 
 /* bubble and tail positioning */
-.notebook-0 { margin-top: 6%; margin-left: 57%; }
-.notebook-1 { margin-top: 8%; margin-left: 12%; }
-.notebook-2 { margin-top: 28%; margin-left: 18%; }
-.notebook-3 { margin-top: 24%; margin-left: 14%; }
-.notebook-4 { margin-top: 28%; margin-left: 15%; }
-.notebook-5 { margin-top: 5%; margin-left: 48%; }
-.notebook-6 { margin-top: 28%; margin-left: 55%; }
-.notebook-7 { margin-top: 25%; margin-left: 14%; }
-.notebook-8 { margin-top: 8%; margin-left: 48%; }
+.notebook-0 { top: 3%; left: 52%; }
+.notebook-1 { top: 8%; left: 8%; }
+.notebook-2 { top: 52%; left: 18%; }
+.notebook-3 { top: 3%; left: 0%; max-width: 38%}
+.notebook-4 { top: 3%; left: 10%; }
+.notebook-5 { top: 0%; left: 42%; max-width: 38%}
+.notebook-6 { top: 0%; left: 65%; }
+.notebook-7 { top: 0%; left: 8%; }
+.notebook-8 { top: 8%; left: 48%; }

@@ -1,4 +1,3 @@
-/* global $ */
 (function(){
 
 'use strict';
@@ -7,11 +6,11 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	return function(scope, element, attrs) {
 		var configObject = scope.$eval(attrs.c6Resize) || {width: null, height: null, font: null},
 			excludeArray = scope.$eval(attrs.c6Exclude) || [];
-		
+
 		var excludingAttribute = function(attribute) {
 			return excludeArray.indexOf(attribute) !== -1;
-		}
-		
+		};
+
 		var myFunction = function(winWidth, winHeight) {
 			// set variable dimensions for element
 			var baseWidth = configObject.width || 1280,
@@ -31,9 +30,9 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				'margin-left': excludingAttribute('margin-left')? element.css('margin-left') : ((baseWidth * scaleFactor) / -2)
 			});
 		};
-		
+
 		service.registerDirective(myFunction);
-		
+
 		scope.$on('$destroy', function() {
 			service.unregisterDirective(myFunction);
 		});

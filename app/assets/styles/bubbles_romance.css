@@ -1,8 +1,8 @@
 /* Romance Video Experience specific styles */
 
 .annotation {
-    min-width: 30%;
-    max-width: 35%;
+    min-width: 20%;
+    max-width: 28%;
 }
 
 .a-style {
@@ -57,7 +57,7 @@
 
 .a-text {
     width: 84%;
-    padding: 12% 8%;
+    padding: 6% 8%;
     margin: 0 auto;
     text-align: center;
     font-family: "LadylikeBB", "courier prime", georgia, serif;
@@ -152,11 +152,11 @@
 
 /* bubble and tail positioning */
 .notebook-0 { top: 3%; left: 52%; }
-.notebook-1 { top: 8%; left: 8%; }
+.notebook-1 { top: 5%; left: 18%; }
 .notebook-2 { top: 52%; left: 18%; }
-.notebook-3 { top: 3%; left: 0%; max-width: 38%}
-.notebook-4 { top: 3%; left: 10%; }
-.notebook-5 { top: 0%; left: 42%; max-width: 38%}
-.notebook-6 { top: 0%; left: 65%; }
-.notebook-7 { top: 0%; left: 8%; }
+.notebook-3 { top: 3%; left: 8%; max-width: 28%}
+.notebook-4 { top: 8%; left: 20%; }
+.notebook-5 { top: 3%; left: 42%; max-width: 30%}
+.notebook-6 { top: 3%; left: 35%; max-width: 44% }
+.notebook-7 { top: 3%; left: 18%; }
 .notebook-8 { top: 8%; left: 48%; }

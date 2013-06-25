@@ -3,45 +3,40 @@
 
 'use strict';
 angular.module('c6.dir.screenJack',['c6.svc'])
-.directive('c6Resize', ['$window', function($window) {
-	return function($scope, $element) {
-		$($window).resize(function() {
-			// set variable dimensions for viewport
-			var baseW = 1280,
-				baseH = 684,
-				mainFont = 28,
-				annotationFont = 32,
-
-				//find current dimensions of window
-				winH = $window.innerHeight,
-				winW = $window.innerWidth,
+.directive('c6Resize', ['C6ResizeService', function(service) {
+	return function(scope, element, attrs) {
+		var configObject = scope.$eval(attrs.c6Resize) || {width: null, height: null, font: null},
+			excludeArray = scope.$eval(attrs.c6Exclude) || [];
+		
+		var excludingAttribute = function(attribute) {
+			return excludeArray.indexOf(attribute) !== -1;
+		}
+		
+		var myFunction = function(winWidth, winHeight) {
+			// set variable dimensions for element
+			var baseWidth = configObject.width || 1280,
+				baseHeight = configObject.height || 684,
+				fontSize = configObject.font || 28,
 
 				//find scale factor
-				scaleH = winH / baseH,
-				scaleW = winW / baseW,
-				scaleFactor = Math.min(scaleH, scaleW);
+				scaleHeight = winHeight / baseHeight,
+				scaleWidth = winWidth / baseWidth,
+				scaleFactor = Math.min(scaleHeight, scaleWidth);
 
-			//apply new dimensions to viewport
-			$element.find('.viewport').height(baseH * scaleFactor)
-				.width(baseW * scaleFactor)
-				.css('font-size', (mainFont * scaleFactor))
-				.css('margin-top', ((baseH * scaleFactor) / -2))
-				.css('margin-left', ((baseW * scaleFactor) / -2));
-
-			//feed screen divs window dimensions
-			$element.height(winH).width(winW);
-			$('.shareMenu').height(54 * scaleFactor).width(1026 * scaleFactor).css('margin-left', ((1026 * scaleFactor) / -2));
-
-			//apply to bubble font sizes
-			$('.annotations').height(524 * scaleFactor)
-				.width(1180 * scaleFactor)
-				.css('font-size', (annotationFont * scaleFactor))
-				.css('margin-top', ((524 * scaleFactor) / -2))
-				.css('margin-left', ((1180 * scaleFactor) / -2));
+			element.css({
+				height: excludingAttribute('height')? element.css('height') : baseHeight * scaleFactor,
+				width: excludingAttribute('width')? element.css('width') : baseWidth * scaleFactor,
+				'font-size': excludingAttribute('font-size')? element.css('font-size') : fontSize * scaleFactor,
+				'margin-top': excludingAttribute('margin-top')? element.css('margin-top') : ((baseHeight * scaleFactor) / -2),
+				'margin-left': excludingAttribute('margin-left')? element.css('margin-left') : ((baseWidth * scaleFactor) / -2)
+			});
+		};
+		
+		service.registerDirective(myFunction);
+		
+		scope.$on('$destroy', function() {
+			service.unregisterDirective(myFunction);
 		});
-
-		//Resize content immediately when page is loded
-		$($window).resize();
 	};
 }])
 

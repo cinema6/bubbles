@@ -27,7 +27,7 @@
 		}
 	});
 	
-	describe('Screenjacked', function() {
+	describe('Screenjacked', function() {		
 		describe('The categories screen', function() {
 			beforeEach(function() {
 				sleep(1);

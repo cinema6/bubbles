@@ -62,7 +62,7 @@ module.exports = function (grunt) {
           '{.tmp,<%= props.app %>}/assets/scripts/c6/{,*/}*.js',
           '<%= props.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
-        tasks: ['livereload']
+        tasks: ['copy:server', 'preprocess:normal', 'livereload']
       }
     },
     connect: {
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, initProps.app)
+              mountFolder(connect, __dirname + '/dist')
             ];
           }
         }
@@ -119,11 +119,6 @@ module.exports = function (grunt) {
             replacement: '<%= props.version() %>',
             path: '<%= props.dist %>/index.html'
         },
-        index2: {
-            pattern: 'ng-app="c6.app" ',
-            replacement: '',
-            path: '<%= props.dist %>/index.html'
-        },
         categories: {
             pattern: 'assets',
             replacement: '<%= props.version() %>',
@@ -154,6 +149,26 @@ module.exports = function (grunt) {
             replacement: '\'<%= props.version() %>\'',
             path: '<%= props.distVersion() %>/scripts/main.js'
         }
+    },
+    preprocess: {
+	  normal: {
+		  src: ['<%= props.dist %>/index.html'],
+		  options: {
+			inline: true,
+			context: {
+				TEST: false
+			}
+		  }
+	  },
+	  test: {
+		  src: ['<%= props.dist %>/index.html'],
+		  options: {
+			inline: true,
+			context: {
+				TEST: true
+			}
+		  }
+	  },
     },
     jshint: {
       options: {
@@ -193,8 +208,14 @@ module.exports = function (grunt) {
                     flatten: true,
                     src:    ['<%= props.app %>/assets/styles/{,*/}*.css'],
                     dest: '<%= props.distVersion() %>/styles/'
-                 }
-        },
+                 },
+        test: {
+	      expand: true,
+	      flatten: true,
+	      src: ['<%= props.app %>/assets/styles/{,*/}*.css'],
+	      dest: '<%= props.dist %>/assets/styles/'
+        }
+    },
     htmlmin: {
       dist: {
         options: {
@@ -221,6 +242,20 @@ module.exports = function (grunt) {
               dest: '<%= props.distVersion() %>'
             }
         ]
+      },
+      test: {
+	    files: [{
+          expand: true,
+          cwd: '<%= props.app %>',
+          src: ['*.html'],
+          dest: '<%= props.dist %>'
+	    },
+	    {
+          expand: true,
+          cwd: '<%= props.app %>/assets',
+          src: ['views/*.html'],
+          dest: '<%= props.dist %>/assets'
+	    }]
       }
     },
     uglify: {
@@ -229,6 +264,13 @@ module.exports = function (grunt) {
           '<%= props.distVersion() %>/scripts/c6app.min.js': [
             '.tmp/scripts/c6app.js'
           ],
+        }
+      },
+      test: {
+        files: {
+	      '<%= props.dist %>/assets/scripts/c6app.min.js': [
+	        '.tmp/scripts/c6app.js'
+	      ]
         }
       }
     },
@@ -261,6 +303,41 @@ module.exports = function (grunt) {
               dot: true,
               cwd: '<%= props.app %>/assets',
               dest: '<%= props.distVersion() %>',
+              src: [
+                'img/**',
+                'media/**',
+                'lib/**',
+                'scripts/main.js'
+              ]
+        }]
+      },
+      server: {
+	    files: [{
+		  expand: true,
+		  dot: true,
+		  cwd: '<%= props.app %>',
+		  dest: '<%= props.dist %>',
+		  src: [
+		    '**',
+		  ]
+	    }]
+      },
+      test: {
+        files: [{
+              expand: true,
+              dot: true,
+              cwd: '<%= props.app %>',
+              dest: '<%= props.dist %>',
+              src: [
+                '*.{ico,txt}',
+                '.htaccess'
+              ]
+          },
+          {
+              expand: true,
+              dot: true,
+              cwd: '<%= props.app %>/assets',
+              dest: '<%= props.dist %>/assets',
               src: [
                 'img/**',
                 'media/**',
@@ -302,7 +379,9 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('server', [
-    'clean:server',
+    'clean:dist',
+    'copy:server',
+    'preprocess:normal',
     'livereload-start',
     'connect:livereload',
     'open',
@@ -310,8 +389,13 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
-    //'jshint',
-   'clean:server',
+    'clean:dist',
+    'cssmin:test',
+    'htmlmin:test',
+    'concat',
+    'copy:test',
+    'preprocess:test',
+    'uglify:test',
     'livereload-start',
     'connect:livereload',
     'karma'
@@ -319,11 +403,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'cssmin',
-    'htmlmin',
+    'cssmin:dist',
+    'htmlmin:dist',
     'concat',
     'copy:dist',
-    'uglify',
+    'preprocess:normal',
+    'uglify:dist',
     'sed'
   ]);
 

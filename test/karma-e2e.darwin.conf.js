@@ -1,23 +1,18 @@
-// Karma E2E configuration
+	// Karma E2E configuration
 
 // base path, that will be used to resolve files and exclude
 basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  '../app/assets/lib/jquery/jquery.min.js',
+  '../dist/assets/lib/jquery/jquery.min.js',
+  '../dist/assets/lib/greensock/TimelineMax.min.js',
+  '../dist/assets/lib/greensock/TweenMax.min.js',
   ANGULAR_SCENARIO,
   ANGULAR_SCENARIO_ADAPTER,
-  '../app/assets/lib/greensock/TimelineMax.min.js',
-  '../app/assets/lib/greensock/TweenMax.min.js',
-  '../app/assets/lib/c6media/c6lib.video.js',
+  '../dist/assets/lib/c6media/c6lib.video.js',
   'e2e/env.js',
-  '../app/assets/scripts/c6/app.js',
-  '../app/assets/scripts/c6/services/services.js',
-  '../app/assets/scripts/c6/controllers/controllers.js',
-  '../app/assets/scripts/c6/animations/animations.js',
-  '../app/assets/scripts/c6/directives/directives.js',
-  '../app/assets/scripts/c6/directives/videonode.js',
+  '../dist/assets/scripts/c6app.min.js',
   'e2e/**/*.js'
 ];
 

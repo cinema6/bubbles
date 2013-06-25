@@ -3,6 +3,31 @@
 'use strict';
 
 angular.module('c6.svc',[])
+.service('C6ResizeService', ['$window', '$log', function($window, $log) {
+	var resizeFunctions = [];
+
+	this.registerDirective = function(code) {
+		if (resizeFunctions.indexOf(code) === -1) {
+			resizeFunctions.push(code);
+			$log.log('Registered new resizer. Current total is ' + resizeFunctions.length);
+			code($window.innerWidth, $window.innerHeight);
+		}
+	};
+
+	this.unregisterDirective = function(code) {
+		var codesIndex = resizeFunctions.indexOf(code);
+
+		resizeFunctions.splice(codesIndex, 1);
+		$log.log('Unregistered new resizer. Current total is ' + resizeFunctions.length);
+	};
+
+	angular.element($window).bind('resize', function() {
+		resizeFunctions.forEach(function(code) {
+			code($window.innerWidth, $window.innerHeight);
+		});
+	});
+}])
+
 .factory('C6AudioContext', ['$window', function($window) {
 	return $window.AudioContext || $window.webkitAudioContext;
 }])

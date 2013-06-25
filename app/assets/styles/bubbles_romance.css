@@ -1,8 +1,8 @@
 /* Romance Video Experience specific styles */
 
 .annotation {
-    min-width: 25%;
-    max-width: 30%;
+    min-width: 30%;
+    max-width: 35%;
 }
 
 .a-style {
@@ -14,7 +14,7 @@
 }
     @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
         .a-style {
-            border-radius: 45%;
+            border-radius: 38%;
         }
     }
 
@@ -40,10 +40,17 @@
         @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
             .a-deco-right {
                 width: 98.5%; height: 89%;
-                top: 6%;
-                
+                top: 6%;  
             }
         }
+
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+            .a-deco-right {
+                width: 98.5%; height: 93%;
+                top: 4%;  
+            }
+        }
+    }
     .a-deco-left {
         /* deco right used for whole annotation */
     } 
@@ -58,6 +65,12 @@
     line-height: 100%;
     color: #352e2e;
 }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+        .a-text {
+            font-size: 125%;
+            padding: 14% 10%;
+        }
+    }
     @font-face {
         font-family: LadylikeBB;
         src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),

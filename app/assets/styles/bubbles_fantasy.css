@@ -4,7 +4,12 @@
     min-width: 18%;
     max-width: 25%;
 }
-
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+        .annotation {
+            min-width: 22%;
+            max-width: 35%;
+        }
+    }
 .a-style {
     position: relative;
     border-radius: 40px;
@@ -42,11 +47,24 @@
     padding: 10%;
     margin: 0 auto;
     text-align: center;
+<<<<<<< HEAD
     font-family: "SherwoodRegular", "courier prime", georgia, serif;
     font-size: 105%;
+=======
+    font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif;
+    font-size: 70%;
+>>>>>>> master
     line-height: 100%;
     color: #fff;
 }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px){
+        .a-text {
+            font-size: 95%;
+            padding: 15% 12%;
+        }
+    }
+
+
     @font-face {
         font-family: SherwoodRegular;
         src: url('../media/fantasy/SherwoodRegular.ttf') format('truetype'),
@@ -58,69 +76,69 @@
     }
 
 /* tail styles */
-.a-tail-bottomLeft-speech {
-    position: absolute;
-    background: url('../media/fantasy/bottomLeft-speech.png') no-repeat 10% 0%; 
-    height: 42px; width: 100%;
-    bottom: -36px;
-    left: 0;
-}
+    .a-tail-bottomLeft-speech {
+        position: absolute;
+        background: url('../media/fantasy/bottomLeft-speech.png') no-repeat 10% 0%; 
+        height: 42px; width: 100%;
+        bottom: -36px;
+        left: 0;
+    }
 
-.a-tail-bottomRight-speech {
-    position: absolute;
-    background: url('../media/fantasy/bottomRight-speech.png') no-repeat 35% 0%; 
-    height: 42px; width: 100%;
-    bottom: -36px;
-    left: 0;
-}
+    .a-tail-bottomRight-speech {
+        position: absolute;
+        background: url('../media/fantasy/bottomRight-speech.png') no-repeat 35% 0%; 
+        height: 42px; width: 100%;
+        bottom: -36px;
+        left: 0;
+    }
 
-.a-tail-topLeft-speech {
-    position: absolute;
-    background: url('../media/fantasy/topLeft-speech.png') no-repeat 65% 0%; 
-    height: 42px; width: 100%;
-    top: -36px;
-    left: 0;
-}
+    .a-tail-topLeft-speech {
+        position: absolute;
+        background: url('../media/fantasy/topLeft-speech.png') no-repeat 65% 0%; 
+        height: 42px; width: 100%;
+        top: -36px;
+        left: 0;
+    }
 
-.a-tail-topRight-speech {
-    position: absolute;
-    background: url('../media/fantasy/topRight-speech.png') no-repeat 80% 0%; 
-    height: 42px; width: 100%;
-    top: -36px;
-    left: 0;
-}
+    .a-tail-topRight-speech {
+        position: absolute;
+        background: url('../media/fantasy/topRight-speech.png') no-repeat 80% 0%; 
+        height: 42px; width: 100%;
+        top: -36px;
+        left: 0;
+    }
 
-.a-tail-bottomLeft-thought {
-    position: absolute;
-    background: url('../media/fantasy/bottomLeft-thought.png') no-repeat 10% 0%; 
-    height: 28px; width: 100%;
-    bottom: -28px;
-    left: 0;
-}
+    .a-tail-bottomLeft-thought {
+        position: absolute;
+        background: url('../media/fantasy/bottomLeft-thought.png') no-repeat 10% 0%; 
+        height: 28px; width: 100%;
+        bottom: -28px;
+        left: 0;
+    }
 
-.a-tail-bottomRight-thought {
-    position: absolute;
-    background: url('../media/fantasy/bottomRight-thought.png') no-repeat 35% 0%; 
-    height: 28px; width: 100%;
-    bottom: -28px;
-    left: 0;
-}
+    .a-tail-bottomRight-thought {
+        position: absolute;
+        background: url('../media/fantasy/bottomRight-thought.png') no-repeat 35% 0%; 
+        height: 28px; width: 100%;
+        bottom: -28px;
+        left: 0;
+    }
 
-.a-tail-topLeft-thought {
-    position: absolute;
-    background: url('../media/fantasy/topLeft-thought.png') no-repeat 65% 0%; 
-    height: 28px; width: 100%;
-    top: -28px;
-    left: 0;
-}
+    .a-tail-topLeft-thought {
+        position: absolute;
+        background: url('../media/fantasy/topLeft-thought.png') no-repeat 65% 0%; 
+        height: 28px; width: 100%;
+        top: -28px;
+        left: 0;
+    }
 
-.a-tail-topRight-thought {
-    position: absolute;
-    background: url('../media/fantasy/topRight-thought.png') no-repeat 90% 0%; 
-    height: 28px; width: 100%;
-    top: -28px;
-    left: 0;
-}
+    .a-tail-topRight-thought {
+        position: absolute;
+        background: url('../media/fantasy/topRight-thought.png') no-repeat 90% 0%; 
+        height: 28px; width: 100%;
+        top: -28px;
+        left: 0;
+    }
 
 /* positioning */
 .lotr-0 { top: 6%; left: -1%; max-width: 22% }
@@ -137,16 +155,16 @@
 .lotr-3 { top: 62%; left: 60%; }
 .lotr-4 { top: 29%; left: 73%; }
 .lotr-5 { top: 8%; left: 78%; }
-.lotr-6 { top: 35%; left: 75%; }
-.lotr-7 { top: 30%; left: 70%; }
-.lotr-8 { top: 35%; left: 8%; }
-.lotr-9 { top: 30%; left: 10%;; }
-.lotr-10 { top: 32%; left: 15%; }
-.lotr-11 { top: 8%; left: 18%; }
+.lotr-6 { top: 55%; left: 75%; }
+.lotr-7 { top: 55%; left: 70%; }
+.lotr-8 { top: 68%; left: 4%; }
+.lotr-9 { top: 53%; left: 2%;; }
+.lotr-10 { top: 57%; left: 4%; }
+.lotr-11 { top: 8%; left: 4%; }
 .lotr-12 { top: 10%; left: 70%; }
-.lotr-13 { top: 8%; left: 15%; }
-.lotr-14 { top: 8%; left: 58%; }
-.lotr-15 { top: 30%; left: 6%; }
-.lotr-16 { top: 31%; left: 33%; }
-.lotr-17 { top: 32%; left: 67%; }
-.lotr-18 { top: 28%; left: 8%; }
+.lotr-13 { top: 8%; left: 4%; }
+.lotr-14 { top: 8%; left: 64%; }
+.lotr-15 { top: 50%; left: 6%; }
+.lotr-16 { top: 58%; left: 34%; }
+.lotr-17 { top: 58%; left: 63%; }
+.lotr-18 { top: 52%; left: 2%; }

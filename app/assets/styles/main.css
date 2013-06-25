@@ -478,6 +478,11 @@ input {cursor: text;}
     .annotation {   
         position: absolute;
         opacity: 1;
+         -ms-transform-origin: 50% 50%; /* IE 9 */
+        -moz-transform-origin: 50% 50%; /* Firefox */
+        -o-transform-origin: 50% 50%; /* Opera */
+        -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
+        transform-origin: 50% 50%;
     }
 /*      EXPERIENCE END           */
 
@@ -531,13 +536,12 @@ input {cursor: text;}
         .shareMenu {
             background: url('../media/header_shareWithOthers.png') no-repeat left;
             background-size: 30.54% auto;
-            height: 54px;
-            width: 1026px;
+            height: 6%;
+            width: 70%;
             position: absolute;
             bottom: 0;
             left: 50%;
-            margin: 0 0 0 -513px;
-
+            margin: 0 0 0 -35%;
          }
             .shareMenu__btnFacebook { background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; float: right;}
             .shareMenu__btnFacebook:active {background: url('../media/btn_facebook_tap.png') no-repeat top; background-size: contain;}

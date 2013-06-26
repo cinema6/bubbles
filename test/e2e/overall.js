@@ -50,6 +50,12 @@
 				it('should change the url.', function() {
 					expect(browser().window().hash()).toBe('/entry/action');
 				});
+				it('should set the video src', function() {
+					expect(element('video#player').attr('src')).toContain('assets/media/action/bruce_lee');
+				});
+				it('should load experience-specific CSS', function() {
+					expect(element('link#experience_css').attr('href')).toBe('assets/styles/bubbles_action.css');
+				});
 			});
 		});
 		describe('The input screen', function() {
@@ -62,27 +68,35 @@
 			it('should display the first prompt.', function() {
 				expect(element('h2.question__query').text()).toContain('Salutation');
 			});
+			it('should set the video src', function() {
+				expect(element('video#player').attr('src')).toContain('assets/media/action/bruce_lee');
+			});
+			it('should load experience-specific CSS', function() {
+				expect(element('link#experience_css').attr('href')).toBe('assets/styles/bubbles_action.css');
+			});
 			describe('the textfield', function() {
 				it('should update the counter as you type.', function() {
 					var counter = element('.question__characterCount'),
 						textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]'),
 						message = 'Hello!';
 					
-					expect(counter.text()).toContain('12');
+					expect(counter.text()).toContain('15');
 					
 					for (var i = 0, length = message.length; i < length; i++) {
 						textField.enter(message.substring(0, i + 1));
-						expect(counter.text()).toContain(12 - (i + 1) + '');
+						expect(counter.text()).toContain(15 - (i + 1) + '');
 					}
 				});
 			});
 			describe('the previous/next buttons', function() {
-				var textField,
+				var $injector = angular.injector(['ng', 'c6.app']),
+					vsvc = $injector.get('c6VideoListingService'),
+					textField,
 					prev,
 					next,
 					query,
 					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'],
-					prompts = ['Salutation', 'Animal', 'Superhero', 'Body Part (plural)', 'Plural noun', 'Animal Noise', 'Greek God', 'Character from Star Wars', '80\'s female sitcom star', 'Type of candy'];
+					prompts = vsvc.getExperienceByCategory('action').prompts;
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					query = element('.question__query');
@@ -92,7 +106,7 @@
 								
 				it('should cycle through the prompts/responses', function() {
 					prompts.forEach(function(prompt, index) {
-						expect(query.text()).toContain(prompt);
+						expect(query.text()).toContain((typeof prompt === 'string')? prompt : prompt.query);
 						textField.enter(responses[index]);
 						if (index !== 9) {
 							next.click();
@@ -101,7 +115,7 @@
 					});
 					
 					for (var i = prompts.length; i--;) {
-						expect(query.text()).toContain(prompts[i]);
+						expect(query.text()).toContain((typeof prompts[i] === 'string')? prompts[i] : prompts[i].query);
 						expect(textField.val()).toBe(responses[i]);
 						if (i) {
 							prev.click();
@@ -295,6 +309,117 @@
 					expect(element('.startScreen').count()).toBe(1);
 				});
 			});
+		});
+		it('should change the experience CSS file if you use multiple experiences.', function() {
+			var experienceCssLink = element('link#experience_css'),
+				textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]'),
+				next = element('.question__btnNext'),
+				start = element('.question__btnStart'),
+				video = element('#player'),
+				newVideo = element('button.vidMenu__btnNewVid'),
+				actionResponses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Dishwasher', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'],
+				romanceResponses = ['Fish', 'Farted', 'Holy Cow!', 'Dog', 'Pig', 'Wonder Bread', 'Beyonce', 'Dropkick', 'Carrots'],
+				fantasyResponses = ['Cow', 'Pookie', 'Apple', 'Knee', 'Eat', 'Desks', 'Crap', 'Avocado', 'Princeton', 'Lamb'];
+
+			sleep(1);
+			browser().navigateTo('/');
+			sleep(1);
+			
+			expect(experienceCssLink.attr('href')).toBeFalsy();
+			
+			element('button.category__frame[name="Action"]').click();
+			sleep(4);
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_action.css');
+			
+			actionResponses.forEach(function(response, index) {
+				textField.enter(response);
+				if (index !== 9) {
+					next.click();
+					sleep(1.5);
+				} else {
+					start.click();
+					sleep(5);
+				}
+			});
+			
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_action.css');
+			
+			video.query(function($video, done) {
+				$video.on('ended', function() {
+					$video.off('ended');
+					done();
+				});
+				
+				$video.prop('currentTime', $video.prop('duration') - 20);
+			});
+			
+			sleep(4);
+			
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_action.css');
+			
+			newVideo.click();
+			sleep(4);
+			
+			element('button.category__frame[name="Romance"]').click();
+			sleep(4);
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_romance.css');
+			
+			romanceResponses.forEach(function(response, index) {
+				textField.enter(response);
+				if (index !== 8) {
+					next.click();
+					sleep(1.5);
+				} else {
+					start.click();
+					sleep(5);
+				}
+			});
+			
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_romance.css');
+			
+			video.query(function($video, done) {
+				$video.on('ended', function() {
+					$video.off('ended');
+					done();
+				});
+				
+				$video.prop('currentTime', $video.prop('duration') - 20);
+			});
+			
+			sleep(4);
+			
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_romance.css');
+			
+			newVideo.click();
+			sleep(4);
+			
+			element('button.category__frame[name="SciFi-Fantasy"]').click();
+			sleep(4);
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_fantasy.css');
+			
+			fantasyResponses.forEach(function(response, index) {
+				textField.enter(response);
+				if (index !== 9) {
+					next.click();
+					sleep(1.5);
+				} else {
+					start.click();
+					sleep(5);
+				}
+			});
+			
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_fantasy.css');
+			
+			video.query(function($video, done) {
+				$video.on('ended', function() {
+					$video.off('ended');
+					done();
+				});
+				
+				$video.prop('currentTime', $video.prop('duration') - 20);
+			});
+			
+			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_fantasy.css');
 		});
 	});
 })();

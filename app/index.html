@@ -51,7 +51,7 @@
         	preload="auto"
         	controls>
         </video>
-        <ul class="annotations">
+        <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
           <li
           	ng-repeat="a in annoCtrl.annotationsModel.annotations"
           	ng-show="annoCtrl.annotationIsActive(a)"
@@ -60,7 +60,7 @@
             <div class="a-style">
               <div class="a-frame">
                 <div class="a-text">
-                  {{a.text}}
+                  {{a.text}}&nbsp;
                   <div class="a-deco-right"></div><div class="a-deco-left"></div>
                   <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
                 </div>

@@ -77,12 +77,14 @@
 				});
 			});
 			describe('the previous/next buttons', function() {
-				var textField,
+				var $injector = angular.injector(['ng', 'c6.app']),
+					vsvc = $injector.get('c6VideoListingService'),
+					textField,
 					prev,
 					next,
 					query,
-					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'],
-					prompts = ['Salutation', 'Animal', 'Superhero', 'Body Part (plural)', 'Pizza topping', 'Household appliance', 'Sesame Street character', 'Star Wars villian', 'TV personality', 'Type of candy'];
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'],
+					prompts = vsvc.getExperienceByCategory('action').prompts;
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					query = element('.question__query');
@@ -92,7 +94,7 @@
 								
 				it('should cycle through the prompts/responses', function() {
 					prompts.forEach(function(prompt, index) {
-						expect(query.text()).toContain(prompt);
+						expect(query.text()).toContain((typeof prompt === 'string')? prompt : prompt.query);
 						textField.enter(responses[index]);
 						if (index !== 9) {
 							next.click();
@@ -101,7 +103,7 @@
 					});
 					
 					for (var i = prompts.length; i--;) {
-						expect(query.text()).toContain(prompts[i]);
+						expect(query.text()).toContain((typeof prompts[i] === 'string')? prompts[i] : prompts[i].query);
 						expect(textField.val()).toBe(responses[i]);
 						if (i) {
 							prev.click();

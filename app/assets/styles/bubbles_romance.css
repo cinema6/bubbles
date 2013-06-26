@@ -1,8 +1,8 @@
 /* Romance Video Experience specific styles */
 
 .annotation {
-    min-width: 25%;
-    max-width: 30%;
+    min-width: 20%;
+    max-width: 28%;
 }
 
 .a-style {
@@ -14,7 +14,7 @@
 }
     @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
         .a-style {
-            border-radius: 45%;
+            border-radius: 38%;
         }
     }
 
@@ -40,24 +40,37 @@
         @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
             .a-deco-right {
                 width: 98.5%; height: 89%;
-                top: 6%;
-                
+                top: 6%;  
             }
         }
+
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+            .a-deco-right {
+                width: 98.5%; height: 93%;
+                top: 4%;  
+            }
+        }
+    }
     .a-deco-left {
         /* deco right used for whole annotation */
     } 
 
 .a-text {
     width: 84%;
-    padding: 12% 8%;
+    padding: 6% 8%;
     margin: 0 auto;
     text-align: center;
     font-family: "LadylikeBB", "courier prime", georgia, serif;
-    font-size: 90%;
+    font-size: 185%;
     line-height: 100%;
     color: #352e2e;
 }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+        .a-text {
+            font-size: 125%;
+            padding: 14% 10%;
+        }
+    }
     @font-face {
         font-family: LadylikeBB;
         src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),
@@ -138,12 +151,12 @@
     }
 
 /* bubble and tail positioning */
-.notebook-0 { top: 6%; left: 57%; }
-.notebook-1 { top: 8%; left: 8%; }
+.notebook-0 { top: 3%; left: 52%; }
+.notebook-1 { top: 5%; left: 18%; }
 .notebook-2 { top: 52%; left: 18%; }
-.notebook-3 { top: 65%; left: 10%; }
-.notebook-4 { top: 45%; left: 10%; }
-.notebook-5 { top: 5%; left: 48%; }
-.notebook-6 { top: 65%; left: 55%; }
-.notebook-7 { top: 65%; left: 8%; }
+.notebook-3 { top: 3%; left: 8%; max-width: 28%}
+.notebook-4 { top: 8%; left: 18%; max-width: 30% }
+.notebook-5 { top: 3%; left: 42%; max-width: 34%}
+.notebook-6 { top: 3%; left: 35%; max-width: 44% }
+.notebook-7 { top: 3%; left: 18%; }
 .notebook-8 { top: 8%; left: 48%; }

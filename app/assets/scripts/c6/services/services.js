@@ -3,6 +3,31 @@
 'use strict';
 
 angular.module('c6.svc',[])
+.service('C6ResizeService', ['$window', '$log', function($window, $log) {
+	var resizeFunctions = [];
+
+	this.registerDirective = function(code) {
+		if (resizeFunctions.indexOf(code) === -1) {
+			resizeFunctions.push(code);
+			$log.log('Registered new resizer. Current total is ' + resizeFunctions.length);
+			code($window.innerWidth, $window.innerHeight);
+		}
+	};
+
+	this.unregisterDirective = function(code) {
+		var codesIndex = resizeFunctions.indexOf(code);
+
+		resizeFunctions.splice(codesIndex, 1);
+		$log.log('Unregistered new resizer. Current total is ' + resizeFunctions.length);
+	};
+
+	angular.element($window).bind('resize', function() {
+		resizeFunctions.forEach(function(code) {
+			code($window.innerWidth, $window.innerHeight);
+		});
+	});
+}])
+
 .factory('C6AudioContext', ['$window', function($window) {
 	return $window.AudioContext || $window.webkitAudioContext;
 }])
@@ -323,9 +348,9 @@ angular.module('c6.svc',[])
                         { 'ts': 83,'template':'${2}',
                             'duration' : 3, tail: {type:'thought', pos: 'topLeft'} },
                         { 'ts': 84,'template':'${8} ${7}',
-                            'duration' : 2, tail: {type:'thought', pos: 'topLeft'} },
+                            'duration' : 2, tail: {type:'thought', pos: 'bottomLeft'} },
                         { 'ts': 95,'template':'I just took a ${7} in my pants',
-                            'duration' : 5, tail: {type:'thought', pos: 'topRight'} }
+                            'duration' : 5, tail: {type:'thought', pos: 'bottomRight'} }
                         ]
                 }
             };
@@ -362,7 +387,7 @@ angular.module('c6.svc',[])
                             'duration' : 3, tail: {type:'thought', pos: 'bottomRight'} },
                         { 'ts':19,'template':'Rain Diversion ${3}!',
                             'duration' : 2, tail: {type:'thought', pos: 'topRight'} },
-                       { 'ts':27,'template':'Casual laugh, think about a mutant ${4} ${5}.',
+                       { 'ts':27,'template':'Casual laugh, think about a ${4} ${5}.', 
                            'duration' : 3, tail: {type:'thought', pos: 'bottomRight'} },
                        { 'ts':34,'template':'${4} ${5}!!',
                            'duration' : 2.5, tail: {type:'thought', pos: 'bottomRight'} },

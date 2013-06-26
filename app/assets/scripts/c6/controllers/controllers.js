@@ -268,7 +268,7 @@ angular.module('c6.ctrl',['c6.svc'])
 			$scope.video.player.pause();
 		}
 	});
-	
+
 	$scope.$watch('annoCtrl.model.annotations', function(annotations) {
 		if (annotations) {
 			$scope.appCtrl.lastAnnotation = annotations[annotations.length - 1];

@@ -387,7 +387,7 @@ angular.module('c6.svc',[])
                             'duration' : 3, tail: {type:'thought', pos: 'bottomRight'} },
                         { 'ts':19,'template':'Rain Diversion ${3}!',
                             'duration' : 2, tail: {type:'thought', pos: 'topRight'} },
-                       { 'ts':27,'template':'Casual laugh, think about a ${4} ${5}.', 
+                       { 'ts':27,'template':'Casual laugh, think about a ${4} ${5}.',
                            'duration' : 3, tail: {type:'thought', pos: 'bottomRight'} },
                        { 'ts':34,'template':'${4} ${5}!!',
                            'duration' : 2.5, tail: {type:'thought', pos: 'bottomRight'} },

@@ -417,12 +417,12 @@ module.exports = function (grunt) {
         'release',
         'mvbuild',
         'link',
-        'installCleanup' 
+        'installCleanup'
     ]);
 
     grunt.registerTask('installCleanup', [
         'gitLastCommit',
-        'rmbuild' 
+        'rmbuild'
     ]);
 
     grunt.registerTask('rmbuild','Remove old copies of the install',function(){
@@ -487,7 +487,7 @@ module.exports = function (grunt) {
                 grunt.config.set('props',props);
                 return done(true);
             };
-        
+
         if (props.gitLastCommit){
             return done(true);
         }

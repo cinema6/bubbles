@@ -47,8 +47,9 @@
     padding: 10%;
     margin: 0 auto;
     text-align: center;
-    font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif;
-    font-size: 70%;
+    /*font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif;*/
+    font-family: "Sunshine", "courier prime", georgia, serif;
+    font-size: 105%;
     line-height: 100%;
     color: #fff;
 }
@@ -59,9 +60,8 @@
         }
     }
 
-
-    @font-face {
-        font-family: SherwoodRegular;
+        @font-face {
+        font-family: 'SherwoodRegular';
         src: url('../media/fantasy/SherwoodRegular.ttf') format('truetype'),
             url('../media/fantasy/SherwoodRegular.woff') format('woff'), 
             url('../media/fantasy/SherwoodRegular.eot') format('embedded-opentype'), 
@@ -69,7 +69,6 @@
         font-weight: normal;
         font-style: normal;
     }
-
 /* tail styles */
     .a-tail-bottomLeft-speech {
         position: absolute;

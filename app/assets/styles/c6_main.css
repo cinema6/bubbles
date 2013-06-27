@@ -276,7 +276,7 @@
                 width:5.25em; height:1.0625em; display: block;
             }
                 .vid-rating--3star {
-                    background:url(../img/starRating-3.png) 0 0 no-repeat; background-size:100% auto;
+                    background:url(../media/c6/starRating-3.png) 0 0 no-repeat; background-size:100% auto;
                 }
     .social__group {
         margin:0.9375em 0 0;
@@ -304,6 +304,10 @@
         .vid-details p {
             margin:0.846em 0; font-size:0.8125em; color:#6b6b6b; line-height: 1;
         }
+        .vid-details__userBanner {
+            height: 3.37em; width: 16.5em;
+            display: block; margin-bottom: 1.2em;
+        }
 
     @media only screen and (max-width: 768px) {
         .video-info__group {
@@ -315,7 +319,6 @@
         .social__action {
             display:inline; float:none; line-height:3;
         }
-
     }
 
 

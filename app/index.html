@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="assets/styles/main.css">
-  	<link rel="stylesheet" ng-href="{{appCtrl.experience.css}}">
+  	<link rel="stylesheet" id="experience_css" ng-href="{{appCtrl.experience.css}}">
     
     <!-- @if TEST=true -->
     	<script>
@@ -67,7 +67,7 @@
         	preload="auto"
         	controls>
         </video>
-        <ul class="annotations" c6-resize="{height:524, width: 1180, font: 32}">
+        <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
           <li
           	ng-repeat="a in annoCtrl.model.annotations"
           	ng-show="annoCtrl.annotationIsActive(a)"

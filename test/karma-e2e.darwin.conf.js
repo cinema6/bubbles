@@ -5,9 +5,6 @@ basePath = '';
 
 // list of files / patterns to load in the browser
 files = [
-  '../dist/assets/lib/jquery/jquery.min.js',
-  '../dist/assets/lib/greensock/TimelineMax.min.js',
-  '../dist/assets/lib/greensock/TweenMax.min.js',
   ANGULAR_SCENARIO,
   ANGULAR_SCENARIO_ADAPTER,
   '../dist/assets/lib/c6media/c6lib.video.js',
@@ -47,10 +44,10 @@ autoWatch = false;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome'];
+browsers = ['Chrome', 'Safari', 'Firefox'];
 
 // If browser does not capture in given timeout [ms], kill it
-captureTimeout = 5000;
+captureTimeout = 15000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit

@@ -194,8 +194,7 @@ module.exports = function (grunt) {
                 singleRun: true
             },
             e2e: {
-                configFile: 'test/karma-e2e.' + os.platform() + '.conf.js',
-                singleRun: true
+                configFile: 'test/karma-e2e.' + os.platform() + '.conf.js'
             }
         },
         preprocess: {

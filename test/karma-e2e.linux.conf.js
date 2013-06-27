@@ -44,14 +44,14 @@ autoWatch = false;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome', 'Safari', 'Firefox'];
+//browsers = ['Chrome', 'Safari', 'Firefox'];
 
 // If browser does not capture in given timeout [ms], kill it
 captureTimeout = 15000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
-singleRun = true;
+singleRun = false;
 
 proxies =  {
   '/': 'http://localhost:9000'

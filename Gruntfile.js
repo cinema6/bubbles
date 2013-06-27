@@ -1,7 +1,7 @@
 'use strict';
 var fs          = require('fs-extra'),
     path        = require('path'),
-    lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
+    //lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
     },
@@ -60,16 +60,34 @@ module.exports = function (grunt) {
     grunt.initConfig( {
         props: initProps,
         watch: {
-            livereload: {
-                files: [
+            server: {
+	            files: [
+                    '<%= props.dist %>/{,*/}*.html',
+                    '<%= props.dist %>/assets/views/{,*/}*.html',
+                    '<%= props.dist %>/assets/styles/{,*/}*.css',
+                    '{.tmp,<%= props.dist %>}/assets/scripts/{,*/}*.js',
+                    '{.tmp,<%= props.dist %>}/assets/scripts/c6/{,*/}*.js',
+                    '<%= props.dist %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                ],
+                options: {
+                    livereload: true
+                }
+            },
+            css: {
+	            files: [
+                    '<%= props.app %>/assets/styles/{,*/}*.css'
+                ],
+                tasks: ['copy:css']
+            },
+            assets: {
+	            files: [
                     '<%= props.app %>/{,*/}*.html',
                     '<%= props.app %>/assets/views/{,*/}*.html',
-                    '{.tmp,<%= props.app %>}/assets/styles/{,*/}*.css',
                     '{.tmp,<%= props.app %>}/assets/scripts/{,*/}*.js',
                     '{.tmp,<%= props.app %>}/assets/scripts/c6/{,*/}*.js',
                     '<%= props.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ],
-                tasks: ['copy:server', 'preprocess:normal', 'livereload']
+	            tasks: ['copy:assets', 'preprocess:normal']
             }
         },
         connect: {
@@ -82,7 +100,7 @@ module.exports = function (grunt) {
                 options: {
                     middleware: function (connect) {
                         return [
-                            lrSnippet,
+                            require('connect-livereload')(),
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, initProps.dist)
                         ];
@@ -95,7 +113,7 @@ module.exports = function (grunt) {
                         return [
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, 'test'),
-                            mountFolder(connect, initProps.app)
+                            mountFolder(connect, initProps.dist)
                         ];
                     }
                 }
@@ -299,7 +317,7 @@ module.exports = function (grunt) {
                 files: [{ expand: true, dot: true, cwd: '<%= props.jqueryui.buildDir %>',
                 dest: '<%= props.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
             },
-            server: {
+            assets: {
                 files: [{
                     expand: true,
                     dot: true,
@@ -307,6 +325,18 @@ module.exports = function (grunt) {
                     dest: '<%= props.dist %>',
                     src: [
                         '**',
+                        '!**/*.css'
+                    ]
+                }]
+            },
+            css: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= props.app %>',
+                    dest: '<%= props.dist %>',
+                    src: [
+                        '**/*.css'
                     ]
                 }]
             },
@@ -384,13 +414,11 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.renameTask('regarde', 'watch');
-
     grunt.registerTask('server', [
         'clean:dist',
-        'copy:server',
+        'copy:assets',
+        'copy:css',
         'preprocess:normal',
-        'livereload-start',
         'connect:livereload',
         'open',
         'watch'
@@ -405,8 +433,7 @@ module.exports = function (grunt) {
         'copy:test',
         'preprocess:test',
         'uglify:test',
-        'livereload-start',
-        'connect:livereload',
+        'connect:test',
         'karma:unit',
         'karma:e2e'
      ]);
@@ -617,5 +644,4 @@ module.exports = function (grunt) {
             done(false);
         });
     });
-
 };

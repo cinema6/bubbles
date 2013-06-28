@@ -12,15 +12,15 @@
         <link rel="stylesheet" href="assets/styles/c6_main.css">
         <link rel="stylesheet" href="assets/styles/Screenjacked.css">
         <link id="experience_css" rel="stylesheet" ng-href="{{appCtrl.experience.css}}">
-        <script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script> <!-- c6 typekit -->
+        <!--<script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script>--> <!-- c6 typekit -->
         <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script> <!-- screenjacked typekit -->
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     <!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
   </head>
-  <body class="paperTexture ng-cloak"> <!-- class toggles on for the experience -->
+  <body> 
 
-  		<ui-view></ui-view>
+  		<ui-view ng-animate="'experience'"></ui-view>
 
     <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

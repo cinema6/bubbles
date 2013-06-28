@@ -1,4 +1,7 @@
 <div class="experience">
+  <div class="transition__panels-top">&nbsp;</div>
+  <div class="transition__panels-bottom">&nbsp;</div>
+
   <!--#c6Bar-->
   <div id="c6Bar" class="c6-bar__group">
     <ul class="c6-bar__inner clearfix">
@@ -21,7 +24,7 @@
 </div>
   <!--#c6Bar-->
   
-  <div ui-view ng-animate="currentRoute + '-partial'"></div>
+  <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
   
   <div ng-controller="C6AnnotationsCtrl" ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
       <div class="experience__logo">

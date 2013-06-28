@@ -5,6 +5,59 @@
 	angular.module('c6.anim', [])
 
 //								//
+//		STANDARD ANIMATIONS		//
+//								//
+.animation('experience-enter', [function () {
+	return {
+		setup: function (partial) {
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom');
+
+			panelTop.css({'top': '-50%', 'opacity': '0.4'});
+			panelBottom.css({'bottom': '-50%', 'opacity': '0.4'});
+		},
+		start: function (partial, done) {
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom'),
+				transitionEnd = new TimelineLite({paused: true});
+
+			transitionEnd.to(panelTop, 1, {top: '-100%'}, '+=2.5')
+				.to(panelBottom, 1, {bottom: '-100%'}, '-=1')
+				.eventCallback('onComplete', done);
+
+			transitionEnd.play();
+			transitionEnd.seek(0);
+		}
+	};
+}])
+
+.animation('experience-leave', [function () {
+	return {
+		setup: function (partial) {
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom');
+
+			panelTop.css({'z-index': '500'});
+			panelBottom.css({'z-index': '500'});
+		},
+		start: function (partial, done) {
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom'),
+				transitionStart = new TimelineLite({paused:true});
+
+			transitionStart.to(panelTop, 1, {top: '-50%'})
+				.to(panelBottom, 1, {bottom: '-50%'}, '-=1')
+				.eventCallback('onComplete', done);
+
+				transitionStart.play();
+				transitionStart.seek(0);
+			console.log(panelTop);
+		}
+	};
+}])
+
+
+//								//
 //		PARTIALS ANIMATIONS		//
 //								//
 

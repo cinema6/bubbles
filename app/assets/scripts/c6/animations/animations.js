@@ -7,19 +7,15 @@
 //								//
 //		STANDARD ANIMATIONS		//
 //								//
-/*.animation('experience-enter', [function () {
+.animation('experience-enter', [function () {
 	return {
 		setup: function (partial) {
-			var panelTop = $(partial[0]).find('.transition__panels-top').css({'top': '-50%'}).hide(),
-				panelBottom = $(partial[0]).find('.transition__panels-bottom').css({'bottom': '-50%'}).hide();
-			
-			console.log("enter panel start");
-			console.log(panelTop);
-			console.log("enter panel end");
+			partial.find('.transition__panels-top').css({'top': '-50%'}).hide();
+			partial.find('.transition__panels-bottom').css({'bottom': '-50%'}).hide();
 		},
 		start: function (partial, done) {
-			var panelTop = $(partial[0]).find('.transition__panels-top'),
-				panelBottom = $(partial[0]).find('.transition__panels-bottom');
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom');
 
 			panelTop.stop().delay(500).show(0).delay(500).animate({
 				top:'-100%'
@@ -36,19 +32,12 @@
 .animation('experience-leave', [function () {
 	return {
 		setup: function (partial) {
-			console.log(partial);
-			var panelTop = $(partial[0]).find('.transition__panels-top').css({top:'-100%'}),
-				panelBottom = $(partial[0]).find('.transition__panels-bottom').css({bottom:'-100%'});
-
-			panelTop.css({'z-index': '500'}).addClass('exp_leave');
-			panelBottom.css({'z-index': '500'}).addClass('exp_leave');
-			console.log("leave panel start");
-			console.log(panelTop);
-			console.log("leave panel end");
+			partial.find('.transition__panels-top').css({top:'-100%'});
+			partial.find('.transition__panels-bottom').css({bottom:'-100%'});
 		},
 		start: function (partial, done) {
-			var panelTop = $(partial[0]).find('.transition__panels-top'),
-				panelBottom = $(partial[0]).find('.transition__panels-bottom');
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom');
 				
 				
 			panelTop.animate({top:'-50%'}, 500, function() {
@@ -57,7 +46,7 @@
 			panelBottom.animate({bottom:'-50%'}, 500);
 		}
 	};
-}])*/
+}])
 
 
 //								//

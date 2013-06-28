@@ -88,7 +88,7 @@ function AnnotationsModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', 'C6SfxService', 'appBaseUrl', '$state', function($log, $scope, $location, $stateParams, sfxSvc, appBase, $state) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', 'C6SfxService', 'appBaseUrl', '$state', '$timeout', function($log, $scope, $location, $stateParams, sfxSvc, appBase, $state, $timeout) {
 	$log.log('Creating C6AppCtrl');
 	sfxSvc.loadSounds([
 		{ name: 'type', src: appBase + '/media/tw_strike' },
@@ -103,6 +103,10 @@ angular.module('c6.ctrl',['c6.svc'])
 		return $stateParams.category;
 	};
 	this.sfxSvc = sfxSvc;
+	this.experienceAnimation = null;
+	$scope.$on('$viewContentLoaded', function() {
+		$scope.appCtrl.experienceAnimation = 'experience';
+	});
 
 	$scope.appCtrl = this;
 	$scope.$state = $state;

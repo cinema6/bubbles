@@ -33,8 +33,10 @@ button:disabled {opacity: 0.15;}
 
 .c6-bar__app-title {
     background: url('../media/logo_alpha.png') center center no-repeat;
-    
+    background-size: contain; height:1em; margin:0.6825em 0 0 0.75em;
 }
+
+
 
 /*  ==========================================================================
     landing page styles
@@ -274,6 +276,7 @@ button:disabled {opacity: 0.15;}
                 top: 5%;
                 left: 50%;
                 margin: 0 0 0 -37.5%;
+                color: #000;
             }
 
                 .question__number {
@@ -454,7 +457,7 @@ button:disabled {opacity: 0.15;}
     background: #000; 
     height: 100%; 
     width: 100%; 
-    z-index: -20;
+    z-index: 0;
     position: fixed; 
     top: 0; 
     opacity: 1;
@@ -474,7 +477,7 @@ button:disabled {opacity: 0.15;}
     }
 
  #player {
-    position: relative; 
+    position: absolute; 
     padding: 1%;
     width: 98%; 
     height: 90%;
@@ -551,16 +554,16 @@ button:disabled {opacity: 0.15;}
             .vidMenu__btnNewVid:active {background: url('../media/btn_newVid_tap.png') no-repeat top center; background-size: contain; float:right;}
 
         .shareMenu {
-            background: url('../media/header_shareWithOthers.png') no-repeat left;
+            background: url('../media/header_shareWithOthers.png') no-repeat 0 25%;
             background-size: 30.54% auto;
-            height: 6%;
+            height: 4%;
             width: 70%;
             position: absolute;
             bottom: 0;
             left: 50%;
             margin: 0 0 0 -35%;
          }
-            .shareMenu__btnFacebook { background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; float: right;}
+            .shareMenu__btnFacebook { display: inline; background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; float: right;}
             .shareMenu__btnFacebook:active {background: url('../media/btn_facebook_tap.png') no-repeat top; background-size: contain;}
 
             .shareMenu__btnTwitter { background: url('../media/btn_twitter_default.png') no-repeat top; background-size: contain; height: 100%; width: 15.16%; float: right; margin: 0 0 0 8% }

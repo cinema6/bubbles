@@ -7,7 +7,7 @@
 //								//
 //		STANDARD ANIMATIONS		//
 //								//
-.animation('experience-enter', [function () {
+/*.animation('experience-enter', [function () {
 	return {
 		setup: function (partial) {
 			var panelTop = $(partial[0]).find('.transition__panels-top').css({'top': '-50%'}).hide(),
@@ -57,7 +57,7 @@
 			panelBottom.animate({bottom:'-50%'}, 500);
 		}
 	};
-}])
+}])*/
 
 
 //								//

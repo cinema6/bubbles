@@ -486,14 +486,14 @@
                     background:#313437;
                 }
                 .c6-settings__gear-icon {
-                    display: block; width:20px; height:20px; background:url('../img/c6_sprite_alpha.png') -100px 0 no-repeat; background-size:250px 250px; float:left; opacity:0.2; 
+                    display: block; width:20px; height:20px; background:url('../media/c6/c6_sprite_alpha.png') -100px 0 no-repeat; background-size:250px 250px; float:left; opacity:0.2; 
                     -moz-transition:opacity 1s; -webkit-transition:opacity 1s; -o-transition:opacity 1s; transition:opacity 1s;
                 }
                     .c6-bar__settings:hover .c6-settings__gear-icon {
                         opacity:0.8;
                     }
                 .c6-settings__dropdown-icon {
-                    display: block; width:10px; height:10px; background:url('../img/c6_sprite_alpha.png') -100px -25px no-repeat; background-size:250px 250px; margin:5px 0 0 5px; float:left; opacity:0.2;
+                    display: block; width:10px; height:10px; background:url('../media/c6/c6_sprite_alpha.png') -100px -25px no-repeat; background-size:250px 250px; margin:5px 0 0 5px; float:left; opacity:0.2;
                     -moz-transition:opacity 1s; -webkit-transition:opacity 1s; -o-transition:opacity 1s; transition:opacity 1s;
                 }
                     .c6-bar__settings:hover .c6-settings__dropdown-icon {

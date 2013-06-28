@@ -45,26 +45,34 @@ angular.module('c6.app', dependencies)
   .config(['$stateProvider', '$urlRouterProvider', 'environment', function ($stateProvider, $urlRouterProvider, env) {
     $urlRouterProvider.otherwise('/');
       $stateProvider
-        .state('categories', {
-            templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
-            controller: 'C6CategoryListCtrl',
+        .state('landing', {
+            templateUrl: __C6_APP_BASE_URL__ + '/views/landing.html',
             url: '/'
         })
-        .state('input', {
-            templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
-            controller: 'C6InputCtrl',
-            url: '/entry/:category'
+        .state('experience', {
+            templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
+            url: '/categories'
         })
-        .state('video', {
-            template: '<!-- Foo -->',
-            controller: 'C6ExperienceCtrl',
-            url: '/entry/:category/experience'
-        })
-        .state('end', {
-            templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
-            controller: 'C6EndCtrl',
-            url: '/entry/:category/end'
-        });
+            .state('experience.categories', {
+                templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
+                controller: 'C6CategoryListCtrl',
+                url: '/'
+            })
+            .state('experience.input', {
+                templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
+                controller: 'C6InputCtrl',
+                url: '/:category'
+            })
+            .state('experience.video', {
+                template: '<!-- Foo -->',
+                controller: 'C6VideoCtrl',
+                url: '/:category/video'
+            })
+            .state('experience.end', {
+                templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
+                controller: 'C6EndCtrl',
+                url: '/:category/end'
+            });
   }])
   .constant('appBaseUrl', __C6_APP_BASE_URL__)
   .constant('environment', appConfig)

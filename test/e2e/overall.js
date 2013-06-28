@@ -31,7 +31,7 @@
 		describe('The categories screen', function() {
 			beforeEach(function() {
 				sleep(1);
-				browser().navigateTo('/');
+				browser().navigateTo('/#/categories/');
 				sleep(1);
 			});
 			
@@ -48,7 +48,7 @@
 					expect(element('div.inputScreen').count()).toBe(1);
 				});
 				it('should change the url.', function() {
-					expect(browser().window().hash()).toBe('/entry/action');
+					expect(browser().window().hash()).toBe('/categories/action');
 				});
 				it('should set the video src', function() {
 					expect(element('video#player').attr('src')).toContain('assets/media/action/bruce_lee');
@@ -61,7 +61,7 @@
 		describe('The input screen', function() {
 			beforeEach(function() {
 				sleep(1);
-				browser().navigateTo('/#entry/action');
+				browser().navigateTo('/#categories/action');
 				sleep(1);
 			});
 			
@@ -226,7 +226,7 @@
 						expect(element('#player').prop('paused')).toBe(false);
 					});
 					it('should change the url', function() {
-						expect(browser().window().hash()).toBe('/entry/action/experience');
+						expect(browser().window().hash()).toBe('/categories/action/video');
 					});
 				});
 			});
@@ -239,7 +239,7 @@
 				responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
 			beforeEach(function() {
 				sleep(1);
-				browser().navigateTo('/#entry/action');
+				browser().navigateTo('/#categories/action');
 				sleep(1);
 				
 				textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
@@ -281,13 +281,13 @@
 				sleep(3);
 				
 				expect(element('.endScreen').count()).toBe(1);
-				expect(browser().window().hash()).toBe('/entry/action/end');
+				expect(browser().window().hash()).toBe('/categories/action/end');
 			});
 		});
 		describe('the end screen', function() {
 			beforeEach(function() {
 				sleep(1);
-				browser().navigateTo('/#/entry/action/end');
+				browser().navigateTo('/#/categories/action/end');
 				sleep(1);
 			});
 			
@@ -296,7 +296,7 @@
 					element('.vidMenu__btnReplay').click();
 					sleep(5);
 					
-					expect(browser().window().hash()).toBe('/entry/action/experience');
+					expect(browser().window().hash()).toBe('/categories/action/video');
 					expect(element('#player').css('opacity')).toBe('1');
 				});
 			});
@@ -305,7 +305,7 @@
 					element('.vidMenu__btnNewVid').click();
 					sleep(4);
 					
-					expect(browser().window().hash()).toBe('/');
+					expect(browser().window().hash()).toBe('/categories/');
 					expect(element('.startScreen').count()).toBe(1);
 				});
 			});
@@ -322,7 +322,7 @@
 				fantasyResponses = ['Cow', 'Pookie', 'Apple', 'Knee', 'Eat', 'Desks', 'Crap', 'Avocado', 'Princeton', 'Lamb'];
 
 			sleep(1);
-			browser().navigateTo('/');
+			browser().navigateTo('/#categories/');
 			sleep(1);
 			
 			expect(experienceCssLink.attr('href')).toBeFalsy();

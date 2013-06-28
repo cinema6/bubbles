@@ -33,6 +33,7 @@ var browserVersion = (function(){
     }
 
 var dependencies = [
+    'ui.state',
     'c6.ctrl',
     'c6.svc',
     'c6.anim',
@@ -41,27 +42,29 @@ var dependencies = [
 ];
 
 angular.module('c6.app', dependencies)
-  .config(['$routeProvider', 'environment', function ($routeProvider, env) {
-    $routeProvider
-      .when('/', {
-        templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
-        controller: 'C6CategoryListCtrl'
-      })
-      .when('/entry/:category', {
-        templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
-        controller: 'C6InputCtrl'
-      })
-	      .when('/entry/:category/experience', {
-		      template: '<!-- Foo -->',
-		      controller: 'C6ExperienceCtrl'
-	      })
-	      .when('/entry/:category/end', {
-		      templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
-		      controller: 'C6EndCtrl'
-	      })
-      .otherwise({
-        redirectTo: '/'
-      });
+  .config(['$stateProvider', '$urlRouterProvider', 'environment', function ($stateProvider, $urlRouterProvider, env) {
+    $urlRouterProvider.otherwise('/');
+      $stateProvider
+        .state('categories', {
+            templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
+            controller: 'C6CategoryListCtrl',
+            url: '/'
+        })
+        .state('input', {
+            templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
+            controller: 'C6InputCtrl',
+            url: '/entry/:category'
+        })
+        .state('video', {
+            template: '<!-- Foo -->',
+            controller: 'C6ExperienceCtrl',
+            url: '/entry/:category/experience'
+        })
+        .state('end', {
+            templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
+            controller: 'C6EndCtrl',
+            url: '/entry/:category/end'
+        });
   }])
   .constant('appBaseUrl', __C6_APP_BASE_URL__)
   .constant('environment', appConfig)

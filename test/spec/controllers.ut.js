@@ -9,18 +9,38 @@ describe('Controllers', function() {
 		vsvc;
 	
 	beforeEach(function() {
+		module('ui.state');
 		module('c6.svc');
 		module(function($provide){
 			$provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
-			$provide.value('$location', {
+			var $locationMock = {
 				_path: null,
 				path: function(path) {
 					if (path) { this._path = path; }
 						return this._path;
 				}
-			});
-			$provide.value('$routeParams', {
+			}
+			$provide.value('$location', $locationMock);
+			$provide.value('$stateParams', {
 				category: 'action'
+			});
+			$provide.value('$state', {
+				transitionTo: function(state, params) {
+					switch(state) {
+						case 'categories':
+							$locationMock.path('/');
+							break;
+						case 'input':
+							$locationMock.path('/entry/action');
+							break;
+						case 'video':
+							$locationMock.path('/entry/action/experience');
+							break;
+						case 'end':
+							$locationMock.path('/entry/action/end');
+							break;
+					}
+				}
 			});
 			$provide.value('c6VideoListingService', {
 				getCategories: function() {
@@ -127,16 +147,16 @@ describe('Controllers', function() {
 		});
 		it('Should set inExperience based on the URL.', function() {
 			$location._path = '/entry/action';
-			$rootScope.$broadcast('$routeChangeSuccess');
+			$rootScope.$broadcast('$stateChangeSuccess');
 			expect($rootScope.appCtrl.inExperience).toBe(false);
 			
 			appCtrl.inExperience = true;
 			$location._path = '/entry/action/experience';
-			$rootScope.$broadcast('$routeChangeSuccess');
+			$rootScope.$broadcast('$stateChangeSuccess');
 			expect($rootScope.appCtrl.inExperience).toBe(true);
 			
 			$location._path = '/entry/action/end';
-			$rootScope.$broadcast('$routeChangeSuccess');
+			$rootScope.$broadcast('$stateChangeSuccess');
 			expect($rootScope.appCtrl.inExperience).toBe(false);
 		});
 	});

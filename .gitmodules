@@ -10,3 +10,6 @@
 [submodule "vendor/c6media"]
 	path = vendor/c6media
 	url = https://github.com/cinema6/c6Media.git
+[submodule "vendor/ui-router"]
+	path = vendor/ui-router
+	url = https://github.com/angular-ui/ui-router.git

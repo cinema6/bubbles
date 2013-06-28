@@ -8,7 +8,7 @@
         <h1 class="startScreen__directions">choose one</h1>
         <ul class="category__group">
             <li class="category__item" ng-repeat="category in catCtrl.categories">
-                <button class="category__frame" name="{{category}}" ng-click="catCtrl.loadCategory(category);">
+                <button class="category__frame" name="{{category}}" ng-click="$state.transitionTo('input', { category: (category | lowercase) });">
                     <img class="category__art" ng-src="assets/media/vidThumb_{{category}}.jpg">
                 </button>
                 <!--<h3 class="category__name">{{category}}</h3>-->

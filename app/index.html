@@ -6,10 +6,12 @@
     <title>Screenjacked</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <base href="/"></base>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="assets/styles/csswizardry-grid.css">
         <link rel="stylesheet" href="assets/styles/c6_main.css">
         <link rel="stylesheet" href="assets/styles/Screenjacked.css">
+        <link id="experience_css" rel="stylesheet" ng-href="{{appCtrl.experience.css}}">
         <script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script> <!-- c6 typekit -->
         <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script> <!-- screenjacked typekit -->
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -41,7 +43,7 @@
     </div>
       <!--#c6Bar-->
       
-      <div ng-view ng-animate="currentRoute + '-partial'"></div>
+      <div ui-view ng-animate="currentRoute + '-partial'"></div>
       
       <div ng-controller="C6AnnotationsCtrl" ng-show="appCtrl.inExperience" ng-animate="'video'" class="experience__group">
           <div class="experience__logo">

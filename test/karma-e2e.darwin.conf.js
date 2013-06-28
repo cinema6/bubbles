@@ -11,6 +11,7 @@ files = [
   '../app/assets/lib/greensock/TimelineMax.min.js',
   '../app/assets/lib/greensock/TweenMax.min.js',
   '../app/assets/lib/c6media/c6lib.video.js',
+  '../app/assets/lib/ui-router/angular-ui-router.js',
   'e2e/env.js',
   '../app/assets/scripts/c6/app.js',
   '../app/assets/scripts/c6/services/services.js',

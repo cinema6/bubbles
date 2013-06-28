@@ -111,12 +111,12 @@ button:disabled {opacity: 0.15;}
     .transition__panels-top {
         height: 100%; width: 100%; 
         background: #232527; top: -100%;
-        z-index: 100; position: fixed;
+        z-index: 2000; position: fixed;
     }
     .transition__panels-bottom {
         height: 100%; width: 100%; 
         background: #232527; bottom: -100%;
-        z-index: 100; position: fixed;
+        z-index: 2000; position: fixed;
     }
 /*  ==========================================================================
     categories styles

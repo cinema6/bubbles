@@ -10,23 +10,25 @@
 .animation('experience-enter', [function () {
 	return {
 		setup: function (partial) {
-			var panelTop = partial.find('.transition__panels-top'),
-				panelBottom = partial.find('.transition__panels-bottom');
-
-			panelTop.css({'top': '-50%', 'opacity': '0.4'});
-			panelBottom.css({'bottom': '-50%', 'opacity': '0.4'});
+			var panelTop = $(partial[0]).find('.transition__panels-top').css({'top': '-50%'}).hide(),
+				panelBottom = $(partial[0]).find('.transition__panels-bottom').css({'bottom': '-50%'}).hide();
+			
+			console.log("enter panel start");
+			console.log(panelTop);
+			console.log("enter panel end");
 		},
 		start: function (partial, done) {
-			var panelTop = partial.find('.transition__panels-top'),
-				panelBottom = partial.find('.transition__panels-bottom'),
-				transitionEnd = new TimelineLite({paused: true});
+			var panelTop = $(partial[0]).find('.transition__panels-top'),
+				panelBottom = $(partial[0]).find('.transition__panels-bottom');
 
-			transitionEnd.to(panelTop, 1, {top: '-100%'}, '+=2.5')
-				.to(panelBottom, 1, {bottom: '-100%'}, '-=1')
-				.eventCallback('onComplete', done);
-
-			transitionEnd.play();
-			transitionEnd.seek(0);
+			panelTop.stop().delay(500).show(0).delay(500).animate({
+				top:'-100%'
+			}, 500, function() {
+				window.setTimeout(done, 300);
+			});
+			panelBottom.stop().delay(500).show(0).delay(500).animate({
+				bottom:'-100%'
+			}, 500);
 		}
 	};
 }])
@@ -34,24 +36,25 @@
 .animation('experience-leave', [function () {
 	return {
 		setup: function (partial) {
-			var panelTop = partial.find('.transition__panels-top'),
-				panelBottom = partial.find('.transition__panels-bottom');
+			console.log(partial);
+			var panelTop = $(partial[0]).find('.transition__panels-top').css({top:'-100%'}),
+				panelBottom = $(partial[0]).find('.transition__panels-bottom').css({bottom:'-100%'});
 
-			panelTop.css({'z-index': '500'});
-			panelBottom.css({'z-index': '500'});
+			panelTop.css({'z-index': '500'}).addClass('exp_leave');
+			panelBottom.css({'z-index': '500'}).addClass('exp_leave');
+			console.log("leave panel start");
+			console.log(panelTop);
+			console.log("leave panel end");
 		},
 		start: function (partial, done) {
-			var panelTop = partial.find('.transition__panels-top'),
-				panelBottom = partial.find('.transition__panels-bottom'),
-				transitionStart = new TimelineLite({paused:true});
-
-			transitionStart.to(panelTop, 1, {top: '-50%'})
-				.to(panelBottom, 1, {bottom: '-50%'}, '-=1')
-				.eventCallback('onComplete', done);
-
-				transitionStart.play();
-				transitionStart.seek(0);
-			console.log(panelTop);
+			var panelTop = $(partial[0]).find('.transition__panels-top'),
+				panelBottom = $(partial[0]).find('.transition__panels-bottom');
+				
+				
+			panelTop.animate({top:'-50%'}, 500, function() {
+				window.setTimeout(done, 300);
+			});
+			panelBottom.animate({bottom:'-50%'}, 500);
 		}
 	};
 }])

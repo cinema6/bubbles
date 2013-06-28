@@ -8,6 +8,7 @@ files = [
   JASMINE,
   JASMINE_ADAPTER,
   '../app/assets/lib/angular/angular.js',
+  '../app/assets/lib/ui-router/angular-ui-router.js',
   '../app/assets/lib/angular/angular-mocks.js',
 /*
   '../app/assets/lib/require/require.js',

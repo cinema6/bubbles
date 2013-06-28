@@ -26,7 +26,7 @@ require([   'lib/jquery/jquery.min',
             /*'lib/jqueryui/jquery-ui.min'*/], function(){
 
     require(['lib/angular/angular.min'],function(){
-        require(['lib/c6media/c6lib.video.min'],function(){
+        require(['lib/c6media/c6lib.video.min', 'lib/ui-router/angular-ui-router.min'],function(){
             require(c6Scripts, function(){
                 angular.bootstrap(document, ['c6.app']);
             });

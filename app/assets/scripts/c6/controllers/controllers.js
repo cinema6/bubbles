@@ -88,10 +88,8 @@ function AnnotationsModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$routeParams', 'C6SfxService', 'appBaseUrl', function($log, $scope, $location, $routeParams, sfxSvc, appBase) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', 'C6SfxService', 'appBaseUrl', '$state', function($log, $scope, $location, $stateParams, sfxSvc, appBase, $state) {
 	$log.log('Creating C6AppCtrl');
-	var self = this;
-
 	sfxSvc.loadSounds([
 		{ name: 'type', src: appBase + '/media/tw_strike' },
 		{ name: 'bell', src: appBase + '/media/tw_bell' },
@@ -101,25 +99,17 @@ angular.module('c6.ctrl',['c6.svc'])
 	sfxSvc.playSoundOnEvent('pop', 'annotationActivated');
 
 	this.experience = null;
-	this.inExperience = false;
-	this.goToRoute = function(route) {
-		$location.path(route);
-	};
 	this.category = function() {
-		return $routeParams.category;
+		return $stateParams.category;
 	};
 	this.sfxSvc = sfxSvc;
 
 	$scope.appCtrl = this;
-
-	$scope.$on('$routeChangeSuccess', function() {
-		if (!$location.path().match(/\/experience/) && self.inExperience) {
-			self.inExperience = false;
-		}
-	});
+	$scope.$state = $state;
+	$scope.$stateParams = $stateParams;
 }])
 .controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
-										'c6VideoListingService', function($log,$scope,$rootScope,vsvc){
+										'c6VideoListingService', '$state', function($log,$scope,$rootScope,vsvc,$state){
 	$log.log('Creating cCategoryListCtrl');
 	$rootScope.currentRoute = 'categories';
 
@@ -131,13 +121,13 @@ angular.module('c6.ctrl',['c6.svc'])
 		category = angular.lowercase(category);
 
 		$scope.appCtrl.experience = vsvc.getExperienceByCategory(category);
-		$scope.appCtrl.goToRoute('/entry/' + category);
+		$state.transitionTo('experience.input', { category: category });
 	};
 
 	$scope.catCtrl = this;
 }])
-.controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$timeout', 'c6VideoListingService', function($log, $scope, $rootScope, $routeParams, $timeout, vsvc) {
-	$log.log('Creating C6InputCtrl: ' + $routeParams.category);
+.controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$stateParams', '$timeout', 'c6VideoListingService', '$state', function($log, $scope, $rootScope, $stateParams, $timeout, vsvc, $state) {
+	$log.log('Creating C6InputCtrl: ' + $stateParams.category);
 	$rootScope.currentRoute = 'input';
 
 	$scope.$watch('inputCtrl.currentPromptIndex()', function(newValue, oldValue) {
@@ -149,7 +139,7 @@ angular.module('c6.ctrl',['c6.svc'])
 		}
 	});
 
-	$scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
+	$scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($stateParams.category);
 
 	this.promptModel = new PromptModel($scope.appCtrl.experience);
 	if ($scope.appCtrl.experience.responses) { this.promptModel.responses = $scope.appCtrl.experience.responses; }
@@ -186,17 +176,17 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.startExperience = function() {
 		$scope.$broadcast('experienceStart');
 		$scope.appCtrl.experience.responses = this.promptModel.responses;
-		 $scope.appCtrl.goToRoute('/entry/' + $routeParams.category + '/experience');
+		$state.transitionTo('experience.video', { category: $stateParams.category });
 	};
 
 	$scope.inputCtrl = this;
 }])
-.controller('C6ExperienceCtrl', ['$log', '$scope', '$routeParams', 'c6VideoListingService', function($log, $scope, $routeParams, vsvc) {
+.controller('C6VideoCtrl', ['$log', '$scope', '$stateParams', 'c6VideoListingService', '$rootScope', function($log, $scope, $stateParams, vsvc, $rootScope) {
 	$log.log('Creating C6ExperienceCtrl');
+	$log.log('Starting experience.');
+	$rootScope.currentRoute = 'experience';
 
-	$scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($routeParams.category);
-
-	$scope.appCtrl.inExperience = true;
+	$scope.appCtrl.experience = $scope.appCtrl.experience? $scope.appCtrl.experience : vsvc.getExperienceByCategory($stateParams.category);
 }])
 .controller('C6EndCtrl', ['$log', '$scope', '$rootScope', function($log, $scope, $rootScope) {
 	$log.log('Creating C6EndCtrl');
@@ -204,7 +194,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.endCtrl = this;
 }])
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$routeParams', function($log, $scope, $rootScope, $location, $routeParams){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', '$state', function($log, $scope, $rootScope, $location, $stateParams, $state){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this;
 
@@ -258,10 +248,8 @@ angular.module('c6.ctrl',['c6.svc'])
 		if (experience) { self.model = new AnnotationsModel($scope.appCtrl.experience); }
 	});
 
-	$scope.$watch('appCtrl.inExperience', function(yes) {
+	$scope.$watch('$state.is("experience.video")', function(yes) {
 		if (yes) {
-			$log.log('Starting experience.');
-			$rootScope.currentRoute = 'experience';
 			if ($scope.appCtrl.experience.responses) { interpolateTemplates($scope.appCtrl.experience.responses); }
 		} else {
 			$scope.video.player.pause();
@@ -300,12 +288,12 @@ angular.module('c6.ctrl',['c6.svc'])
 		});
 	};
 
-	this.goToEnd = function() {
-		$location.path('/entry/' + $routeParams.category + '/end');
+	this.annotationIsActive = function(annotation) {
+		 return self.activeAnnotations.indexOf(annotation) !== -1;
 	};
 
-	this.annotationIsActive = function(annotation) {
-		 return self.activeAnnotations.indexOf(annotation) !== -1 && $scope.appCtrl.inExperience;
+	this.goToEnd = function() {
+		$state.transitionTo('experience.end', { category: $stateParams.category });
 	};
 
 	$scope.annoCtrl = this;

@@ -9,18 +9,54 @@ describe('Controllers', function() {
 		vsvc;
 	
 	beforeEach(function() {
+		module('ui.state');
 		module('c6.svc');
 		module(function($provide){
 			$provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
-			$provide.value('$location', {
+			var $locationMock = {
 				_path: null,
 				path: function(path) {
 					if (path) { this._path = path; }
 						return this._path;
 				}
-			});
-			$provide.value('$routeParams', {
+			}
+			$provide.value('$location', $locationMock);
+			$provide.value('$stateParams', {
 				category: 'action'
+			});
+			$provide.value('$state', {
+				transitionTo: function(state, params) {
+					switch(state) {
+						case 'experience.categories':
+							$locationMock.path('/categories/');
+							break;
+						case 'experience.input':
+							$locationMock.path('/categories/action');
+							break;
+						case 'experience.video':
+							$locationMock.path('/categories/action/video');
+							break;
+						case 'experience.end':
+							$locationMock.path('/categories/action/end');
+							break;
+					}
+				},
+				is: function(state) {
+					switch(state) {
+						case 'experience.categories':
+							return $locationMock.path() === '/categories/';
+							break;
+						case 'experience.input':
+							return $locationMock.path() === '/categories/action';
+							break;
+						case 'experience.video':
+							return $locationMock.path() === '/categories/action/video';
+							break;
+						case 'experience.end':
+							return $locationMock.path() === '/categories/action/end';
+							break;
+					}
+				}
 			});
 			$provide.value('c6VideoListingService', {
 				getCategories: function() {
@@ -121,23 +157,6 @@ describe('Controllers', function() {
 	describe('Controller: C6AppCtrl', function() {
 		it('Should start with no experience.', function() {
 			expect($rootScope.appCtrl.experience).toBe(null);
-		});
-		it('Should start out of the experience.', function() {
-			expect($rootScope.appCtrl.inExperience).toBe(false);
-		});
-		it('Should set inExperience based on the URL.', function() {
-			$location._path = '/entry/action';
-			$rootScope.$broadcast('$routeChangeSuccess');
-			expect($rootScope.appCtrl.inExperience).toBe(false);
-			
-			appCtrl.inExperience = true;
-			$location._path = '/entry/action/experience';
-			$rootScope.$broadcast('$routeChangeSuccess');
-			expect($rootScope.appCtrl.inExperience).toBe(true);
-			
-			$location._path = '/entry/action/end';
-			$rootScope.$broadcast('$routeChangeSuccess');
-			expect($rootScope.appCtrl.inExperience).toBe(false);
 		});
 	});
 	
@@ -373,17 +392,17 @@ describe('Controllers', function() {
 			
 			expect(handler).toHaveBeenCalled();
 			expect(scope.appCtrl.experience.responses).toBe(responses);
-			expect($location._path).toBe('/entry/action/experience');
+			expect($location._path).toBe('/categories/action/video');
 		});
 	});
 	
-	describe('Controller: C6ExperienceCtrl', function() {
+	describe('Controller: C6VideoCtrl', function() {
 		var controller,
 			scope;
 		
 		beforeEach(inject(function($controller) {
 			scope = $rootScope.$new();
-			controller = $controller('C6ExperienceCtrl', {
+			controller = $controller('C6VideoCtrl', {
 				$scope: scope
 			});
 		}));
@@ -395,9 +414,6 @@ describe('Controllers', function() {
 		});
 		it('Should then try to set the experience from the routeParams.', function() {
 			expect(typeof scope.appCtrl.experience).toBe('object');
-		});
-		it('Should start the experience.', function() {
-			expect(scope.appCtrl.inExperience).toBe(true);
 		});
 	});
 	
@@ -420,10 +436,12 @@ describe('Controllers', function() {
 	describe('Controller: C6AnnotationsCtrl', function() {
 		var controller,
 			scope,
-			video;
+			video,
+			$state;
 		
-		beforeEach(inject(function($controller) {
+		beforeEach(inject(function($controller, _$state_) {
 			scope = $rootScope.$new();
+			$state = _$state_;
 			video = {
 				player: {
 					pause: jasmine.createSpy()
@@ -449,20 +467,10 @@ describe('Controllers', function() {
 			scope.appCtrl.inExperience = false;
 			expect(video.player.pause).toHaveBeenCalled();
 		});
-		it('Should set the currentRoute to experience and set up the model with annotations if there are responses when the experience starts.', function() {
+		it('Should set up the model with annotations if there are responses when the experience starts.', function() {
 			scope.appCtrl.experience = vsvc.getExperienceByCategory('action');
-			scope.appCtrl.inExperience = true;
-			scope.$digest();
-			
-			expect($rootScope.currentRoute).toBe('experience');
-			scope.annoCtrl.model.annotations.forEach(function(annotation) {
-				expect(annotation.text).toBe(null);
-			});
-			
-			scope.appCtrl.inExperience = false;
-			scope.$digest();
 			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
-			scope.appCtrl.inExperience = true;
+			$state.transitionTo('experience.video');
 			scope.$digest();
 			
 			var annotations = scope.annoCtrl.model.annotations;

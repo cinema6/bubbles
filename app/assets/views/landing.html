@@ -1,26 +1,3 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>Screenjacked</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="../styles/csswizardry-grid.css">
-        <link rel="stylesheet" href="../styles/c6_main.css">
-        <link rel="stylesheet" href="../styles/Screenjacked.css">
-        <script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script> <!-- c6 typekit -->
-        <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script> <!-- screenjacked typekit -->
-        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    </head>
-    <body>
-        <!-- ui: begin -->
-        <div c6-panels> </div>
-
-        <div id="landing" ng-cloak>
-
-
 <!-- landing -->  
     <header class="masthead">
         <div class="container">
@@ -28,7 +5,7 @@
                 
                 <h1 class="mh-branding grid__item one-quarter palm--one-whole lap--one-whole">
                     <a href="#" title="Cinema6">
-                        <img src="../media/c6/c6-brand--horizontal--dark.png" class="mh-branding__logo" alt="Cinema6">
+                        <img src="assets/media/c6/c6-brand--horizontal--dark.png" class="mh-branding__logo" alt="Cinema6">
                     </a>
                 </h1><!--.mh-branding-->
                 <div class="mh-search__group grid__item two-quarters palm--one-whole lap--one-whole">
@@ -51,7 +28,7 @@
     <section class="hero__group"><div class="hero__inner">
         <a href="#/branches" ng-click="enableAnis()" class="hero__launch-btn">
             <span class="btn__outer">
-                <img src="../media/c6/btn_play.svg" alt="play button" class="hero__play-icon">
+                <img src="assets/media/c6/btn_play.svg" alt="play button" class="hero__play-icon">
                 <span class="ir">Play</span>
             </span>
         </a>
@@ -95,71 +72,36 @@
             </section>
             <section class="about-scenes__group grid__item two-quarters lap--one-whole palm--one-whole">
                 <div class="about__group">
-                    <h1 class="group--hdr tk--hdr">What is Screenjacked?</h1>
-                    <!--<ul class="cast__list grid">
-                        <li class="cast__member grid__item one-half palm--one-whole">
-                            <img src="assets/img/cast_brianDobski_100.jpg" width="48" height="48" alt="Brian Dobski" class="cast__headshot">
-                            <h2 class="cast__name">Brian Dobski
-                            <span class="cast__role">Larry</span></h2>
-                        </li>
-                        <li class="cast__member grid__item one-half palm--one-whole">
-                            <img src="assets/img/cast_ryanBarryMcCarthy_100.jpg" width="48" height="48" alt="Ryan Barry McCarthy" class="cast__headshot">
-                            <h2 class="cast__name">Ryan Barry McCarthy
-                            <span class="cast__role">Charlie</span></h2>
-                        </li>
-                        <li class="cast__member grid__item one-half palm--one-whole">
-                            <img src="assets/img/cast_andiMattingly_100.jpg" width="48" height="48" alt="Andi Mattingly" class="cast__headshot">
-                            <h2 class="cast__name">Andi Mattingly 
-                            <span class="cast__role">Natalia</span></h2>
-                        </li>
-                        <li class="cast__member grid__item one-half palm--one-whole">
-                            <img src="assets/img/cast_reneMena_100.jpg" width="48" height="48" alt="Rene Mena" class="cast__headshot">
-                            <h2 class="cast__name">Rene Mena
-                            <span class="cast__role">Hispanic Man #1</span></h2>
-                        </li>
-                        <li class="cast__member grid__item one-half palm--one-whole">
-                            <img src="assets/img/cast_joseASolorio_100.jpg" width="48" height="48" alt="Jose A. Solorio" class="cast__headshot">
-                            <h2 class="cast__name">Jose A. Solorio 
-                            <span class="cast__role">Hispanic Man #2</span></h2>
-                        </li>
-                        <li class="cast__member grid__item one-half palm--one-whole">
-                            <img src="assets/img/cast_dennyTorch_100.jpg" width="48" height="48" alt="Denny Torch" class="cast__headshot">
-                            <h2 class="cast__name">Denny Torch
-                            <span class="cast__role">Russian Man #1</span></h2>
-                        </li>
-                        <li class="cast__member grid__item one-half palm--one-whole">
-                            <img src="assets/img/cast_jamesJGotshaw_100.jpg" width="48" height="48" alt="James J. Gotshaw" class="cast__headshot">
-                            <h2 class="cast__name">James J. Gotshaw
-                            <span class="cast__role">Russian Man #2</span></h2>
-                        </li>
-                    </ul>-->
+                    <h1 class="about__hdr group--hdr tk--hdr">What is Screenjacked?</h1>
+                    <p class="about__copy"><strong><em>Screenjacked</em></strong> is a video-style mad-lib game that lets you create hilarity out of featured clips from popular movies, television, and games, and it’s all in just a few easy steps!</p>
                 </div>
-                <!--<div class="credits__group">
-                    <h1 class="credits__hdr group--hdr tk--hdr">Credits</h1>
-                    <p class="credit">Written &amp; Directed by <strong>Matthew Tibbenham</strong> &amp; <strong>Sutton McKee</strong></p>
-                    <p class="credit">Produced by <strong>Mehdi Alavi</strong></p>
-                    <p class="credit">Cinematography by <strong>Bruce Logan, ASC</strong></p>
-                    <p class="credit">Edited by <strong>Barry Bond</strong></p>
-                </div>
-                
+                <div class="scenes__group">
+                    <h1 class="scenes__hdr group--hdr tk--hdr grid__item">Scenes</h1>
+                    <div class="grid grid--center">
+                        <section class="scenes__block grid__item">
+                            <div class="scenes__thumb-fantasy"><span class="ir">Return of the King</span></div>
+                            <span class="scenes__title">Return of the King</span>
+                            <span class="scenes__category">available in <em>Fantasy</em></span>
+                        </section>
+                        <section class="scenes__block grid__item">
+                            <div class="scenes__thumb-action"><span class="ir">Fists of Fury</span></div>
+                            <span class="scenes__title">Fists of Fury</span>
+                            <span class="scenes__category">available in <em>Action</em></span>
+                        </section>
+                        <section class="scenes__block grid__item">
+                            <div class="scenes__thumb-romance"><span class="ir">The Notebook</span></div>
+                            <span class="scenes__title">The Notebook</span>
+                            <span class="scenes__category">available in <em>Romance</em></span>
+                        </section>
+                    </div>
+                </div>   
             </section>
-            <section class="series-info__group grid__item one-quarter lap--one-whole palm--one-whole">
-                <h1 class="group--hdr tk--hdr">About The Series</h1>
-                <div class="series-info__copy">
-                    <p><strong><em>The Wrong Guys for the Job</em></strong> is an interactive web comedy where you the viewer get to decide how each episode ends. Follow Larry and Charlie, two low-level criminals, as they try and work their way up in the world of organized crime.</p> 
-                    <p><strong>Total Episodes:</strong> 5</p>
-                </div>
+            <section class="quote__group grid__item one-quarter lap--one-whole palm--one-whole">
+                <h1 class="group--hdr tk--hdr">Featured Exerpt</h1>
+                    <div class="quote-fantasy"><span class="ir">"I hope this bunny can swim."" -Gandalf</span></div>
             </section>
         </div>
     </div>
 
 </div>
 <!--#landing-->
-        
-
-
-        <!-- ui: end -->
-        <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js">
-            </script>
-    </body>
-</html>

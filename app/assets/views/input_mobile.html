@@ -26,7 +26,7 @@
                         <input
                         	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         	ng-disabled="appCtrl.inExperience"
-                        	c6-on="newPrompt: {$this.focus();}, experienceStart: {$this.prop('disabled', true); $this.blur();}"
+                        	c6-on="newPrompt: {(inputCtrl.currentPromptIndex() === 0)? null : $this.focus();}, experienceStart: {$this.prop('disabled', true); $this.blur();}"
                         	c6-sfx="{keydown: 'type'}"
                         	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
                             class="question__input"
@@ -40,7 +40,7 @@
                     </div>
                 </li>
                 <div
-                	ng-if="inputCtrl.currentResponse().length? true : false"
+                	ng-show="inputCtrl.currentResponse().length? true : false"
                     ng-animate="'valid'"
                     class="question__inputCheck">
                 		<span class="ir">Input Accepted</span>

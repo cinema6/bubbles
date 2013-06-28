@@ -13,7 +13,7 @@ input {cursor: text;}
 
 .paperTexture { background: url('../media/bg_tile.jpg') repeat;}
 .c6bar { background: #232527; height: 36px; width: 100%; position: fixed; z-index:10; margin: 0; }
-.experience {position: fixed; width:100%; height: 100%}
+.experience {position: relative; width:100%; height: 100%; overflow: hidden;}
 
 .viewport { 
     height: 684px; 
@@ -29,6 +29,13 @@ input {cursor: text;}
         width: 100%;
         top:-50%;
         position: absolute;
+    }
+    
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
+	    .c6-ios-keyboard-up .question {
+		    width: 70%;
+		    margin: 0 auto;
+	    }
     }
 
 /*         C6 BAR BEGIN         */

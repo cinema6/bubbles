@@ -8,8 +8,6 @@ button:disabled {opacity: 0.15;}
 .disabled {opacity: 0.15;}
 .hidden {display: none;}
 
-
-
 .paperTexture { 
     background: url('../media/bg_tile.jpg') repeat;
     font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;

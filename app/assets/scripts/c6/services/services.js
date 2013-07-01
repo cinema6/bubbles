@@ -205,7 +205,9 @@ angular.module('c6.svc',[])
         return { 'categories' : [
                         'Action',
                         'Romance',
-                        'SciFi-Fantasy',
+                        'Fantasy', // changed from 'SciFi-Fantasy'
+                        'Horror',
+                        //'SciFi', video not created yet 
                     ]
         };
     };

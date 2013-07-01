@@ -19,7 +19,7 @@
     }
 
 .a-frame {
-    border-radius: 65px;
+    border-radius: 60px;
     background: url('../img/romance/annotation-right.png') repeat-y right, 
                 url('../img/romance/annotation-left.png') repeat-y left, 
                 url('../img/romance/annotation-top.png') repeat-x top, 
@@ -33,7 +33,7 @@
                     url('../img/romance/annotation-topRight.png') no-repeat top right,
                     url('../img/romance/annotation-bottomLeft.png') no-repeat bottom left,
                     url('../img/romance/annotation-topLeft.png') no-repeat top left;
-        height: 94%; width: 97.5%;
+        height: 94%; width: 98%;
         top: 3%;
         left: 1%;
     } 

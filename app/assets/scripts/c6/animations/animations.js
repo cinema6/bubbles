@@ -733,7 +733,7 @@
 	}])
 
 	// ipad only ----------------//
-	.animation('valid-leave', [function() {
+	.animation('valid-hide', [function() {
 		return {
 			start: function(element, done) {
 				element.fadeOut(500, done);
@@ -741,7 +741,7 @@
 		};
 	}])
 
-	.animation('valid-enter', [function() {
+	.animation('valid-show', [function() {
 		return {
 			setup: function(element) {
 				element.hide();

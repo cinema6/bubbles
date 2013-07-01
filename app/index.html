@@ -7,76 +7,30 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="assets/styles/main.css">
-  	<link rel="stylesheet" id="experience_css" ng-href="{{appCtrl.experience.css}}">
-    
-    <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <link rel="stylesheet" href="assets/styles/csswizardry-grid.css">
+        <link rel="stylesheet" href="assets/styles/c6_main.css">
+        <link rel="stylesheet" href="assets/styles/Screenjacked.css">
+        <link id="experience_css" rel="stylesheet" ng-href="{{appCtrl.experience.css}}">
+        <!--<script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script>--> <!-- c6 typekit -->
+        <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script> <!-- screenjacked typekit -->
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     <!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
   </head>
-  <body class="paperTexture ng-cloak"> <!-- class toggles on for the experience -->
+  <body> 
 
-    <div class="experience">
-      <!--#c6Bar-->
-      <div id="c6Bar">
-        <ul>
-            <li id="c6Bar_logo"><a href="#" title="Cinema6"><img src="assets/media/c6/c6logo64x64.png" alt="Cinema6" width="32"></a></li>
-            <li id="c6Bar_screenjacked"><a href="#" title="Screenjacked"><span class="ir">Screenjacked</span></a></li>
-            <li id="c6Bar_settings" class="hasDropdown">
-                <a href="#" title="Settings" id="btn_settings" class="clearfix">
-                    <span class="icon_gear"><span class="ir">Settings</span></span>
-                    <span class="icon_dropdown"><span class="ir">Drop Down</span></span>
-                </a>
-                <ul id="settings-dropdown" class="dropdown stack">
-                    <li><a href="#" title="Close" id="btn_exitExp">Close</a></li>
-                </ul>
-            </li>
-        </ul>
-      </div>
-      <!--#c6Bar-->
-      
-      <div ng-view ng-animate="currentRoute + '-partial'"></div>
-      
-      <div ng-controller="C6AnnotationsCtrl" ng-show="appCtrl.inExperience" ng-animate="'video'" class="experience__group">
-          <div class="experience__logo">
-              <img ng-src="{{appCtrl.category() ? ('assets/media/logo_vid_' + appCtrl.category() + '.png') : null }}">
-          </div>
-        <video
-        	id="player"
-        	c6video
-        	c6-src="{{appCtrl.experience.src}}"
-        	on="timeupdate: annoCtrl.setActiveAnnotations, ended: annoCtrl.goToEnd"
-        	preload="auto"
-        	controls>
-        </video>
-        <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
-          <li
-          	ng-repeat="a in annoCtrl.model.annotations"
-          	ng-show="annoCtrl.annotationIsActive(a)"
-          	ng-animate="appCtrl.experience.anim + '-annotation'"
-          	ng-class="' annotation ' + a.cls.join(' ')">
-            <div class="a-style">
-              <div class="a-frame">
-                <div class="a-text">
-                  {{a.text}}&nbsp;
-                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
-                  <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
-                </div>
-              </div>  
-            </div>
-		      </li> 
-        </ul>
-    <div class="transition_blackFade">&nbsp;</div>
-    </div>
+  		<ui-view ng-animate="appCtrl.experienceAnimation"></ui-view>
 
     <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+	<!--<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		ga('create', 'UA-XXXXX-X', 'cinema6.com');
+		ga('send', 'pageview');
+	</script>-->
   </body>
 </html>

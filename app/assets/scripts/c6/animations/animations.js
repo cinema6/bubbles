@@ -24,7 +24,8 @@
 				.to([panelTop, panelBottom], 0, {display: 'block'})
 				.to(panelTop, .5, {top: '-100%'}, '+=.5')
 				.to(panelBottom, .5, {bottom: '-100%'}, '-=0.5')
-				.call(done, null, null, '+=.3');
+				.call(done, null, null, '+=.3')
+				.to([panelTop, panelBottom], 0, {display: 'none'});
 			
 			panelsOpen.play();
 		}
@@ -44,7 +45,8 @@
 				
 			panelsClose.to(panelTop, .5, {top: '-50%'})
 				.to(panelBottom, .5, {bottom: '-50%'}, '-=0.5')
-				.call(done, null, null, '+=0.3');
+				.call(done, null, null, '+=0.3')
+				.to([panelTop, panelBottom], 0, {display: 'none'});
 			
 			panelsClose.play();
 		}

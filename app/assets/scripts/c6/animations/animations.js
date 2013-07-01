@@ -10,8 +10,9 @@
 .animation('experience-enter', [function () {
 	return {
 		setup: function (partial) {
-			partial.find('.transition__panels-top').css({'top': '-50%'}).hide();
-			partial.find('.transition__panels-bottom').css({'bottom': '-50%'}).hide();
+			partial.hide();
+			partial.find('.transition__panels-top').css({'top': '-50%'});
+			partial.find('.transition__panels-bottom').css({'bottom': '-50%'});
 		},
 		start: function (partial, done) {
 			var panelTop = partial.find('.transition__panels-top'),
@@ -19,6 +20,7 @@
 				panelsOpen = new TimelineLite({paused: true});
 				
 			panelsOpen.delay(.5)
+				.call(function() { partial.show(); })
 				.to([panelTop, panelBottom], 0, {display: 'block'})
 				.to(panelTop, .5, {top: '-100%'}, '+=.5')
 				.to(panelBottom, .5, {bottom: '-100%'}, '-=0.5')
@@ -32,8 +34,8 @@
 .animation('experience-leave', [function () {
 	return {
 		setup: function (partial) {
-			partial.find('.transition__panels-top').css({top:'-100%'});
-			partial.find('.transition__panels-bottom').css({bottom:'-100%'});
+			partial.find('.transition__panels-top').css({top:'-100%'}).show();
+			partial.find('.transition__panels-bottom').css({bottom:'-100%'}).show();
 		},
 		start: function (partial, done) {
 			var panelTop = partial.find('.transition__panels-top'),

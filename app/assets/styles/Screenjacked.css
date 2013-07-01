@@ -114,11 +114,13 @@ button:disabled {opacity: 0.15;}
         height: 100%; width: 100%; 
         background: #232527; top: -100%;
         z-index: 2000; position: fixed;
+        display: none;
     }
     .transition__panels-bottom {
         height: 100%; width: 100%; 
         background: #232527; bottom: -100%;
         z-index: 2000; position: fixed;
+        display: none;
     }
 /*  ==========================================================================
     categories styles

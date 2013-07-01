@@ -8,7 +8,7 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 		templateUrl: base + '/views/c6bar.html',
 		replace: true,
 		scope: {}
-	}
+	};
 }])
 .directive('c6Resize', ['C6ResizeService', function(service) {
 	return function(scope, element, attrs) {

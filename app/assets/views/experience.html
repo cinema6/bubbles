@@ -1,1 +1,60 @@
-<!--THIS IS LEFT INTENTIONALLY BLANK-->
+<div class="experience partial">
+  <div class="transition__panels-top">&nbsp;</div>
+  <div class="transition__panels-bottom">&nbsp;</div>
+
+  <!--#c6Bar-->
+  <div id="c6Bar" class="c6-bar__group">
+    <ul class="c6-bar__inner clearfix">
+        <li class="c6-bar__logo">
+            <a href="#" title="Cinema6" class="c6b-logo__link">
+                <img src="assets/media/c6/c6logo64x64.png" alt="Cinema6" width="32">
+            </a>
+        </li>
+        <li class="c6-bar__app-space"><a href="#" title="Screenjacked" class="c6-bar__app-title"><span class="ir">Screenjacked</span></a></li>
+        <li class="c6-settings__group hasDropdown">
+            <div class="c6-bar__settings clearfix">
+                <span class="c6-settings__gear-icon"><span class="ir">Settings</span></span>
+                <span class="c6-settings__dropdown-icon"><span class="ir">Drop Down</span></span>
+            </div>
+            <ul id="settings-dropdown" class="c6-settings__dropdown">
+                <li class="c6-settings__dropdown-item"><a href="#/" class="c6-settings__dropdown-btn">Close</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+  <!--#c6Bar-->
+  
+  <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
+  
+  <div ng-controller="C6AnnotationsCtrl" ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
+      <div class="experience__logo">
+          <img ng-src="{{appCtrl.category() ? ('assets/media/logo_vid_' + appCtrl.category() + '.png') : null }}">
+      </div>
+    <video
+    	id="player"
+    	c6video
+    	c6-src="{{appCtrl.experience.src}}"
+    	on="timeupdate: annoCtrl.setActiveAnnotations, ended: annoCtrl.goToEnd"
+    	preload="auto"
+    	controls>
+    </video>
+    <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
+      <li
+      	ng-repeat="a in annoCtrl.model.annotations"
+      	ng-show="$state.is('experience.video') && annoCtrl.annotationIsActive(a)"
+      	style="display: none;"
+      	ng-animate="appCtrl.experience.anim + '-annotation'"
+      	ng-class="' annotation ' + a.cls.join(' ')">
+        <div class="a-style">
+          <div class="a-frame">
+            <div class="a-text">
+              {{a.text}}&nbsp;
+              <div class="a-deco-right"></div><div class="a-deco-left"></div>
+              <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
+            </div>
+          </div>  
+        </div>
+	      </li> 
+    </ul>
+<div class="transition_blackFade">&nbsp;</div>
+</div>

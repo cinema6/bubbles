@@ -63,7 +63,7 @@ button:disabled {opacity: 0.15;}
         margin-top: 2.5em;
     }   
     .vid-details__userBanner {
-        background: url(../img/c6/userBanner_c6.jpg) no-repeat bottom;
+        background: url(../img/userBanner_c6.jpg) no-repeat bottom;
         background-size: contain;
         width: 100%;
     }

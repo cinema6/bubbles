@@ -18,15 +18,15 @@
 			var panelTop = partial.find('.transition__panels-top'),
 				panelBottom = partial.find('.transition__panels-bottom'),
 				panelsOpen = new TimelineLite({paused: true});
-				
-			panelsOpen.delay(.5)
+
+			panelsOpen.delay(0.5)
 				.call(function() { partial.show(); })
 				.to([panelTop, panelBottom], 0, {display: 'block'})
-				.to(panelTop, .5, {top: '-100%'}, '+=.5')
-				.to(panelBottom, .5, {bottom: '-100%'}, '-=0.5')
+				.to(panelTop, 0.5, {top: '-100%'}, '+=.5')
+				.to(panelBottom, 0.5, {bottom: '-100%'}, '-=0.5')
 				.call(done, null, null, '+=.3')
 				.to([panelTop, panelBottom], 0, {display: 'none'});
-			
+
 			panelsOpen.play();
 		}
 	};
@@ -42,12 +42,12 @@
 			var panelTop = partial.find('.transition__panels-top'),
 				panelBottom = partial.find('.transition__panels-bottom'),
 				panelsClose = new TimelineLite({paused: true});
-				
-			panelsClose.to(panelTop, .5, {top: '-50%'})
-				.to(panelBottom, .5, {bottom: '-50%'}, '-=0.5')
+
+			panelsClose.to(panelTop, 0.5, {top: '-50%'})
+				.to(panelBottom, 0.5, {bottom: '-50%'}, '-=0.5')
 				.call(done, null, null, '+=0.3')
 				.to([panelTop, panelBottom], 0, {display: 'none'});
-			
+
 			panelsClose.play();
 		}
 	};

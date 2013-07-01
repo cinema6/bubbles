@@ -461,7 +461,7 @@
                     background:#313437;
                 }
                 .c6b-logo__link img {
-                    display: block; width:2em; height:2em;
+                    display: block; width:2em; height:2em; border: 0;
                 }
         .c6-bar__app-space {
             float:left;

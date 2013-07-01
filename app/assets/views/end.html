@@ -5,8 +5,22 @@
         
         <!--content-->
         <div class="viewport" c6-resize>
-            
+        
+        <div class="vidFrame__group"> 
+            <div ng-class="' annotation-last ' + 'vidFrame__annotation-{{appCtrl.category()}}'">
+	            <div class="a-style">
+	              <div class="a-frame">
+	                <div class="a-text">
+	                  {{appCtrl.lastAnnotation.text}}&nbsp;
+	                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
+	                  <div ng-class="'a-tail-' + appCtrl.lastAnnotation.tail.pos + '-' + appCtrl.lastAnnotation.tail.type"></div>
+	                </div>
+	              </div>  
+	            </div>
+		    </div>
             <img class="vidFrame" ng-src="assets/media/vidFrame_{{appCtrl.category()}}.jpg">
+        </div>
+
             <menu class="vidMenu">
                 <button class="vidMenu__btnReplay" ng-click="$state.transitionTo('experience.video', { category: $stateParams.category });" name="replay"><span class="ir">Replay</span></button>
                 <!--<button class="vidMenu__btnEdit" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}');"name="edit"><span class="ir">Edit</span></button>-->
@@ -14,9 +28,10 @@
             </menu>
         </div>
         <footer class="shareMenu"><span class="ir">Share with others:</span>
-            <button class="shareMenu__btnEmail" name="email"><span class="ir">Share through Email</span></button>
+            <button disabled="disabled" class="shareMenu__btnEmail" name="email"><span class="ir">Share through Email</span></button>
             
             <button
+            	disabled="disabled"
             	c6-share="twitter"
             	share-url="http://apple.com/"
             	share-description="This is Apple, Inc."
@@ -25,6 +40,7 @@
             </button>
             
             <button
+            	disabled="disabled"
             	c6-share="facebook"
             	share-url="http://www.apple.com"
             	share-title="Apple, Inc."

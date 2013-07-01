@@ -99,6 +99,11 @@ angular.module('c6.ctrl',['c6.svc'])
 	sfxSvc.playSoundOnEvent('pop', 'annotationActivated');
 
 	this.experience = null;
+	this.inExperience = false;
+	this.lastAnnotation = null;
+	this.goToRoute = function(route) {
+		$location.path(route);
+	};
 	this.category = function() {
 		return $stateParams.category;
 	};
@@ -257,6 +262,12 @@ angular.module('c6.ctrl',['c6.svc'])
 			if ($scope.appCtrl.experience.responses) { interpolateTemplates($scope.appCtrl.experience.responses); }
 		} else {
 			$scope.video.player.pause();
+		}
+	});
+
+	$scope.$watch('annoCtrl.model.annotations', function(annotations) {
+		if (annotations) {
+			$scope.appCtrl.lastAnnotation = annotations[annotations.length - 1];
 		}
 	});
 

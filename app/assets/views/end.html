@@ -5,8 +5,22 @@
         
         <!--content-->
         <div class="viewport" c6-resize>
-            
+        
+        <div class="vidFrame__group"> 
+            <div ng-class="' annotation-last ' + 'vidFrame__annotation-{{appCtrl.category()}}'">
+	            <div class="a-style">
+	              <div class="a-frame">
+	                <div class="a-text">
+	                  {{appCtrl.lastAnnotation.text}}&nbsp;
+	                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
+	                  <div ng-class="'a-tail-' + appCtrl.lastAnnotation.tail.pos + '-' + appCtrl.lastAnnotation.tail.type"></div>
+	                </div>
+	              </div>  
+	            </div>
+		    </div>
             <img class="vidFrame" ng-src="assets/media/vidFrame_{{appCtrl.category()}}.jpg">
+        </div>
+
             <menu class="vidMenu">
                 <button class="vidMenu__btnReplay" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}/experience');" name="replay"><span class="ir">Replay</span></button>
                 <!--<button class="vidMenu__btnEdit" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}');"name="edit"><span class="ir">Edit</span></button>-->

@@ -2,6 +2,14 @@
 
 'use strict';
 angular.module('c6.dir.screenJack',['c6.svc'])
+.directive('c6Bar', ['appBaseUrl', function(base) {
+	return {
+		restrict: 'E',
+		templateUrl: base + '/views/c6bar.html',
+		replace: true,
+		scope: {}
+	}
+}])
 .directive('c6Resize', ['C6ResizeService', function(service) {
 	return function(scope, element, attrs) {
 		var configObject = scope.$eval(attrs.c6Resize) || {width: null, height: null, font: null},

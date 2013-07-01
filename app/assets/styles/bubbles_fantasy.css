@@ -13,22 +13,22 @@
 .a-style {
     position: relative;
     border-radius: 40px;
-    background: url('../media/fantasy/annotation-right.png') repeat-y right, 
-                url('../media/fantasy/annotation-left.png') repeat-y left, 
-                url('../media/fantasy/annotation-top.png') repeat-x top, 
-                url('../media/fantasy/annotation-bottom.png') repeat-x bottom,
-                url('../media/fantasy/annotation-body.png');
+    background: url('../img/fantasy/annotation-right.png') repeat-y right, 
+                url('../img/fantasy/annotation-left.png') repeat-y left, 
+                url('../img/fantasy/annotation-top.png') repeat-x top, 
+                url('../img/fantasy/annotation-bottom.png') repeat-x bottom,
+                url('../img/fantasy/annotation-body.png');
 }
 .a-frame {
-    background: url('../media/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
-                url('../media/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
-                url('../media/fantasy/annotation-topRight.png') no-repeat 100% 0%,
-                url('../media/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
+    background: url('../img/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
+                url('../img/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
+                url('../img/fantasy/annotation-topRight.png') no-repeat 100% 0%,
+                url('../img/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
     margin: 0px;
 }
     .a-deco-right {
       position: absolute;
-      background: url('../media/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
+      background: url('../img/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
       height: 68px; width: 71px;
       bottom: -14px;
       right: -14px;
@@ -36,7 +36,7 @@
 
     .a-deco-left {
       position: absolute;
-      background: url('../media/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
+      background: url('../img/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
       height: 68px; width: 71px;
       top: -14px;
       left: -14px;
@@ -72,7 +72,7 @@
 /* tail styles */
     .a-tail-bottomLeft-speech {
         position: absolute;
-        background: url('../media/fantasy/bottomLeft-speech.png') no-repeat 10% 0%; 
+        background: url('../img/fantasy/bottomLeft-speech.png') no-repeat 10% 0%; 
         height: 42px; width: 100%;
         bottom: -36px;
         left: 0;
@@ -80,7 +80,7 @@
 
     .a-tail-bottomRight-speech {
         position: absolute;
-        background: url('../media/fantasy/bottomRight-speech.png') no-repeat 35% 0%; 
+        background: url('../img/fantasy/bottomRight-speech.png') no-repeat 35% 0%; 
         height: 42px; width: 100%;
         bottom: -36px;
         left: 0;
@@ -88,7 +88,7 @@
 
     .a-tail-topLeft-speech {
         position: absolute;
-        background: url('../media/fantasy/topLeft-speech.png') no-repeat 65% 0%; 
+        background: url('../img/fantasy/topLeft-speech.png') no-repeat 65% 0%; 
         height: 42px; width: 100%;
         top: -36px;
         left: 0;
@@ -96,7 +96,7 @@
 
     .a-tail-topRight-speech {
         position: absolute;
-        background: url('../media/fantasy/topRight-speech.png') no-repeat 80% 0%; 
+        background: url('../img/fantasy/topRight-speech.png') no-repeat 80% 0%; 
         height: 42px; width: 100%;
         top: -36px;
         left: 0;
@@ -104,7 +104,7 @@
 
     .a-tail-bottomLeft-thought {
         position: absolute;
-        background: url('../media/fantasy/bottomLeft-thought.png') no-repeat 10% 0%; 
+        background: url('../img/fantasy/bottomLeft-thought.png') no-repeat 10% 0%; 
         height: 28px; width: 100%;
         bottom: -28px;
         left: 0;
@@ -112,7 +112,7 @@
 
     .a-tail-bottomRight-thought {
         position: absolute;
-        background: url('../media/fantasy/bottomRight-thought.png') no-repeat 35% 0%; 
+        background: url('../img/fantasy/bottomRight-thought.png') no-repeat 35% 0%; 
         height: 28px; width: 100%;
         bottom: -28px;
         left: 0;
@@ -120,7 +120,7 @@
 
     .a-tail-topLeft-thought {
         position: absolute;
-        background: url('../media/fantasy/topLeft-thought.png') no-repeat 65% 0%; 
+        background: url('../img/fantasy/topLeft-thought.png') no-repeat 65% 0%; 
         height: 28px; width: 100%;
         top: -28px;
         left: 0;
@@ -128,7 +128,7 @@
 
     .a-tail-topRight-thought {
         position: absolute;
-        background: url('../media/fantasy/topRight-thought.png') no-repeat 90% 0%; 
+        background: url('../img/fantasy/topRight-thought.png') no-repeat 90% 0%; 
         height: 28px; width: 100%;
         top: -28px;
         left: 0;

@@ -190,7 +190,7 @@ button:disabled {opacity: 0.15;}
          .category__art {height: 95%; width: 95%;}            
 
 
-     /* artwork */
+		 /* artwork */
          .startScreen__logo {
             background: url('../media/logo_pen800.png') no-repeat top left;
             background-size: contain;
@@ -199,7 +199,7 @@ button:disabled {opacity: 0.15;}
             margin-top: -380px;
             margin-left: -250px;
             width: 800px;
-            height: 200%;
+            height: 1300px;
             z-index: -1;
             position: absolute;
          }    
@@ -211,11 +211,33 @@ button:disabled {opacity: 0.15;}
                     margin-left: -200px;
                 } 
             }
+            @media only screen and (max-height: 485px) {
+                .startScreen__logo {
+                    background: url('../media/logo_pen600.png') no-repeat top left;
+                    width: 600px;
+                    margin-top: -275px;
+                    margin-left: -200px;
+                }
+            }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .startScreen__logo {
                     background: url('../media/logo_pen600.png') no-repeat top left;
                     width: 600px;
                     margin: -270px 0 0 -200px;
+                }
+            }
+            @media only screen and (max-device-height: 568px) {
+                .startScreen__logo {
+                    background: url('../media/logo_pen300.png') no-repeat top left;
+                    width: 300px;
+                    margin: -120px 0 0 -100px;
+                }
+            }
+            @media only screen and (max-width: 568px) {
+                .startScreen__logo {
+                    background: url('../media/logo_pen300.png') no-repeat top left;
+                    width: 300px;
+                    margin: -120px 0 0 -100px;
                 }
             }
 
@@ -526,11 +548,32 @@ button:disabled {opacity: 0.15;}
         display: block;}
 
     /* content */
+    .vidFrame__group {
+        height:58.30%; width: 55.57%; margin: 11.56% 0 0 21.79%;
+    }
         .vidFrame {
-            height:58.30%;
-            width: 55.57%;
-            display: inline-block;
-            margin: 11.56% 0 0 21.79%;
+            height:100%; width: 100%; margin: 0; 
+        }
+
+        .annotation-last {
+            position: absolute;
+            opacity: 1;
+            max-width: 21%; min-width: 15%;
+        }
+
+        .vidFrame__annotation-action {
+            margin: 4% 56% 0 0;
+            font-size: 0.6em;
+            right: 0;
+        }
+
+        .vidFrame__annotation-scifi-fantasy {
+            margin: 3% 0 0 2%;
+            font-size: 0.7em;
+        }
+        .vidFrame__annotation-romance {
+            margin: 1% 0 0 28%;
+            font-size: 0.8em;
         }
 
         .vidMenu { 
@@ -556,16 +599,16 @@ button:disabled {opacity: 0.15;}
             .vidMenu__btnNewVid:active {background: url('../media/btn_newVid_tap.png') no-repeat top center; background-size: contain; float:right;}
 
         .shareMenu {
-            background: url('../media/header_shareWithOthers.png') no-repeat 0 25%;
+            background: url('../media/header_shareWithOthers.png') no-repeat left;
             background-size: 30.54% auto;
-            height: 4%;
+            height: 6%;
             width: 70%;
             position: absolute;
             bottom: 0;
             left: 50%;
             margin: 0 0 0 -35%;
          }
-            .shareMenu__btnFacebook { display: inline; background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; float: right;}
+            .shareMenu__btnFacebook { background: url('../media/btn_facebook_default.png') no-repeat top; background-size: contain; height: 100%; width: 16.06%; float: right;}
             .shareMenu__btnFacebook:active {background: url('../media/btn_facebook_tap.png') no-repeat top; background-size: contain;}
 
             .shareMenu__btnTwitter { background: url('../media/btn_twitter_default.png') no-repeat top; background-size: contain; height: 100%; width: 15.16%; float: right; margin: 0 0 0 8% }
@@ -589,8 +632,8 @@ button:disabled {opacity: 0.15;}
         }
         @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
             .endScreen__logo {
-                width: 1000px;
-                margin: -305px 0 0 -185px;
+                width: 800px;
+                margin: -235px 0 0 -145px;
             }
         }
 
@@ -599,3 +642,4 @@ button:disabled {opacity: 0.15;}
         height: auto;
         margin: 0;
      }      
+

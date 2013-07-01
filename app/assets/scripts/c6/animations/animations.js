@@ -15,16 +15,16 @@
 		},
 		start: function (partial, done) {
 			var panelTop = partial.find('.transition__panels-top'),
-				panelBottom = partial.find('.transition__panels-bottom');
-
-			panelTop.stop().delay(500).show(0).delay(500).animate({
-				top:'-100%'
-			}, 500, function() {
-				window.setTimeout(done, 300);
-			});
-			panelBottom.stop().delay(500).show(0).delay(500).animate({
-				bottom:'-100%'
-			}, 500);
+				panelBottom = partial.find('.transition__panels-bottom'),
+				panelsOpen = new TimelineLite({paused: true});
+				
+			panelsOpen.delay(.5)
+				.to([panelTop, panelBottom], 0, {display: 'block'})
+				.to(panelTop, .5, {top: '-100%'}, '+=.5')
+				.to(panelBottom, .5, {bottom: '-100%'}, '-=0.5')
+				.call(done, null, null, '+=.3');
+			
+			panelsOpen.play();
 		}
 	};
 }])
@@ -37,13 +37,14 @@
 		},
 		start: function (partial, done) {
 			var panelTop = partial.find('.transition__panels-top'),
-				panelBottom = partial.find('.transition__panels-bottom');
+				panelBottom = partial.find('.transition__panels-bottom'),
+				panelsClose = new TimelineLite({paused: true});
 				
-				
-			panelTop.animate({top:'-50%'}, 500, function() {
-				window.setTimeout(done, 300);
-			});
-			panelBottom.animate({bottom:'-50%'}, 500);
+			panelsClose.to(panelTop, .5, {top: '-50%'})
+				.to(panelBottom, .5, {bottom: '-50%'}, '-=0.5')
+				.call(done, null, null, '+=0.3');
+			
+			panelsClose.play();
 		}
 	};
 }])

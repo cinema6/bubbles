@@ -1,0 +1,73 @@
+<!doctype html>
+<html ng-app="c6.app" ng-controller="C6AppCtrl">
+  <head>
+    <!--<script type="text/javascript" src="../assets/lib/jquery/jquery.js"></script>-->
+    <script type="text/javascript" src="../assets/lib/greensock/TweenMax.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/greensock/TimelineMax.min.js"></script>
+    <!--<script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script> 
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
+    <style>
+        body {font-size: 28px}
+
+        /* required css for animation */
+        .loading__group {
+            text-align: center; width: 100px; margin: 0 auto;
+        }
+            .loading__cycle { position: absolute; display: inline;
+                transform-origin:25% 25%; -ms-transform-origin:25% 25%; -webkit-transform-origin:25% 25%;
+            }
+            .loading__text {
+                color: #fff; font-family: 'courier prime', courier, times, serif; position: absolute; font-size: 0.55em;
+                margin-top: 100px;
+            }
+            .loading__dot3, .loading__dot2, .loading__dot1 {
+                display: inline; opacity: 0;
+            }
+    </style>
+
+  </head>
+  <body style="background: black"> 
+    <p><button id="btn-test" class="btn__test">Run Animation</button></p>
+
+
+    <!-- required structure for animation -->
+    <div class="loading__group">
+        <img id="loading-cycle" class="loading__cycle" src="../assets/img/progressPen.png">
+        <p class="loading__text">Loading Video
+            <span id="dot-1" class="loading__dot3">.</span>
+            <span id="dot-2" class="loading__dot2">.</span>
+            <span id="dot-3" class="loading__dot1">.</span>
+        </p>
+    </div>
+    
+
+    <script>
+        // required script for animations
+        var loadingCycle        = document.getElementById('loading-cycle'),
+            test                = document.getElementById('btn-test'),
+            dot1                = document.getElementById('dot-1'),
+            dot2                = document.getElementById('dot-2'),
+            dot3                = document.getElementById('dot-3'),
+            loadingAnimation    = new TimelineMax({paused: true, repeat: -1, yoyo:true}),
+            loadingText         = new TimelineMax({paused: true, repeat: -1, yoyo:false});
+
+            loadingAnimation.to(loadingCycle, 0.2, {top: '+=2px', left: '+=14px', rotation: '+=8deg'})
+                .to(loadingCycle, 0.2, {top: '+=4px', left: '-=12px', rotation: '-=8deg'})
+                .to(loadingCycle, 0.2, {top: '+=2px', left: '+=16px', rotation: '+=10deg'})
+                .to(loadingCycle, 0.1, {top: '+=4px', left: '-=12px', rotation: '-=8deg'})
+
+            loadingText.to(dot1, 0.4, {opacity: 1})
+                .to(dot2, 0.4, {opacity: 1})
+                .to(dot3, 0.4, {opacity: 1})
+                .to([dot1, dot2, dot3], 1, {opacity: 0})
+
+            // this event can be modified, but function needs to remain the same
+            test.onclick = function() {
+                loadingAnimation.seek(0);
+                loadingAnimation.play();
+                loadingText.seek(0);
+                loadingText.play();
+            }
+        </script>
+  </body>
+</html>

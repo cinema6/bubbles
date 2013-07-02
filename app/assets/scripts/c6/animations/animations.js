@@ -424,6 +424,8 @@
 				var videoPlayer = document.getElementById('player'),
 				vidOut		= new TimelineLite({paused: true});
 
+				videoPlayer.pause();
+
 				vidOut.to(videoPlayer, 1.5, {opacity: 0}, '-=2')
 				.eventCallback('onComplete', done);
 

@@ -2,6 +2,7 @@
 var fs          = require('fs-extra'),
     path        = require('path'),
     lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
+    proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest,
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
     },
@@ -78,11 +79,21 @@ module.exports = function (grunt) {
                 // Change this to '0.0.0.0' to access the server from outside.
                 hostname: '0.0.0.0'
             },
+            proxies: [
+              {
+	        context: '/dub',
+	        host: 'c6box.local',
+	        port: 80,
+	        https: false,
+	        changeOrigin: false
+              }
+            ],
             livereload: {
                 options: {
                     middleware: function (connect) {
                         return [
                             lrSnippet,
+                            proxySnippet,
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, initProps.app)
                         ];
@@ -317,6 +328,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', [
         'clean:server',
+        'configureProxies',
         'livereload-start',
         'connect:livereload',
         'open',

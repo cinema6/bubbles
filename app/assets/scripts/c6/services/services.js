@@ -369,7 +369,7 @@ angular.module('c6.svc',[])
                         'Action',
                         'Romance',
                         'SciFi-Fantasy',
-                        //'Horror'
+                        'Horror'
                     ];
     };
 
@@ -578,7 +578,7 @@ angular.module('c6.svc',[])
                     'type of bread',
                     'famous A-list celebrity',
                     'Fight move',
-                    'plural vegetable'
+                    { query : 'plural vegetable', sizeLimit : 13}
                 ],
                 'annotations' :  [{
                     'options' : {

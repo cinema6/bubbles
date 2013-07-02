@@ -5,6 +5,56 @@
 	angular.module('c6.anim', [])
 
 //								//
+//		STANDARD ANIMATIONS		//
+//								//
+.animation('experience-enter', [function () {
+	return {
+		setup: function (partial) {
+			partial.hide();
+			partial.find('.transition__panels-top').css({'top': '-50%'});
+			partial.find('.transition__panels-bottom').css({'bottom': '-50%'});
+		},
+		start: function (partial, done) {
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom'),
+				panelsOpen = new TimelineLite({paused: true});
+
+			panelsOpen.delay(0.5)
+				.call(function() { partial.show(); })
+				.to([panelTop, panelBottom], 0, {display: 'block'})
+				.to(panelTop, 0.5, {top: '-100%'}, '+=.5')
+				.to(panelBottom, 0.5, {bottom: '-100%'}, '-=0.5')
+				.call(done, null, null, '+=.3')
+				.to([panelTop, panelBottom], 0, {display: 'none'});
+
+			panelsOpen.play();
+		}
+	};
+}])
+
+.animation('experience-leave', [function () {
+	return {
+		setup: function (partial) {
+			partial.find('.transition__panels-top').css({top:'-100%'}).show();
+			partial.find('.transition__panels-bottom').css({bottom:'-100%'}).show();
+		},
+		start: function (partial, done) {
+			var panelTop = partial.find('.transition__panels-top'),
+				panelBottom = partial.find('.transition__panels-bottom'),
+				panelsClose = new TimelineLite({paused: true});
+
+			panelsClose.to(panelTop, 0.5, {top: '-50%'})
+				.to(panelBottom, 0.5, {bottom: '-50%'}, '-=0.5')
+				.call(done, null, null, '+=0.3')
+				.to([panelTop, panelBottom], 0, {display: 'none'});
+
+			panelsClose.play();
+		}
+	};
+}])
+
+
+//								//
 //		PARTIALS ANIMATIONS		//
 //								//
 
@@ -373,6 +423,8 @@
 				$log.log('Fade Out Video Experience');
 				var videoPlayer = document.getElementById('player'),
 				vidOut		= new TimelineLite({paused: true});
+				
+				videoPlayer.pause();
 
 				vidOut.to(videoPlayer, 1.5, {opacity: 0}, '-=2')
 				.eventCallback('onComplete', done);
@@ -683,7 +735,7 @@
 	}])
 
 	// ipad only ----------------//
-	.animation('valid-leave', [function() {
+	.animation('valid-hide', [function() {
 		return {
 			start: function(element, done) {
 				element.fadeOut(500, done);
@@ -691,7 +743,7 @@
 		};
 	}])
 
-	.animation('valid-enter', [function() {
+	.animation('valid-show', [function() {
 		return {
 			setup: function(element) {
 				element.hide();

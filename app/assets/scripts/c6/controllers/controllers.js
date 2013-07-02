@@ -64,7 +64,7 @@ angular.module('c6.ctrl',['c6.svc'])
 		return $stateParams.category;
 	};
 
-	$scope.appCtrl = this;	
+	$scope.appCtrl = this;
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
 
@@ -232,7 +232,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.$watch('appCtrl.promptModel', function(promptModel) {
 		self.promptModel = promptModel;
-		self.currentPrompt = promptModel.prompts[0];
+		self.currentPrompt = promptModel? promptModel.prompts[0] : null;
 	});
 }])
 
@@ -241,12 +241,12 @@ angular.module('c6.ctrl',['c6.svc'])
 	$rootScope.currentRoute = 'experience';
 }])
 
-.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', 'C6AnnotationsService', function($log, $scope, $rootScope, annSvc) {
+.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', function($log, $scope, $rootScope) {
 	$log.log('Creating C6EndCtrl');
 	$rootScope.currentRoute = 'end';
-	
+
 	this.lastAnnotation = null;
-	
+
 	$scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {
 		if (annotationsModel) {
 			$scope.endCtrl.lastAnnotation = annotationsModel.annotations[annotationsModel.annotations.length - 1];

@@ -423,7 +423,7 @@
 				$log.log('Fade Out Video Experience');
 				var videoPlayer = document.getElementById('player'),
 				vidOut		= new TimelineLite({paused: true});
-				
+
 				videoPlayer.pause();
 
 				vidOut.to(videoPlayer, 1.5, {opacity: 0}, '-=2')

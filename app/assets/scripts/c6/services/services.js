@@ -156,7 +156,7 @@ angular.module('c6.svc',[])
 			requestBodyObject.script.push(line);
 		});
 
-		$http.post('http://localhost:9000/dub/create', requestBodyObject).then(function(response) {
+		$http.post('http://c6box.local/dub/create', requestBodyObject).then(function(response) {
 			url.resolve(response.data.output);
 		}, function(error) {
 			$log.error(error);

@@ -563,6 +563,21 @@ button:disabled {opacity: 0.15;}
         -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
         transform-origin: 50% 50%;
     }
+    
+  .loading__group {
+      text-align: center; width: 160px; height: 120px; left: 50%; top: 50%; margin: -60px 0 0 -80px; position: absolute; z-index: 100;
+  }
+      .loading__cycle { position: absolute; display: inline; left: 30%;
+          transform-origin:25% 25%; -ms-transform-origin:25% 25%; -webkit-transform-origin:25% 25%;
+      }
+
+      .loading__text {
+          color: #fff; font-family: 'courier prime', courier, times, serif;  font-size: 0.8em;
+          position: absolute; bottom: -10px;
+      }
+      .loading__dot3, .loading__dot2, .loading__dot1 {
+          display: inline; opacity: 0;
+      }
 
 /*  ==========================================================================
     end styles

@@ -80,7 +80,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	});
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		video;
@@ -108,7 +108,9 @@ angular.module('c6.ctrl',['c6.svc'])
 				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
 					$scope.appCtrl.experience.src = url;
 					video.on('canplaythrough', function() {
-						video.player.play();
+						$timeout(function() {
+							video.player.play();
+						}, 100);
 					});
 				});
 			}

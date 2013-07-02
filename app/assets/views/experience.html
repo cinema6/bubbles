@@ -8,7 +8,7 @@
   <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
   
   <div ng-controller="C6AnnotationsCtrl" ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
-      <div ng-if="($state.is('experience.video') && !annoCtrl.videoCanPlay)">HELLO!!!</div>
+      <c6-progress-pen ng-if="($state.is('experience.video') && !annoCtrl.videoCanPlay)"></c6-progress-pen>
       <div class="experience__logo">
           <img ng-src="{{appCtrl.category() ? ('assets/img/logo_vid_' + appCtrl.category() + '.png') : null }}">
       </div>
@@ -18,7 +18,7 @@
     	c6-src="{{appCtrl.experience.src}}"
     	on="timeupdate: annoCtrl.setActiveAnnotations, ended: annoCtrl.goToEnd"
     	preload="auto"
-    	controls>
+    	c6-controls="annoCtrl.videoCanPlay">
     </video>
     <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
       <li

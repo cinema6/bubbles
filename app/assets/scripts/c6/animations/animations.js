@@ -410,6 +410,7 @@
 
 				vidIn.play();
 				setTimeout(function() {
+					videoPlayer.currentTime = 0;
 					videoPlayer.play();
 				}, 1850);
 				vidIn.seek(0);

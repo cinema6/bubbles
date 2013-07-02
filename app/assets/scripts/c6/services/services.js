@@ -368,8 +368,9 @@ angular.module('c6.svc',[])
         return [
                         'Action',
                         'Romance',
-                        'SciFi-Fantasy',
-                        'Horror'
+                        'Fantasy', // changed from 'SciFi-Fantasy
+                        'Horror',
+                        'SciFi'
                     ];
     };
 
@@ -446,7 +447,7 @@ angular.module('c6.svc',[])
                 }]
             };
         } else
-        if (category === 'scifi-fantasy') {
+        if (category === 'fantasy') {
             return {
                 'id'         : '3',
                 'title'      : 'Heartbreaking Romance',

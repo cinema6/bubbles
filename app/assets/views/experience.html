@@ -3,32 +3,14 @@
   <div class="transition__panels-bottom">&nbsp;</div>
 
   <!--#c6Bar-->
-  <div id="c6Bar" class="c6-bar__group">
-    <ul class="c6-bar__inner clearfix">
-        <li class="c6-bar__logo">
-            <a href="#" title="Cinema6" class="c6b-logo__link">
-                <img src="assets/media/c6/c6logo64x64.png" alt="Cinema6" width="32">
-            </a>
-        </li>
-        <li class="c6-bar__app-space"><a href="#" title="Screenjacked" class="c6-bar__app-title"><span class="ir">Screenjacked</span></a></li>
-        <li class="c6-settings__group hasDropdown">
-            <div class="c6-bar__settings clearfix">
-                <span class="c6-settings__gear-icon"><span class="ir">Settings</span></span>
-                <span class="c6-settings__dropdown-icon"><span class="ir">Drop Down</span></span>
-            </div>
-            <ul id="settings-dropdown" class="c6-settings__dropdown">
-                <li class="c6-settings__dropdown-item"><a href="#/" class="c6-settings__dropdown-btn">Close</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-  <!--#c6Bar-->
+  <c6-bar></c6-bar>
   
   <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
   
   <div ng-controller="C6AnnotationsCtrl" ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
+      <div ng-if="($state.is('experience.video') && !annoCtrl.videoCanPlay)">HELLO!!!</div>
       <div class="experience__logo">
-          <img ng-src="{{appCtrl.category() ? ('assets/media/logo_vid_' + appCtrl.category() + '.png') : null }}">
+          <img ng-src="{{appCtrl.category() ? ('assets/img/logo_vid_' + appCtrl.category() + '.png') : null }}">
       </div>
     <video
     	id="player"
@@ -40,8 +22,8 @@
     </video>
     <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
       <li
-      	ng-repeat="a in annoCtrl.model.annotations"
-      	ng-show="$state.is('experience.video') && annoCtrl.annotationIsActive(a)"
+      	ng-repeat="a in annoCtrl.annotationsModel.annotations"
+      	ng-show="annoCtrl.annotationIsActive(a)"
       	style="display: none;"
       	ng-animate="appCtrl.experience.anim + '-annotation'"
       	ng-class="' annotation ' + a.cls.join(' ')">

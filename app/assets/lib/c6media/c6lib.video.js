@@ -113,6 +113,11 @@ angular.module('c6lib.video', [])
 			var video = this.player,
 			bestFormat = c6videoService.bestFormat();
 
+			if (typeof src !== 'string') {
+				video.src = null;
+				return false;
+			}
+
 			if (c6videoService.isIPhone) {
 				this.regenerate();
 				video = this.player;
@@ -216,9 +221,7 @@ angular.module('c6lib.video', [])
 
 	// Watch the c6-src attribute and set the src if it changes.
 	$attrs.$observe('c6Src', function(src) {
-		if (src) {
-			c6video.src(src);
-		}
+		c6video.src(src);
 	});
 
 	// Respond to events specified from attributes
@@ -242,12 +245,23 @@ angular.module('c6lib.video', [])
 			});
 		}
 	});
+
+	if ($attrs.id) {
+		$attrs.$observe('id', function(id) {
+			if (id) {
+				// This event means an instance of C6Video has been created.
+				c6video.id = id;
+				$scope.$emit('c6video-ready', c6video);
+			}
+		});
+	} else {
+		$scope.$emit('c6video-ready', c6video);
+	}
+
 	// Emit an event if the player leaves the DOM
 	$scope.$on('$destroy', function() {
 		$scope.$emit('c6video-destroyed', $attrs.id);
 	});
-	// This event means an instance of C6Video has been created.
-	$scope.$emit('c6video-ready', c6video);
 
 	// Use the chrome hack.
 	if (c6videoService.isChrome) {
@@ -270,7 +284,8 @@ angular.module('c6lib.video', [])
 		controller: 'C6VideoController',
 		scope: {
 			c6Src: '@',
-			on: '@'
+			on: '@',
+			id: '@'
 		}
 	};
 }]);

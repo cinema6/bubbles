@@ -1,8 +1,8 @@
 /* Fantasy Video Experience specific styles */
 
 .annotation {
-    min-width: 18%;
-    max-width: 24%;
+    min-width: 24%;
+    max-width: 30%;
 }
     @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
         .annotation {
@@ -13,22 +13,22 @@
 .a-style {
     position: relative;
     border-radius: 40px;
-    background: url('../media/fantasy/annotation-right.png') repeat-y right, 
-                url('../media/fantasy/annotation-left.png') repeat-y left, 
-                url('../media/fantasy/annotation-top.png') repeat-x top, 
-                url('../media/fantasy/annotation-bottom.png') repeat-x bottom,
-                url('../media/fantasy/annotation-body.png');
+    background: url('../img/fantasy/annotation-right.png') repeat-y right, 
+                url('../img/fantasy/annotation-left.png') repeat-y left, 
+                url('../img/fantasy/annotation-top.png') repeat-x top, 
+                url('../img/fantasy/annotation-bottom.png') repeat-x bottom,
+                url('../img/fantasy/annotation-body.png');
 }
 .a-frame {
-    background: url('../media/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
-                url('../media/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
-                url('../media/fantasy/annotation-topRight.png') no-repeat 100% 0%,
-                url('../media/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
+    background: url('../img/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
+                url('../img/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
+                url('../img/fantasy/annotation-topRight.png') no-repeat 100% 0%,
+                url('../img/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
     margin: 0px;
 }
     .a-deco-right {
       position: absolute;
-      background: url('../media/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
+      background: url('../img/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
       height: 68px; width: 71px;
       bottom: -14px;
       right: -14px;
@@ -36,7 +36,7 @@
 
     .a-deco-left {
       position: absolute;
-      background: url('../media/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
+      background: url('../img/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
       height: 68px; width: 71px;
       top: -14px;
       left: -14px;
@@ -72,7 +72,7 @@
 /* tail styles */
     .a-tail-bottomLeft-speech {
         position: absolute;
-        background: url('../media/fantasy/bottomLeft-speech.png') no-repeat 10% 0%; 
+        background: url('../img/fantasy/bottomLeft-speech.png') no-repeat 10% 0%; 
         height: 42px; width: 100%;
         bottom: -36px;
         left: 0;
@@ -80,7 +80,7 @@
 
     .a-tail-bottomRight-speech {
         position: absolute;
-        background: url('../media/fantasy/bottomRight-speech.png') no-repeat 35% 0%; 
+        background: url('../img/fantasy/bottomRight-speech.png') no-repeat 35% 0%; 
         height: 42px; width: 100%;
         bottom: -36px;
         left: 0;
@@ -88,7 +88,7 @@
 
     .a-tail-topLeft-speech {
         position: absolute;
-        background: url('../media/fantasy/topLeft-speech.png') no-repeat 65% 0%; 
+        background: url('../img/fantasy/topLeft-speech.png') no-repeat 65% 0%; 
         height: 42px; width: 100%;
         top: -36px;
         left: 0;
@@ -96,7 +96,7 @@
 
     .a-tail-topRight-speech {
         position: absolute;
-        background: url('../media/fantasy/topRight-speech.png') no-repeat 80% 0%; 
+        background: url('../img/fantasy/topRight-speech.png') no-repeat 80% 0%; 
         height: 42px; width: 100%;
         top: -36px;
         left: 0;
@@ -104,7 +104,7 @@
 
     .a-tail-bottomLeft-thought {
         position: absolute;
-        background: url('../media/fantasy/bottomLeft-thought.png') no-repeat 10% 0%; 
+        background: url('../img/fantasy/bottomLeft-thought.png') no-repeat 10% 0%; 
         height: 28px; width: 100%;
         bottom: -28px;
         left: 0;
@@ -112,7 +112,7 @@
 
     .a-tail-bottomRight-thought {
         position: absolute;
-        background: url('../media/fantasy/bottomRight-thought.png') no-repeat 35% 0%; 
+        background: url('../img/fantasy/bottomRight-thought.png') no-repeat 35% 0%; 
         height: 28px; width: 100%;
         bottom: -28px;
         left: 0;
@@ -120,7 +120,7 @@
 
     .a-tail-topLeft-thought {
         position: absolute;
-        background: url('../media/fantasy/topLeft-thought.png') no-repeat 65% 0%; 
+        background: url('../img/fantasy/topLeft-thought.png') no-repeat 65% 0%; 
         height: 28px; width: 100%;
         top: -28px;
         left: 0;
@@ -128,16 +128,69 @@
 
     .a-tail-topRight-thought {
         position: absolute;
-        background: url('../media/fantasy/topRight-thought.png') no-repeat 90% 0%; 
+        background: url('../img/fantasy/topRight-thought.png') no-repeat 90% 0%; 
         height: 28px; width: 100%;
         top: -28px;
         left: 0;
     }
 
 /* positioning */
-.lotr-4 { top: 50%; left: 65%; }
+.lotr-0 { top: 6%; left: 3%; max-width: 22% }
+.lotr-0 .a-tail-bottomRight-thought {  
+    background: url('../img/fantasy/bottomRight-thought.png') no-repeat 75% 0%; 
+ }
+
+.lotr-1 { top: 45%; left: 3%; max-width: 24% }
+.lotr-1 .a-tail-topRight-thought {  
+    background: url('../img/fantasy/topRight-thought.png') no-repeat 65% 0%; 
+ }
+
+.lotr-2 { top: 62%; left: 32%; }
+.lotr-2 .a-tail-topLeft-thought {  
+    background: url('../img/fantasy/topLeft-thought.png') no-repeat 30% 0%; 
+ }
+
+.lotr-3 { top: 62%; left: 60%; }
+.lotr-4 { top: 29%; left: 73%; }
+.lotr-4 .a-tail-topLeft-thought {  
+    background: url('../img/fantasy/topLeft-thought.png') no-repeat 30% 0%; 
+ }
+
 .lotr-5 { top: 8%; left: 78%; }
 .lotr-6 { top: 55%; left: 75%; }
-.lotr-7 { top: 55%; left: 70%; }
+.lotr-6 .a-tail-topLeft-thought {  
+    background: url('../img/fantasy/topLeft-thought.png') no-repeat 30% 0%; 
+ }
+
+.lotr-7 { top: 55%; left: 74%; }
+.lotr-7 .a-tail-topLeft-thought {  
+    background: url('../img/fantasy/topLeft-thought.png') no-repeat 30% 0%; 
+ }
+
+
 .lotr-8 { top: 68%; left: 4%; }
-.lotr-18 { top: 52%; left: 2%; }
+.lotr-9 { top: 53%; left: 6%; }
+.lotr-10 { top: 56%; left: 14%; }
+.lotr-11 { top: 8%; left: 25%; }
+.lotr-11 .a-tail-bottomRight-thought {  
+    background: url('../img/fantasy/bottomRight-thought.png') no-repeat 75% 0%; 
+ }
+
+.lotr-12 { top: 10%; left: 65%; }
+.lotr-13 { top: 8%; left: 20%; }
+.lotr-13 .a-tail-bottomRight-thought {  
+    background: url('../img/fantasy/bottomRight-thought.png') no-repeat 75% 0%; 
+ }
+
+.lotr-14 { top: 8%; left: 54%; }
+.lotr-15 { top: 42%; left: 12%; }
+.lotr-16 { top: 35%; left: 38%; }
+.lotr-16 .a-tail-topLeft-thought {  
+    background: url('../img/fantasy/topLeft-thought.png') no-repeat 35% 0%; 
+ }
+
+.lotr-17 { top: 8%; left: 74%;  max-width: 20%}
+.lotr-18 { top: 15%; left: 10%; }
+.lotr-18 .a-tail-bottomRight-thought {  
+    background: url('../img/fantasy/bottomRight-thought.png') no-repeat 75% 0%; 
+ }

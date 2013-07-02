@@ -1,8 +1,171 @@
 (function(){
-
 'use strict';
 
+function TalkieModel(annotations, extension) {
+	var options = annotations.options;
+	this.options = {
+		effect: options.effect,
+		level: options.level,
+		vid: options.vid + '.' + extension,
+		voice: options.voice
+	};
+    this.annotations = [];
+
+    annotations.notes.forEach(function(annotation) {
+        var note = {
+	        ts: annotation.ts,
+	        template: annotation.template,
+	        text: null
+        };
+	    this.annotations.push(note);
+    }, this);
+}
+
+function BubblesModel(annotations) {
+    var localException = function(msg) {
+        return {
+          'name'     : 'AnnotationsModel',
+          'message'  : (msg !== undefined) ? msg : 'Unspecified error.',
+          'toString' : function() { return this.name + ': ' + this.message; }
+        };
+      };
+    this.annotations     = [];
+    for (var i = 0; i < annotations.notes.length; i++) {
+        var a = annotations.notes[i],
+            n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
+            text : null, index : i, tail: a.tail
+            };
+        if (annotations.options){
+            if (!n.type) {
+                n.type = annotations.options.type;
+            }
+            if (!n.duration) {
+                n.duration = annotations.options.duration;
+            }
+            if (!n.cls) {
+                var eCls = annotations.options.cls;
+                if (eCls instanceof Array) {
+                    var lenCls = eCls.length;
+                    n.cls = [];
+                    for (var j = 0; j < lenCls; j++) {
+                        n.cls.push(eCls[j]);
+                    }
+                }
+            }
+        }
+
+        if (n.cls instanceof Array) {
+            for (var k = 0; k < n.cls.length; k++) {
+                n.cls[k] = n.cls[k].replace('${index}',n.index);
+            }
+        }
+
+        if (!n.type){ throw localException('Missing Property (type): ' + JSON.stringify(a));}
+        if (!n.ts)  { throw localException('Missing Property (ts): ' + JSON.stringify(a));}
+        if (!n.duration) { throw localException('Missing Property (duration): ' +
+                JSON.stringify(a));}
+        if (!n.template){ throw localException('Missing Property (template): ' +
+            JSON.stringify(a));}
+
+        this.annotations.push(n);
+    }
+}
+
 angular.module('c6.svc',[])
+.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
+    var interpolate = function(tmpl,data) {
+        var patt  = /\${(\d+)}/,
+            dataLen,
+            match;
+
+        if (!data) {
+            return tmpl;
+        }
+
+        if ((data instanceof Array) === false) {
+            throw new TypeError('Data parameter must be an array.');
+        }
+
+        dataLen = data.length;
+//        $log.info('Template:' + tmpl);
+        while((match = patt.exec(tmpl)) !== null) {
+//            $log.info('Match: ' + JSON.stringify(match));
+            var idx = (match[1] - 1);
+            if (idx < 0) {
+                throw new RangeError('Template parameters should start at ${1}');
+            }
+            if (idx >= dataLen) {
+                throw new RangeError('Invalid template parameter (too high): ' + match[0]);
+            }
+            tmpl = tmpl.replace(match[0],data[idx]);
+        }
+        return tmpl;
+    };
+
+	this.getAnnotationsModelByType = function(type, annotations) {
+		var toReturn,
+			Klass;
+
+		if (type === 'bubble') {
+			Klass = BubblesModel;
+		} else if (type === 'talkie') {
+			Klass = TalkieModel;
+		}
+
+		annotations.forEach(function(annoConfig) {
+			if (annoConfig.options.type === type) {
+				toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
+			}
+		});
+		return toReturn;
+	};
+
+	this.interpolateAnnotations = function(annoModel, responses) {
+        var annoLength = annoModel.annotations.length;
+        $log.info('Interpolate ' + annoLength + ' annotations with ' + responses.length + ' responses.');
+//       for (var x = 0; x < data.length; x++) {
+//            $log.info('DATA[' + x + ']: [' + data[x] + ']');
+//        }
+        for (var i = 0; i < annoLength; i++) {
+            var a = annoModel.annotations[i];
+            a.text = interpolate(a.template,responses);
+            $log.info('Annotation [' + i + ']: ' + a.text);
+        }
+
+        return annoModel;
+	};
+
+	this.fetchText2SpeechVideoUrl = function(model) {
+		var requestBodyObject = {
+			video: model.options.vid,
+			tts: {
+				voice: model.options.voice,
+				effect: model.options.effect,
+				level: model.options.level
+			},
+			script: []
+		},
+			url = $q.defer();
+
+		model.annotations.forEach(function(annotation) {
+			var line = {
+				ts: annotation.ts,
+				line: annotation.text
+			};
+
+			requestBodyObject.script.push(line);
+		});
+
+		$http.post('http://localhost:9000/dub/create', requestBodyObject).then(function(response) {
+			url.resolve(response.data.output);
+		}, function(error) {
+			$log.error(error);
+		});
+
+		return url.promise;
+	};
+}])
+
 .service('C6ResizeService', ['$window', '$log', function($window, $log) {
 	var resizeFunctions = [];
 
@@ -202,12 +365,12 @@ angular.module('c6.svc',[])
     var service          = {};
 
     service.getCategories = function() {
-        return { 'categories' : [
+        return [
                         'Action',
                         'Romance',
                         'SciFi-Fantasy',
-                    ]
-        };
+                        'Horror'
+                    ];
     };
 
     service.getExperienceByCategory = function(category) {
@@ -232,7 +395,7 @@ angular.module('c6.svc',[])
                     'Famous comedian',
                     { query : 'Type of candy', sizeLimit : 12},
                     ],
-                'annotations' : {
+                'annotations' : [{
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
@@ -280,7 +443,7 @@ angular.module('c6.svc',[])
                         { 'ts':131.5,'template':'${2} on ${3}!',
                             'duration':1.5, tail: {type:'thought', pos: 'bottomRight'} }
                     ]
-                }
+                }]
             };
         } else
         if (category === 'scifi-fantasy') {
@@ -304,14 +467,13 @@ angular.module('c6.svc',[])
                     { query : 'place', sizeLimit : 14},
                     { query :'baby animal', sizeLimit : 14},
                     ],
-                'annotations' : {
+                'annotations' : [{
                     'options' : {
                         'type'      : 'bubble',
                         'duration'  : 4,
                         'cls'     : ['lotr-${index}']
                         },
                      'notes'  : [
-
                         { 'ts':  3,'template':'I\'ll always remember',
                             tail: {type:'thought', pos: 'bottomRight'} },
                         { 'ts':  5,'template':'The times we milked the ${1} together',
@@ -351,8 +513,52 @@ angular.module('c6.svc',[])
                             'duration' : 2, tail: {type:'thought', pos: 'bottomLeft'} },
                         { 'ts': 95,'template':'I just took a ${7} in my pants',
                             'duration' : 5, tail: {type:'thought', pos: 'bottomRight'} }
-                        ]
-                }
+                    ]
+                }]
+            };
+        } else
+        if (category === 'horror') {
+            return {
+                'id'         : '4',
+                'title'      : 'Scary Movie',
+                'views'      : 1000,
+                'src'         : null,
+                'css'         : baseUrl + '/styles/bubbles_horror.css',
+                'anim'        : 'horror',
+                'defSizeLimit': 18,
+                'prompts'     : [
+                    'animal',
+                    'color',
+                    'type of drug',
+                    'profession',
+                    'school supply',
+                    'verb',
+                    'synonym for feces',
+                    'mode of transportation',
+                    'type of sports equipment',
+                    'body part'
+                    ],
+                'annotations' : [{
+                    'options' : {
+                        'type'      : 'talkie',
+                        'vid'       : 'scream',
+                        'voice'     : 'Allison',
+                        'effect'    : 'R',
+                        'level'     : '3',
+                        },
+                     'notes'  : [
+		                 { 'ts' : '7.70', 'template' : 'Hi, is my ${1} OK?' },
+		                 { 'ts' : '11.83', 'template' : 'Its Mrs. Von ${2} Burger, are you alright?'  },
+		                 { 'ts' : '17.67', 'template' : 'Are you on ${3}?' },
+		                 { 'ts' : '20.00', 'template' : 'Popcorn ${3}?' },
+		                 { 'ts' : '21.92', 'template' : 'My ${1} better be OK!' },
+		                 { 'ts' : '25.92', 'template' : 'What?' },
+		                 { 'ts' : '28.75', 'template' : 'About ${3}?' },
+		                 { 'ts' : '30.75', 'template' : 'Did your ${4} give you the ${3}?'  },
+		                 { 'ts' : '35.08', 'template' : 'Well does this ${3} movie have a name?' },
+		                 { 'ts' : '46.38', 'template' : 'listen to me you little ${5}  ${3} head. You need to hang up now and start to ${6} your ${7} together. I\'m getting in my ${8} and coming home and I am going to get my ${9} and put it through your ${3} filled ${10}. You better not touch my ${1} or give it any of your damn ${3}. This is Mrs. Von ${2} Burger. Goodbye.' }
+                    ]
+                }]
             };
         }
         return  {
@@ -372,9 +578,9 @@ angular.module('c6.svc',[])
                     'type of bread',
                     'famous A-list celebrity',
                     'Fight move',
-                    'plural vegetable'
+                    { query : 'plural vegetable', sizeLimit : 13}
                 ],
-                'annotations' :  {
+                'annotations' :  [{
                     'options' : {
                         'type'       : 'bubble',
                         'duration'   : 4,
@@ -400,7 +606,7 @@ angular.module('c6.svc',[])
                        { 'ts':58,'template':'I love ${9}.',
                            'duration': 2, tail: {type:'thought', pos: 'bottomLeft'} }
                     ]
-                }
+                }]
             };
     };
 

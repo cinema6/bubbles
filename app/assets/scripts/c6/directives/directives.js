@@ -2,6 +2,14 @@
 
 'use strict';
 angular.module('c6.dir.screenJack',['c6.svc'])
+.directive('c6Bar', ['appBaseUrl', function(base) {
+	return {
+		restrict: 'E',
+		templateUrl: base + '/views/c6bar.html',
+		replace: true,
+		scope: {}
+	};
+}])
 .directive('c6Resize', ['C6ResizeService', function(service) {
 	return function(scope, element, attrs) {
 		var configObject = scope.$eval(attrs.c6Resize) || {width: null, height: null, font: null},
@@ -57,7 +65,7 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	};
 }])
 
-.directive('c6IosKeyboard', ['$window', '$timeout', function($window, $timeout) {
+.directive('c6IosKeyboard', ['$window', '$timeout', '$log', function($window, $timeout, $log) {
 	return function(scope, element, attrs) {
 		if ($window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
 			if (attrs.c6IosKeyboard === 'input') {
@@ -75,11 +83,13 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				});
 			} else if (attrs.c6IosKeyboard === 'target') {
 				scope.$on('c6-ios-keyboard-up', function() {
+					$log.log('iPad keyboard is up!');
 					$window.scrollTo(0, 0);
 					element.addClass('c6-ios-keyboard-up');
 				});
 
 				scope.$on('c6-ios-keyboard-down', function() {
+					$log.log('iPad keyboard is down!');
 					element.removeClass('c6-ios-keyboard-up');
 				});
 			}

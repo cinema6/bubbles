@@ -88,8 +88,8 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$on('c6video-ready', function(event, player) {
 		video = player;
 
-		player.on('canplaythrough', function() {
-			 self.videoCanPlay = true;
+		player.on(['canplaythrough', 'play'], function() {
+			self.videoCanPlay = true;
 		});
 	});
 
@@ -109,7 +109,7 @@ angular.module('c6.ctrl',['c6.svc'])
 					$scope.appCtrl.experience.src = url;
 					video.on('canplaythrough', function() {
 						$timeout(function() {
-							video.player.play();
+							if ($state.is('experience.video')) { video.player.play(); }
 						}, 100);
 					});
 				});

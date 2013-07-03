@@ -1,5 +1,5 @@
 (function(){
-
+/*global TimelineMax:false */
 'use strict';
 angular.module('c6.dir.screenJack',['c6.svc'])
 .directive('c6ProgressPen', ['appBaseUrl', function(base) {
@@ -15,16 +15,16 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	            dot3                = element.find('#dot-3'),
 	            loadingAnimation    = new TimelineMax({paused: true, repeat: -1, yoyo:true}),
 	            loadingText         = new TimelineMax({paused: true, repeat: -1, yoyo:false});
-	
+
             loadingAnimation.to(loadingCycle, 0.2, {top: '+=2px', left: '+=14px', rotation: '+=8deg'})
                 .to(loadingCycle, 0.2, {top: '+=4px', left: '-=12px', rotation: '-=8deg'})
                 .to(loadingCycle, 0.2, {top: '+=2px', left: '+=16px', rotation: '+=10deg'})
-                .to(loadingCycle, 0.1, {top: '+=4px', left: '-=12px', rotation: '-=8deg'})
+                .to(loadingCycle, 0.1, {top: '+=4px', left: '-=12px', rotation: '-=8deg'});
 
             loadingText.to(dot1, 0.4, {opacity: 1})
                 .to(dot2, 0.4, {opacity: 1})
                 .to(dot3, 0.4, {opacity: 1})
-                .to([dot1, dot2, dot3], 1, {opacity: 0})
+                .to([dot1, dot2, dot3], 1, {opacity: 0});
 
             // this event can be modified, but function needs to remain the same
             loadingAnimation.seek(0);
@@ -32,7 +32,7 @@ angular.module('c6.dir.screenJack',['c6.svc'])
             loadingText.seek(0);
             loadingText.play();
 		}
-	}
+	};
 }])
 .directive('c6Bar', ['appBaseUrl', function(base) {
 	return {

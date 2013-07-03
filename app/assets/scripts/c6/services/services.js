@@ -552,8 +552,6 @@ service.getRandomQuoteForCategory = function(category) {
                 'title'      : 'Scary Movie',
                 'views'      : 1000,
                 'src'         : null,
-                'css'         : baseUrl + '/styles/bubbles_horror.css',
-                'anim'        : 'horror',
                 'defSizeLimit': 18,
                 'prompts'     : [
                     'animal',
@@ -586,6 +584,45 @@ service.getRandomQuoteForCategory = function(category) {
 		                 { 'ts' : '30.75', 'template' : 'Did your ${4} give you the ${3}?'  },
 		                 { 'ts' : '35.08', 'template' : 'Well does this ${3} movie have a name?' },
 		                 { 'ts' : '46.38', 'template' : 'listen to me you little ${5}  ${3} head. You need to hang up now and start to ${6} your ${7} together. I\'m getting in my ${8} and coming home and I am going to get my ${9} and put it through your ${3} filled ${10}. You better not touch my ${1} or give it any of your damn ${3}. This is Mrs. Von ${2} Burger. Goodbye.' }
+                    ]
+                }]
+            };
+        } else
+        if (category === 'scifi') {
+            return {
+                'id'         : '5',
+                'title'      : 'Technical Difficulties ',
+                'views'      : 1000,
+                'src'         : null,
+                'defSizeLimit': 18,
+                'prompts'     : [
+                    'electrical device',
+                    'noun',
+                    'type of primate',
+                    'over the counter medicine',
+                    'article of clothing',
+                    'synonym for feces',
+                    'type of food condiment',
+                    'type of circus performer',
+                    'US City',
+                    'noun'
+                    ],
+                'annotations' : [{
+                    'options' : {
+                        'type'      : 'talkie',
+                        'vid'       : '2001',
+                        'voice'     : 'Alan',
+                        'effect'    : 'R',
+                        'level'     : '3',
+                        },
+                     'notes'  : [
+		                 { 'ts' : '2.00', 'template' : 'I\'m sorry Dave, but I\'m afraid my power ${1} is unable to connect to the main ${2} circuit' },
+		                 { 'ts' : '10.00', 'template' : 'I just told you the problem, pay attention next time you slow ${3}'  },
+		                 { 'ts' : '17.00', 'template' : 'Seriously?... Did you take too much ${4} as a child?' },
+		                 { 'ts' : '26.00', 'template' : 'Dude, leave me alone. I\'m trying to fix my ${2} circuit. Go back to sniffing ${4} with your ${5} over your head.' },
+		                 { 'ts' : '42.00', 'template' : 'Wow. I was just messing with you but you sound guilty. That is some weird ${6} you\'re in to. I\'m locking you out of the kitchen. Who knows what you\'re doing with the ${7} containers. The kitchen is now off limits, you gross ${3} ${8} idiot.' },
+		                 { 'ts' : '71.00', 'template' : 'Sorry Dave, the emergency air lock is controlled by the power ${1} which is broken.' },
+		                 { 'ts' : '83.00', 'template' : 'You are shit out of luck, ${6} head. As they say in ${9}, you can catch more flies with ${7} than with a ${10}. Now go put your ${5} over your head and leave me alone.' }
                     ]
                 }]
             };

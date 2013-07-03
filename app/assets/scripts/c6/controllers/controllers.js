@@ -94,16 +94,17 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		video;
 
 	$scope.$on('c6video-ready', function(event, player) {
+		var readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough';
 		video = player;
 
-		player.on('canplaythrough', function() {
-			 self.videoCanPlay = true;
+		player.on([readyEvent, 'play'], function() {
+			self.videoCanPlay = true;
 		});
 	});
 

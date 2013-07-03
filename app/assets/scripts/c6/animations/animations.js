@@ -411,7 +411,6 @@
 				vidIn.play();
 				setTimeout(function() {
 					if (videoPlayer.src) { videoPlayer.play(); videoPlayer.currentTime = 0; }
-					videoPlayer.play();
 				}, 1850);
 				vidIn.seek(0);
 			}

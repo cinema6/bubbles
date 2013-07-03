@@ -7,13 +7,14 @@ button {border: 0;}
 button:disabled {opacity: 0.15;}
 .disabled {opacity: 0.15;}
 .hidden {display: none;}
+.clearspace {background: white;}
 
 .paperTexture { 
     background: url('../img/bg_tile.jpg') repeat;
     font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;
 }
 
-.experience {position: fixed; width:100%; height: 100%}
+.experience {position: absolute; width:100%; height: 100%; overflow: hidden;}
 
 .viewport { 
     height: 684px; 
@@ -79,86 +80,43 @@ button:disabled {opacity: 0.15;}
             font-size: 0.939em; line-height: 1.6em; margin: 1em 0 0 0;
         }
         .about__copy-group {
-            margin-top: 2.6em; position: relative;
-            width: 100%; height: 100%;
-            background: white;
+            margin-top: 1.2em; padding: 0.8em 0 0 0; position: relative;
+            width: 100%;
         }
+            @media only screen and (max-width: 768px) { 
+                    .about__copy-group {text-align: center; }
+                }
             .about__img-left {width: 46%; }
+                @media only screen and (max-width: 768px) { 
+                    .about__img-left {width: 70%; }
+                }
             
             .about__img-right {width: 46%; }
+                @media only screen and (max-width: 768px) { 
+                    .about__img-right {width: 70%; margin-top: 1em;}
+                }
                     
             .about__caption-right {
                 font-size: 0.939em; line-height: 1.6em; margin-left: 1.5em;
                 width: 48%; display: inline-block; position: absolute; top: 15%;
             }
                 @media only screen and (max-width: 904px) { 
-                    .about__caption-right {margin: -1.2em 0 0 0;}
+                    .about__caption-right {margin: -1.2em 0 0 1.5em;}
+                }
+                 @media only screen and (max-width: 768px) { 
+                    .about__caption-right { position: inherit; margin: 1em 0 0 -0.2em; width: 90%;}
                 }
 
             .about__caption-left {
                 font-size: 0.939em; line-height: 1.6em; 
-                width: 48%; display: inline-block; margin-bottom: 2em;
+                width: 48%; display: inline-block; margin-bottom: 2.1em;
             }
                 @media only screen and (max-width: 884px) { 
                     .about__caption-left {margin: -1.2em 0 0 0;}
-                }        
-            /*.about__caption-right {
-                font-size: 0.939em; line-height: 1.6em; margin: 4em 0 0 2em;
-                width: 45%; float: left; 
-            }
-                @media only screen and (max-width: 942px) { 
-                    .about__caption-right {margin: 2em 0 0 2em;}
-                }
-
+                }   
                 @media only screen and (max-width: 768px) { 
-                    .about__caption-right {width: 100%; margin: 0; text-align: center;}
+                    .about__caption-left { position: inherit; width: 90%;}
                 }
-            .about__caption-left {
-                font-size: 0.939em; line-height: 1.6em; margin: 4em 2em 0 0;
-                width: 49%; float: right;
-            }
-                @media only screen and (max-width: 942px) { 
-                    .about__caption-left {margin: 2em 0 0 0;}
-                }
-
-                @media only screen and (max-width: 768px) { 
-                    .about__caption-left {width: 100%; margin: 0; text-align: center;}
-                }
-
-            .about_img-right {
-                width: 45%; float: right;
-                margin: 2.5em 0;
-                text-align: center;
-            }
-                .about_img-right img {
-                    width: 100%;
-                }
-                @media only screen and (max-width: 768px) {
-                    .about_img-right { width: 100%; margin: 2em 0;}
-                    .about_img-right img {width: 50%;}
-                }
-
-                @media only screen and (max-width: 500px) {
-                    .about_img-right img {width: 90%;}
-                }
-
-            .about_img-left {
-                width: 45%; float: left;
-                margin: 2.5em 0 0 0;
-                text-align: center;
-            }
-                .about_img-left img {
-                    width: 100%;
-                }
-                @media only screen and (max-width: 768px) {
-                    .about_img-left { width: 100%; margin: 2em 0;}
-                    .about_img-left img {width: 50%;}
-                }
-
-                @media only screen and (max-width: 500px) {
-                    .about_img-left img {width: 90%;}
-                }*/            
-
 
 	/* ---- pull quote ---- */
     .quote__group {

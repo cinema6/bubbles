@@ -68,79 +68,97 @@ button:disabled {opacity: 0.15;}
         width: 100%;
     }
 
-	/* ----- about and scenes ----- */ 
+	/* ----- about ----- */ 
     .about-scenes__group {
-            margin-top: 2.5em;
+            margin-top: 2.5em; text-align: left;
     }   
-        .about__copy {
-            font-size: 0.939em; line-height: 1.6em; margin: 0.53em 0 0 0;
-        }
         .about__hdr {
             margin: 0;
         }
-
-        .scenes__hdr {
-            margin-bottom:0.25em;
-            margin-top:1.19em;
+        .about__copy {
+            font-size: 0.939em; line-height: 1.6em; margin: 1em 0 0 0;
         }
-        .scenes__block {
-            width: 50%;
-            margin: 0.4em 0 0.4em 0;
-        }    
-            @media only screen and (max-width: 952px) and (min-width: 769px){
-                .scenes__block {
-                    width: 65%;
-                    margin-top: 0.4em;
-                }
-            }
-            @media only screen and (max-width: 768px) and (min-width: 606px) {
-                .scenes__block {
-                    width: 40%;
-                }
-            }
-            @media only screen and (max-width: 490px) and (min-width: 381px){
-                .scenes__block {
-                    width: 65%;
-                }
-            }
-            @media only screen and (max-width: 380px) {
-                .scenes__block {
-                    width: 85%;
-                }
-            }
-            .scenes__thumb {
-                background-size: contain;
-                display: block;
-                width: 100%; height: 9em;
-            }
+        .about__copy-group {
+            margin-top: 2.6em; position: relative;
+            width: 100%; height: 100%;
+            background: white;
+        }
+            .about__img-left {width: 46%; }
             
-            .scenes__title {
-                display: inline-block; width: 49%; 
-                font-weight: 700; font-size: 0.875em; text-align: left; vertical-align: top;
-                margin: 0;
-
+            .about__img-right {width: 46%; }
+                    
+            .about__caption-right {
+                font-size: 0.939em; line-height: 1.6em; margin-left: 1.5em;
+                width: 48%; display: inline-block; position: absolute; top: 15%;
             }
-            .scenes__category {
-                display: inline-block; width: 49%;
-                font-size: 0.813em; text-align: right; vertical-align: top;
-                margin: 0;
-            }
+                @media only screen and (max-width: 904px) { 
+                    .about__caption-right {margin: -1.2em 0 0 0;}
+                }
 
-    .scenes__thumb-fantasy {
-        background: url(../img/scene_lotr.jpg) center center no-repeat; background-size: contain;
-        display: block;
-        width: 100%; height: 9em;
-    }
-    .scenes__thumb-romance {
-        background: url(../img/scene_notebook.jpg) center center no-repeat; background-size: contain;
-        display: block;
-        width: 100%; height: 9em;
-    }
-    .scenes__thumb-action {
-        background: url(../img/scene_lee.jpg) center center no-repeat; background-size: contain;
-        display: block;
-        width: 100%; height: 9em;
-    }
+            .about__caption-left {
+                font-size: 0.939em; line-height: 1.6em; 
+                width: 48%; display: inline-block; margin-bottom: 2em;
+            }
+                @media only screen and (max-width: 884px) { 
+                    .about__caption-left {margin: -1.2em 0 0 0;}
+                }        
+            /*.about__caption-right {
+                font-size: 0.939em; line-height: 1.6em; margin: 4em 0 0 2em;
+                width: 45%; float: left; 
+            }
+                @media only screen and (max-width: 942px) { 
+                    .about__caption-right {margin: 2em 0 0 2em;}
+                }
+
+                @media only screen and (max-width: 768px) { 
+                    .about__caption-right {width: 100%; margin: 0; text-align: center;}
+                }
+            .about__caption-left {
+                font-size: 0.939em; line-height: 1.6em; margin: 4em 2em 0 0;
+                width: 49%; float: right;
+            }
+                @media only screen and (max-width: 942px) { 
+                    .about__caption-left {margin: 2em 0 0 0;}
+                }
+
+                @media only screen and (max-width: 768px) { 
+                    .about__caption-left {width: 100%; margin: 0; text-align: center;}
+                }
+
+            .about_img-right {
+                width: 45%; float: right;
+                margin: 2.5em 0;
+                text-align: center;
+            }
+                .about_img-right img {
+                    width: 100%;
+                }
+                @media only screen and (max-width: 768px) {
+                    .about_img-right { width: 100%; margin: 2em 0;}
+                    .about_img-right img {width: 50%;}
+                }
+
+                @media only screen and (max-width: 500px) {
+                    .about_img-right img {width: 90%;}
+                }
+
+            .about_img-left {
+                width: 45%; float: left;
+                margin: 2.5em 0 0 0;
+                text-align: center;
+            }
+                .about_img-left img {
+                    width: 100%;
+                }
+                @media only screen and (max-width: 768px) {
+                    .about_img-left { width: 100%; margin: 2em 0;}
+                    .about_img-left img {width: 50%;}
+                }
+
+                @media only screen and (max-width: 500px) {
+                    .about_img-left img {width: 90%;}
+                }*/            
+
 
 	/* ---- pull quote ---- */
     .quote__group {
@@ -148,7 +166,13 @@ button:disabled {opacity: 0.15;}
     }
 
     .quote__base {
-        width: 100%; margin-top: 6%;
+        width: 100%; margin-top: 1.2em;
+    }
+
+    @media only screen and (max-width: 768px) and (min-width: 500px) {
+        .quote__base {
+            width: 70%; margin: 1.5em auto;
+        }
     }
 
         /* ---- action styles ----- */
@@ -284,7 +308,7 @@ button:disabled {opacity: 0.15;}
         }
             @media only screen and (max-width: 768px) and (min-width: 500px) {
                 .fantasy .quote__text {
-                    font-size: 250%
+                    font-size: 250%;
                 }
             }
         .fantasy .quote__tail {

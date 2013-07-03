@@ -1,0 +1,85 @@
+<div class="scenes__group">
+    <h1 class="scenes__hdr group--hdr tk--hdr grid__item">Scenes</h1>
+        <div class="grid grid--center">
+            <section class="scenes__block grid__item">
+                <div class="scenes__thumb-fantasy"><span class="ir">Return of the King</span></div>
+                <span class="scenes__title">Return of the King</span>
+                <span class="scenes__category">available in <em>Fantasy</em></span>
+            </section>
+            <section class="scenes__block grid__item">
+                <div class="scenes__thumb-action"><span class="ir">Fists of Fury</span></div>
+                <span class="scenes__title">Fists of Fury</span>
+                <span class="scenes__category">available in <em>Action</em></span>
+            </section>
+            <section class="scenes__block grid__item">
+                <div class="scenes__thumb-romance"><span class="ir">The Notebook</span></div>
+                <span class="scenes__title">The Notebook</span>
+                <span class="scenes__category">available in <em>Romance</em></span>
+            </section>
+        </div>
+</div>
+
+<style>
+        .scenes__hdr {
+            margin-bottom:0.25em;
+            margin-top:1.19em;
+        }
+        .scenes__block {
+            width: 50%;
+            margin: 0.4em 0 0.4em 0;
+        }    
+            @media only screen and (max-width: 952px) and (min-width: 769px){
+                .scenes__block {
+                    width: 65%;
+                    margin-top: 0.4em;
+                }
+            }
+            @media only screen and (max-width: 768px) and (min-width: 606px) {
+                .scenes__block {
+                    width: 40%;
+                }
+            }
+            @media only screen and (max-width: 490px) and (min-width: 381px){
+                .scenes__block {
+                    width: 65%;
+                }
+            }
+            @media only screen and (max-width: 380px) {
+                .scenes__block {
+                    width: 85%;
+                }
+            }
+            .scenes__thumb {
+                background-size: contain;
+                display: block;
+                width: 100%; height: 9em;
+            }
+            
+            .scenes__title {
+                display: inline-block; width: 49%; 
+                font-weight: 700; font-size: 0.875em; text-align: left; vertical-align: top;
+                margin: 0;
+
+            }
+            .scenes__category {
+                display: inline-block; width: 49%;
+                font-size: 0.813em; text-align: right; vertical-align: top;
+                margin: 0;
+            }
+
+    .scenes__thumb-fantasy {
+        background: url(../img/scene_lotr.jpg) center center no-repeat; background-size: contain;
+        display: block;
+        width: 100%; height: 9em;
+    }
+    .scenes__thumb-romance {
+        background: url(../img/scene_notebook.jpg) center center no-repeat; background-size: contain;
+        display: block;
+        width: 100%; height: 9em;
+    }
+    .scenes__thumb-action {
+        background: url(../img/scene_lee.jpg) center center no-repeat; background-size: contain;
+        display: block;
+        width: 100%; height: 9em;
+    }
+</style>

@@ -566,6 +566,7 @@ button:disabled {opacity: 0.15;}
     
   .loading__group {
       text-align: center; width: 160px; height: 120px; left: 50%; top: 50%; margin: -60px 0 0 -80px; position: absolute; z-index: 100;
+        opacity: 0;
   }
       .loading__cycle { position: absolute; display: inline; left: 30%;
           transform-origin:25% 25%; -ms-transform-origin:25% 25%; -webkit-transform-origin:25% 25%;
@@ -617,7 +618,7 @@ button:disabled {opacity: 0.15;}
             right: 0;
         }
 
-        .vidFrame__annotation-scifi-fantasy {
+        .vidFrame__annotation-fantasy {
             margin: 3% 0 0 2%;
             font-size: 0.7em;
         }

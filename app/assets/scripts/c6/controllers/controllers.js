@@ -115,6 +115,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
 			if (bubbleModel) {
 				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
+			} else {
+				self.annotationsModel = null;
 			}
 			if (txt2SpchModel) {
 				self.videoCanPlay = false;

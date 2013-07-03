@@ -105,11 +105,11 @@
             </section>-->
             <section class="quote__group grid__item one-quarter lap--one-whole palm--one-whole">
                 <h1 class="group--hdr tk--hdr">Featured Exerpt</h1>
-                    <div class="quote__base fantasy"><!--<li ng-class="' annotation ' + a.cls.join(' ')">-->
+                    <div class="quote__base {{landingCtrl.pullQuote.category}}"><!--<li ng-class="' annotation ' + a.cls.join(' ')">-->
                         <div class="quote__style">
                           <div class="quote__frame">
                             <div class="quote__text">
-                              I hope this bunny can swim.<!--{{a.text}}&nbsp;-->
+                              {{landingCtrl.pullQuote.quote}}<!--{{a.text}}&nbsp;-->
                               <div class="quote__deco-right"></div><div class="quote__deco-left"></div>
                               <div class="quote__tail"></div> <div class="quote__portrait"></div>
                             </div>

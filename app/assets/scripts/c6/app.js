@@ -47,6 +47,7 @@ angular.module('c6.app', dependencies)
       $stateProvider
         .state('landing', {
             templateUrl: __C6_APP_BASE_URL__ + '/views/landing.html',
+            controller: 'C6LandingCtrl',
             url: '/'
         })
         .state('experience', {

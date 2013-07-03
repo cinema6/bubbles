@@ -8,27 +8,28 @@
   <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
   
   <div ng-controller="C6AnnotationsCtrl" ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
+
       <div ng-if="($state.is('experience.video') && !annoCtrl.videoCanPlay)">
-	      <c6-progress-pen></c6-progress-pen>
+        <c6-progress-pen id="loading-group"></c6-progress-pen>
       </div>
       <div class="experience__logo">
           <img ng-src="{{appCtrl.currentCategory() ? ('assets/img/logo_vid_' + appCtrl.currentCategory() + '.png') : null }}">
       </div>
     <video
-    	id="player"
-    	c6video
-    	c6-src="appCtrl.experience.src"
-    	on="timeupdate: annoCtrl.setActiveAnnotations, ended: annoCtrl.goToEnd"
-    	preload="auto"
-    	c6-controls="annoCtrl.videoCanPlay">
+      id="player"
+      c6video
+      c6-src="appCtrl.experience.src"
+      on="timeupdate: annoCtrl.setActiveAnnotations, ended: annoCtrl.goToEnd"
+      preload="auto"
+      c6-controls="annoCtrl.videoCanPlay">
     </video>
     <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
       <li
-      	ng-repeat="a in annoCtrl.annotationsModel.annotations"
-      	ng-show="annoCtrl.annotationIsActive(a)"
-      	style="display: none;"
-      	ng-animate="appCtrl.experience.anim + '-annotation'"
-      	ng-class="' annotation ' + a.cls.join(' ')">
+        ng-repeat="a in annoCtrl.annotationsModel.annotations"
+        ng-show="annoCtrl.annotationIsActive(a)"
+        style="display: none;"
+        ng-animate="appCtrl.experience.anim + '-annotation'"
+        ng-class="' annotation ' + a.cls.join(' ')">
         <div class="a-style">
           <div class="a-frame">
             <div class="a-text">
@@ -38,7 +39,7 @@
             </div>
           </div>  
         </div>
-	      </li> 
+        </li> 
     </ul>
 <div class="transition_blackFade">&nbsp;</div>
 </div>

@@ -203,7 +203,7 @@ button:disabled {opacity: 0.15;}
         }
 
         .category__group {
-            width: 83%; margin: 12% 0 0 13%; z-index: 1;
+            width: 83%; margin: 10% 0 0 13%; z-index: 1;
             -ms-transform: rotate(-15deg); -moz-transform: rotate(-15deg); -o-transform: rotate(-15deg); -webkit-transform: rotate(-15deg); transform: rotate(-15deg);
         }
 

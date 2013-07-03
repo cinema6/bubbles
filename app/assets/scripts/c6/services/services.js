@@ -364,6 +364,34 @@ angular.module('c6.svc',[])
     $log.log('Creating c6VideoListingService');
     var service          = {};
 
+service.getRandomCategoryFrom = function(categories) {
+	categories = categories || service.getCategories();
+	return categories[Math.floor(Math.random() * categories.length)];
+};
+
+service.getRandomQuoteForCategory = function(category) {
+	var data = {
+		action: [
+			'Badger on cocaine',
+			'Good comeback David Cross',
+			'Bruce Lee destroys Elmo!'
+		],
+		fantasy: [
+			'Get over here you tiny crap',
+			'Hope this puppy can swim',
+			'You sail, I\'m not doing crap on this trip'
+		],
+		romance: [
+			'Damn she knows I just made a sneeze.',
+			'umm WTF was that? She must punch carrots.'
+		]
+	};
+
+	var quotes = data[category];
+
+	return quotes[Math.floor(Math.random() * quotes.length)];
+};
+
     service.getCategories = function() {
         return [
                         'Action',

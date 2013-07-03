@@ -80,6 +80,20 @@ angular.module('c6.ctrl',['c6.svc'])
 	});
 }])
 
+.controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
+	var randomCategory = vsvc.getRandomCategoryFrom(['action', 'romance', 'fantasy']),
+		randomQuote = vsvc.getRandomQuoteForCategory(randomCategory);
+
+	$log.log('Creating C6LandingCtrl');
+
+	this.pullQuote = {
+		category: randomCategory,
+		quote: randomQuote
+	};
+
+	$scope.landingCtrl = this;
+}])
+
 .controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,

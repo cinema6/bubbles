@@ -171,6 +171,11 @@ module.exports = function (grunt) {
                 replacement: '<%= props.version() %>',
                 path: '<%= props.distVersionPath() %>/views/c6bar.html'
             },
+            progressPen: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views/progress_pen.html'
+            },
             experience: {
                 pattern: 'assets',
                 replacement: '<%= props.version() %>',

@@ -14,6 +14,11 @@ describe('Controllers', function() {
 		module('c6.svc');
 		module(function($provide){
 			$provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
+			$provide.constant('environment', {
+				browser: {
+					isMobile: false
+				}
+			});
 			var $locationMock = {
 				_path: null,
 				path: function(path) {

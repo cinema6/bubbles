@@ -94,16 +94,17 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		video;
 
 	$scope.$on('c6video-ready', function(event, player) {
+		var readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough';
 		video = player;
 
-		player.on('canplaythrough', function() {
-			 self.videoCanPlay = true;
+		player.on([readyEvent, 'play'], function() {
+			self.videoCanPlay = true;
 		});
 	});
 
@@ -114,6 +115,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
 			if (bubbleModel) {
 				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
+			} else {
+				self.annotationsModel = null;
 			}
 			if (txt2SpchModel) {
 				self.videoCanPlay = false;
@@ -122,7 +125,9 @@ angular.module('c6.ctrl',['c6.svc'])
 				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
 					$scope.appCtrl.experience.src = url;
 					video.on('canplaythrough', function() {
-						video.player.play();
+						$timeout(function() {
+							if ($state.is('experience.video')) { video.player.play(); }
+						}, 100);
 					});
 				});
 			}

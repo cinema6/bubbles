@@ -393,7 +393,7 @@
 	}])
 
 //								// 
-//		VIDEO PLAYER ANIMATIONS//
+//		VIDEO PLAYER Animations //
 //								//
 
 	//video player ----------------//
@@ -401,17 +401,20 @@
 		return {
 			start: function($playerDiv, done) {
 				$log.log('Fade in Video Experience');
-				var videoPlayer	= document.getElementById('player'),
-				vidIn		= new TimelineLite({paused: true});
+				var videoPlayer		= document.getElementById('player'),
+					loadingCycle	= document.getElementById('loading-group'),
+					vidIn			= new TimelineLite({paused: true});
 
 				//ANIMATION TIMELINE
-				vidIn.to(videoPlayer, 2, {opacity: 1}, '+=2')
-				.eventCallback('onComplete', done);
+				vidIn.to(videoPlayer, 2, {opacity: 1}, '+=2');
+				if (loadingCycle) {
+					vidIn.to(loadingCycle, 1, {opacity: 1}, '-=2');
+				}
+				vidIn.eventCallback('onComplete', done);
 
 				vidIn.play();
 				setTimeout(function() {
-					videoPlayer.currentTime = 0;
-					videoPlayer.play();
+					if (videoPlayer.src) { videoPlayer.play(); videoPlayer.currentTime = 0; }
 				}, 1850);
 				vidIn.seek(0);
 			}

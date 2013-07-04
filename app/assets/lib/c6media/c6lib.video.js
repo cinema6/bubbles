@@ -49,7 +49,9 @@ angular.module('c6lib.video', [])
 	// Figure out if we're running chrome.
 	this.isChrome = $window.chrome? true : false;
 	// Figure out if we're running Mobile Safari
-	this.isIPhone = navigator.userAgent.match(/iPhone/)? true : false;
+	this.isIPhone = $window.navigator.userAgent.match(/iPhone/)? true : false;
+	// Figure out if we're running Safari
+	this.isSafari = ($window.navigator.userAgent.indexOf('Safari') !== -1 && $window.navigator.userAgent.indexOf('Chrome') === -1);
 
 	this.totalTimeInRanges = function(tr) {
 		var result = 0;
@@ -60,23 +62,28 @@ angular.module('c6lib.video', [])
 	};
 }])
 
-.controller('C6VideoController', ['$scope', '$element', '$attrs', '$document', '$timeout', 'c6videoService', function($scope, $element, $attrs, $document, $timeout, c6videoService) {
-	var subscribedEvents = {};
-	var handleEvent = function(event) {
-		var eventName = event.type,
-		subscription = subscribedEvents[eventName];
+.controller('C6VideoController', ['$scope', '$element', '$attrs', '$document', '$timeout', 'c6videoService', '$log', function($scope, $element, $attrs, $document, $timeout, c6videoService, $log) {
+	var subscribedEvents = {},
+		handleEvent = function(event) {
+			var eventName = event.type,
+			subscription = subscribedEvents[eventName];
 
-		subscription.handlers.forEach(function(handler) {
-			$scope.$apply(handler(event, c6video));
-		});
-		if (subscription.emit) { $scope.$emit('c6video-' + event.type, c6video); }
-	};
+			subscription.handlers.forEach(function(handler) {
+				$scope.$apply(handler(event, c6video));
+			});
+			if (subscription.emit) { $scope.$emit('c6video-' + event.type, c6video); }
+		},
+		videoHasPlayed = false;
 
 	var c6video = {
 		// The ID of the player, typically defined by setting the id of the video tag in HTML
 		id: $attrs.id,
 		// The actual HTML5 video player
 		player: $element[0],
+		// Set to true the first time the video is played.
+		hasPlayed: function() {
+			return videoHasPlayed;
+		},
 		// Method to set up a way to respond to video events
 		// (either by passing in a handler function, or emiting to the scope.
 		on: function(events, handler, emit) {
@@ -113,8 +120,8 @@ angular.module('c6lib.video', [])
 			var video = this.player,
 			bestFormat = c6videoService.bestFormat();
 
-			if (typeof src !== 'string') {
-				video.src = null;
+			if (!src) {
+				if (video.src) { this.regenerate(); }
 				return false;
 			}
 
@@ -123,7 +130,7 @@ angular.module('c6lib.video', [])
 				video = this.player;
 			}
 
-			if (!(src.charAt(0) === '[' && src.charAt(src.length - 1) === ']')) {
+			if (typeof src === 'string') {
 				var extension = src.split('.').pop(),
 				validFormats = c6videoService.validFormats;
 				if (validFormats.indexOf(c6videoService.formatForExtension(extension)) === -1) {
@@ -132,15 +139,14 @@ angular.module('c6lib.video', [])
 				} else {
 					video.src = src;
 				}
-			} else {
-				var files = JSON.parse(src),
-				formats = [];
+			} else if (typeof src === 'object') {
+				var formats = [];
 
-				files.forEach(function(file) {
+				src.forEach(function(file) {
 					formats.push(file.type);
 				});
 
-				files.forEach(function(file) {
+				src.forEach(function(file) {
 					if (file.type === bestFormat) { video.src = file.src; }
 				});
 			}
@@ -148,19 +154,27 @@ angular.module('c6lib.video', [])
 		},
 		// Method to create a new, identical (except for currentTime) player and replace the old one
 		regenerate: function() {
-			var newVideo = document.createElement('VIDEO'),
+			$log.log('c6video: regenerating player.');
+			var newVideo = $document[0].createElement('VIDEO'),
 			video = this.player;
 
 			for (var i = 0, attrs = video.attributes.length, attribute; i < attrs; i++) {
 				attribute = video.attributes[i];
 
-				if (attribute.name !== 'currentTime') {
-					newVideo[attribute.name] = attribute.value;
+				if (attribute.name !== 'currentTime' && attribute.name !== 'src') {
+					newVideo.setAttribute(attribute.name, attribute.value);
+				}
+			}
+
+			for (var event in subscribedEvents) {
+				if (subscribedEvents.hasOwnProperty(event)) {
+					newVideo.addEventListener(event, handleEvent, false);
 				}
 			}
 
 			video.parentNode.replaceChild(newVideo, video);
 			this.player = newVideo;
+			videoHasPlayed = false;
 		},
 		// Method to determine what percent of the video is buffered
 		bufferedPercent: function() {
@@ -220,8 +234,13 @@ angular.module('c6lib.video', [])
 	};
 
 	// Watch the c6-src attribute and set the src if it changes.
-	$attrs.$observe('c6Src', function(src) {
+	$scope.$watch('c6Src()', function(src) {
 		c6video.src(src);
+	});
+
+	// Watch the c6-controls attribute and toggle the controls if it changes.
+	$scope.$watch('c6Controls()', function(controls) {
+		c6video.player.controls = controls;
 	});
 
 	// Respond to events specified from attributes
@@ -244,6 +263,10 @@ angular.module('c6lib.video', [])
 				});
 			});
 		}
+	});
+
+	c6video.on('play', function() {
+		videoHasPlayed = true;
 	});
 
 	if ($attrs.id) {
@@ -283,7 +306,8 @@ angular.module('c6lib.video', [])
 	return {
 		controller: 'C6VideoController',
 		scope: {
-			c6Src: '@',
+			c6Src: '&',
+			c6Controls: '&',
 			on: '@',
 			id: '@'
 		}

@@ -393,7 +393,7 @@
 			newVideo.click();
 			sleep(4);
 			
-			element('button.category__frame[name="SciFi-Fantasy"]').click();
+			element('button.category__frame[name="Fantasy"]').click();
 			sleep(4);
 			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_fantasy.css');
 			

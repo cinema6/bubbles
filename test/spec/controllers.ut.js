@@ -10,9 +10,15 @@ describe('Controllers', function() {
 	
 	beforeEach(function() {
 		module('ui.state');
+		module('c6lib.video');
 		module('c6.svc');
 		module(function($provide){
 			$provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
+			$provide.constant('environment', {
+				browser: {
+					isMobile: false
+				}
+			});
 			var $locationMock = {
 				_path: null,
 				path: function(path) {
@@ -58,6 +64,14 @@ describe('Controllers', function() {
 					}
 				}
 			});
+			$provide.value('c6videoService', {
+				bestFormat: function() {
+					return 'video/mp4';
+				},
+				extensionForFormat: function() {
+					return 'mp4';
+				}
+			});
 			$provide.value('c6VideoListingService', {
 				getCategories: function() {
 			        return {
@@ -90,7 +104,7 @@ describe('Controllers', function() {
 								'TV personality',
 								{ query : 'Type of candy', sizeLimit : 12},
 							],
-							'annotations' : {
+							'annotations' : [{
 								'options' : {
 									'type'	   : 'bubble',
 									'duration'  : 4,
@@ -136,7 +150,7 @@ describe('Controllers', function() {
 									{ 'ts':131.5,'template':'${2} ${3}!',
 									   'duration':1.5, tail: {type:'thought', pos: 'bottomRight'} }
 								]
-							}
+							}]
 						};
 					}
 				}
@@ -191,6 +205,9 @@ describe('Controllers', function() {
 			controller = $controller('C6InputCtrl', {
 				$scope: scope
 			});
+			
+			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			$rootScope.$digest();
 		}));
 		
 		it('Should set the currentRoute to input.', function() {
@@ -224,28 +241,11 @@ describe('Controllers', function() {
 			scope.$digest();
 			expect(scope.inputCtrl.currentDirection).toBe('previous');
 		});
-		it('Should first try to set the experience from the appCtrl.', function() {
-			appCtrl.experience = 'foo';
-			
-			expect(scope.appCtrl.experience).toBe('foo');
-		});
-		it('Should then try to set the experience from the routeParams.', function() {
-			expect(typeof scope.appCtrl.experience).toBe('object');
-		});
 		it('Should set the promptModel property.', function() {
 			expect(typeof scope.inputCtrl.promptModel).toBe('object');
 		});
-		it('Should get the responses from the appCtrl if they exist.', function() {
-			appCtrl.experience.responses = 'foo';
-			inject(function($controller) {
-				controller = $controller('C6InputCtrl', {
-					$scope: scope
-				});
-			});
-			expect(scope.inputCtrl.promptModel.responses).toBe('foo');
-		});
-		it('Should change the currentResponse when you go from question to question.', function() {
-			controller.promptModel.responses = [
+		it('Should change the currentResponse when you go from question to question.', function() {			
+			appCtrl.promptModel.responses = [
 				'Hello',
 				'My',
 				'Name',
@@ -391,7 +391,6 @@ describe('Controllers', function() {
 			scope.$digest();
 			
 			expect(handler).toHaveBeenCalled();
-			expect(scope.appCtrl.experience.responses).toBe(responses);
 			expect($location._path).toBe('/categories/action/video');
 		});
 	});
@@ -407,13 +406,8 @@ describe('Controllers', function() {
 			});
 		}));
 		
-		it('Should first try to set the experience from the appCtrl.', function() {
-			appCtrl.experience = 'foo';
-			
-			expect(scope.appCtrl.experience).toBe('foo');
-		});
-		it('Should then try to set the experience from the routeParams.', function() {
-			expect(typeof scope.appCtrl.experience).toBe('object');
+		it('Should set the currentRoute to experience.', function() {
+			expect($rootScope.currentRoute).toBe('experience');
 		});
 	});
 	
@@ -445,7 +439,8 @@ describe('Controllers', function() {
 			video = {
 				player: {
 					pause: jasmine.createSpy()
-				}
+				},
+				on: function() {}
 			};
 			controller = $controller('C6AnnotationsCtrl', {
 				$scope: scope
@@ -454,26 +449,14 @@ describe('Controllers', function() {
 			scope.$digest();
 		}));
 		
-		it('Should attach the video player to the scope.', function() {
-			expect(scope.video).toBe(video);
-		});
-		it('Should create an AnnotationsModel when the App experience is set.', function() {
-			expect(scope.annoCtrl.model).toBe(null);
-			scope.appCtrl.experience = vsvc.getExperienceByCategory('action');
-			
-			expect(typeof scope.annoCtrl.model).toBe('object');
-		});
-		it('Should pause the video when you leave the experience.', function() {
-			scope.appCtrl.inExperience = false;
-			expect(video.player.pause).toHaveBeenCalled();
-		});
 		it('Should set up the model with annotations if there are responses when the experience starts.', function() {
-			scope.appCtrl.experience = vsvc.getExperienceByCategory('action');
-			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
+			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			$rootScope.$digest();
+			appCtrl.promptModel.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
 			$state.transitionTo('experience.video');
-			scope.$digest();
+			$rootScope.$digest();
 			
-			var annotations = scope.annoCtrl.model.annotations;
+			var annotations = scope.annoCtrl.annotationsModel.annotations;
 			expect(annotations[0].text).toBe('hello');
 			expect(annotations[1].text).toBe('My dramatic entrance');
 			expect(annotations[2].text).toBe('Must look tough');
@@ -503,12 +486,13 @@ describe('Controllers', function() {
 					}
 				},
 				event = null;
-			scope.appCtrl.experience = vsvc.getExperienceByCategory('action');
-			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
-			scope.appCtrl.inExperience = true;
-			scope.$digest();
+			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			$rootScope.$digest();
+			appCtrl.promptModel.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
+			$state.transitionTo('experience.video');
+			$rootScope.$digest();
 			
-			var annotations = scope.annoCtrl.model.annotations;
+			var annotations = scope.annoCtrl.annotationsModel.annotations;
 			expect(active.length).toBe(0);
 			
 			controller.setActiveAnnotations(event, video);
@@ -584,12 +568,13 @@ describe('Controllers', function() {
 				},
 				event = null,
 				isActive = scope.annoCtrl.annotationIsActive;
-			scope.appCtrl.experience = vsvc.getExperienceByCategory('action');
-			scope.appCtrl.experience.responses = ['hello', 'cow', 'superman', 'knees', 'apples', 'oink', 'zeus', 'darth vader', 'uhh', 'butterfinger'];
-			scope.appCtrl.inExperience = true;
-			scope.$digest();
+			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			$rootScope.$digest();
+			appCtrl.promptModel.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
+			$state.transitionTo('experience.video');
+			$rootScope.$digest();
 			
-			var annotations = scope.annoCtrl.model.annotations;
+			var annotations = scope.annoCtrl.annotationsModel.annotations;
 			expect(isActive(annotations[0])).toBe(false);
 			expect(isActive(annotations[3])).toBe(false);
 			expect(isActive(annotations[7])).toBe(false);

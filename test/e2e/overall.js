@@ -158,7 +158,7 @@
 					next,
 					questionNumber,
 					progressDock,
-					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'];
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					prev = element('.question__btnPrevious');
@@ -185,7 +185,7 @@
 					prev,
 					next,
 					start,
-					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'];
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					prev = element('.question__btnPrevious');
@@ -236,7 +236,7 @@
 				next,
 				start,
 				video,
-				responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+				responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'];
 			beforeEach(function() {
 				sleep(1);
 				browser().navigateTo('/#categories/action');
@@ -393,7 +393,7 @@
 			newVideo.click();
 			sleep(4);
 			
-			element('button.category__frame[name="SciFi-Fantasy"]').click();
+			element('button.category__frame[name="Fantasy"]').click();
 			sleep(4);
 			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_fantasy.css');
 			

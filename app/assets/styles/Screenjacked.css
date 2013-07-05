@@ -13,7 +13,7 @@ button:disabled {opacity: 0.15;}
     font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;
 }
 
-.experience {position: fixed; width:100%; height: 100%}
+.experience {position: absolute; width:100%; height: 100%; overflow: hidden;}
 
 .viewport { 
     height: 684px; 
@@ -68,106 +68,219 @@ button:disabled {opacity: 0.15;}
         width: 100%;
     }
 
-	/* ----- about and scenes ----- */ 
+    /* ----- about ----- */ 
     .about-scenes__group {
-            margin-top: 2.5em;
+            margin-top: 2.5em; text-align: left;
     }   
-        .about__copy {
-            font-size: 0.939em; line-height: 1.6em; margin: 0.53em 0 0 0;
-        }
         .about__hdr {
             margin: 0;
         }
-
-        .scenes__hdr {
-            margin-bottom:0.25em;
-            margin-top:1.19em;
+        .about__copy {
+            font-size: 0.939em; line-height: 1.6em; margin: 1em 0 0 0;
         }
-        .scenes__block {
-            width: 50%;
-            margin: 0.4em 0 0.4em 0;
-        }    
-            @media only screen and (max-width: 952px) and (min-width: 769px){
-                .scenes__block {
-                    width: 65%;
-                    margin-top: 0.4em;
+        .about__copy-group {
+            margin-top: 1.2em; padding: 0.8em 0 0 0; position: relative;
+            width: 100%;
+        }
+            @media only screen and (max-width: 768px) { 
+                    .about__copy-group {text-align: center; }
                 }
-            }
-            @media only screen and (max-width: 768px) and (min-width: 606px) {
-                .scenes__block {
-                    width: 40%;
+            .about__img-left {width: 46%; }
+                @media only screen and (max-width: 768px) { 
+                    .about__img-left {width: 90%; }
                 }
-            }
-            @media only screen and (max-width: 490px) and (min-width: 381px){
-                .scenes__block {
-                    width: 65%;
-                }
-            }
-            @media only screen and (max-width: 380px) {
-                .scenes__block {
-                    width: 85%;
-                }
-            }
-            .scenes__thumb {
-                background-size: contain;
-                display: block;
-                width: 100%; height: 9em;
-            }
             
-            .scenes__title {
-                display: inline-block; width: 49%; 
-                font-weight: 700; font-size: 0.875em; text-align: left; vertical-align: top;
-                margin: 0;
-
+            .about__img-right {width: 46%; }
+                @media only screen and (max-width: 768px) { 
+                    .about__img-right {width: 70%; margin-top: 2em;}
+                }
+                    
+            .about__caption-right {
+                font-size: 0.939em; line-height: 1.6em; margin-left: 1.5em;
+                width: 48%; display: inline-block; position: absolute; top: 15%;
             }
-            .scenes__category {
-                display: inline-block; width: 49%;
-                font-size: 0.813em; text-align: right; vertical-align: top;
-                margin: 0;
+                @media only screen and (max-width: 904px) { 
+                    .about__caption-right {margin: -1.2em 0 0 1.5em;}
+                }
+                 @media only screen and (max-width: 768px) { 
+                    .about__caption-right { position: inherit; margin: 1em 0 0 -0.2em; width: 90%;}
+                }
+
+            .about__caption-left {
+                font-size: 0.939em; line-height: 1.6em; 
+                width: 48%; display: inline-block; margin-bottom: 2.1em;
             }
+                @media only screen and (max-width: 884px) { 
+                    .about__caption-left {margin: -1.2em 0 0 0;}
+                }   
+                @media only screen and (max-width: 768px) { 
+                    .about__caption-left { position: inherit; width: 90%;}
+                }
 
-    .scenes__thumb-fantasy {
-        background: url(../img/scene_lotr.jpg) center center no-repeat; background-size: contain;
-        display: block;
-        width: 100%; height: 9em;
-    }
-    .scenes__thumb-romance {
-        background: url(../img/scene_notebook.jpg) center center no-repeat; background-size: contain;
-        display: block;
-        width: 100%; height: 9em;
-    }
-    .scenes__thumb-action {
-        background: url(../img/scene_lee.jpg) center center no-repeat; background-size: contain;
-        display: block;
-        width: 100%; height: 9em;
-    }
-
-	/* ---- pull quote ---- */
+    /* ---- pull quote ---- */
     .quote__group {
         margin-top: 2.5em;
     }
-        .quote {
-            background-size: contain;
-            width: 100%; height: 14em; display: block;
-            margin-top: 0.25em;    
+
+    .quote__base {
+        width: 100%; margin-top: 1.2em;
+    }
+
+    @media only screen and (max-width: 768px) and (min-width: 500px) {
+        .quote__base {
+            width: 70%; margin: 1.5em auto;
+        }
+    }
+
+        /* ---- action styles ----- */
+        .action .quote__style {
+            position: relative; padding: 11px; 
+            background: url('../img/action/annotation-body.png'); background-clip: content-box;
         }
 
-    .quote-fantasy {
-        background: url(../img/pullQuote_fantasy.png) top center no-repeat; background-size: contain;
-        width: 100%; height: 14em; display: block;
-        margin-top: 0.25em;    
-    }
-    .quote-romance {
-        background: url(../img/pullQuote_romance.png) top center no-repeat; background-size: contain;
-        width: 100%; height: 14em; display: block;
-        margin-top: 0.25em;  
-    }
-    .quote-action {
-        background: url(../img/pullQuote_action.png) top center no-repeat; background-size: contain;
-        width: 100%; height: 14em; display: block;
-        margin-top: 0.25em;  
-    }
+        .action .quote__frame {
+            background: url('../img/action/annotation-right.png') repeat-y right, 
+                        url('../img/action/annotation-left.png') repeat-y left, 
+                        url('../img/action/annotation-top.png') repeat-x top, 
+                        url('../img/action/annotation-bottom.png') repeat-x bottom;
+            margin: -11px;
+        }
+            .action .quote__deco-right {
+                position: absolute; height: 100%; width: 12px; top: 0; right: 0; z-index: 10;
+                background: url('../img/action/annotation-bottomRight.png') no-repeat bottom right,
+                            url('../img/action/annotation-topRight.png') no-repeat top right;
+            }  
+            .action .quote__deco-left {
+                position: absolute; height: 100%; width: 12px; top: 0; left: 0; z-index: 11;
+                background: url('../img/action/annotation-bottomLeft.png') no-repeat bottom left,
+                            url('../img/action/annotation-topLeft.png') no-repeat top left;
+            } 
 
+        .action .quote__text {
+            width: 84%; padding: 8%;  margin: 0 auto;
+            text-align: center; font-family: "uppercut-angle", "courier prime", georgia, serif; font-size: 105%; line-height: 100%; color: #111111; font-size: 175%;
+        }
+            @media only screen and (max-width: 768px) and (min-width: 500px) {
+                .action .quote__text {
+                    font-size: 250%
+                }
+            }
+        .action .quote__tail {
+            position: absolute;
+            background: url('../img/action/bottomRight-thought.png') no-repeat 30% 0%;
+            height: 35%; width: 100%;
+            bottom: -30%; left: 0;
+        }
+
+        .action .quote__portrait {
+            height: 48px; width: 48px; background: url('../img/quote__portrait-lee.png');
+            position: absolute; bottom: -60px; left: 42%;
+        }
+
+        /* ---- romance styles ----- */
+        .romance .quote__style {
+            position: relative; padding: 11px; border-radius: 50px;
+            background: url('../img/romance/annotation-body.png'); background-clip: content-box;
+        }
+
+        .romance .quote__frame {
+            background: url('../img/romance/annotation-right.png') repeat-y right, 
+                        url('../img/romance/annotation-left.png') repeat-y left, 
+                        url('../img/romance/annotation-top.png') repeat-x top, 
+                        url('../img/romance/annotation-bottom.png') repeat-x bottom;
+            margin: -5px; border-radius: 50px;
+        }
+            .romance .quote__deco-right {
+                position: absolute;
+                background: url('../img/romance/annotation-bottomRight.png') no-repeat bottom right,
+                            url('../img/romance/annotation-topRight.png') no-repeat top right,
+                            url('../img/romance/annotation-bottomLeft.png') no-repeat bottom left,
+                            url('../img/romance/annotation-topLeft.png') no-repeat top left;
+                height: 90%; width: 98%;
+                top: 5%;
+                left: 1%;
+            }  
+           
+        .romance .quote__text {
+            width: 84%; padding: 8%;  margin: 0 auto;
+            text-align: center; font-family: "LadylikeBB", "courier prime", georgia, serif; font-size: 105%; line-height: 100%; color: #111111; font-size: 220%;
+        }
+            @media only screen and (max-width: 768px) and (min-width: 500px) {
+                .romance .quote__text {
+                    font-size: 300%
+                }
+            }
+        .romance .quote__tail {
+            position: absolute;
+            background: url('../img/romance/bottomRight-thought.png') no-repeat 30% 0%;
+            height: 35%; width: 100%;
+            bottom: -30%; left: 0;
+        }
+
+        .romance .quote__portrait {
+            height: 48px; width: 48px; background: url('../img/quote__portrait-notebook.png');
+            position: absolute; bottom: -60px; left: 42%;
+        }
+
+        /* ---- fantasy styles ----- */
+        .fantasy .quote__style {
+            position: relative; border-radius: 40px; box-shadow: 0 3px 5px #c1c1c1;
+            background: url('../img/fantasy/annotation-right.png') repeat-y right, 
+                        url('../img/fantasy/annotation-left.png') repeat-y left, 
+                        url('../img/fantasy/annotation-top.png') repeat-x top, 
+                        url('../img/fantasy/annotation-bottom.png') repeat-x bottom,
+                        url('../img/fantasy/annotation-body.png');
+        }
+
+        .fantasy .quote__frame {
+            background: url('../img/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
+                url('../img/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
+                url('../img/fantasy/annotation-topRight.png') no-repeat 100% 0%,
+                url('../img/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
+            margin: 0px;
+        }
+            .fantasy .quote__deco-right {
+                position: absolute;
+                background: url('../img/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
+                height: 68px; width: 71px;
+                bottom: -14px;
+                right: -14px;
+            }  
+           .fantasy .quote__deco-left {
+              position: absolute;
+              background: url('../img/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
+              height: 68px; width: 71px;
+              top: -14px;
+              left: -14px;
+            }  
+        .fantasy .quote__text {
+            width: 80%;
+            padding: 10%;
+            margin: 0 auto;
+            text-align: center;
+            font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif;
+            font-size: 150%;
+            line-height: 150%;
+            color: #fff;
+        }
+            @media only screen and (max-width: 768px) and (min-width: 500px) {
+                .fantasy .quote__text {
+                    font-size: 250%;
+                }
+            }
+        .fantasy .quote__tail {
+            position: absolute; 
+            background: url('../img/fantasy/bottomRight-thought.png') no-repeat 30% 0%;
+            height: 35%; width: 100%;
+            bottom: -35%; left: 0; 
+        }
+
+        .fantasy .quote__portrait {
+            height: 48px; width: 48px; background: url('../img/quote__portrait-lotr.png');
+            position: absolute; bottom: -60px; left: 42%;
+        }
+
+    /* ---- transition panels ---- */
     .transition__panels-top {
         height: 100%; width: 100%; 
         background: #232527; top: -100%;
@@ -198,54 +311,31 @@ button:disabled {opacity: 0.15;}
     }
 
      /* content */
-         .category__group {
-            width: 71.41%;
-            height: 81.62%;
-            left: 10%;
-            top: 15%;
-            position: absolute; 
-            z-index: 1;
-            padding: 10%;
-            -ms-transform: rotate(-15deg); /* IE 9 */
-            -moz-transform: rotate(-15deg); /* Firefox */
-            -o-transform: rotate(-15deg); /* Opera */
-            -webkit-transform: rotate(-15deg); /* Safari and Chrome */
-            transform: rotate(-15deg);
-            list-style-type: none;
-         }
-
-         .startScreen__directions { 
-            color: #c20000; 
-            margin: 10% 0 0 42.31%; 
-            font-size:114.29%; 
-            font-weight: 300;
-            -ms-transform: rotate(-15deg); /* IE 9 */
-            -moz-transform: rotate(-15deg); /* Firefox */
-            -o-transform: rotate(-15deg); /* Opera */
-            -webkit-transform: rotate(-15deg); /* Safari and Chrome */
-            transform: rotate(-15deg);
-         }
-
-         .category__item {
-            height: 32.28%;
-            width: 30.23%;
-            display: inline-block;
-            text-align: center;
-            margin: 2% 0 0 2.32%;
+        .startScreen__directions { 
+            color: #c20000; font-size:1.4em; font-weight: 300; margin: 0 0 0 37%;
         }
 
-         .category__frame {
-            background: #fff;
-            width: 100%;
-            height: 89.88%;
-            box-shadow: 0 2px 4px #b9b9b9;
-            border: 0;
-            cursor: pointer;
-            margin: 0 0 0 2%;
-         }
-         .category__frame:active {background: #c20000;} 
-         .category__name { color: #252525; font-size:100%; font-weight: 700; margin: 3%;}    
-         .category__art {height: 95%; width: 95%;}            
+        .category__group {
+            width: 83%; margin: 10% 0 0 13%; z-index: 1;
+            -ms-transform: rotate(-15deg); -moz-transform: rotate(-15deg); -o-transform: rotate(-15deg); -webkit-transform: rotate(-15deg); transform: rotate(-15deg);
+        }
+
+            .category__item {
+                width: 33%; margin: 2% 0 0 0;
+                display: inline-block;
+            }
+
+            .category__frame {
+                background: #fff; box-shadow: 0 2px 4px #b9b9b9; 
+            }
+
+                .category__frame:active {
+                    background: #c20000;
+                } 
+
+             .category__art {
+                width: 96%; margin: 2%;
+            }            
 
 
 		 /* artwork */
@@ -284,7 +374,7 @@ button:disabled {opacity: 0.15;}
                     margin: -270px 0 0 -200px;
                 }
             }
-            @media only screen and (max-device-height: 568px) {
+            @media only screen and (max-height: 354px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
                     width: 300px;
@@ -586,6 +676,22 @@ button:disabled {opacity: 0.15;}
         -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
         transform-origin: 50% 50%;
     }
+    
+  .loading__group {
+      text-align: center; width: 160px; height: 120px; left: 50%; top: 50%; margin: -60px 0 0 -80px; position: absolute; z-index: 100;
+        opacity: 0;
+  }
+      .loading__cycle { position: absolute; display: inline; left: 30%;
+          transform-origin:25% 25%; -ms-transform-origin:25% 25%; -webkit-transform-origin:25% 25%;
+      }
+
+      .loading__text {
+          color: #fff; font-family: 'courier prime', courier, times, serif;  font-size: 0.8em;
+          position: absolute; bottom: -10px;
+      }
+      .loading__dot3, .loading__dot2, .loading__dot1 {
+          display: inline; opacity: 0;
+      }
 
 /*  ==========================================================================
     end styles
@@ -625,7 +731,7 @@ button:disabled {opacity: 0.15;}
             right: 0;
         }
 
-        .vidFrame__annotation-scifi-fantasy {
+        .vidFrame__annotation-fantasy {
             margin: 3% 0 0 2%;
             font-size: 0.7em;
         }

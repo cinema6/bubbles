@@ -70,38 +70,37 @@
                     <span class="vid-details__userBanner"><span ir="Cinema6"></span></span>
                     <p><strong>Published by:</strong> <a href="#">Cinema6</a></p>
                     <p><strong>Type:</strong> Interactive Comedy</p>
-                    
                 </section>
             </section>
             <section class="about-scenes__group grid__item two-quarters lap--one-whole palm--one-whole">
                 <div class="about__group">
                     <h1 class="about__hdr group--hdr tk--hdr">What is Screenjacked?</h1>
-                    <p class="about__copy"><strong><em>Screenjacked</em></strong> is a video-style mad-lib game that lets you create hilarity out of featured clips from popular movies, television, and games, and it’s all in just a few easy steps!</p>
-                </div>
-                <div class="scenes__group">
-                    <h1 class="scenes__hdr group--hdr tk--hdr grid__item">Scenes</h1>
-                    <div class="grid grid--center">
-                        <section class="scenes__block grid__item">
-                            <div class="scenes__thumb-fantasy"><span class="ir">Return of the King</span></div>
-                            <span class="scenes__title">Return of the King</span>
-                            <span class="scenes__category">available in <em>Fantasy</em></span>
-                        </section>
-                        <section class="scenes__block grid__item">
-                            <div class="scenes__thumb-action"><span class="ir">Fists of Fury</span></div>
-                            <span class="scenes__title">Fists of Fury</span>
-                            <span class="scenes__category">available in <em>Action</em></span>
-                        </section>
-                        <section class="scenes__block grid__item">
-                            <div class="scenes__thumb-romance"><span class="ir">The Notebook</span></div>
-                            <span class="scenes__title">The Notebook</span>
-                            <span class="scenes__category">available in <em>Romance</em></span>
-                        </section>
+                    <p class="about__copy"><strong><em>Screenjacked</em></strong> is a video-style fill-in-the-blank word game that lets you create hilarity out of featured clips from popular movies and television.</p>
+                    <div class="about__copy-group">
+                        <img class="about__img-left" src="assets/img/about_categories.png">
+                        <p class="about__caption-right">When you start, we provide you a variety of genre-based categories to choose from.</p>
                     </div>
-                </div>   
+                    <div class="about__copy-group">
+                        <p class="about__caption-left">After you select a category, “edit” the video’s script by filling in the blanks based on the prompt provided.</p>
+                        <img class="about__img-right" src="assets/img/about_input.png">
+                    </div>  
+                    <p class="about__copy">When you’re finished, your custom <strong><em>Screenjacked</em></strong> video will be created. All you have to do is sit back, relax, and enjoy the show!</p>
+                    <br class="clearspace"></br>        
+                </div>
             </section>
             <section class="quote__group grid__item one-quarter lap--one-whole palm--one-whole">
                 <h1 class="group--hdr tk--hdr">Featured Exerpt</h1>
-                    <div class="quote-fantasy"><span class="ir">"I hope this bunny can swim."" -Gandalf</span></div>
+                    <div class="quote__base {{landingCtrl.pullQuote.category}}"><!--<li ng-class="' annotation ' + a.cls.join(' ')">-->
+                        <div class="quote__style">
+                          <div class="quote__frame">
+                            <div class="quote__text">
+                              {{landingCtrl.pullQuote.quote}}<!--{{a.text}}&nbsp;-->
+                              <div class="quote__deco-right"></div><div class="quote__deco-left"></div>
+                              <div class="quote__tail"></div> <div class="quote__portrait"></div>
+                            </div>
+                          </div>  
+                        </div>
+                    </div> 
             </section>
         </div>
     </div>

@@ -477,6 +477,86 @@ service.getRandomQuoteForCategory = function(category) {
         } else
         if (category === 'fantasy') {
             return {
+                'id'         : '3a',
+                'title'      : 'Heartbreaking Romance',
+                'views'      : 1000,
+                'src'         : baseUrl + '/media/fantasy/lotr',
+                'css'         : baseUrl + '/styles/bubbles_fantasy2.css',
+                'anim'        : 'fantasy',
+                'defSizeLimit': 18,
+                'prompts'     : [
+                    'Popular TV show',
+                    'Room in a house',
+                    'Race of creatures from a science fiction movie',
+                    'Word you may say when upset',
+                    'Type of flowers (plural)',
+                    'Male celebrity',
+                    'Alcoholic drinks (plural)'
+                ],
+                'annotations' : [{
+                    'options' : {
+                        'type'      : 'bubble',
+                        'duration'  : 2,
+                        'cls'     : ['lotr-${index}']
+                    },
+                    'notes'  : [
+                        { 'ts' : 3, 'template': 'Uh, can I go home yet?',
+                            tail: {type:'thought', pos:'bottomRight'}},
+                        { 'ts' : 5, 'template': '${1} is on TV',
+                            tail: {type:'thought', pos:'topRight'}},
+                        { 'ts' : 10, 'template': 'My turn for a hug?',
+                            tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 13, 'template': 'Damn, not yet', 'duration' : 1.5,
+                            tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 16, 'template': 'As soon as Frodo leaves, I\'m gonna watch porn in his ${2}',
+                            'duration' : 7, tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 18, 'template': '${3} porn',
+                            'duration' : 5, tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 20, 'template': 'Mmm... ${3} porn',
+                            'duration' : 3, tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 25, 'template': 'Uh… does Sam have a boner?',
+                            tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 29, 'template': '${4}! He felt my boner.',
+                            'duration' : 3, tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 33, 'template': 'Awk-ward...',
+                            'duration' : 3, tail: {type:'thought', pos:'topLeft'}},
+                        { 'ts' : 37, 'template': 'I\'m gonna kiss his forehead, that won\'t be weird.',
+                            duration: 3.5, tail: {type:'thought', pos:'bottomRight'}},
+                        { 'ts' : 43, 'template': 'This is weird.',
+                            duration: 3, tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 45, 'template': 'Ooh he smells like ${5}',
+                            tail: {type:'thought', pos:'topRight'}},
+                        { 'ts' : 48, 'template': 'Did he just kiss his forehead?',
+                            tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 53, 'template': 'Am I gonna get a forehead kiss too?',
+                            tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 60.5, 'template': 'Hey wait, where\'s my hug?',
+                            'duration' : 2.5, tail: {type:'thought', pos:'topRight'}},
+                        { 'ts' : 63, 'template': 'Hobbits are so melodramatic.  We\'re just going fishing!',
+                            tail: {type:'thought', pos:'bottomRight'}},
+                        { 'ts' : 67, 'template': 'wtf!?',
+                            tail: {type:'thought', pos:'bottomRight'}},
+                        { 'ts' : 69, 'template': 'Where\'s my hug!?',
+                            tail: {type:'thought', pos:'topRight'}},
+                        { 'ts' : 72, 'template': 'Sheesh, take your sweet ass time Frodo',
+                            duration: 3, tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 76, 'template': 'You take longer to come than ${6} at an orgy',
+                            duration: 4, tail: {type:'thought', pos:'bottomLeft'}},
+                        { 'ts' : 83, 'template': 'Am I seriously the only one who watches ${1}?',
+                            'duration' : 3, tail: {type:'thought', pos:'topRight'}},
+                        { 'ts' : 88, 'template': 'Mmm, ${5}',
+                            tail: {type:'thought', pos:'bottomRight'}},
+                        { 'ts' : 92, 'template': 'Would I fool around with Sam?',
+                            tail: {type:'thought', pos:'bottomRight'}},
+                        { 'ts' : 94, 'template': 'Maybe after a few ${7}.',
+                            tail: {type:'thought', pos:'bottomRight'}},
+                        { 'ts' : 97, 'template': 'Yeah, I\'d throw it in.',
+                            duration: 3, tail: {type:'thought', pos:'bottomRight'}},
+                    ]
+                }]
+            };
+            /*
+            return {
                 'id'         : '3',
                 'title'      : 'Heartbreaking Romance',
                 'views'      : 1000,
@@ -544,7 +624,7 @@ service.getRandomQuoteForCategory = function(category) {
                             'duration' : 5, tail: {type:'thought', pos: 'bottomRight'} }
                     ]
                 }]
-            };
+            };*/
         } else
         if (category === 'horror') {
             return {

@@ -63,6 +63,10 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.currentCategory = function() {
 		return $stateParams.category;
 	};
+	
+	this.askForVideoLoad = function() {
+		$scope.$broadcast('videoShouldLoad');
+	}
 
 	$scope.appCtrl = this;
 	$scope.$state = $state;
@@ -118,6 +122,12 @@ angular.module('c6.ctrl',['c6.svc'])
 		player.on([readyEvent, 'play'], function() {
 			self.videoCanPlay = true;
 		});
+	});
+	
+	$scope.$on('videoShouldLoad', function() {
+		if (!video.player.readyState) {
+			video.player.load();
+		}
 	});
 
 	$scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {

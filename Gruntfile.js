@@ -527,7 +527,7 @@ module.exports = function (grunt) {
 	    grunt.task.requires('gitLastCommit');
 	    
 	    files.forEach(function(file) {
-            sedConfig[file.slice(0, -5)] = {
+            sedConfig[file] = {
                 pattern: 'assets',
                 replacement: props.version(),
                 path: path + file

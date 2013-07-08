@@ -397,8 +397,8 @@ service.getRandomQuoteForCategory = function(category) {
             'Action',
             'Romance',
             'Fantasy',
-            'Horror',
-            'SciFi'
+          //'Horror',
+          //'SciFi'
         ];
     };
 

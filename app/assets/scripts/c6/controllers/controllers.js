@@ -69,14 +69,26 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$stateParams = $stateParams;
 
 	$scope.$watch('appCtrl.currentCategory()', function(category) {
-		if ((self.experience? self.experience.id : null) !== vsvc.getExperienceByCategory(category).id) {
-			self.experience = category? vsvc.getExperienceByCategory(category) : null;
+		if (!category) {
+			self.experience = null;
+			return false;
 		}
+		(function() {
+			var experience = vsvc.getExperienceByCategory(category);
+
+			if ((self.experience? self.experience.id : null) !== experience.id) {
+				self.experience = category? experience : null;
+			}
+		})();
 	});
 
 	$scope.$watch('appCtrl.experience', function(experience) {
+		if (experience && experience.src) {
+			experience.src = appBase + '/' + experience.src;
+		}
+
 		self.promptModel = experience? new PromptModel(experience) : null;
-		self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', $scope.appCtrl.experience.annotations) : null;
+		self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', experience.annotations) : null;
 	});
 }])
 
@@ -108,29 +120,31 @@ angular.module('c6.ctrl',['c6.svc'])
 		});
 	});
 
-	$scope.$watch('$state.is("experience.video")', function(yes) {
+	$scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {
 		if (yes) {
-			var bubbleModel = $scope.appCtrl.annotationsModel,
-				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', $scope.appCtrl.experience.annotations);
+			$scope.appCtrl.experience.then(function(experience) {
+				var bubbleModel = $scope.appCtrl.annotationsModel,
+					txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', experience.annotations);
 
-			if (bubbleModel) {
-				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
-			} else {
-				self.annotationsModel = null;
-			}
-			if (txt2SpchModel) {
-				self.videoCanPlay = false;
-				txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, $scope.appCtrl.promptModel.responses);
-				$scope.appCtrl.experience.src = null;
-				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
-					$scope.appCtrl.experience.src = url;
-					video.on('canplaythrough', function() {
-						$timeout(function() {
-							if ($state.is('experience.video')) { video.player.play(); }
-						}, 100);
+				if (bubbleModel) {
+					self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
+				} else {
+					self.annotationsModel = null;
+				}
+				if (txt2SpchModel) {
+					self.videoCanPlay = false;
+					txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, $scope.appCtrl.promptModel.responses);
+					experience.src = null;
+					annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
+						experience.src = url;
+						video.on('canplaythrough', function() {
+							$timeout(function() {
+								if ($state.is('experience.video')) { video.player.play(); }
+							}, 100);
+						});
 					});
-				});
-			}
+				}
+			});
 		}
 	});
 

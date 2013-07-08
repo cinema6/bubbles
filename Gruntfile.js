@@ -517,15 +517,13 @@ module.exports = function (grunt) {
     });
 
 	grunt.registerTask('genSedViews', 'Generate a sed configuration for the views', function() {
-	    var viewSed = {},
-	        props = grunt.config.get('props'),
+	    var props = grunt.config.get('props'),
 	        sedConfig = grunt.config.get('sed'),
 	        path = props.distVersionPath() + '/views/',
-			files = fs.readdirSync(path),
-			config;
-	    
+			files = fs.readdirSync(path);
+
 	    grunt.task.requires('gitLastCommit');
-	    
+
 	    files.forEach(function(file) {
             sedConfig[file] = {
                 pattern: 'assets',
@@ -533,9 +531,9 @@ module.exports = function (grunt) {
                 path: path + file
             };
 	    });
-	    
+
 	    grunt.log.writelns('Generated Sed config: ' + JSON.stringify(sedConfig, null, 3));
-	    
+
 	    grunt.config.set('sed', sedConfig);
 	});
 };

@@ -141,46 +141,6 @@ module.exports = function (grunt) {
                 replacement: '',
                 path: '<%= props.dist %>/index.html'
             },
-            categories: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/categories.html'
-            },
-            input: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/input.html'
-            },
-            inputMobile: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/input_mobile.html'
-            },
-            end: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/end.html'
-            },
-            landing: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/landing.html'
-            },
-            c6Bar: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/c6bar.html'
-            },
-            progressPen: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/progress_pen.html'
-            },
-            experience: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/experience.html'
-            },
             main: {
                 pattern: 'undefined',
                 replacement: '\'<%= props.version() %>\'',
@@ -356,6 +316,7 @@ module.exports = function (grunt) {
         'concat',
         'copy:dist',
         'uglify',
+        'genSedViews',
         'sed'
     ]);
 
@@ -555,4 +516,26 @@ module.exports = function (grunt) {
         });
     });
 
+	grunt.registerTask('genSedViews', 'Generate a sed configuration for the views', function() {
+	    var viewSed = {},
+	        props = grunt.config.get('props'),
+	        sedConfig = grunt.config.get('sed'),
+	        path = props.distVersionPath() + '/views/',
+			files = fs.readdirSync(path),
+			config;
+	    
+	    grunt.task.requires('gitLastCommit');
+	    
+	    files.forEach(function(file) {
+            sedConfig[file.slice(0, -5)] = {
+                pattern: 'assets',
+                replacement: props.version(),
+                path: path + file
+            };
+	    });
+	    
+	    grunt.log.writelns('Generated Sed config: ' + JSON.stringify(sedConfig, null, 3));
+	    
+	    grunt.config.set('sed', sedConfig);
+	});
 };

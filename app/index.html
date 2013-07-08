@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="assets/styles/csswizardry-grid.css">
         <link rel="stylesheet" href="assets/styles/c6_main.css">
         <link rel="stylesheet" href="assets/styles/Screenjacked.css">
-        <link id="experience_css" rel="stylesheet" ng-href="{{appCtrl.experience.css}}">
+        <link id="experience_css" rel="stylesheet" ng-href="{{appCtrl.experience.css && ('assets/' + appCtrl.experience.css)}}">
         <!--<script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script>--> <!-- c6 typekit -->
         <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script> <!-- screenjacked typekit -->
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>

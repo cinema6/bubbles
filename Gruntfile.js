@@ -299,6 +299,7 @@ module.exports = function (grunt) {
                           'img/**',
                           'media/**',
                           'lib/**',
+                          'experiences/**',
                           'scripts/main.js'
                         ]
                     }

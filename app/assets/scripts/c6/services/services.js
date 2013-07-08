@@ -396,9 +396,9 @@ service.getRandomQuoteForCategory = function(category) {
         return [
                         'Action',
                         'Romance',
-                        'Fantasy', // changed from 'SciFi-Fantasy
-                        'Horror',
-                        'SciFi'
+                        'Fantasy' // changed from 'SciFi-Fantasy
+//                        'Horror',
+//                        'SciFi'
                     ];
     };
 
@@ -476,6 +476,7 @@ service.getRandomQuoteForCategory = function(category) {
             };
         } else
         if (category === 'fantasy') {
+            /*
             return {
                 'id'         : '3a',
                 'title'      : 'Heartbreaking Romance',
@@ -555,7 +556,8 @@ service.getRandomQuoteForCategory = function(category) {
                     ]
                 }]
             };
-            /*
+        */
+            
             return {
                 'id'         : '3',
                 'title'      : 'Heartbreaking Romance',
@@ -624,7 +626,7 @@ service.getRandomQuoteForCategory = function(category) {
                             'duration' : 5, tail: {type:'thought', pos: 'bottomRight'} }
                     ]
                 }]
-            };*/
+            }
         } else
         if (category === 'horror') {
             return {

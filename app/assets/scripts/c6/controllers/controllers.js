@@ -37,7 +37,7 @@ function PromptModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', 'c6VideoListingService', 'appBaseUrl', 'C6SfxService', '$state', 'C6AnnotationsService', function($log, $scope, $location, $stateParams, vsvc, appBase, sfxSvc, $state, annSvc) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', 'c6VideoListingService', 'appBaseUrl', 'C6SfxService', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $stateParams, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
 	$log.log('Creating C6AppCtrl');
 	var self = this;
 
@@ -94,6 +94,13 @@ angular.module('c6.ctrl',['c6.svc'])
 		self.promptModel = experience? new PromptModel(experience) : null;
 		self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', experience.annotations) : null;
 	});
+
+	$scope.$watch('appCtrl.promptModel', function(promptModel) {
+		var cachedResponses = respSvc.getResponses($stateParams.category, $stateParams.expid);
+		if (promptModel && cachedResponses) {
+			promptModel.responses = cachedResponses;
+		}
+	});
 }])
 
 .controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
@@ -110,7 +117,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		video;
@@ -133,16 +140,19 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {
 		if (yes) {
 			var bubbleModel = $scope.appCtrl.annotationsModel,
-				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', $scope.appCtrl.experience.annotations);
+				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', $scope.appCtrl.experience.annotations),
+				responses = $scope.appCtrl.promptModel.responses;
+
+			respSvc.setResponses(responses, $stateParams.category, $stateParams.expid);
 
 			if (bubbleModel) {
-				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
+				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, responses);
 			} else {
 				self.annotationsModel = null;
 			}
 			if (txt2SpchModel) {
 				self.videoCanPlay = false;
-				txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, $scope.appCtrl.promptModel.responses);
+				txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, responses);
 				$scope.appCtrl.experience.src = null;
 				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
 					$scope.appCtrl.experience.src = url;

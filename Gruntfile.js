@@ -145,6 +145,12 @@ module.exports = function (grunt) {
                 pattern: 'undefined',
                 replacement: '\'<%= props.version() %>\'',
                 path: '<%= props.distVersionPath() %>/scripts/main.js'
+            },
+            views: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views',
+                recursive: true
             }
         },
         jshint: {
@@ -317,7 +323,6 @@ module.exports = function (grunt) {
         'concat',
         'copy:dist',
         'uglify',
-        'genSedViews',
         'sed'
     ]);
 
@@ -516,25 +521,4 @@ module.exports = function (grunt) {
             done(false);
         });
     });
-
-	grunt.registerTask('genSedViews', 'Generate a sed configuration for the views', function() {
-	    var props = grunt.config.get('props'),
-	        sedConfig = grunt.config.get('sed'),
-	        path = props.distVersionPath() + '/views/',
-			files = fs.readdirSync(path);
-
-	    grunt.task.requires('gitLastCommit');
-
-	    files.forEach(function(file) {
-            sedConfig[file] = {
-                pattern: 'assets',
-                replacement: props.version(),
-                path: path + file
-            };
-	    });
-
-	    grunt.log.writelns('Generated Sed config: ' + JSON.stringify(sedConfig, null, 3));
-
-	    grunt.config.set('sed', sedConfig);
-	});
 };

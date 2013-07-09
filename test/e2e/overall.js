@@ -95,8 +95,8 @@
 					prev,
 					next,
 					query,
-					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'],
-					prompts = vsvc.getExperienceByCategory('action').prompts;
+					responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Apples', 'Oink!', 'Zeus', 'Luke Skywalker', 'Roseanne', 'Butterfinger'];
+					
 				beforeEach(function() {
 					textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
 					query = element('.question__query');
@@ -105,17 +105,15 @@
 				});
 								
 				it('should cycle through the prompts/responses', function() {
-					prompts.forEach(function(prompt, index) {
-						expect(query.text()).toContain((typeof prompt === 'string')? prompt : prompt.query);
-						textField.enter(responses[index]);
+					responses.forEach(function(response, index) {
+						textField.enter(response);
 						if (index !== 9) {
 							next.click();
 							sleep(2);
 						}
 					});
 					
-					for (var i = prompts.length; i--;) {
-						expect(query.text()).toContain((typeof prompts[i] === 'string')? prompts[i] : prompts[i].query);
+					for (var i = responses.length; i--;) {
 						expect(textField.val()).toBe(responses[i]);
 						if (i) {
 							prev.click();
@@ -125,11 +123,11 @@
 				});
 				
 				it('should disable/enable when appropriate', function() {
-					prompts.forEach(function(prompt, index) {
+					responses.forEach(function(response, index) {
 						if (index === 0) {
 							expect(prev.attr('disabled')).toBe('disabled');
 							expect(next.attr('disabled')).toBe('disabled');
-							textField.enter(responses[index]);
+							textField.enter(response);
 							expect(prev.attr('disabled')).toBe('disabled');
 							expect(next.attr('disabled')).toBe(undefined);
 							next.click();
@@ -137,13 +135,13 @@
 						} else if (index === 9) {
 							expect(prev.attr('disabled')).toBe(undefined);
 							expect(next.attr('disabled')).toBe('disabled');
-							textField.enter(responses[index]);
+							textField.enter(response);
 							expect(prev.attr('disabled')).toBe(undefined);
 							expect(next.attr('disabled')).toBe('disabled');
 						} else {
 							expect(prev.attr('disabled')).toBe(undefined);
 							expect(next.attr('disabled')).toBe('disabled');
-							textField.enter(responses[index]);
+							textField.enter(response);
 							expect(prev.attr('disabled')).toBe(undefined);
 							expect(next.attr('disabled')).toBe(undefined);
 							next.click();

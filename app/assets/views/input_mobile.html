@@ -58,7 +58,7 @@
                 class="question__btnNext"
                 c6-sfx="{click: 'bell'}"
                 ng-disabled="!inputCtrl.canGoForward()"
-                ng-click="inputCtrl.nextQuestion();"
+                ng-click="inputCtrl.nextQuestion(); appCtrl.askForVideoLoad();"
                 name="next">
                 <span class="ir">Next</span>
             </button>

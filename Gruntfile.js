@@ -141,50 +141,16 @@ module.exports = function (grunt) {
                 replacement: '',
                 path: '<%= props.dist %>/index.html'
             },
-            categories: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/categories.html'
-            },
-            input: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/input.html'
-            },
-            inputMobile: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/input_mobile.html'
-            },
-            end: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/end.html'
-            },
-            landing: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/landing.html'
-            },
-            c6Bar: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/c6bar.html'
-            },
-            progressPen: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/progress_pen.html'
-            },
-            experience: {
-                pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views/experience.html'
-            },
             main: {
                 pattern: 'undefined',
                 replacement: '\'<%= props.version() %>\'',
                 path: '<%= props.distVersionPath() %>/scripts/main.js'
+            },
+            views: {
+                pattern: 'assets',
+                replacement: '<%= props.version() %>',
+                path: '<%= props.distVersionPath() %>/views',
+                recursive: true
             }
         },
         jshint: {
@@ -555,5 +521,4 @@ module.exports = function (grunt) {
             done(false);
         });
     });
-
 };

@@ -28,7 +28,8 @@ describe('Controllers', function() {
 			}
 			$provide.value('$location', $locationMock);
 			$provide.value('$stateParams', {
-				category: 'action'
+				category: 'action',
+				expid: 'brucelee'
 			});
 			$provide.value('$state', {
 				transitionTo: function(state, params) {
@@ -83,12 +84,12 @@ describe('Controllers', function() {
 							]
 						};
 					},
-					getExperienceByCategory: function(category) {
-						if (category === 'action') {
+					getExperience: function(category, id) {
+						if (category === 'action' && id === 'brucelee') {
 							var experience = $q.defer();
 							
 							experience.resolve({
-								'id'			 : '2',
+								'id'			 : 'action',
 								'title'		 : 'Battle for Revenge (MOCK)',
 								'views'		 : 1000,
 								'src'		 : 'media/action/bruce_lee',
@@ -158,6 +159,9 @@ describe('Controllers', function() {
 							
 							return experience.promise;
 						}
+					},
+					getExperienceByCategory: function(category) {
+						return this.getExperience('action', 'brucelee');
 					}
 				}
 			});

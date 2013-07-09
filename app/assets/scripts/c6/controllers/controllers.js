@@ -63,28 +63,28 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.currentCategory = function() {
 		return $stateParams.category;
 	};
-	
+
 	this.askForVideoLoad = function() {
 		$scope.$broadcast('videoShouldLoad');
-	}
+	};
 
 	$scope.appCtrl = this;
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
 
-	$scope.$watch('appCtrl.currentCategory()', function(category) {
-		if (!category) {
+	$scope.$watch('$stateParams', function(params) {
+		if (!params.category || !params.expid) {
 			self.experience = null;
 			return false;
 		}
 		(function() {
-			var experience = vsvc.getExperienceByCategory(category);
-
-			if ((self.experience? self.experience.id : null) !== experience.id) {
-				self.experience = category? experience : null;
-			}
+			vsvc.getExperience(params.category, params.expid).then(function(experience) {
+				if ((self.experience && self.experience.id) !== experience.id) {
+					self.experience = experience;
+				}
+			});
 		})();
-	});
+	}, true);
 
 	$scope.$watch('appCtrl.experience', function(experience) {
 		if (experience && experience.src) {
@@ -123,7 +123,7 @@ angular.module('c6.ctrl',['c6.svc'])
 			self.videoCanPlay = true;
 		});
 	});
-	
+
 	$scope.$on('videoShouldLoad', function() {
 		if (!video.player.readyState) {
 			video.player.load();
@@ -132,29 +132,27 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {
 		if (yes) {
-			$scope.appCtrl.experience.then(function(experience) {
-				var bubbleModel = $scope.appCtrl.annotationsModel,
-					txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', experience.annotations);
+			var bubbleModel = $scope.appCtrl.annotationsModel,
+				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', $scope.appCtrl.experience.annotations);
 
-				if (bubbleModel) {
-					self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
-				} else {
-					self.annotationsModel = null;
-				}
-				if (txt2SpchModel) {
-					self.videoCanPlay = false;
-					txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, $scope.appCtrl.promptModel.responses);
-					experience.src = null;
-					annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
-						experience.src = url;
-						video.on('canplaythrough', function() {
-							$timeout(function() {
-								if ($state.is('experience.video')) { video.player.play(); }
-							}, 100);
-						});
+			if (bubbleModel) {
+				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, $scope.appCtrl.promptModel.responses);
+			} else {
+				self.annotationsModel = null;
+			}
+			if (txt2SpchModel) {
+				self.videoCanPlay = false;
+				txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, $scope.appCtrl.promptModel.responses);
+				$scope.appCtrl.experience.src = null;
+				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
+					$scope.appCtrl.experience.src = url;
+					video.on('canplaythrough', function() {
+						$timeout(function() {
+							if ($state.is('experience.video')) { video.player.play(); }
+						}, 100);
 					});
-				}
-			});
+				});
+			}
 		}
 	});
 
@@ -193,7 +191,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 
 	this.goToEnd = function() {
-		$state.transitionTo('experience.end', { category: $stateParams.category });
+		$state.transitionTo('experience.end', $stateParams);
 	};
 
 	this.annotationIsActive = function(annotation) {
@@ -213,8 +211,9 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.loadCategory = function(category) {
 		category = angular.lowercase(category);
 
-		$scope.appCtrl.experience = vsvc.getExperienceByCategory(category);
-		$state.transitionTo('experience.input', { category: category });
+		vsvc.getExperienceByCategory(category).then(function(exp) {
+			$state.transitionTo('experience.input', { category: category, expid: exp.id });
+		});
 	};
 
 	$scope.catCtrl = this;
@@ -268,7 +267,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	this.startExperience = function() {
 		$scope.$broadcast('experienceStart');
-		$state.transitionTo('experience.video', { category: $stateParams.category });
+		$state.transitionTo('experience.video', $stateParams);
 	};
 
 	$scope.inputCtrl = this;

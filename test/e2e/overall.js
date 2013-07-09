@@ -48,7 +48,7 @@
 					expect(element('div.inputScreen').count()).toBe(1);
 				});
 				it('should change the url.', function() {
-					expect(browser().window().hash()).toBe('/categories/action');
+					expect(browser().window().hash()).toBe('/categories/action/brucelee');
 				});
 				it('should set the video src', function() {
 					expect(element('video#player').attr('src')).toContain('assets/media/action/bruce_lee');
@@ -61,7 +61,7 @@
 		describe('The input screen', function() {
 			beforeEach(function() {
 				sleep(1);
-				browser().navigateTo('/#categories/action');
+				browser().navigateTo('/#categories/action/brucelee');
 				sleep(1);
 			});
 			
@@ -224,7 +224,7 @@
 						expect(element('#player').prop('paused')).toBe(false);
 					});
 					it('should change the url', function() {
-						expect(browser().window().hash()).toBe('/categories/action/video');
+						expect(browser().window().hash()).toBe('/categories/action/brucelee/video');
 					});
 				});
 			});
@@ -237,7 +237,7 @@
 				responses = ['Hello!', 'Dog', 'Superman', 'Knees', 'Mushrooms', 'Oven', 'Elmo', 'Darth Vader', 'Oprah', 'Butterfinger'];
 			beforeEach(function() {
 				sleep(1);
-				browser().navigateTo('/#categories/action');
+				browser().navigateTo('/#categories/action/brucelee');
 				sleep(1);
 				
 				textField = input('inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]');
@@ -279,13 +279,13 @@
 				sleep(3);
 				
 				expect(element('.endScreen').count()).toBe(1);
-				expect(browser().window().hash()).toBe('/categories/action/end');
+				expect(browser().window().hash()).toBe('/categories/action/brucelee/end');
 			});
 		});
 		describe('the end screen', function() {
 			beforeEach(function() {
 				sleep(1);
-				browser().navigateTo('/#/categories/action/end');
+				browser().navigateTo('/#/categories/action/brucelee/end');
 				sleep(1);
 			});
 			
@@ -294,7 +294,7 @@
 					element('.vidMenu__btnReplay').click();
 					sleep(5);
 					
-					expect(browser().window().hash()).toBe('/categories/action/video');
+					expect(browser().window().hash()).toBe('/categories/action/brucelee/video');
 					expect(element('#player').css('opacity')).toBe('1');
 				});
 			});

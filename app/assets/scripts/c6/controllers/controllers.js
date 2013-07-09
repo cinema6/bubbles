@@ -219,6 +219,13 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.catCtrl = this;
 }])
 
+.controller('C6RandomCategoryCtrl', ['$state', '$stateParams', 'c6VideoListingService', '$log', function($state, $stateParams, vsvc, $log) {
+	var category = $stateParams.category;
+	$log.log('Choosing a random experience in the ' + category + ' category.');
+
+	$state.transitionTo('experience.input', { category: $stateParams.category, expid: vsvc.getRandomExperienceFromCategory(category) });
+}])
+
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$stateParams', '$state', function($log, $scope, $rootScope, $stateParams, $state) {
 	var self = this;
 	$log.log('Creating C6InputCtrl: ' + $stateParams.category);

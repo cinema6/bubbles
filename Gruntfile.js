@@ -35,6 +35,12 @@ module.exports = function (grunt) {
           }
         };
 
+    if (fs.existsSync(path.join(process.env.HOME,'.aws.json'))){
+        initProps.aws = grunt.file.readJSON(
+                path.join(process.env.HOME,'.aws.json')
+        );
+    }
+
     initProps.version     = function(){
         return this.gitLastCommit.commit;
     };
@@ -283,6 +289,87 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        s3: {
+            options: {
+                key:    '<%= props.aws.accessKeyId %>',
+                secret: '<%= props.aws.secretAccessKey %>',
+                bucket: 'demos.cinema6.com',
+                access: 'public-read',
+                maxOperations: 10
+            },
+            demos: {
+                upload: [
+                    { src: 'dist/index.html',   dest: 'bubbles/index.html' },
+                    { src: 'dist/404.html',   dest: 'bubbles/404.html' },
+                    { src: 'dist/favicon.ico',   dest: 'bubbles/favicon.ico' },
+                    { src: 'dist/robots.txt',   dest: 'bubbles/robots.txt' },
+                    { src: '<%= props.distVersionPath() %>/media/*.mp3',
+                        dest: 'bubbles/<%= props.version() %>/media/' },
+
+                    { src: '<%= props.distVersionPath() %>/media/*.ogg',
+                        dest: 'bubbles/<%= props.version() %>/media/' },
+                    
+                    { src: '<%= props.distVersionPath() %>/scripts/*.js',
+                        dest: 'bubbles/<%= props.version() %>/scripts/' },
+                    
+                    { src: '<%= props.distVersionPath() %>/views/*.html',
+                        dest: 'bubbles/<%= props.version() %>/views/' },
+                    
+                    { src: '<%= props.distVersionPath() %>/styles/**',
+                        dest: 'bubbles/<%= props.version() %>/styles/' },
+                    { src: '<%= props.distVersionPath() %>/img/action/**',
+                        dest: 'bubbles/<%= props.version() %>/img/action/' },
+                    { src: '<%= props.distVersionPath() %>/img/fantasy/**',
+                        dest: 'bubbles/<%= props.version() %>/img/fantasy/' },
+                    { src: '<%= props.distVersionPath() %>/img/horror/**',
+                        dest: 'bubbles/<%= props.version() %>/img/horror/' },
+                    { src: '<%= props.distVersionPath() %>/img/romance/**',
+                        dest: 'bubbles/<%= props.version() %>/img/romance/' },
+                    { src: '<%= props.distVersionPath() %>/img/scifi/**',
+                        dest: 'bubbles/<%= props.version() %>/img/scifi/' },
+                    { src: '<%= props.distVersionPath() %>/img/*.png',
+                        dest: 'bubbles/<%= props.version() %>/img/' },
+                    { src: '<%= props.distVersionPath() %>/img/*.jpg',
+                        dest: 'bubbles/<%= props.version() %>/img/' },
+
+                    { src: '<%= props.distVersionPath() %>/experiences/action/**',
+                        dest: 'bubbles/<%= props.version() %>/experiences/action/' },
+                    { src: '<%= props.distVersionPath() %>/experiences/fantasy/**',
+                        dest: 'bubbles/<%= props.version() %>/experiences/fantasy/' },
+                    { src: '<%= props.distVersionPath() %>/experiences/horror/**',
+                        dest: 'bubbles/<%= props.version() %>/experiences/horror/' },
+                    { src: '<%= props.distVersionPath() %>/experiences/romance/**',
+                        dest: 'bubbles/<%= props.version() %>/experiences/romance/' },
+                    { src: '<%= props.distVersionPath() %>/experiences/scifi/**',
+                        dest: 'bubbles/<%= props.version() %>/experiences/scifi/' },
+                    
+                    { src: '<%= props.distVersionPath() %>/lib/angular/**',
+                        dest: 'bubbles/<%= props.version() %>/lib/angular/' },
+                    { src: '<%= props.distVersionPath() %>/lib/c6media/**',
+                        dest: 'bubbles/<%= props.version() %>/lib/c6media/' },
+                    { src: '<%= props.distVersionPath() %>/lib/greensock/**',
+                        dest: 'bubbles/<%= props.version() %>/lib/greensock/' },
+                    { src: '<%= props.distVersionPath() %>/lib/jquery/**',
+                        dest: 'bubbles/<%= props.version() %>/lib/jquery/' },
+                    { src: '<%= props.distVersionPath() %>/lib/require/**',
+                        dest: 'bubbles/<%= props.version() %>/lib/require/' },
+                    { src: '<%= props.distVersionPath() %>/lib/ui-router/**',
+                        dest: 'bubbles/<%= props.version() %>/lib/ui-router/' },
+
+                    { src: '<%= props.distVersionPath() %>/media/action/**',
+                        dest: 'bubbles/<%= props.version() %>/media/action/' },
+                    { src: '<%= props.distVersionPath() %>/media/fantasy/**',
+                        dest: 'bubbles/<%= props.version() %>/media/fantasy/' },
+                    { src: '<%= props.distVersionPath() %>/media/horror/**',
+                        dest: 'bubbles/<%= props.version() %>/media/horror/' },
+                    { src: '<%= props.distVersionPath() %>/media/romance/**',
+                        dest: 'bubbles/<%= props.version() %>/media/romance/' },
+                    { src: '<%= props.distVersionPath() %>/media/scifi/**',
+                        dest: 'bubbles/<%= props.version() %>/media/scifi/' }
+                    
+                ]
+            }
+        },
         link : {
             options : {
                 overwrite: true,
@@ -330,6 +417,7 @@ module.exports = function (grunt) {
         type = type ? type : 'patch';
     //    grunt.task.run('test');
         grunt.task.run('build');
+        grunt.task.run('s3');
     });
 
     grunt.registerTask('default', ['release']);

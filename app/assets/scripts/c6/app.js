@@ -59,20 +59,24 @@ angular.module('c6.app', dependencies)
                 controller: 'C6CategoryListCtrl',
                 url: '/'
             })
+            .state('experience.randomInput', {
+                controller: 'C6RandomCategoryCtrl',
+                url: '/:category'
+            })
             .state('experience.input', {
                 templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
                 controller: 'C6InputCtrl',
-                url: '/:category'
+                url: '/:category/:expid'
             })
             .state('experience.video', {
                 template: '<!-- Foo -->',
                 controller: 'C6VideoCtrl',
-                url: '/:category/video'
+                url: '/:category/:expid/video'
             })
             .state('experience.end', {
                 templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
                 controller: 'C6EndCtrl',
-                url: '/:category/end'
+                url: '/:category/:expid/end'
             });
   }])
   .constant('appBaseUrl', __C6_APP_BASE_URL__)

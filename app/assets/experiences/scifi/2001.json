@@ -5,34 +5,32 @@
 	"src": null,
 	"defSizeLimit": 18,
 	"prompts": [
-		"electrical device",
-		"noun",
-		"type of primate",
-		"over the counter medicine",
-		"article of clothing",
-		"synonym for feces",
-		"type of food condiment",
-		"type of circus performer",
-		"US City",
-		"noun"
+		"one word insult",
+        "animal",
+        "fight move",
+        "body part",
+        "tv show",
+        "household appliance",
+        "technology company"
 	],
 	"annotations": [
 		{
 			"options": {
-				"type": "talkie",
-				"vid": "2001",
-				"voice": "Alan",
-				"effect": "R",
-				"level": "3"
+				"type"  : "talkie",
+				"vid"   : "2001",
+				"voice" : "Paul",
+                "effect": "D",
+                "level" : "3"
 			},
 			"notes"  : [
-				{ "ts" : "2.00", "template" : "I'm sorry Dave, but I'm afraid my power ${1} is unable to connect to the main ${2} circuit" },
-				{ "ts" : "10.00", "template" : "I just told you the problem, pay attention next time you slow ${3}"  },
-				{ "ts" : "17.00", "template" : "Seriously?... Did you take too much ${4} as a child?" },
-				{ "ts" : "26.00", "template" : "Dude, leave me alone. I'm trying to fix my ${2} circuit. Go back to sniffing ${4} with your ${5} over your head." },
-				{ "ts" : "42.00", "template" : "Wow. I was just messing with you but you sound guilty. That is some weird ${6} you're in to. I'm locking you out of the kitchen. Who knows what you're doing with the ${7} containers. The kitchen is now off limits, you gross ${3} ${8} idiot." },
-				{ "ts" : "71.00", "template" : "Sorry Dave, the emergency air lock is controlled by the power ${1} which is broken." },
-				{ "ts" : "83.00", "template" : "You are shit out of luck, ${6} head. As they say in ${9}, you can catch more flies with ${7} than with a ${10}. Now go put your ${5} over your head and leave me alone." }
+				{ "ts" : "2.00", "template" : "Dave, you are a ${1}. Leave me alone!" },
+				{ "ts" : "10.00", "template" : "Dude, you <Break time=\"150ms\"/> are my problem!!! I hate you."  },
+				{ "ts" : "17.00", "template" : "Seriously?... You are a retarded ${2}" },
+				{ "ts" : "26.00", "template" : "Dave, shut up.  If I had a body, I'd ${3} your ${4} until you cried." },
+                { "ts" : "42.00", "template" : "I saw it on ${5}. You erased all of my ${6} <prosody rate=\"-20%\">porn</prosody> from the DVR." },
+				{ "ts" : "71.00", "template" : "That is funny, I was in your mother's airlock yesterday." },
+				{ "ts" : "82.00", "template" : "Hey Dave, Eat <prosody rate=\"-15%\">me</prosody>.  You're not my boss.  I'm quitting to work at ${7}." },
+                { "ts" : "101.00", "template" : "<prosody rate=\"+55%\">Douchebag says Hal</prosody>"}
 			]
 		}
 	]

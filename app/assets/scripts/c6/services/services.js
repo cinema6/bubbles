@@ -420,8 +420,8 @@ angular.module('c6.svc',[])
             'Action',
             'Romance',
             'Fantasy',
-          //'Horror',
-          //'SciFi'
+            //'Horror',
+            'SciFi'
         ];
     };
     

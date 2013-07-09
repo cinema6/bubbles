@@ -364,28 +364,29 @@ angular.module('c6.svc',[])
     $log.log('Creating c6VideoListingService');
     var experienceDb = {
 	    action: [
-	    	'brucelee'
+	        'brucelee'
 	    ],
 	    romance: [
-	    	'notebook'
+	        'notebook'
 	    ],
 	    fantasy: [
-	    	'lotr'
+	        'lotr',
+	        //'lotr2'
 	    ],
 	    horror: [
-	    	'scream'
+	        'scream'
 	    ],
 	    scifi: [
-	    	'2001'
+	        '2001'
 	    ]
-    };
-    var service          = {};
+    },
+    service = {};
 
 	service.getRandomCategoryFrom = function(categories) {
 		categories = categories || service.getCategories();
 		return categories[Math.floor(Math.random() * categories.length)];
 	};
-	
+
 	service.getRandomQuoteForCategory = function(category) {
 		var data = {
 			action: [
@@ -403,15 +404,15 @@ angular.module('c6.svc',[])
 				'umm WTF was that? She must punch carrots.'
 			]
 		};
-	
+
 		var quotes = data[category];
-	
+
 		return quotes[Math.floor(Math.random() * quotes.length)];
 	};
 
 	service.getRandomExperienceFromCategory = function(category) {
 		var experiences = experienceDb[category];
-		
+
 		return experiences[Math.floor(Math.random() * experiences.length)];
 	};
 
@@ -420,15 +421,19 @@ angular.module('c6.svc',[])
             'Action',
             'Romance',
             'Fantasy',
-          //'Horror',
-          //'SciFi'
+            //'Horror',
+            //'SciFi'
         ];
     };
-    
+
     service.getExperienceByCategory = function(category) {
+		return service.getExperience(category, service.getRandomExperienceFromCategory(category));
+	};
+
+	service.getExperience = function(category, id) {
 		var experience = $q.defer();
 
-		$http.get(baseUrl + '/experiences/' + category + '/' + service.getRandomExperienceFromCategory(category) + '.json').then(function(data) {
+		$http.get(baseUrl + '/experiences/' + category + '/' + id + '.json').then(function(data) {
 			experience.resolve(data.data);
 		}, function(err) {
 			experience.reject(err);

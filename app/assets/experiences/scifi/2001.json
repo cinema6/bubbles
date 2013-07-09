@@ -20,7 +20,7 @@
 				"vid"   : "2001",
 				"voice" : "Paul",
                 "effect": "D",
-                "level" : "3"
+                "level" : "1"
 			},
 			"notes"  : [
 				{ "ts" : "2.00", "template" : "Dave, you are a ${1}. Leave me alone!" },

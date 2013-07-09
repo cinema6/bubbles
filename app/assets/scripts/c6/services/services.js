@@ -72,6 +72,28 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
+.service('C6ResponseCachingService', ['$window', function($window) {
+	$window.localStorage = $window.localStorage || {};
+
+	var data = JSON.parse($window.localStorage.responseCache || '{}'),
+		writeToStorage = function() {
+			$window.localStorage.responseCache = JSON.stringify(data);
+		};
+
+	this.sameResponses = function(a, b) {
+		return JSON.stringify(a) === JSON.stringify(b);
+	};
+
+	this.setResponses = function(responses, category, id) {
+		data[category + '/' + id] = responses;
+		writeToStorage();
+	};
+
+	this.getResponses = function(category, id) {
+		return data[category + '/' + id] || null;
+	};
+}])
+
 .service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
     var interpolate = function(tmpl,data) {
         var patt  = /\${(\d+)}/,

@@ -300,7 +300,7 @@ module.exports = function (grunt) {
             demos: {
                 upload: [ { 
                     src: 'dist/**',   
-                    dest: 'bubbles/',
+                    dest: 'screenjack/',
                     rel : 'dist/' 
                 } ]
             }

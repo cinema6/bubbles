@@ -26,8 +26,8 @@
 		'logging'           : ['error','warn','log','info'],
 		'showPlayerData'    : true
 		},
-		appConfig = ((__C6_APP_BASE_URL__ !== 'assets') || (window.location.search.indexOf('debug=true') === -1)) ? releaseConfig : debugConfig;
-	
+		appConfig = ((__C6_APP_BASE_URL__ === 'assets') || (window.location.search.indexOf('debug=true') === -1)) ? debugConfig : releaseConfig;
+
 	var dependencies = [
 		'ui.state',
 		'c6.ctrl',

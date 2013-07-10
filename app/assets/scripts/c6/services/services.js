@@ -73,7 +73,9 @@ function BubblesModel(annotations) {
 
 angular.module('c6.svc',[])
 .service('C6ResponseCachingService', ['$window', function($window) {
-	$window.localStorage = $window.localStorage || {};
+	if (!$window.localStorage) {
+		$window.localStorage = {};
+	}
 
 	var data = JSON.parse($window.localStorage.responseCache || '{}'),
 		writeToStorage = function() {

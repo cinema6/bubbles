@@ -72,8 +72,52 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
+.service('C6ResponseCachingService', ['$window', function($window) {
+	if (!$window.localStorage) {
+		$window.localStorage = {};
+	}
+
+	var data = JSON.parse($window.localStorage.responseCache || '{}'),
+		writeToStorage = function() {
+			$window.localStorage.responseCache = JSON.stringify(data);
+		};
+
+	this.sameResponses = function(a, b) {
+		return JSON.stringify(a) === JSON.stringify(b);
+	};
+
+	this.setResponses = function(responses, category, id) {
+		data[category + '/' + id] = responses;
+		writeToStorage();
+	};
+
+	this.getResponses = function(category, id) {
+		return data[category + '/' + id] || null;
+	};
+}])
+
 .service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
-    var interpolate = function(tmpl,data) {
+	var genVidUrlCache = {};
+
+	this.getAnnotationsModelByType = function(type, annotations) {
+		var toReturn,
+			Klass;
+
+		if (type === 'bubble') {
+			Klass = BubblesModel;
+		} else if (type === 'talkie') {
+			Klass = TalkieModel;
+		}
+
+		annotations.forEach(function(annoConfig) {
+			if (annoConfig.options.type === type) {
+				toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
+			}
+		});
+		return toReturn;
+	};
+
+    this.interpolate = function(tmpl,data) {
         var patt  = /\${(\d+)}/,
             dataLen,
             match;
@@ -102,24 +146,6 @@ angular.module('c6.svc',[])
         return tmpl;
     };
 
-	this.getAnnotationsModelByType = function(type, annotations) {
-		var toReturn,
-			Klass;
-
-		if (type === 'bubble') {
-			Klass = BubblesModel;
-		} else if (type === 'talkie') {
-			Klass = TalkieModel;
-		}
-
-		annotations.forEach(function(annoConfig) {
-			if (annoConfig.options.type === type) {
-				toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
-			}
-		});
-		return toReturn;
-	};
-
 	this.interpolateAnnotations = function(annoModel, responses) {
         var annoLength = annoModel.annotations.length;
         $log.info('Interpolate ' + annoLength + ' annotations with ' + responses.length + ' responses.');
@@ -128,7 +154,7 @@ angular.module('c6.svc',[])
 //        }
         for (var i = 0; i < annoLength; i++) {
             var a = annoModel.annotations[i];
-            a.text = interpolate(a.template,responses);
+            a.text = this.interpolate(a.template,responses);
             $log.info('Annotation [' + i + ']: ' + a.text);
         }
 
@@ -145,7 +171,19 @@ angular.module('c6.svc',[])
 			},
 			script: []
 		},
-			url = $q.defer();
+			url = $q.defer(),
+			alreadyHaveUrl = function() {
+				var cache = genVidUrlCache,
+					cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
+
+				return ((cachedModel ? true : false) && (function() {
+					var newModelAnnotations = model.annotations;
+
+					return cachedModel.annotations.every(function(annotation, index) {
+						return annotation.text === newModelAnnotations[index].text;
+					});
+				})());
+			};
 
 		model.annotations.forEach(function(annotation) {
 			var line = {
@@ -156,11 +194,20 @@ angular.module('c6.svc',[])
 			requestBodyObject.script.push(line);
 		});
 
-		$http.post('http://demos.cinema6.net/dub/create', requestBodyObject).then(function(response) {
-			url.resolve(response.data.output);
-		}, function(error) {
-			$log.error(error);
-		});
+		if (alreadyHaveUrl()) {
+			$log.log('Already have a URL for these responses: ' + genVidUrlCache[model.options.vid].url);
+			url.resolve(genVidUrlCache[model.options.vid].url);
+		} else {
+			$log.log('No URL for these responses. Going to the server!');
+			$http.post('http://demos.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+				var urlFromServer = response.data.output;
+
+				genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
+				url.resolve(urlFromServer);
+			}, function(error) {
+				$log.error(error);
+			});
+		}
 
 		return url.promise;
 	};

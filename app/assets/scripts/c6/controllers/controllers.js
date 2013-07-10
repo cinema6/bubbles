@@ -300,7 +300,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$rootScope.currentRoute = 'experience';
 }])
 
-.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', function($log, $scope, $rootScope) {
+.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', 'C6AnnotationsService', function($log, $scope, $rootScope, annSvc) {
 	$log.log('Creating C6EndCtrl');
 	$rootScope.currentRoute = 'end';
 
@@ -308,7 +308,11 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {
 		if (annotationsModel) {
-			$scope.endCtrl.lastAnnotation = annotationsModel.annotations[annotationsModel.annotations.length - 1];
+			var lastAnnotation = annotationsModel.annotations[annotationsModel.annotations.length - 1];
+
+			if (!lastAnnotation.text) { lastAnnotation.text = annSvc.interpolate(lastAnnotation.template, $scope.appCtrl.promptModel.responses); }
+
+			$scope.endCtrl.lastAnnotation = lastAnnotation;
 		}
 	});
 

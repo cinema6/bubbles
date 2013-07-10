@@ -298,11 +298,11 @@ module.exports = function (grunt) {
                 maxOperations: 4
             },
             demos: {
-                upload: [ 
+                upload: [
                     {
-                        src: 'dist/**',   
+                        src: 'dist/**',
                         dest: 'screenjack/',
-                        rel : 'dist/' 
+                        rel : 'dist/'
                     },
                     {
                         src: 'dist/index.html',

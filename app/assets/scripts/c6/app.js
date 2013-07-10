@@ -9,11 +9,11 @@
 		if(M && (tem= ua.match(/version\/([\.\d]+)/i))!== null){
 			M[2]= tem[1];
 		}
-		
+
 		if (M) {
 			return { 'app' : M[1].toLowerCase(), 'version' : M[2], 'isMobile': isMobile, 'isIPad' : isIPad };
 		}
-		
+
 		return { 'app' : N, 'version' : navigator.appVersion };
 	})(),
 		releaseConfig = {
@@ -36,7 +36,7 @@
 		'c6.dir.screenJack',
 		'c6lib.video'
 	];
-	
+
 	angular.module('c6.app', dependencies)
 		.config(['$stateProvider', '$urlRouterProvider', 'environment', function ($stateProvider, $urlRouterProvider, env) {
 			$urlRouterProvider.otherwise('/');
@@ -79,15 +79,16 @@
 			$provide.decorator('$log', ['$delegate', function($delegate) {
 				var key,
 					value,
-					logLevels = env.logging;
+					logLevels = env.logging,
+					dummyFunction = function() {};
 				for (key in $delegate) {
 					value = $delegate[key];
-					
+
 					if ((typeof value === 'function') && (logLevels.indexOf(key) === -1)) {
-						$delegate[key] = function() {};
+						$delegate[key] = dummyFunction;
 					}
 				}
-				
+
 				return $delegate;
 			}]);
 		}])

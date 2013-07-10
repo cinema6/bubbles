@@ -35,6 +35,12 @@ module.exports = function (grunt) {
           }
         };
 
+    if (fs.existsSync(path.join(process.env.HOME,'.aws.json'))){
+        initProps.aws = grunt.file.readJSON(
+                path.join(process.env.HOME,'.aws.json')
+        );
+    }
+
     initProps.version     = function(){
         return this.gitLastCommit.commit;
     };
@@ -283,6 +289,22 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        s3: {
+            options: {
+                key:    '<%= props.aws.accessKeyId %>',
+                secret: '<%= props.aws.secretAccessKey %>',
+                bucket: 'demos.cinema6.com',
+                access: 'public-read',
+                maxOperations: 4
+            },
+            demos: {
+                upload: [ { 
+                    src: 'dist/**',   
+                    dest: 'screenjack/',
+                    rel : 'dist/' 
+                } ]
+            }
+        },
         link : {
             options : {
                 overwrite: true,
@@ -326,13 +348,14 @@ module.exports = function (grunt) {
         'sed'
     ]);
 
-    grunt.registerTask('release',function(type){
+    grunt.registerTask('publish',function(type){
         type = type ? type : 'patch';
     //    grunt.task.run('test');
         grunt.task.run('build');
+        grunt.task.run('s3');
     });
 
-    grunt.registerTask('default', ['release']);
+    grunt.registerTask('default', ['build']);
 
     grunt.registerTask('mvbuild', 'Move the build to a release folder.', function(){
         if (grunt.config.get('moved')){

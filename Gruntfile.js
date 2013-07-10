@@ -295,14 +295,14 @@ module.exports = function (grunt) {
                 secret: '<%= props.aws.secretAccessKey %>',
                 bucket: 'demos.cinema6.com',
                 access: 'public-read',
-                maxOperations: 10
+                maxOperations: 4
             },
             demos: {
-                upload: [
-                    { src: 'dist/**',   
-                        dest: 'bubbles/index.html',
-                        rel : true }
-                ]
+                upload: [ { 
+                    src: 'dist/**',   
+                    dest: 'bubbles/',
+                    rel : 'dist/' 
+                } ]
             }
         },
         link : {
@@ -348,14 +348,14 @@ module.exports = function (grunt) {
         'sed'
     ]);
 
-    grunt.registerTask('release',function(type){
+    grunt.registerTask('publish',function(type){
         type = type ? type : 'patch';
     //    grunt.task.run('test');
         grunt.task.run('build');
         grunt.task.run('s3');
     });
 
-    grunt.registerTask('default', ['release']);
+    grunt.registerTask('default', ['build']);
 
     grunt.registerTask('mvbuild', 'Move the build to a release folder.', function(){
         if (grunt.config.get('moved')){

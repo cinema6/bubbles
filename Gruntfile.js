@@ -355,6 +355,12 @@ module.exports = function (grunt) {
         'sed'
     ]);
 
+    grunt.registerTask('release',function(type){
+        type = type ? type : 'patch';
+    //    grunt.task.run('test');
+        grunt.task.run('build');
+    });
+
     grunt.registerTask('publish',function(type){
         type = type ? type : 'patch';
     //    grunt.task.run('test');
@@ -362,7 +368,7 @@ module.exports = function (grunt) {
         grunt.task.run('s3');
     });
 
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['release']);
 
     grunt.registerTask('mvbuild', 'Move the build to a release folder.', function(){
         if (grunt.config.get('moved')){

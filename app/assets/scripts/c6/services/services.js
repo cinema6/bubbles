@@ -97,35 +97,7 @@ angular.module('c6.svc',[])
 }])
 
 .service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
-	var genVidUrlCache = {},
-	    interpolate = function(tmpl,data) {
-	        var patt  = /\${(\d+)}/,
-	            dataLen,
-	            match;
-
-	        if (!data) {
-	            return tmpl;
-	        }
-
-	        if ((data instanceof Array) === false) {
-	            throw new TypeError('Data parameter must be an array.');
-	        }
-
-	        dataLen = data.length;
-	//        $log.info('Template:' + tmpl);
-	        while((match = patt.exec(tmpl)) !== null) {
-	//            $log.info('Match: ' + JSON.stringify(match));
-	            var idx = (match[1] - 1);
-	            if (idx < 0) {
-	                throw new RangeError('Template parameters should start at ${1}');
-	            }
-	            if (idx >= dataLen) {
-	                throw new RangeError('Invalid template parameter (too high): ' + match[0]);
-	            }
-	            tmpl = tmpl.replace(match[0],data[idx]);
-	        }
-	        return tmpl;
-	    };
+	var genVidUrlCache = {};
 
 	this.getAnnotationsModelByType = function(type, annotations) {
 		var toReturn,
@@ -145,6 +117,35 @@ angular.module('c6.svc',[])
 		return toReturn;
 	};
 
+    this.interpolate = function(tmpl,data) {
+        var patt  = /\${(\d+)}/,
+            dataLen,
+            match;
+
+        if (!data) {
+            return tmpl;
+        }
+
+        if ((data instanceof Array) === false) {
+            throw new TypeError('Data parameter must be an array.');
+        }
+
+        dataLen = data.length;
+//        $log.info('Template:' + tmpl);
+        while((match = patt.exec(tmpl)) !== null) {
+//            $log.info('Match: ' + JSON.stringify(match));
+            var idx = (match[1] - 1);
+            if (idx < 0) {
+                throw new RangeError('Template parameters should start at ${1}');
+            }
+            if (idx >= dataLen) {
+                throw new RangeError('Invalid template parameter (too high): ' + match[0]);
+            }
+            tmpl = tmpl.replace(match[0],data[idx]);
+        }
+        return tmpl;
+    };
+
 	this.interpolateAnnotations = function(annoModel, responses) {
         var annoLength = annoModel.annotations.length;
         $log.info('Interpolate ' + annoLength + ' annotations with ' + responses.length + ' responses.');
@@ -153,7 +154,7 @@ angular.module('c6.svc',[])
 //        }
         for (var i = 0; i < annoLength; i++) {
             var a = annoModel.annotations[i];
-            a.text = interpolate(a.template,responses);
+            a.text = this.interpolate(a.template,responses);
             $log.info('Annotation [' + i + ']: ' + a.text);
         }
 

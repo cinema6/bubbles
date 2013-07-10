@@ -7,7 +7,7 @@
         <div class="viewport" c6-resize>
         
         <div class="vidFrame__group"> 
-            <div ng-class="' annotation-last ' + 'vidFrame__annotation-{{appCtrl.currentCategory()}}'">
+            <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' annotation-last ' + 'vidFrame__annotation-{{appCtrl.currentCategory()}}'">
 	            <div class="a-style">
 	              <div class="a-frame">
 	                <div class="a-text">

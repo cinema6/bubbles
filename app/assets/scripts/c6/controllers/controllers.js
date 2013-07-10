@@ -148,7 +148,7 @@ angular.module('c6.ctrl',['c6.svc'])
 					$scope.appCtrl.experience.src = url;
 					video.on('canplaythrough', function() {
 						$timeout(function() {
-							if ($state.is('experience.video')) { video.player.play(); }
+							if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
 						}, 100);
 					});
 				});

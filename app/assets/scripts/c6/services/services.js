@@ -72,35 +72,58 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
+.service('C6ResponseCachingService', ['$window', function($window) {
+	$window.localStorage = $window.localStorage || {};
+
+	var data = JSON.parse($window.localStorage.responseCache || '{}'),
+		writeToStorage = function() {
+			$window.localStorage.responseCache = JSON.stringify(data);
+		};
+
+	this.sameResponses = function(a, b) {
+		return JSON.stringify(a) === JSON.stringify(b);
+	};
+
+	this.setResponses = function(responses, category, id) {
+		data[category + '/' + id] = responses;
+		writeToStorage();
+	};
+
+	this.getResponses = function(category, id) {
+		return data[category + '/' + id] || null;
+	};
+}])
+
 .service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
-    var interpolate = function(tmpl,data) {
-        var patt  = /\${(\d+)}/,
-            dataLen,
-            match;
+	var genVidUrlCache = {},
+	    interpolate = function(tmpl,data) {
+	        var patt  = /\${(\d+)}/,
+	            dataLen,
+	            match;
 
-        if (!data) {
-            return tmpl;
-        }
+	        if (!data) {
+	            return tmpl;
+	        }
 
-        if ((data instanceof Array) === false) {
-            throw new TypeError('Data parameter must be an array.');
-        }
+	        if ((data instanceof Array) === false) {
+	            throw new TypeError('Data parameter must be an array.');
+	        }
 
-        dataLen = data.length;
-//        $log.info('Template:' + tmpl);
-        while((match = patt.exec(tmpl)) !== null) {
-//            $log.info('Match: ' + JSON.stringify(match));
-            var idx = (match[1] - 1);
-            if (idx < 0) {
-                throw new RangeError('Template parameters should start at ${1}');
-            }
-            if (idx >= dataLen) {
-                throw new RangeError('Invalid template parameter (too high): ' + match[0]);
-            }
-            tmpl = tmpl.replace(match[0],data[idx]);
-        }
-        return tmpl;
-    };
+	        dataLen = data.length;
+	//        $log.info('Template:' + tmpl);
+	        while((match = patt.exec(tmpl)) !== null) {
+	//            $log.info('Match: ' + JSON.stringify(match));
+	            var idx = (match[1] - 1);
+	            if (idx < 0) {
+	                throw new RangeError('Template parameters should start at ${1}');
+	            }
+	            if (idx >= dataLen) {
+	                throw new RangeError('Invalid template parameter (too high): ' + match[0]);
+	            }
+	            tmpl = tmpl.replace(match[0],data[idx]);
+	        }
+	        return tmpl;
+	    };
 
 	this.getAnnotationsModelByType = function(type, annotations) {
 		var toReturn,
@@ -145,7 +168,19 @@ angular.module('c6.svc',[])
 			},
 			script: []
 		},
-			url = $q.defer();
+			url = $q.defer(),
+			alreadyHaveUrl = function() {
+				var cache = genVidUrlCache,
+					cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
+
+				return ((cachedModel ? true : false) && (function() {
+					var newModelAnnotations = model.annotations;
+
+					return cachedModel.annotations.every(function(annotation, index) {
+						return annotation.text === newModelAnnotations[index].text;
+					});
+				})());
+			};
 
 		model.annotations.forEach(function(annotation) {
 			var line = {
@@ -156,11 +191,20 @@ angular.module('c6.svc',[])
 			requestBodyObject.script.push(line);
 		});
 
-		$http.post('http://demos.cinema6.net/dub/create', requestBodyObject).then(function(response) {
-			url.resolve(response.data.output);
-		}, function(error) {
-			$log.error(error);
-		});
+		if (alreadyHaveUrl()) {
+			$log.log('Already have a URL for these responses: ' + genVidUrlCache[model.options.vid].url);
+			url.resolve(genVidUrlCache[model.options.vid].url);
+		} else {
+			$log.log('No URL for these responses. Going to the server!');
+			$http.post('http://demos.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+				var urlFromServer = response.data.output;
+
+				genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
+				url.resolve(urlFromServer);
+			}, function(error) {
+				$log.error(error);
+			});
+		}
 
 		return url.promise;
 	};

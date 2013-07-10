@@ -35,6 +35,12 @@ module.exports = function (grunt) {
           }
         };
 
+    if (fs.existsSync(path.join(process.env.HOME,'.aws.json'))){
+        initProps.aws = grunt.file.readJSON(
+                path.join(process.env.HOME,'.aws.json')
+        );
+    }
+
     initProps.version     = function(){
         return this.gitLastCommit.commit;
     };
@@ -283,6 +289,29 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        s3: {
+            options: {
+                key:    '<%= props.aws.accessKeyId %>',
+                secret: '<%= props.aws.secretAccessKey %>',
+                bucket: 'demos.cinema6.com',
+                access: 'public-read',
+                maxOperations: 4
+            },
+            demos: {
+                upload: [
+                    {
+                        src: 'dist/**',
+                        dest: 'screenjack/',
+                        rel : 'dist/'
+                    },
+                    {
+                        src: 'dist/index.html',
+                        dest: 'screenjack/index.html',
+                        headers : { 'cache-control' : 'max-age=0' }
+                    }
+                ]
+            }
+        },
         link : {
             options : {
                 overwrite: true,
@@ -330,6 +359,13 @@ module.exports = function (grunt) {
         type = type ? type : 'patch';
     //    grunt.task.run('test');
         grunt.task.run('build');
+    });
+
+    grunt.registerTask('publish',function(type){
+        type = type ? type : 'patch';
+    //    grunt.task.run('test');
+        grunt.task.run('build');
+        grunt.task.run('s3');
     });
 
     grunt.registerTask('default', ['release']);

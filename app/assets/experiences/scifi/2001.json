@@ -30,7 +30,7 @@
                 { "ts" : "42.00", "template" : "I saw it on ${5}. You erased my hard core ${6} porn collection from the DVR." },
 				{ "ts" : "71.00", "template" : "That is funny, I was in your mother's airlock yesterday." },
 				{ "ts" : "82.00", "template" : "Hey Dave, Eat <prosody rate=\"-15%\">me</prosody>.  You're not my boss.  I'm quitting to work at ${7}." },
-                { "ts" : "101.00", "template" : "<prosody rate=\"+55%\">Douchebag says Hal</prosody>"}
+                { "ts" : "101.00", "template" : "<prosody rate=\"+55%\">${1} says Hal</prosody>"}
 			]
 		}
 	]

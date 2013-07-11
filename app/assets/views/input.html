@@ -25,7 +25,7 @@
 	                    <input
 	                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
 	                    	ng-disabled="appCtrl.inExperience"
-	                    	c6-on="experienceStart: {$this.prop('disabled', true); $this.blur();}"
+	                    	c6-on="{experienceStart: '$this.prop(\'disabled\', true); $this.blur();'}"
 	                    	ng-keypress="($event.charCode !== 32)? appCtrl.sfxSvc.playSound('type') : false;"
 	                    	c6-autofocus
 	                    	maxlength="{{prompt.sizeLimit}}"

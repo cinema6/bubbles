@@ -146,12 +146,13 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 			scope.$this = element;
 
 			var config = scope.$eval(attrs.c6On),
-				event;
-			for (event in config) {
-				scope.$on(event, function(e) {
+				event,
+				handleEvent = function(e) {
 					$log.log('c6-on responding to ' + e.name);
 					scope.$eval(config[e.name]);
-				});
+				};
+			for (event in config) {
+				scope.$on(event, handleEvent);
 			}
 		}
 	};

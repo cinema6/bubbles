@@ -20,6 +20,7 @@
       c6video
       c6-src="appCtrl.experience.src"
       on="timeupdate: annoCtrl.setActiveAnnotations, ended: annoCtrl.goToEnd"
+      c6-events="{timeupdate: 'annoCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'annoCtrl.goToEnd();'}"
       preload="auto"
       c6-controls="annoCtrl.videoCanPlay">
     </video>

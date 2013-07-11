@@ -26,7 +26,7 @@
 				expect(scope.$this).toBeDefined();
 			});
 			it('Should evalute expressions when an event is fired.', function() {
-				var element = $compile('<button c6-on="myEvent: {testMe();}">Test</button>')($scope),
+				var element = $compile('<button c6-on="{myEvent: \'testMe();\'}">Test</button>')($scope),
 					spy = jasmine.createSpy(),
 					scope = element.scope();
 				scope.testMe = spy;
@@ -37,7 +37,7 @@
 				expect(spy).toHaveBeenCalled();
 			});
 			it('Should evalute expressions when different events are fired.', function() {
-				var element = $compile('<button c6-on="myEvent: {testMe();}, myOtherEvent: {testMeToo();}">Test</button>')($scope),
+				var element = $compile('<button c6-on="{myEvent: \'testMe();\', myOtherEvent: \'testMeToo();\'}">Test</button>')($scope),
 					spy = jasmine.createSpy(),
 					otherSpy = jasmine.createSpy(),
 					scope = element.scope();

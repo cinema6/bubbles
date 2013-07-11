@@ -139,50 +139,21 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	};
 }])
 
-.directive('c6On', ['$log', function($log) {
+.directive('c6On', ['$parse', '$log', function($parse, $log) {
 	return {
 		scope: true,
-		link: function($scope, $element, $attrs) {
-			$scope.$this = $element;
+		link: function(scope, element, attrs) {
+			scope.$this = element;
 
-			var events = [],
-				expressions = [];
-
-			for (var i = 0, string = $attrs.c6On, length = string.length, onEvent = true, onExpression = false, curEvent = '', curExpression = ''; i < length; i++) {
-				var curChar = string.charAt(i);
-
-				if (onEvent) {
-					if (curChar !== ':') {
-						curEvent += curChar;
-					} else {
-						onEvent = false;
-						events.push(curEvent);
-						curEvent = '';
-					}
-				} else if (onExpression) {
-					if (curChar !== '}') {
-						curExpression += curChar;
-					} else {
-						onExpression = false;
-						expressions.push(curExpression);
-						curExpression = '';
-					}
-				} else {
-					if (curChar === '{') {
-						onExpression = true;
-					} else if ([' ', ',', '{'].indexOf(curChar) === -1) {
-						curEvent += curChar;
-						onEvent = true;
-					}
-				}
+			var config = scope.$eval(attrs.c6On),
+				event,
+				handleEvent = function(e) {
+					$log.log('c6-on responding to ' + e.name);
+					scope.$eval(config[e.name]);
+				};
+			for (event in config) {
+				scope.$on(event, handleEvent);
 			}
-
-			events.forEach(function(event, i) {
-				$scope.$on(event, function() {
-					$log.log('c6-on responding to ' + event);
-					$scope.$eval(expressions[i]);
-				});
-			});
 		}
 	};
 }])

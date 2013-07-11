@@ -26,7 +26,7 @@
                         <input
                         	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         	ng-disabled="appCtrl.inExperience"
-                        	c6-on="newPrompt: {(inputCtrl.currentPromptIndex() > 0)? $this.focus() : null;}, experienceStart: {$this.prop('disabled', true); $this.blur();}"
+                        	c6-on="{newPrompt: '(inputCtrl.currentPromptIndex() > 0)? $this.focus() : null;', experienceStart: '$this.prop(\'disabled\', true); $this.blur();'}"
                         	c6-sfx="{keydown: 'type'}"
                         	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
                             class="question__input"

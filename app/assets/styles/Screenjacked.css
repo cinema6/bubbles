@@ -333,10 +333,10 @@ button:disabled {opacity: 0.15;}
             /* iphone vertical */
             @media only screen and (max-width: 320px) {
                 .category__group {
-                    width: 100%; margin: 0% 0 0 0%;
+                    width: 52%; margin: -20% 0 0 28%; 
                 }
                 .category__item {
-                    width: 50%;
+                    width: 100%;
                 }
             }
 

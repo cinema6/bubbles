@@ -22,7 +22,7 @@
 }*/
 
 .a-style {
-    border-radius: 40px; border: 1px #cccecf solid;
+    border-radius: 40px; border: 1px #cccecf solid; /* border property used to replace images */
     background: url('../img/fantasy/annotation-body.png');
 }
 
@@ -146,18 +146,18 @@
  }
 
 .lotr-3 { top: 62%; left: 60%; }
-.lotr-4 { top: 29%; left: 73%; }
+.lotr-4 { top: 29%; left: 73%; max-width: 20%}
 .lotr-4 .a-tail-topLeft-thought {  
     background: url('../img/fantasy/topLeft-thought.png') no-repeat 30% 0; 
  }
 
-.lotr-5 { top: 8%; left: 78%; }
-.lotr-6 { top: 55%; left: 75%; }
+.lotr-5 { top: 8%; left: 73%; }
+.lotr-6 { top: 55%; left: 73%; }
 .lotr-6 .a-tail-topLeft-thought {  
     background: url('../img/fantasy/topLeft-thought.png') no-repeat 30% 0; 
  }
 
-.lotr-7 { top: 55%; left: 74%; }
+.lotr-7 { top: 55%; left: 73%; max-width: 24% }
 .lotr-7 .a-tail-topLeft-thought {  
     background: url('../img/fantasy/topLeft-thought.png') no-repeat 30% 0; 
  }

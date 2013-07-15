@@ -22,51 +22,40 @@
 }*/
 
 .a-style {
-    border-radius: 40px;
-    background: url('../img/fantasy/annotation-right.png') repeat-y right, 
-                url('../img/fantasy/annotation-left.png') repeat-y left, 
-                url('../img/fantasy/annotation-top.png') repeat-x top, 
-                url('../img/fantasy/annotation-bottom.png') repeat-x bottom,
-                url('../img/fantasy/annotation-body.png');
+    border-radius: 40px; border: 1px #cccecf solid;
+    background: url('../img/fantasy/annotation-body.png');
 }
 
-.a-frame {
+/*.a-frame {
     background: url('../img/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
                 url('../img/fantasy/annotation-bottomLeft.png') no-repeat 0 100%,
                 url('../img/fantasy/annotation-topRight.png') no-repeat 100% 0,
                 url('../img/fantasy/annotation-topLeft.png') no-repeat 0 0;
     margin: 0;
-}
+}*/
     .a-deco-right {
-      position: absolute;
       background: url('../img/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
       height: 68px; width: 71px;
-      bottom: -14px;
-      right: -14px;
+      bottom: -14px; right: -14px;
+      position: absolute;
     }  
 
     .a-deco-left {
-      position: absolute;
       background: url('../img/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
       height: 68px; width: 71px;
-      top: -14px;
-      left: -14px;
+      top: -14px; left: -14px;
+      position: absolute;
     }
 
 .a-text {
-    width: 80%;
-    padding: 10%;
-    margin: 0 auto;
-    text-align: center;
-    font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif;
-    font-size: 105%;
-    line-height: 100%;
-    color: #fff;
+    max-width: 80%; padding: 10%; margin: 0 auto;
+    text-align: center; line-height: 100%;
+    font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif; 
+    font-size: 105%; color: #fff;
 }
     @media only screen and (min-device-width: 768px) and (max-device-width: 1045px){
         .a-text {
-            font-size: 95%;
-            padding: 15% 12%;
+            font-size: 95%; padding: 15% 12%;
         }
     }
 
@@ -76,41 +65,36 @@
             url('../media/fantasy/SherwoodRegular.woff') format('woff'), 
             url('../media/fantasy/SherwoodRegular.eot') format('embedded-opentype'), 
             url('../media/fantasy/SherwoodRegular.svg#sherwoodregular') format('svg'); /* mobile browsers */
-        font-weight: normal;
-        font-style: normal;
+        font-weight: normal; font-style: normal;
     }
 
 /* tail styles */
     .a-tail-bottomLeft-speech {
-        position: absolute;
         background: url('../img/fantasy/bottomLeft-speech.png') no-repeat 10% 0; 
         height: 42px; width: 100%;
-        bottom: -36px;
-        left: 0;
+        bottom: -36px; left: 0;
+        position: absolute;
     }
 
     .a-tail-bottomRight-speech {
-        position: absolute;
         background: url('../img/fantasy/bottomRight-speech.png') no-repeat 35% 0; 
         height: 42px; width: 100%;
-        bottom: -36px;
-        left: 0;
+        bottom: -36px; left: 0;
+        position: absolute;
     }
 
     .a-tail-topLeft-speech {
-        position: absolute;
         background: url('../img/fantasy/topLeft-speech.png') no-repeat 65% 0; 
         height: 42px; width: 100%;
-        top: -36px;
-        left: 0;
+        top: -36px; left: 0;
+        position: absolute;
     }
 
     .a-tail-topRight-speech {
-        position: absolute;
         background: url('../img/fantasy/topRight-speech.png') no-repeat 80% 0; 
         height: 42px; width: 100%;
-        top: -36px;
-        left: 0;
+        top: -36px; left: 0;
+        position: absolute;
     }
 
     .a-tail-bottomLeft-thought {

@@ -620,41 +620,30 @@ button:disabled {opacity: 0.15;}
  }
  .experience__group {height: 100%; width:100%;}
  .experience__logo {
-    top: 46px;
-    left: 12px;
-    position: fixed;
-    z-index: 99;
+    top: 46px; left: 12px;
+    z-index: 99; position: fixed;
     opacity: 1;
     width: 25%;
  }
     .experience__logo img {
-        height: auto;
-        width: 100%;
+        height: auto; width: 100%;
     }
 
  #player {
-    position: absolute; 
-    padding: 1%;
-    width: 98%; 
-    height: 90%;
-    margin-left: -47%;
-    top: 30px; 
-    left: 47%;
-    z-index: 5; 
+    z-index: 5; position: absolute; 
+    width: 98%; height: 90%;
+    margin-left: -47%; padding: 1%;
+    top: 30px; left: 47%;
     opacity: 0;
  }
 
  .annotations{
-    z-index: 100;
-    position: absolute;
-    padding: 0;
-    left: 50%; 
-    top: 50%;
+    z-index: 100; position: absolute;
+    left: 50%; top: 50%; padding: 0;
  }
     .annotation {   
-        position: absolute;
-        opacity: 1;
-         -ms-transform-origin: 50% 50%; /* IE 9 */
+        position: absolute; opacity: 1;
+        -ms-transform-origin: 50% 50%; /* IE 9 */
         -moz-transform-origin: 50% 50%; /* Firefox */
         -o-transform-origin: 50% 50%; /* Opera */
         -webkit-transform-origin: 50% 50%; /* Safari and Chrome */

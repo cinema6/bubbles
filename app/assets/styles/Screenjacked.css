@@ -293,21 +293,13 @@ button:disabled {opacity: 0.15;}
         z-index: 2000; position: fixed;
         display: none;
     }
+
 /*  ==========================================================================
     categories styles
     ========================================================================== */
     .startScreen {position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5; display: block;
-        -ms-transform-origin: 0% 0%; /* IE 9 */
-        -moz-transform-origin: 0% 0%; /* Firefox */
-        -o-transform-origin: 0% 0%; /* Opera */
-        -webkit-transform-origin: 0% 0%; /* Safari and Chrome */
-        transform-origin: 0% 0%;
-
-        -ms-transform: rotate(0deg); /* IE 9 */
-        -moz-transform: rotate(0deg); /* Firefox */
-        -o-transform: rotate(0deg); /* Opera */
-        -webkit-transform: rotate(0deg); /* Safari and Chrome */
-        transform: rotate(0deg);        
+        -ms-transform-origin: 0% 0%; -moz-transform-origin: 0% 0%; -o-transform-origin: 0% 0%; -webkit-transform-origin: 0% 0%; transform-origin: 0% 0%;
+        -ms-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg); 
     }
 
      /* content */
@@ -319,92 +311,84 @@ button:disabled {opacity: 0.15;}
             width: 83%; margin: 10% 0 0 13%; z-index: 1;
             -ms-transform: rotate(-15deg); -moz-transform: rotate(-15deg); -o-transform: rotate(-15deg); -webkit-transform: rotate(-15deg); transform: rotate(-15deg);
         }
+            .category__item { width: 33%; margin: 2% 0 0 0; display: inline-block;}
 
-            .category__item {
-                width: 33%; margin: 2% 0 0 0;
-                display: inline-block;
+            .category__frame {background: #fff; box-shadow: 0 2px 4px #b9b9b9; }
+                .category__frame:active { background: #c20000;} 
+
+            .category__art {width: 96%; margin: 2%;}            
+
+            /* iphone 5 horizontal */
+            @media only screen and (max-width: 568px) {
+                .category__group {
+                    width: 90%; margin: 10% 0 0 7%;
+                }
             }
-
-            .category__frame {
-                background: #fff; box-shadow: 0 2px 4px #b9b9b9; 
+            /* iphone 4 horizontal */
+            @media only screen and (max-width: 480px) {
+                .category__group {
+                    width: 95%; margin: 12% 0 0 4%;
+                }
             }
-
-                .category__frame:active {
-                    background: #c20000;
-                } 
-
-             .category__art {
-                width: 96%; margin: 2%;
-            }            
-
+            /* iphone vertical */
+            @media only screen and (max-width: 320px) {
+                .category__group {
+                    width: 52%; margin: -20% 0 0 28%; 
+                }
+                .category__item {
+                    width: 100%;
+                }
+            }
 
 		 /* artwork */
          .startScreen__logo {
-            background: url('../img/logo_pen800.png') no-repeat top left;
-            background-size: contain;
-            top: 0;
-            left: 0;
-            margin-top: -380px;
-            margin-left: -250px;
-            width: 800px;
-            height: 1300px;
-            z-index: -1;
-            position: absolute;
+            background: url('../img/logo_pen800.png') no-repeat top left; background-size: contain;
+            top: 0; left: 0; margin: -380px 0 0 -250px;
+            width: 800px; height: 1300px;
+            z-index: -1; position: absolute;
          }    
             @media only screen and (max-width: 768px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen600.png') no-repeat top left;
-                    width: 600px;
-                    margin-top: -275px;
-                    margin-left: -200px;
+                    width: 600px; margin: -275px 0 0 -200px;
                 } 
             }
             @media only screen and (max-height: 485px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen600.png') no-repeat top left;
-                    width: 600px;
-                    margin-top: -275px;
-                    margin-left: -200px;
+                    width: 600px; margin: -275px 0 0 -200px;
                 }
             }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .startScreen__logo {
                     background: url('../img/logo_pen600.png') no-repeat top left;
-                    width: 600px;
-                    margin: -270px 0 0 -200px;
+                    width: 600px; margin: -270px 0 0 -200px;
                 }
             }
             @media only screen and (max-height: 354px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
-                    width: 300px;
-                    margin: -120px 0 0 -100px;
+                    width: 300px; margin: -120px 0 0 -100px;
                 }
             }
             @media only screen and (max-width: 568px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
-                    width: 300px;
-                    margin: -120px 0 0 -100px;
+                    width: 300px; margin: -120px 0 0 -100px;
                 }
             }
 
         .startScreen__bgArtwork {
             background: url('../img/paperball.png') no-repeat bottom right;
-            width: 100%; 
-            height: 100%;
-            position: absolute;
-            bottom: 0;
-            right: -400px;
-            z-index: -1;
+            width: 100%; height: 100%;
+            bottom: 0;right: -400px;
+            z-index: -1; position: absolute;
          }
             @media screen and (max-width: 768px) {
                .startScreen__bgArtwork {    
                     background-size: contain;
-                    width: 200px; 
-                    height: 200px;
-                    bottom: 20%;
-                    right: -120px;
+                    width: 200px; height: 200px;
+                    bottom: 20%; right: -120px;
                 } 
             }   
 
@@ -636,41 +620,30 @@ button:disabled {opacity: 0.15;}
  }
  .experience__group {height: 100%; width:100%;}
  .experience__logo {
-    top: 46px;
-    left: 12px;
-    position: fixed;
-    z-index: 99;
+    top: 46px; left: 12px;
+    z-index: 99; position: fixed;
     opacity: 1;
     width: 25%;
  }
     .experience__logo img {
-        height: auto;
-        width: 100%;
+        height: auto; width: 100%;
     }
 
  #player {
-    position: absolute; 
-    padding: 1%;
-    width: 98%; 
-    height: 90%;
-    margin-left: -47%;
-    top: 30px; 
-    left: 47%;
-    z-index: 5; 
+    z-index: 5; position: absolute; 
+    width: 98%; height: 90%;
+    margin-left: -47%; padding: 1%;
+    top: 30px; left: 47%;
     opacity: 0;
  }
 
  .annotations{
-    z-index: 100;
-    position: absolute;
-    padding: 0;
-    left: 50%; 
-    top: 50%;
+    z-index: 100; position: absolute;
+    left: 50%; top: 50%; padding: 0;
  }
     .annotation {   
-        position: absolute;
-        opacity: 1;
-         -ms-transform-origin: 50% 50%; /* IE 9 */
+        position: absolute; opacity: 1;
+        -ms-transform-origin: 50% 50%; /* IE 9 */
         -moz-transform-origin: 50% 50%; /* Firefox */
         -o-transform-origin: 50% 50%; /* Opera */
         -webkit-transform-origin: 50% 50%; /* Safari and Chrome */

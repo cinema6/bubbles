@@ -489,7 +489,7 @@
 
 				fantasyShow.from(annotation, 0.3, {
 					alpha:0,
-					scale:2,
+					top: '-=30px',
 					ease:Back.easeOut
 				})
 				.eventCallback('onComplete', done);

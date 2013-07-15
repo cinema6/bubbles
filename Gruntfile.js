@@ -35,7 +35,7 @@ module.exports = function (grunt) {
           }
         };
 
-    if (fs.existsSync(path.join(process.env.HOME,'.aws.json'))){
+    if ((process.env.HOME) && (fs.existsSync(path.join(process.env.HOME,'.aws.json')))){
         initProps.aws = grunt.file.readJSON(
                 path.join(process.env.HOME,'.aws.json')
         );

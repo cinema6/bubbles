@@ -568,7 +568,7 @@ button:disabled {opacity: 0.15;}
                 /* iPhone horizontal */
                 @media screen and (max-width: 568px) {
                 .c6-ios-keyboard-up {
-                    height: 180px; width: 100%; top:40px; position: absolute; 
+                    height: 140px; width: 100%; top:40px; position: absolute;
                 }
                     .question__characterCount {
                         width: 106%; top: 40%;

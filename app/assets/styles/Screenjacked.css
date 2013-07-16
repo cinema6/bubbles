@@ -539,7 +539,7 @@ button:disabled {opacity: 0.15;}
                     z-index: -2;
                 }
 
-                /* iPad horizontal*/
+                /* iPad landscape*/
                 @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .c6-ios-keyboard-up {
                     height: 280px; width: 100%; top:40px; position: absolute;
@@ -565,35 +565,39 @@ button:disabled {opacity: 0.15;}
                     .c6-ios-keyboard-up .progressDock {display: none;}
                 }
 
-                /* iPhone horizontal */
+                /* iPhone landscape */
                 @media screen and (max-width: 568px) {
-                .c6-ios-keyboard-up {
-                    height: 140px; width: 100%; top:40px; position: absolute;
+                .question__characterCount {
+                    width: 106%; top: 40%;
                 }
-                    .question__characterCount {
-                        width: 106%; top: 40%;
-                    }
-                    .question__inputCheck {
-                        height: 24px; background-size: contain; top: 35%;
-                    }
+                .question__inputCheck {
+                    height: 24px; background-size: contain; top: 35%;
+                }
+
+                .c6-ios-keyboard-up {
+                    height: 140px; width: 100%; margin-top:38px;
+                }
                     .c6-ios-keyboard-up .content { 
                         height: 100%;
                     }
-                    .c6-ios-keyboard-up .question__inputCheck {
-                        height: 18px; top: 45%; background-size: contain;
-                    }
-                    .c6-ios-keyboard-up .question__characterCount {
-                        font-size: 12px; width: 107%; top: 18px;
-                    }
-
                     .c6-ios-keyboard-up .question__query {
                         font-size: 1em;
                     }
-
+                    .c6-ios-keyboard-up .question__number { 
+                        font-size: 0.5em;
+                    }
+                    .c6-ios-keyboard-up .question__input { 
+                        font-size: 1.25em; margin-top: 5%;
+                    }
                     .c6-ios-keyboard-up .question__btnStart {
                         top: 80%; height: 30%;
                     }
-
+                    .c6-ios-keyboard-up .question__inputCheck {
+                        height: 18px; top: 42%;
+                    }
+                    .c6-ios-keyboard-up .question__characterCount {
+                        font-size: 12px; width: 107%; top: 20px;
+                    }
                     .c6-ios-keyboard-up .question__btnPrevious { 
                         top: 32%; height: 20%;
                     }
@@ -601,19 +605,23 @@ button:disabled {opacity: 0.15;}
                         top: 32%; height: 20%;
                     }
                     
-                    .c6-ios-keyboard-up .question__number { display: none;}
                     .c6-ios-keyboard-up .progressDock { display: none;}
                     .c6-ios-keyboard-up .inputScreen__logo {display: none;}
                     .c6-ios-keyboard-up .inputScreen__bgArtwork {display: none;}
                     .c6-ios-keyboard-up .inputScreen__btnClose {display: none;}
                 }
 
-                /* iPhone vertical */
+                /* iPhone portrait */
                 @media screen and (max-width: 320px) {
                     .c6-ios-keyboard-up {
-                        height: 180px; top: 40px; 
+                        height: 200px; margin-top: 40px;
                     }
-
+                       .c6-ios-keyboard-up .question__btnPrevious { 
+                            top: 25%;
+                        }
+                        .c6-ios-keyboard-up .question__btnNext {
+                            top: 25%;
+                        }
                     .question__characterCount {
                         width: 110%; top: 40%;
                     }

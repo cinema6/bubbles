@@ -542,7 +542,7 @@ button:disabled {opacity: 0.15;}
                 /* iPad landscape*/
                 @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .c6-ios-keyboard-up {
-                    height: 280px; width: 100%; top:40px; position: absolute;
+                    height: 280px; width: 100%; margin-top:40px;
                 }
                     .c6-ios-keyboard-up .inputScreen__bgArtwork {
                         bottom: -410px;
@@ -555,7 +555,7 @@ button:disabled {opacity: 0.15;}
                 /* iPad portrait */
                 @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
                 .c6-ios-keyboard-up {
-                    height: 620px; width: 100%; top:40px; position: absolute;
+                    height: 620px; width: 100%; margin-top:40px; 
                 }
                     .c6-ios-keyboard-up .inputScreen__bgArtwork {
                         bottom: -300px;

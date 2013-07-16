@@ -113,6 +113,10 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 						}
 					}, 50);
 				});
+				window.addEventListener('orientationchange', function() {
+					console.log(window.orientation);
+					window.scrollTo(0,0);
+				});
 			} else if (attrs.c6IosKeyboard === 'target') {
 				scope.$on('c6-ios-keyboard-up', function() {
 					$log.log('iPad keyboard is up!');

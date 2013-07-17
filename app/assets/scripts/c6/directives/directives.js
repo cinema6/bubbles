@@ -113,20 +113,22 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 						}
 					}, 50);
 				});
-				window.addEventListener('orientationchange', function() {
-					console.log(window.orientation);
-					window.scrollTo(0,0);
-				});
 			} else if (attrs.c6IosKeyboard === 'target') {
+				var orientationHandler = function () {
+					$window.scrollTo(0, 0);
+					$log.log('Orientation triggered scroll up');
+				};
 				scope.$on('c6-ios-keyboard-up', function() {
 					$log.log('iPad keyboard is up!');
 					$window.scrollTo(0, 0);
 					element.addClass('c6-ios-keyboard-up');
+					angular.element($window).bind('orientationchange', orientationHandler);
 				});
 
 				scope.$on('c6-ios-keyboard-down', function() {
 					$log.log('iPad keyboard is down!');
 					element.removeClass('c6-ios-keyboard-up');
+					angular.element($window).unbind('orientationchange', orientationHandler);
 				});
 			}
 		}

@@ -72,6 +72,49 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
+.service('cinema6', ['$window', '$document', '$rootScope', '$location', '$log', function($window, $document, $rootScope, $location, $log) {
+	var parent = $window.parent,
+		ngEventHandlerDeactivateFuncs = [],
+		updateParent = function() {
+			parent.postMessage({ 'pathChange': { path: $location.path() } }, '*');
+		},
+		noop = angular.noop;
+
+	this.$emit = function(name) {
+		var argsToForward = Array.prototype.slice.call(arguments);
+		argsToForward.splice(0, 1);
+
+		parent.postMessage({ '$emit': { name: name, args: argsToForward } }, '*');
+	};
+
+	ngEventHandlerDeactivateFuncs.push($rootScope.$on('$routeChangeSuccess', function() {
+		updateParent();
+	}));
+	ngEventHandlerDeactivateFuncs.push($rootScope.$on('$stateChangeSuccess', function() {
+		updateParent();
+	}));
+
+	// Disable this service if we're not inside the cinema6 site.
+	if (!parent || parent === $window) {
+		$log.log('Cinema6 service is deactivating!');
+		(function() {
+			var property,
+				value;
+			// Remove the handlers on the $rootScope
+			ngEventHandlerDeactivateFuncs.forEach(function(deactivate) {
+				deactivate();
+			});
+			// Disable all of our functions.
+			for (property in this) {
+				value = this[property];
+
+				if (typeof value === 'function') {
+					this[property] = noop;
+				}
+			}
+		}).call(this);
+	}
+}])
 .service('C6ResponseCachingService', ['$window', function($window) {
 	if (!$window.localStorage) {
 		$window.localStorage = {};

@@ -78,6 +78,27 @@ angular.module('c6.svc',[])
 		updateParent = function() {
 			parent.postMessage({ 'pathChange': { path: $location.path() } }, '*');
 		},
+		handleMessage = function(event) {
+			var data = event.data,
+				$broadcast = data.$broadcast;
+			
+			if ($broadcast) {
+				(function(broadcast) {
+					var convertToArray = function(data) {
+						var key,
+							value,
+							array = [];
+							
+						for (key in data) {
+							array.push(data[key]);
+						}
+						
+						return array;
+					};
+					$rootScope.$broadcast.apply($rootScope, convertToArray(broadcast));
+				})($broadcast);
+			}
+		},
 		noop = angular.noop;
 
 	this.$emit = function(name) {
@@ -93,6 +114,8 @@ angular.module('c6.svc',[])
 	ngEventHandlerDeactivateFuncs.push($rootScope.$on('$stateChangeSuccess', function() {
 		updateParent();
 	}));
+	
+	$window.addEventListener('message', handleMessage, false);
 
 	// Disable this service if we're not inside the cinema6 site.
 	if (!parent || parent === $window) {
@@ -100,6 +123,8 @@ angular.module('c6.svc',[])
 		(function() {
 			var property,
 				value;
+			// Remove the handler for messages on the window
+			$window.removeEventListener('message', handleMessage, false);
 			// Remove the handlers on the $rootScope
 			ngEventHandlerDeactivateFuncs.forEach(function(deactivate) {
 				deactivate();

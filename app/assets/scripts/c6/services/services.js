@@ -81,18 +81,17 @@ angular.module('c6.svc',[])
 		handleMessage = function(event) {
 			var data = event.data,
 				$broadcast = data.$broadcast;
-			
+
 			if ($broadcast) {
 				(function(broadcast) {
 					var convertToArray = function(data) {
 						var key,
-							value,
 							array = [];
-							
+
 						for (key in data) {
 							array.push(data[key]);
 						}
-						
+
 						return array;
 					};
 					$rootScope.$broadcast.apply($rootScope, convertToArray(broadcast));
@@ -114,7 +113,7 @@ angular.module('c6.svc',[])
 	ngEventHandlerDeactivateFuncs.push($rootScope.$on('$stateChangeSuccess', function() {
 		updateParent();
 	}));
-	
+
 	$window.addEventListener('message', handleMessage, false);
 
 	// Disable this service if we're not inside the cinema6 site.

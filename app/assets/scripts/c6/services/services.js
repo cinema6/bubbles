@@ -98,7 +98,8 @@ angular.module('c6.svc',[])
 				})($broadcast);
 			}
 		},
-		noop = angular.noop;
+		noop = angular.noop,
+		listenForLoad = false;
 
 	this.$emit = function(name) {
 		var argsToForward = Array.prototype.slice.call(arguments);
@@ -115,6 +116,12 @@ angular.module('c6.svc',[])
 	}));
 
 	$window.addEventListener('message', handleMessage, false);
+
+	listenForLoad = $rootScope.$on('$viewContentLoaded', function() {
+		listenForLoad();
+		parent.postMessage({ 'loaded': true }, '*');
+	});
+	ngEventHandlerDeactivateFuncs.push(listenForLoad);
 
 	// Disable this service if we're not inside the cinema6 site.
 	if (!parent || parent === $window) {

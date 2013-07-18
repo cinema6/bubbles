@@ -1,0 +1,57 @@
+{
+	"id": "notebook2",
+	"title": "Something Special from Jason",
+	"views": 993,
+	"src": "media/romance/not_over",
+	"css": "styles/bubbles_romance2.css",
+	"anim": "romance",
+	"defsizeLimit": 18,
+	"prompts": [
+		"Type of food",
+		"One word insult",
+		"Least favorite TV show",
+		"Body parts (plural)",
+		"Type of flowers",
+		"Animal",
+		"Bodily function"
+	],
+	"annotations": [
+		{
+			"options": {
+				"type": "bubble",
+				"duration": 4,
+				"cls": ["notebook-${index}"]
+			},
+			"notes": [
+				{ "ts": 1, "template": "Throw me some ${1} you ${2}!", 
+                    "duration" : 2.5, "tail": { "type": "thought", "pos": "bottomLeft" } },
+				{ "ts": 5, "template": "Ladies love to watch me row.", 
+                    "duration" : 4, "tail": { "type": "thought", "pos": "bottomRight" } },
+				{ "ts": 7, "template": "It's like watching ${3}", 
+                    "duration" : 3, "tail": { "type": "thought", "pos": "bottomRight" } },
+				{ "ts": 11, "template": "Did that duck just call me a ${2}?",
+                    "tail": { "type": "thought", "pos": "bottomLeft" } },
+				{ "ts": 16, "template": "God I need to fart.",
+                    "duration" : 5, "tail": { "type": "thought", "pos": "bottomRight" } },
+				{ "ts": 17, "template": "Luckly mine smell like ${5}!",
+                    "duration" : 4, "tail": { "type": "thought", "pos": "bottomRight" } },
+				{ "ts": 23.5, "template": "Why does it suddenly smell like rotting ${5}?",
+                    "duration" : 3, "tail": { "type": "thought", "pos": "bottomLeft" } },
+				{ "ts": 27, "template": "Mmm, like ${5}.",
+                    "duration" : 3, "tail": { "type": "thought", "pos": "bottomRight" } },
+				{ "ts": 34, "template": "This is worse than ${3}.",
+                    "duration" : 2.5, "tail": { "type": "thought", "pos": "bottomRight" } },
+				{ "ts": 37, "template": "He looks bored.. Try laughng like an insane ${6}...",
+                    "tail": { "type": "thought", "pos": "bottomLeft" } },
+				{ "ts": 43, "template": "..then show some cleavage...",
+                    "tail": { "type": "thought", "pos": "bottomLeft" } },
+				{ "ts": 49, "template": "..then stare until he notces your lovely ${4}.",
+                    "duration" : 4, "tail": { "type": "thought", "pos": "bottomLeft" } },
+				{ "ts": 54.5, "template": "Yuck, those ${4} make me want to ${7}.",
+                    "duration" : 2.5, "tail": { "type": "thought", "pos": "bottomRight" } },
+				{ "ts": 58, "template": "He loves my ${4}.",
+                    "duration": 2, "tail": { "type": "thought", "pos": "bottomLeft" } }
+			]
+		}
+	]
+}

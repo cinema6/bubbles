@@ -38,7 +38,8 @@
 	];
 
 	angular.module('c6.app', dependencies)
-		.config(['$stateProvider', '$urlRouterProvider', 'environment', function ($stateProvider, $urlRouterProvider, env) {
+		.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'environment', function ($stateProvider, $urlRouterProvider, $locationProvider, env) {
+			$locationProvider.html5Mode(true);
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
 				.state('landing', {

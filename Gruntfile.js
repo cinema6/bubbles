@@ -79,6 +79,14 @@ module.exports = function (grunt) {
                 tasks: ['livereload']
             }
         },
+		express: {
+			dev: {
+				options: {
+					port: 9000,
+					script: 'express.js'
+				}
+			}
+		},
         connect: {
             options: {
                 port: 9000,
@@ -331,7 +339,7 @@ module.exports = function (grunt) {
         'clean:server',
         'configureProxies',
         'livereload-start',
-        'connect:livereload',
+        'express:dev',
         'open',
         'watch'
     ]);

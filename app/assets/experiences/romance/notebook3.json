@@ -39,7 +39,7 @@
                     "duration" : 3, "tail": { "type": "thought", "pos": "bottomRight" } },
 				{ "ts": 34, "template": "awkward laugh",
                     "duration" : 2.5, "tail": { "type": "thought", "pos": "bottomRight" } },
-				{ "ts": 37, "template": "I always laugh like an insane ${6} when it rains.", 
+				{ "ts": 37, "template": "I always laugh like an insane ${7} when it rains.", 
                     "tail": { "type": "thought", "pos": "bottomLeft" } },
 				{ "ts": 43, "template": "Time to stretch.",
                     "tail": { "type": "thought", "pos": "bottomLeft" } },

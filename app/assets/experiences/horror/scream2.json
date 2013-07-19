@@ -1,0 +1,40 @@
+{
+	"id": "scream2",
+	"title": "Scary Movie",
+	"views": 1000,
+	"src": null,
+	"defSizeLimit": 18,
+	"prompts": [
+		"one word greeting",
+		"popular social network",
+		"mood",
+		"body part",
+		"one word medical condition",
+		"bodily fluid",
+		"animal",
+		"synonym for feces"
+	],
+	"annotations": [
+		{
+			"options": {
+				"type": "talkie",
+				"vid": "scream",
+				"voice": "Steven",
+				"effect": "R",
+				"level": "3"
+			},
+			"notes": [
+				{ "ts": "8.70", "template": "${1}" },
+				{ "ts": "11.83", "template": "You contacted me on ${2}" },
+				{ "ts": "17.67", "template": "Are you making something?" },
+				{ "ts": "20.00", "template": "Are you alone?" },
+				{ "ts": "21.92", "template": "Popcorn makes me ${3}" },
+				{ "ts": "25.92", "template": "Really what is it?" },
+				{ "ts": "28.75", "template": "Should I massage your ${4}?" },
+				{ "ts": "30.75", "template": "Do you care that I have ${5}?"  },
+				{ "ts": "35.08", "template": "Actually, I look like a monster from a scary movie" },
+				{ "ts": "46.38", "template": "That is funny, I wear a mask sometimes too.  But, mine is made out of dried human ${6} and ${7} ${8} that I find in the park.  I would really like to come over and massage your ${4}.  Lets see how it goes.  I've already updated my ${2} account to say, I'm cooking popcorn with that chick who was in E T <Break time=\"150ms\"/>  L O L." }
+			]
+		}
+	]
+}

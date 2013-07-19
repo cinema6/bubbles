@@ -423,7 +423,8 @@ angular.module('c6.svc',[])
 	        //'lotr2'
 	    ],
 	    horror: [
-	        'scream'
+	        'scream',
+            'scream2'
 	    ],
 	    scifi: [
 	        '2001'

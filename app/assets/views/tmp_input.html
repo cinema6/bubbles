@@ -16,6 +16,7 @@
 
     <!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
 
+<!-- NEW CSS (change to .progressDock) -->
     <style>
     .progressDock2 {
         text-align: center; margin: 250px 50px 0 0;
@@ -42,6 +43,7 @@
             }
         }
     </style>
+<!-- NEW CSS -->
 
   </head><body> 
 <div class="inputScreen">
@@ -73,7 +75,9 @@
                         </h6>
                     </div>
                 </li>
-                <ul class="progressDock2"> <!-- MAKE THIS THE NEW PROGRESSDOCK CLASS -->
+
+        <!-- NEW HTML -->    
+                <ul class="progressDock2"> <!-- MAKE THIS THE NEW ".progressDock"CLASS -->
                     <li><img src="../img/input_check.png"></li>
                     <li><img src="../img/input_check.png"></li>
                     <li><img src="../img/input_blank.png"></li>
@@ -85,7 +89,8 @@
                     <li><img src="../img/input_blank.png"></li>
                     <li><img src="../img/input_blank.png"></li>
                 </ul>
-                
+        <!-- NEW HTML -->
+
                 <button class="question__btnStart"
                 style="margin-top: 80px;"> <!-- ADD THIS TO STYLESHEET -->
                 <span class="ir">Start</span>
@@ -100,9 +105,7 @@
             </button>
             
             </ul>
-        </form></div>
-        <!--<footer class="progressDock">Page {{inputCtrl.currentPromptIndex() + 1}} of {{inputCtrl.totalPrompts()}}</footer>-->
-     
+        </form></div>    
 </div>
   </body>
 </html>

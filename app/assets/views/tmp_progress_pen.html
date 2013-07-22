@@ -2,90 +2,97 @@
 <html><head>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TimelineMax.min.js"></script>
-<style>
-.loading__group {
-	position: absolute; top: 45%;
-	width: 100%;
-	}
-	.loading__text {
-		font-family: 'courier prime'; color: #fff; text-align: center;
-		list-style: none; 
-	}
-		@media screen and (max-width: 568px) {
-			.loading__text {font-size: 0.8em;}
 
+<!-- NEW CSS -->
+	<style>
+	.loading__group {
+		position: absolute; top: 45%;
+		width: 100%;
 		}
-		@media screen and (max-width: 320px) {
-			.loading__text {font-size: 0.6em;}
+		.loading__text {
+			font-family: 'courier prime'; color: #fff; text-align: center;
+			list-style: none; 
 		}
-		.loading__text li {display:inline-block; text-align: center; width: 568px;}
 			@media screen and (max-width: 568px) {
-				.loading__text li{width: 320px;}
+				.loading__text {font-size: 0.8em;}
+
 			}
 			@media screen and (max-width: 320px) {
-				.loading__text li{width: 240px;}
+				.loading__text {font-size: 0.6em;}
 			}
+			.loading__text li {display:inline-block; text-align: center; width: 568px;}
+				@media screen and (max-width: 568px) {
+					.loading__text li{width: 320px;}
+				}
+				@media screen and (max-width: 320px) {
+					.loading__text li{width: 240px;}
+				}
 
-	.loading__container { 
-		background: #0e0f10; width: 25%; margin: 0 auto;
-	}
-		.loading__bar {background: red; height: 6px; width: 0}
-</style>
+		.loading__container { 
+			background: #0e0f10; width: 25%; margin: 0 auto;
+		}
+			.loading__bar {background: red; height: 6px; width: 0}
+	</style>
+<!-- NEW CSS -->
 
 </head><body style="background: black;">
-<div class="loading__group" >
-	<ul class="loading__text">
-		<li class="text1" id="text1">Initializing Screenjack Creation...</li>
-		<li class="text2" id="text2">Extracting Punchlines...</li>
-		<li class="text3" id="text3">Creating Tomfoolery...</li>
-		<li class="text4" id="text4">Interpooling Character's Thoughts...</li>
-		<li class="text5" id="text5">Critiquing Word Choice...</li>
-		<li class="text6" id="text6">Connecting to Comedy Database...</li>
-		<li class="text7" id="text7">Running Hilarity Algorithms...</li>
-		<li class="text8" id="text8">Looping Randomness...</li>
-	</ul>
-	<div class="loading__container">
-		<div class="loading__bar" id="loading-bar">&nbsp;</div>
+
+
+<!-- NEW HTML -->
+	<div class="loading__group" >
+		<ul class="loading__text">
+			<li class="text1" id="text1">Initializing Screenjack Creation...</li>
+			<li class="text2" id="text2">Extracting Punchlines...</li>
+			<li class="text3" id="text3">Creating Tomfoolery...</li>
+			<li class="text4" id="text4">Interpooling Character's Thoughts...</li>
+			<li class="text5" id="text5">Critiquing Word Choice...</li>
+			<li class="text6" id="text6">Connecting to Comedy Database...</li>
+			<li class="text7" id="text7">Running Hilarity Algorithms...</li>
+			<li class="text8" id="text8">Looping Randomness...</li>
+		</ul>
+		<div class="loading__container">
+			<div class="loading__bar" id="loading-bar">&nbsp;</div>
+		</div>
 	</div>
-</div>
-
-
-<script>
-var text1 = document.getElementById('text1'),
-	text2 = document.getElementById('text2'),
-	text3 = document.getElementById('text3'),
-	text4 = document.getElementById('text4'),
-	text5 = document.getElementById('text5'),
-	text6 = document.getElementById('text6'),
-	text7 = document.getElementById('text7'),
-	text8 = document.getElementById('text8'),
-	progressBar = document.getElementById('loading-bar'),
-	loadingText = new TimelineMax({repeat: -1, yoyo:false})
-	loadingBar = new TimelineMax({});
-
-loadingText.from(text1, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 1 enter
-	.to(text1, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 1 leave
-	.from(text2, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 2 enter
-	.to(text2, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 2 leave
-	.from(text3, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 3 enter
-	.to(text3, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 3 leave
-	.from(text4, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 4 enter
-	.to(text4, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 4 leave
-	.from(text5, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 5 enter
-	.to(text5, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 5 leave
-	.from(text6, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 6 enter
-	.to(text6, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 6 leave
-	.from(text7, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 7 enter
-	.to(text7, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 7 leave
-	.from(text8, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 8 enter
-	.to(text8, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5'); //text 8 leave
-
-loadingBar.to(progressBar, 10, {width: '95%', ease: 'linear'});
-
-
-</script>
+<!-- NEW HTML -->
 
 
 
+<!-- NEW ANIMATION JS -->
+	<script>
+	var text1 = document.getElementById('text1'),
+		text2 = document.getElementById('text2'),
+		text3 = document.getElementById('text3'),
+		text4 = document.getElementById('text4'),
+		text5 = document.getElementById('text5'),
+		text6 = document.getElementById('text6'),
+		text7 = document.getElementById('text7'),
+		text8 = document.getElementById('text8'),
+		progressBar = document.getElementById('loading-bar'),
+		loadingText = new TimelineMax({repeat: -1, yoyo:false})
+		loadingBar = new TimelineMax({});
+
+	loadingText.from(text1, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 1 enter
+		.to(text1, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 1 leave
+		.from(text2, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 2 enter
+		.to(text2, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 2 leave
+		.from(text3, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 3 enter
+		.to(text3, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 3 leave
+		.from(text4, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 4 enter
+		.to(text4, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 4 leave
+		.from(text5, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 5 enter
+		.to(text5, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 5 leave
+		.from(text6, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 6 enter
+		.to(text6, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 6 leave
+		.from(text7, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 7 enter
+		.to(text7, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 7 leave
+		.from(text8, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 8 enter
+		.to(text8, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5'); //text 8 leave
+
+	loadingBar.to(progressBar, 10, {width: '95%', ease: 'linear'});
+	</script>
+<!-- NEW ANIMATION JS -->
+
+<!-- animation loadingBar is incomplete, it needs to go to "width: '100%'" when the video is completely loaded -->
 
 </body></html>

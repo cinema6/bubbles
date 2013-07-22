@@ -834,32 +834,30 @@ button:disabled {opacity: 0.15;}
 
     .loading__group {
     	position: absolute; top: 45%;
-    	width: 100%;
+    	width: 100%; z-index: 9000;
     	}
     	.loading__text {
     		font-family: 'courier prime'; color: #fff; text-align: center;
-    		list-style: none; 
+    		list-style: none;
     	}
     		@media screen and (max-width: 568px) {
     			.loading__text {font-size: 0.8em;}
-
     		}
     		@media screen and (max-width: 320px) {
     			.loading__text {font-size: 0.6em;}
     		}
-    		.loading__text li {display:inline-block; text-align: center; width: 568px;}
+    		.loading__text li {display:inline-block; text-align: center; width: 568px; margin-left: -3%;}
     			@media screen and (max-width: 568px) {
-    				.loading__text li{width: 320px;}
+    				.loading__text li{width: 320px;  margin-left: -10%;}
     			}
     			@media screen and (max-width: 320px) {
-    				.loading__text li{width: 240px;}
+    				.loading__text li{width: 240px; }
     			}
 
     	.loading__container { 
     		background: #0e0f10; width: 25%; margin: 0 auto;
     	}
     		.loading__bar {background: red; height: 6px; width: 0}
-
 
 /*  ==========================================================================
     end styles

@@ -20,8 +20,9 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				text7 = element.find('#text7'),
 				text8 = element.find('#text8'),
 				progressBar = element.find('#loading-bar'),
-				loadingText = new TimelineMax({repeat: -1, yoyo:false}),
-				loadingBar = new TimelineMax({});
+				loadingText = new TimelineMax({paused: true, repeat: -1, yoyo:false}),
+				loadingBarPending = new TimelineMax({paused: true}),
+				loadingBarComplete = new TimelineMax({paused: true});
 
 			loadingText.from(text1, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 1 enter
 				.to(text1, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 1 leave
@@ -40,15 +41,26 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				.from(text8, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 8 enter
 				.to(text8, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5'); //text 8 leave
 
-			loadingBar.to(progressBar, 10, {width: '95%', ease: 'linear'});
+			loadingBarPending.to(progressBar, 10, {width: '95%', ease: 'linear'});
+			loadingBarComplete.to(progressBar, 1, {width: '100%', ease: 'linear'});
 
-			//element.hide();
+			element.hide();
 
 			scope.$watch('loading()', function(loading) {
 				if (loading) {
 					// Show the element and start animating
+					setTimeout(function() {
+						element.fadeIn();
+					}, 2000);
+					loadingText.play();
+					loadingBarPending.play();
 				} else {
 					// Complete the "load" and hide element'
+					//loadingBarPending.pause();
+					//loadingBarComplete.play();
+					setTimeout(function() {
+						element.fadeOut();
+					}, 1500);
 				}
 			});
 		}

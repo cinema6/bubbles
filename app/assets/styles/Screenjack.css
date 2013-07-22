@@ -707,10 +707,11 @@ button:disabled {opacity: 0.15;}
 			text-align: center; margin: 250px 50px 0 0;
 		}
 			.progressDock li {
-				display: inline; 
+				display: inline-block; width: 42px;
 			}
 				.progressDock li img {
-					display: none;
+					-webkit-transform:scale(0); -moz-transform:scale(0); -ms-transform:scale(0); -o-transform:scale(0);
+                    transform:scale(0); display: none;
 				}
 			@media screen and (max-width: 768px) {
 				.progressDock img {
@@ -721,12 +722,12 @@ button:disabled {opacity: 0.15;}
 				.progressDock {
 					margin: 180px 30px 0 0;
 				}
-				.progressDock img {
+				.progressDock li {
 					width: 26px;
 				}
 			}
 			@media screen and (max-width: 320px) {
-				.progressDock img {
+				.progressDock li {
 					width: 20px;
 				}
 			}
@@ -818,33 +819,33 @@ button:disabled {opacity: 0.15;}
         transform-origin: 50% 50%;
     }
 
-.loading__group {
-	position: absolute; top: 45%;
-	width: 100%;
-	}
-	.loading__text {
-		font-family: 'courier prime'; color: #fff; text-align: center;
-		list-style: none; 
-	}
-		@media screen and (max-width: 568px) {
-			.loading__text {font-size: 0.8em;}
+    .loading__group {
+    	position: absolute; top: 45%;
+    	width: 100%;
+    	}
+    	.loading__text {
+    		font-family: 'courier prime'; color: #fff; text-align: center;
+    		list-style: none; 
+    	}
+    		@media screen and (max-width: 568px) {
+    			.loading__text {font-size: 0.8em;}
 
-		}
-		@media screen and (max-width: 320px) {
-			.loading__text {font-size: 0.6em;}
-		}
-		.loading__text li {display:inline-block; text-align: center; width: 568px;}
-			@media screen and (max-width: 568px) {
-				.loading__text li{width: 320px;}
-			}
-			@media screen and (max-width: 320px) {
-				.loading__text li{width: 240px;}
-			}
+    		}
+    		@media screen and (max-width: 320px) {
+    			.loading__text {font-size: 0.6em;}
+    		}
+    		.loading__text li {display:inline-block; text-align: center; width: 568px;}
+    			@media screen and (max-width: 568px) {
+    				.loading__text li{width: 320px;}
+    			}
+    			@media screen and (max-width: 320px) {
+    				.loading__text li{width: 240px;}
+    			}
 
-	.loading__container { 
-		background: #0e0f10; width: 25%; margin: 0 auto;
-	}
-		.loading__bar {background: red; height: 6px; width: 0}
+    	.loading__container { 
+    		background: #0e0f10; width: 25%; margin: 0 auto;
+    	}
+    		.loading__bar {background: red; height: 6px; width: 0}
 
 
 /*  ==========================================================================

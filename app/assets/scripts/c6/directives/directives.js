@@ -42,7 +42,7 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 
 			loadingBar.to(progressBar, 10, {width: '95%', ease: 'linear'});
 
-			element.hide();
+			//element.hide();
 
 			scope.$watch('loading()', function(loading) {
 				if (loading) {
@@ -67,13 +67,25 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 
 			if (scope.checked()) {
 				check.show();
+			} else {
+				blank.show();
 			}
 
 			scope.$watch('checked()', function(checked) {
 				if (checked) {
+					var showCheck = new TimelineMax({paused: false});
+
+					showCheck.to(blank, 0.1, {scale: 0, display: 'none'})
+						.to(check, 0.2, {scale: 1, display: 'inline'});
+
 					console.log('I should be checked');
 					console.log(check);
 				} else {
+					var hideCheck = new TimelineMax({paused: false});
+
+					hideCheck.to(check, 0.2, {scale: 0, display: 'none'})
+						.to(blank, 0.1, {scale: 1, display: 'inline'});
+
 					console.log('I should not be checked');
 					console.log(blank);
 				}

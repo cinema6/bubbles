@@ -448,7 +448,7 @@ button:disabled {opacity: 0.15;}
                 }
                     @media screen and (max-width: 568px) {
                         .question__number {
-                            margin: 0;
+                            margin: -2% 0 0 0;
                             font-size: 0.8em;
                         }
                     }
@@ -487,14 +487,14 @@ button:disabled {opacity: 0.15;}
                 @media screen and (max-width: 568px) {
                     .question__userAnswer {
                         position: absolute;
-                        width: 60%; top: 32%; 
+                        width: 60%; top: 25%; 
                         margin: 0 0 0 -30%;
                     }
                 }
                 @media screen and (max-width: 320px) {
                     .question__userAnswer {
                         width: 54%;
-                        margin: 0 0 0 -26%;
+                        margin: 0 0 0 -27%;
                     }
                 }
                 .question__input {
@@ -638,7 +638,7 @@ button:disabled {opacity: 0.15;}
             .question__btnPrevious:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left; background-size: contain;}
             @media screen and (max-width: 568px) {
                 .question__btnPrevious {
-                    margin: 5% 0 0 8%; top: 25%;
+                    margin: 0 0 0 8%; top: 25%;
                 }
             }
             @media screen and (max-width: 320px) {
@@ -657,7 +657,7 @@ button:disabled {opacity: 0.15;}
             .question__btnNext:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
             @media screen and (max-width: 568px) {
                 .question__btnNext {
-                    margin: 5% 8% 0 0; top: 25%;
+                    margin: 0 8% 0 0; top: 25%;
                 }
             }
 
@@ -678,13 +678,13 @@ button:disabled {opacity: 0.15;}
             }
             @media screen and (max-width: 568px) {
                 .question__btnStart {
-                    top: 48%;
+                    top: 32%;
                     width: 28%; left: 36%;
                 }
             }
             @media screen and (max-width: 320px) {
                 .question__btnStart {
-                    top: 56%;
+                    top: 38%;
                     width: 40%; left: 30%;
                 }
             }
@@ -706,6 +706,16 @@ button:disabled {opacity: 0.15;}
 		.progressDock {
 			text-align: center; margin: 250px 50px 0 0;
 		}
+            @media screen and (max-device-width:1024px) {
+                .progressDock {
+                    margin: 150px 0 0 0;
+                }
+            }
+            @media screen and (max-device-width: 320px) {
+                .progressDock {
+                    margin: 0 0 0 0;
+                }
+            }
 			.progressDock li {
 				display: inline-block; width: 42px;
 			}
@@ -720,14 +730,17 @@ button:disabled {opacity: 0.15;}
 			}
 			@media screen and (max-width: 568px) {
 				.progressDock {
-					margin: 180px 30px 0 0;
+					margin: 86px 30px 0 0;
 				}
 				.progressDock li {
 					width: 26px;
 				}
 			}
 			@media screen and (max-width: 320px) {
-				.progressDock li {
+				.progressDock {
+                    margin: 120px 30px 0 0;
+                }
+                .progressDock li {
 					width: 20px;
 				}
 			}

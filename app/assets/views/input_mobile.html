@@ -40,12 +40,12 @@
                         <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
                     </div>
                 </li>
-                <div
+                <!--<div
                 	ng-show="inputCtrl.currentResponse().length? true : false"
                     ng-animate="'valid'"
                     class="question__inputCheck">
                 		<span class="ir">Input Accepted</span>
-                </div>
+                </div>-->
 
 			<ul class="progressDock">
 				<li ng-repeat="prompt in inputCtrl.promptModel.prompts">

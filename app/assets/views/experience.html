@@ -8,10 +8,7 @@
   <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
   
   <div ng-controller="C6AnnotationsCtrl" ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
-
-      <div ng-if="($state.is('experience.video') && !annoCtrl.videoCanPlay)">
-        <c6-progress-pen id="loading-group"></c6-progress-pen>
-      </div>
+	  <c6-progress-bar loading="true" id="loading-group"></c6-progress-bar>
       <div class="experience__logo">
           <img ng-src="{{appCtrl.currentCategory() ? ('assets/img/logo_vid_' + appCtrl.currentCategory() + '.png') : null }}">
       </div>

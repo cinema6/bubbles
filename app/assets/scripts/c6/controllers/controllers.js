@@ -68,6 +68,9 @@ angular.module('c6.ctrl',['c6.svc'])
 		$scope.$broadcast('videoShouldLoad');
 	};
 
+	// This is for server-side rendering purposes only
+	this.ready = false;
+
 	$scope.appCtrl = this;
 	$scope.$state = $state;
 	$scope.$stateParams = $stateParams;
@@ -89,6 +92,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$watch('appCtrl.experience', function(experience) {
 		if (experience && experience.src) {
 			experience.src = appBase + '/' + experience.src;
+			self.ready = true;
 		}
 
 		self.promptModel = experience? new PromptModel(experience) : null;
@@ -115,6 +119,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 
 	$scope.landingCtrl = this;
+	$scope.appCtrl.ready = true;
 }])
 
 .controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc){
@@ -227,6 +232,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 
 	$scope.catCtrl = this;
+	$scope.appCtrl.ready = true;
 }])
 
 .controller('C6RandomCategoryCtrl', ['$state', '$stateParams', 'c6VideoListingService', '$log', function($state, $stateParams, vsvc, $log) {

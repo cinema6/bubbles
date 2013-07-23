@@ -21,7 +21,9 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				text8 = element.find('#text8'),
 				progressBar = element.find('#loading-bar'),
 				loadingText = new TimelineMax({paused: true, repeat: -1, yoyo:false}),
-				loadingBar = new TimelineMax({paused: true});
+				loadingBar = new TimelineMax({paused: true}),
+				hasStartedLoading = false,
+				loadingTimeout;
 
 			loadingText.from(text1, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
 				.to(text1, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
@@ -47,16 +49,28 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 
 			scope.$watch('loading()', function(loading) {
 				if (loading) {
-					setTimeout(function() {
+					hasStartedLoading = true;
+
+					console.log('loading started');
+
+					loadingTimeout = setTimeout(function() {
 						element.fadeIn();
-						loadingBar.play('pending');
+						loadingBar.seek(0);
+						loadingBar.play();
 						loadingText.play();
 					}, 3000);
 				} else {
-					loadingBar.play('complete');
-					setTimeout(function() {
-						element.fadeOut();
-					}, 500);
+					if (hasStartedLoading) {
+						clearTimeout(loadingTimeout);
+						console.log('loading complete');
+
+						loadingBar.play('complete');
+
+						setTimeout(function() {
+							element.fadeOut();
+							loadingBar.seek(0);
+						}, 500);
+					}
 				}
 			});
 		}

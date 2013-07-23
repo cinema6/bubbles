@@ -406,7 +406,6 @@ angular.module('c6.svc',[])
 
 	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
 }])
-
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');
     var service = {};

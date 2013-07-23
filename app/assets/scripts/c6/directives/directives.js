@@ -85,17 +85,11 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 
 					showCheck.to(blank, 0.1, {scale: 0, display: 'none'})
 						.to(check, 0.2, {scale: 1, display: 'inline'});
-
-					console.log('I should be checked');
-					console.log(check);
 				} else {
 					var hideCheck = new TimelineMax({paused: false});
 
 					hideCheck.to(check, 0.2, {scale: 0, display: 'none'})
 						.to(blank, 0.1, {scale: 1, display: 'inline'});
-
-					console.log('I should not be checked');
-					console.log(blank);
 				}
 			});
 		}

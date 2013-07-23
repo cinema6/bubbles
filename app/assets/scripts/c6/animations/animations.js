@@ -223,7 +223,7 @@
 					inputExp = new TimelineLite({paused: true});
 					inputScreen = $('.inputScreen');
 					transition = $('.transition_blackFade');
-					logo			= $('.experience__logo');
+					logo = $('.experience__logo');
 
 					// ANIMATION TIMELINE
 					inputExp.to(inputScreen, 2, {opacity: 0})
@@ -489,7 +489,7 @@
 
 				fantasyShow.from(annotation, 0.3, {
 					alpha:0,
-					scale:2,
+					top: '-=30px',
 					ease:Back.easeOut
 				})
 				.eventCallback('onComplete', done);

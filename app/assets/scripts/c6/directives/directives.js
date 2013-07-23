@@ -23,7 +23,10 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				loadingText = new TimelineMax({paused: true, repeat: -1, yoyo:false}),
 				loadingBar = new TimelineMax({paused: true}),
 				hasStartedLoading = false,
-				loadingTimeout;
+				loadingTimeout,
+				pauseLoad = function() {
+					loadingBar.pause();
+				};
 
 			loadingText.from(text1, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
 				.to(text1, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
@@ -33,7 +36,7 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				.to(text3, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
 				.from(text4, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
 				.to(text4, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text5, 0.5, {'eft': '+=500px', autoAlpha: 0, display: 'none'})
+				.from(text5, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
 				.to(text5, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
 				.from(text6, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
 				.to(text6, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
@@ -42,7 +45,7 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				.from(text8, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
 				.to(text8, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5');
 
-			loadingBar.to(progressBar, 10, {width: '80%', ease: 'linear'}, 'pending')
+			loadingBar.to(progressBar, 10, {width: '80%', ease: 'linear', onComplete: pauseLoad})
 				.to(progressBar, 0.5, {width: '100%', ease: 'linear'}, 'complete');
 
 			element.hide();
@@ -55,10 +58,13 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 
 					loadingTimeout = setTimeout(function() {
 						element.fadeIn();
+
+						loadingText.play();
+
 						loadingBar.seek(0);
 						loadingBar.play();
-						loadingText.play();
-					}, 3000);
+
+					}, 2500);
 				} else {
 					if (hasStartedLoading) {
 						clearTimeout(loadingTimeout);
@@ -68,7 +74,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 
 						setTimeout(function() {
 							element.fadeOut();
-							loadingBar.seek(0);
 						}, 500);
 					}
 				}

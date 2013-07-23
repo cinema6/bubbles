@@ -858,7 +858,7 @@ button:disabled {opacity: 0.15;}
     			}
 
     	.loading__container { 
-    		background: #0e0f10; width: 25%; margin: 0 auto;
+    		background: #232527; width: 25%; margin: 0 auto;
     	}
     		.loading__bar {background: red; height: 6px; width: 0}
 

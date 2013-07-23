@@ -301,12 +301,12 @@ module.exports = function (grunt) {
                 upload: [
                     {
                         src: 'dist/**',
-                        dest: 'bubbles/',
+                        dest: 'screenjack/',
                         rel : 'dist/'
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'bubbles/index.html',
+                        dest: 'screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]
@@ -318,12 +318,12 @@ module.exports = function (grunt) {
                 upload: [
                     {
                         src: 'dist/**',
-                        dest: 'test/bubbles/',
+                        dest: 'test/screenjack/',
                         rel : 'dist/'
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'test/bubbles/index.html',
+                        dest: 'test/screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]

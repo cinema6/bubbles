@@ -10,7 +10,6 @@
 		"body part",
 		"one word medical condition",
 		"bodily fluid",
-		"animal",
 		"synonym for feces"
 	],
 	"annotations": [
@@ -27,12 +26,12 @@
 				{ "ts": "11.83", "template": "You contacted me on ${2}" },
 				{ "ts": "17.67", "template": "What is that?" },
 				{ "ts": "19.20", "template": "Gluten free?" },
-				{ "ts": "21.00", "template": "Gluten makes me ${7}" },
+				{ "ts": "21.00", "template": "Gluten makes me ${6}" },
 				{ "ts": "25.25", "template": "E T?" },
 				{ "ts": "28.00", "template": "Should I rub your ${3}?" },
 				{ "ts": "30.75", "template": "Do you care that I have ${4}?"  },
 				{ "ts": "35.08", "template": "Actually, I look like a monster from a scary movie" },
-				{ "ts": "45.00", "template": "That is funny, I wear a mask sometimes too.  But, mine is made out of dried human ${5} and <prosody rate=\"-25%\"> ${6} ${7} </prosody> that I find in the park.  I would really like to come over and massage your ${3}.  Lets see how it goes.  I've already updated my ${2} status to say, I'm cooking popcorn with that chick who was in E T <Break time=\"150ms\"/>  L O L." }
+				{ "ts": "45.00", "template": "That is funny, I wear a mask sometimes too.  But, mine is made out of dried human ${5} and <prosody rate=\"-25%\"> ${6} </prosody> that I find in the park.  I would really like to come over and massage your ${3}.  Lets see how it goes.  I've already updated my ${2} status to say, I'm cooking popcorn with that chick from E T <Break time=\"250ms\"/>  hash tag winning." }
 			]
 		}
 	]

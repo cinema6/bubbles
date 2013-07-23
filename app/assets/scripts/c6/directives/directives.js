@@ -81,10 +81,10 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 		}
 	};
 }])
-.directive('c6ValidCheck', [function() {
+.directive('c6ValidCheck', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',
-		template: '<img id="blank" src="assets/img/input_blank.png"><img id="check" src="assets/img/input_check.png">',
+		template: '<img id="blank" src="' + base + '/img/input_blank.png"><img id="check" src="' + base + '/img/input_check.png">',
 		scope: {
 			checked: '&'
 		},

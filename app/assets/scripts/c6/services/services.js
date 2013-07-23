@@ -199,7 +199,7 @@ angular.module('c6.svc',[])
 			url.resolve(genVidUrlCache[model.options.vid].url);
 		} else {
 			$log.log('No URL for these responses. Going to the server!');
-			$http.post('http://demos.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+			$http.post('http://dub.cinema6.net/dub/create', requestBodyObject).then(function(response) {
 				var urlFromServer = response.data.output;
 
 				genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };

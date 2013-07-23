@@ -833,12 +833,11 @@ button:disabled {opacity: 0.15;}
     }
 
     .loading__group {
-    	position: absolute; top: 45%;
+    	position: fixed; top: 45%;
     	width: 100%; z-index: 9000;
     	}
     	.loading__text {
-    		font-family: 'courier prime'; color: #fff; text-align: center;
-    		list-style: none;
+    		font-family: "courier prime", courier, times, serif; color: #fff; height: 30px;
     	}
     		@media screen and (max-width: 568px) {
     			.loading__text {font-size: 0.8em;}
@@ -846,12 +845,16 @@ button:disabled {opacity: 0.15;}
     		@media screen and (max-width: 320px) {
     			.loading__text {font-size: 0.6em;}
     		}
-    		.loading__text li {display:inline-block; text-align: center; width: 568px; margin-left: -3%;}
+
+    		.loading__text li {
+                display: inline-block; text-align: center; width: 568px; 
+                position: absolute; left: 50%; margin-left: -284px;
+            }
     			@media screen and (max-width: 568px) {
-    				.loading__text li{width: 320px;  margin-left: -10%;}
+    				.loading__text li{width: 320px; margin-left: -160px;}
     			}
     			@media screen and (max-width: 320px) {
-    				.loading__text li{width: 240px; }
+    				.loading__text li{width: 240px; margin-left: -120px;}
     			}
 
     	.loading__container { 

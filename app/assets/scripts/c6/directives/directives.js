@@ -23,22 +23,22 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				loadingText = new TimelineMax({paused: true, repeat: -1, yoyo:false}),
 				loadingBar = new TimelineMax({paused: true});
 
-			loadingText.from(text1, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text1, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text2, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text2, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text3, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text3, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text4, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text4, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text5, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text5, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text6, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text6, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text7, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text7, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
-				.from(text8, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
-				.to(text8, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5');
+			loadingText.from(text1, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text1, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text2, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text2, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text3, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text3, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text4, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text4, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text5, 0.5, {'eft': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text5, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text6, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text6, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text7, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text7, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text8, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text8, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5');
 
 			loadingBar.to(progressBar, 10, {width: '80%', ease: 'linear'}, 'pending')
 				.to(progressBar, 0.5, {width: '100%', ease: 'linear'}, 'complete');

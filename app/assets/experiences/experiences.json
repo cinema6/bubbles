@@ -1,14 +1,14 @@
 {
-	"Action": [
+	"action": [
 		"brucelee"
 	],
-	"Romance": [
+	"romance": [
 		"notebook"
 	],
-	"Fantasy": [
-		"lotr"
-	],
-	"SciFi": [
+	"scifi": [
 		"2001"
+	],
+	"fantasy": [
+		"lotr"
 	]
 }

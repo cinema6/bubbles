@@ -2,35 +2,115 @@
 /*global TimelineMax:false */
 'use strict';
 angular.module('c6.dir.screenJack',['c6.svc'])
-.directive('c6ProgressPen', ['appBaseUrl', function(base) {
+.directive('c6ProgressBar', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',
-		templateUrl: base + '/views/progress_pen.html',
+		templateUrl: base + '/views/progress_bar.html',
 		replace: true,
-		scope: {},
+		scope: {
+			loading: '&'
+		},
 		link: function(scope, element) {
-	        var loadingCycle        = element.find('#loading-cycle'),
-	            dot1                = element.find('#dot-1'),
-	            dot2                = element.find('#dot-2'),
-	            dot3                = element.find('#dot-3'),
-	            loadingAnimation    = new TimelineMax({paused: true, repeat: -1, yoyo:true}),
-	            loadingText         = new TimelineMax({paused: true, repeat: -1, yoyo:false});
+			var text1 = element.find('#text1'),
+				text2 = element.find('#text2'),
+				text3 = element.find('#text3'),
+				text4 = element.find('#text4'),
+				text5 = element.find('#text5'),
+				text6 = element.find('#text6'),
+				text7 = element.find('#text7'),
+				text8 = element.find('#text8'),
+				progressBar = element.find('#loading-bar'),
+				loadingText = new TimelineMax({paused: true, repeat: -1, yoyo:false}),
+				loadingBar = new TimelineMax({paused: true}),
+				hasStartedLoading = false,
+				loadingTimeout,
+				pauseLoad = function() {
+					loadingBar.pause();
+				};
 
-            loadingAnimation.to(loadingCycle, 0.2, {top: '+=2px', left: '+=14px', rotation: '+=8deg'})
-                .to(loadingCycle, 0.2, {top: '+=4px', left: '-=12px', rotation: '-=8deg'})
-                .to(loadingCycle, 0.2, {top: '+=2px', left: '+=16px', rotation: '+=10deg'})
-                .to(loadingCycle, 0.1, {top: '+=4px', left: '-=12px', rotation: '-=8deg'});
+			loadingText.from(text1, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text1, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text2, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text2, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text3, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text3, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text4, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text4, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text5, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text5, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text6, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text6, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text7, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text7, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text8, 0.5, {'left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text8, 0.5, {'left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5');
 
-            loadingText.to(dot1, 0.4, {opacity: 1})
-                .to(dot2, 0.4, {opacity: 1})
-                .to(dot3, 0.4, {opacity: 1})
-                .to([dot1, dot2, dot3], 1, {opacity: 0});
+			loadingBar.to(progressBar, 10, {width: '80%', ease: 'linear', onComplete: pauseLoad})
+				.to(progressBar, 0.5, {width: '100%', ease: 'linear'}, 'complete');
 
-            // this event can be modified, but function needs to remain the same
-            loadingAnimation.seek(0);
-            loadingAnimation.play();
-            loadingText.seek(0);
-            loadingText.play();
+			element.hide();
+
+			scope.$watch('loading()', function(loading) {
+				if (loading) {
+					hasStartedLoading = true;
+
+					console.log('loading started');
+
+					loadingTimeout = setTimeout(function() {
+						element.fadeIn();
+
+						loadingText.play();
+
+						loadingBar.seek(0);
+						loadingBar.play();
+
+					}, 2500);
+				} else {
+					if (hasStartedLoading) {
+						clearTimeout(loadingTimeout);
+						console.log('loading complete');
+
+						loadingBar.play('complete');
+
+						setTimeout(function() {
+							element.fadeOut();
+						}, 500);
+					}
+				}
+			});
+		}
+	};
+}])
+.directive('c6ValidCheck', [function() {
+	return {
+		restrict: 'E',
+		template: '<img id="blank" src="assets/img/input_blank.png"><img id="check" src="assets/img/input_check.png">',
+		scope: {
+			checked: '&'
+		},
+		link: function(scope, element) {
+			var check = element.find('img#check'),
+				blank = element.find('img#blank');
+
+			if (scope.checked()) {
+				check.show();
+			} else {
+				blank.show();
+			}
+
+			scope.$watch('checked()', function(checked) {
+				if (checked) {
+					var showCheck = new TimelineMax({paused: false});
+
+					showCheck.to(blank, 0.1, {scale: 0, display: 'none'})
+						.to(check, 0.2, {scale: 1, display: 'inline'});
+				} else {
+					var hideCheck = new TimelineMax({paused: false});
+
+					hideCheck.to(check, 0.2, {scale: 0, display: 'none'})
+						.to(blank, 0.1, {scale: 1, display: 'inline'});
+				}
+			});
 		}
 	};
 }])

@@ -414,7 +414,7 @@ angular.module('c6.svc',[])
 	        'brucelee'
 	    ],
 	    romance: [
-	        'notebook'
+	        'notebook3'
 	    ],
 	    fantasy: [
 	        'lotr',

@@ -414,14 +414,14 @@ angular.module('c6.svc',[])
 	        'brucelee'
 	    ],
 	    romance: [
-	        'notebook'
+	        'notebook3'
 	    ],
 	    fantasy: [
 	        'lotr',
 	        //'lotr2'
 	    ],
 	    horror: [
-	        'scream'
+            'scream2'
 	    ],
 	    scifi: [
 	        '2001'
@@ -468,7 +468,7 @@ angular.module('c6.svc',[])
             'Action',
             'Romance',
             'Fantasy',
-            //'Horror',
+            'Horror',
             'SciFi'
         ];
     };

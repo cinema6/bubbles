@@ -21,46 +21,42 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				text8 = element.find('#text8'),
 				progressBar = element.find('#loading-bar'),
 				loadingText = new TimelineMax({paused: true, repeat: -1, yoyo:false}),
-				loadingBarPending = new TimelineMax({paused: true}),
-				loadingBarComplete = new TimelineMax({paused: true});
+				loadingBar = new TimelineMax({paused: true});
 
-			loadingText.from(text1, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 1 enter
-				.to(text1, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 1 leave
-				.from(text2, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 2 enter
-				.to(text2, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 2 leave
-				.from(text3, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 3 enter
-				.to(text3, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 3 leave
-				.from(text4, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 4 enter
-				.to(text4, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 4 leave
-				.from(text5, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 5 enter
-				.to(text5, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 5 leave
-				.from(text6, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 6 enter
-				.to(text6, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 6 leave
-				.from(text7, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 7 enter
-				.to(text7, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5') //text 7 leave
-				.from(text8, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'}) //text 8 enter
-				.to(text8, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5'); //text 8 leave
+			loadingText.from(text1, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text1, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text2, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text2, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text3, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text3, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text4, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text4, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text5, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text5, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text6, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text6, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text7, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text7, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5')
+				.from(text8, 0.5, {'margin-left': '+=500px', autoAlpha: 0, display: 'none'})
+				.to(text8, 0.5, {'margin-left': '-=500px', autoAlpha: 0, display: 'none'}, '+=1.5');
 
-			loadingBarPending.to(progressBar, 10, {width: '95%', ease: 'linear'});
-			loadingBarComplete.to(progressBar, 1, {width: '100%', ease: 'linear'});
+			loadingBar.to(progressBar, 10, {width: '80%', ease: 'linear'}, 'pending')
+				.to(progressBar, 0.5, {width: '100%', ease: 'linear'}, 'complete');
 
 			element.hide();
 
 			scope.$watch('loading()', function(loading) {
 				if (loading) {
-					// Show the element and start animating
 					setTimeout(function() {
 						element.fadeIn();
-					}, 2000);
-					loadingText.play();
-					loadingBarPending.play();
+						loadingBar.play('pending');
+						loadingText.play();
+					}, 3000);
 				} else {
-					// Complete the "load" and hide element'
-					//loadingBarPending.pause();
-					//loadingBarComplete.play();
+					loadingBar.play('complete');
 					setTimeout(function() {
 						element.fadeOut();
-					}, 1500);
+					}, 500);
 				}
 			});
 		}

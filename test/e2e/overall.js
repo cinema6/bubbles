@@ -40,7 +40,7 @@
 			});
 			describe('clicking on a category.', function() {
 				beforeEach(function() {
-					element('button.category__frame[name="Action"]').click();
+					element('button.category__frame[name="action"]').click();
 					sleep(4);
 				});
 				
@@ -325,7 +325,7 @@
 			
 			expect(experienceCssLink.attr('href')).toBeFalsy();
 			
-			element('button.category__frame[name="Action"]').click();
+			element('button.category__frame[name="action"]').click();
 			sleep(4);
 			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_action.css');
 			
@@ -358,7 +358,7 @@
 			newVideo.click();
 			sleep(4);
 			
-			element('button.category__frame[name="Romance"]').click();
+			element('button.category__frame[name="romance"]').click();
 			sleep(4);
 			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_romance.css');
 			
@@ -391,7 +391,7 @@
 			newVideo.click();
 			sleep(4);
 			
-			element('button.category__frame[name="Fantasy"]').click();
+			element('button.category__frame[name="fantasy"]').click();
 			sleep(4);
 			expect(experienceCssLink.attr('href')).toBe('assets/styles/bubbles_fantasy.css');
 			

@@ -1,0 +1,167 @@
+/* Romance Video Experience specific styles */
+
+.annotation {
+    min-width: 20%;
+    max-width: 28%;
+}
+
+.a-style {
+    position: relative;
+    border-radius: 50px;
+    background: url('../img/romance/annotation-body.png');
+    background-clip: content-box;
+    padding: 8px;
+}
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
+        .a-style {
+            border-radius: 38%;
+        }
+    }
+
+.a-frame {
+    border-radius: 60px;
+    background: url('../img/romance/annotation-right.png') repeat-y right, 
+                url('../img/romance/annotation-left.png') repeat-y left, 
+                url('../img/romance/annotation-top.png') repeat-x top, 
+                url('../img/romance/annotation-bottom.png') repeat-x bottom;
+    margin: -5px;
+}
+
+   .a-deco-right {
+        position: absolute;
+        background: url('../img/romance/annotation-bottomRight.png') no-repeat bottom right,
+                    url('../img/romance/annotation-topRight.png') no-repeat top right,
+                    url('../img/romance/annotation-bottomLeft.png') no-repeat bottom left,
+                    url('../img/romance/annotation-topLeft.png') no-repeat top left;
+        height: 94%; width: 98%;
+        top: 3%;
+        left: 1%;
+    } 
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
+            .a-deco-right {
+                width: 98.5%; height: 89%;
+                top: 6%;  
+            }
+        }
+
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+            .a-deco-right {
+                width: 98.5%; height: 93%;
+                top: 4%;  
+            }
+        }
+    }
+    .a-deco-left {
+        /* deco right used for whole annotation */
+    } 
+
+.a-text {
+    width: 84%;
+    padding: 6% 8%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "LadylikeBB", "courier prime", georgia, serif;
+    font-size: 185%;
+    line-height: 100%;
+    color: #352e2e;
+}
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+        .a-text {
+            font-size: 125%;
+            padding: 14% 10%;
+        }
+    }
+    @font-face {
+        font-family: LadylikeBB;
+        src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),
+            url('../media/romance/ladylikebb-webfont.woff') format('woff'), 
+            url('../media/romance/ladylikebb-webfont.eot') format('embedded-opentype'), 
+            url('../media/romance/ladylikebb-webfont.svg#ladylike_bbregular') format('svg'); 
+        font-weight: normal;
+        font-style: normal;
+    }
+
+/* tail styles */
+    .a-tail-bottomLeft-speech {
+        position: absolute;
+        background: url('../img/romance/bottomLeft-speech.png') no-repeat 15% 0%; 
+        height: 22px; width: 100%;
+        bottom: -5px;
+        left: 0;
+    }
+
+    .a-tail-bottomRight-speech {
+        position: absolute;
+        background: url('../img/romance/bottomRight-speech.png') no-repeat 80% 0%; 
+        height: 22px; width: 100%;
+        bottom: -5px;
+        left: 0;
+    }
+
+    .a-tail-topLeft-speech {
+        position: absolute;
+        background: url('../img/romance/topLeft-speech.png') no-repeat 15% 0%; 
+        height: 22px; width: 100%;
+        top: -5px;
+        left: 0;
+    }
+
+    .a-tail-topRight-speech {
+        position: absolute;
+        background: url('../img/romance/topRight-speech.png') no-repeat 80% 0%; 
+        height: 22px; width: 100%;
+        top: -5px;
+        left: 0;
+    }
+
+    .a-tail-bottomLeft-thought {
+        position: absolute;
+        background: url('../img/romance/bottomLeft-thought.png') no-repeat 15% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        bottom: -22%;
+        left: 0;
+    }
+
+    .a-tail-bottomRight-thought {
+        position: absolute;
+        background: url('../img/romance/bottomRight-thought.png') no-repeat 80% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        bottom: -22%;
+        left: 0;
+    }
+
+    .a-tail-topLeft-thought {
+        position: absolute;
+        background: url('../img/romance/topLeft-thought.png') no-repeat 15% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        top: -22%;
+        left: 0;
+    }
+
+    .a-tail-topRight-thought {
+        position: absolute;
+        background: url('../img/romance/topRight-thought.png') no-repeat 80% 0%; 
+        background-size: contain;
+        height: 30%; width: 100%;
+        top: -22%;
+        left: 0;
+    }
+
+/* bubble and tail positioning */
+.notebook-0 { top: 3%; left: 58%; }
+.notebook-1 { top: 2%; left: 4%; max-width: 34% }
+.notebook-2 { top: 2%; left: 4%; max-width: 34% }
+.notebook-3 { top: 3%; left: 48%; max-width: 28%}
+.notebook-4 { top: 8%; left: 15%; max-width: 30% }
+.notebook-5 { top: 15%; left: 43%; max-width: 34%}
+
+.notebook-6 { top: 3%; left: 10%; max-width: 34%}
+.notebook-7 { top: 4%; left: 15%; max-width: 34% }
+.notebook-8 { top: 3%; left: 38%; }
+.notebook-9 { top: 3%; left: 38%; }
+.notebook-10 { top: 4%; left: 49%; }
+.notebook-11 { top: 4%; left: 26%; }
+.notebook-12 { top: 4%; left: 46%; }

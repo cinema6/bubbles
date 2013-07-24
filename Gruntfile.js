@@ -297,7 +297,7 @@ module.exports = function (grunt) {
                 access: 'public-read',
                 maxOperations: 4
             },
-            demos: {
+            demo: {
                 upload: [
                     {
                         src: 'dist/**',
@@ -307,6 +307,23 @@ module.exports = function (grunt) {
                     {
                         src: 'dist/index.html',
                         dest: 'screenjack/index.html',
+                        headers : { 'cache-control' : 'max-age=0' }
+                    }
+                ]
+            },
+            test: {
+                options: {
+                    bucket: 'c6.dev',
+                },
+                upload: [
+                    {
+                        src: 'dist/**',
+                        dest: 'www/screenjack/',
+                        rel : 'dist/'
+                    },
+                    {
+                        src: 'dist/index.html',
+                        dest: 'www/screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]
@@ -362,10 +379,8 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('publish',function(type){
-        type = type ? type : 'patch';
-    //    grunt.task.run('test');
         grunt.task.run('build');
-        grunt.task.run('s3');
+        grunt.task.run('s3:demo');
     });
 
     grunt.registerTask('default', ['release']);

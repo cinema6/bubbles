@@ -170,7 +170,7 @@ angular.module('c6.svc',[])
 	};
 }])
 
-.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
+.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', 'environment', function($routeParams, $rootScope, vidSvc, $http, $q, $log, env) {
 	var genVidUrlCache = {};
 
 	this.getAnnotationsModelByType = function(type, annotations) {
@@ -273,7 +273,7 @@ angular.module('c6.svc',[])
 			url.resolve(genVidUrlCache[model.options.vid].url);
 		} else {
 			$log.log('No URL for these responses. Going to the server!');
-			$http.post('http://demos.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+			$http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
 				var urlFromServer = response.data.output;
 
 				genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
@@ -480,28 +480,9 @@ angular.module('c6.svc',[])
 
 	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
 }])
-
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');
-    var experienceDb = {
-	    action: [
-	        'brucelee'
-	    ],
-	    romance: [
-	        'notebook'
-	    ],
-	    fantasy: [
-	        'lotr',
-	        //'lotr2'
-	    ],
-	    horror: [
-	        'scream'
-	    ],
-	    scifi: [
-	        '2001'
-	    ]
-    },
-    service = {};
+    var service = {};
 
 	service.getRandomCategoryFrom = function(categories) {
 		categories = categories || service.getCategories();
@@ -531,24 +512,38 @@ angular.module('c6.svc',[])
 		return quotes[Math.floor(Math.random() * quotes.length)];
 	};
 
-	service.getRandomExperienceFromCategory = function(category) {
-		var experiences = experienceDb[category];
+	service.getRandomExperienceIdFromCategory = function(category) {
+		var experience = $q.defer();
 
-		return experiences[Math.floor(Math.random() * experiences.length)];
+		$http.get(baseUrl + '/experiences/experiences.json').then(function(response) {
+			var experiences = response.data[category];
+
+			experience.resolve(experiences[Math.floor(Math.random() * experiences.length)]);
+		});
+
+		return experience.promise;
 	};
 
     service.getCategories = function() {
-        return [
-            'Action',
-            'Romance',
-            'Fantasy',
-            //'Horror',
-            'SciFi'
-        ];
+		var categories = $q.defer();
+
+		$http.get(baseUrl + '/experiences/experiences.json').then(function(response) {
+			var experiences = response.data;
+
+			categories.resolve(Object.keys(experiences));
+		});
+
+		return categories.promise;
     };
 
     service.getExperienceByCategory = function(category) {
-		return service.getExperience(category, service.getRandomExperienceFromCategory(category));
+		var experience = $q.defer();
+
+		service.getRandomExperienceIdFromCategory(category).then(function(experienceId) {
+			experience.resolve(service.getExperience(category, experienceId));
+		});
+
+		return experience.promise;
 	};
 
 	service.getExperience = function(category, id) {

@@ -311,19 +311,19 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-            devtest: {
+            test: {
                 options: {
                     bucket: 'c6.dev',
                 },
                 upload: [
                     {
                         src: 'dist/**',
-                        dest: 'test/screenjack/',
+                        dest: 'www/screenjack/',
                         rel : 'dist/'
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'test/screenjack/index.html',
+                        dest: 'www/screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]

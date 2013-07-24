@@ -223,7 +223,7 @@
 					inputExp = new TimelineLite({paused: true});
 					inputScreen = $('.inputScreen');
 					transition = $('.transition_blackFade');
-					logo			= $('.experience__logo');
+					logo = $('.experience__logo');
 
 					// ANIMATION TIMELINE
 					inputExp.to(inputScreen, 2, {opacity: 0})

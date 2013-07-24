@@ -40,13 +40,20 @@
                         <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</h6>
                     </div>
                 </li>
-                <div
+                <!--<div
                 	ng-show="inputCtrl.currentResponse().length? true : false"
                     ng-animate="'valid'"
                     class="question__inputCheck">
                 		<span class="ir">Input Accepted</span>
-                </div>
-                <button
+                </div>-->
+
+			<ul class="progressDock">
+				<li ng-repeat="prompt in inputCtrl.promptModel.prompts">
+					<c6-valid-check checked="inputCtrl.promptModel.responses[$index].length ? true : false">
+				</li>
+			</ul>
+			
+            <button
                 class="question__btnStart"
                 ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
                 ng-animate="'start-button'"
@@ -76,6 +83,5 @@
 
             
         </form></div>
-        <footer class="progressDock">Page {{inputCtrl.currentPromptIndex() + 1}} of {{inputCtrl.totalPrompts()}}</footer>
      
 </div>

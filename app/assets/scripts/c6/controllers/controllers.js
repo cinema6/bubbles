@@ -132,7 +132,8 @@ angular.module('c6.ctrl',['c6.svc'])
 	});
 
 	$scope.$on('videoShouldLoad', function() {
-		if (!video.player.readyState) {
+		if (!video.bufferedPercent()) {
+			$log.log('Video not buffered! Attempting to load!');
 			video.player.load();
 		}
 	});

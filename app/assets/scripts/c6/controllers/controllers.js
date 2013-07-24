@@ -221,7 +221,10 @@ angular.module('c6.ctrl',['c6.svc'])
 	$log.log('Creating cCategoryListCtrl');
 	$rootScope.currentRoute = 'categories';
 
-	this.categories = vsvc.getCategories();
+	this.categories = vsvc.getCategories().then(function(categories) {
+		$scope.appCtrl.ready = true;
+		return categories;
+	});
 
 	this.loadCategory = function(category) {
 		category = angular.lowercase(category);
@@ -232,7 +235,6 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 
 	$scope.catCtrl = this;
-	$scope.appCtrl.ready = true;
 }])
 
 .controller('C6RandomCategoryCtrl', ['$state', '$stateParams', 'c6VideoListingService', '$log', function($state, $stateParams, vsvc, $log) {

@@ -17,16 +17,18 @@
 		return { 'app' : N, 'version' : navigator.appVersion };
 	})(),
 		releaseConfig = {
+		'release'           : true,
 		'browser'           : browserVersion,
 		'logging'           : [],
 		'showPlayerData'    : false
 		},
 		debugConfig = {
+		'release'           : false,
 		'browser'           : browserVersion,
 		'logging'           : ['error','warn','log','info'],
 		'showPlayerData'    : true
 		},
-		appConfig = ((__C6_APP_BASE_URL__ === 'assets') || (window.location.search.indexOf('debug=true') !== -1)) ? debugConfig : releaseConfig;
+		appConfig = ((!window.location.host.match(/cinema6.com/i)) || (window.location.search.indexOf('debug=true') !== -1)) ? debugConfig : releaseConfig;
 
 	var dependencies = [
 		'ui.state',

@@ -114,6 +114,23 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 		}
 	};
 }])
+.directive('c6ReplaceKeypress', [function() {
+	return function(scope, element, attrs) {
+		var config = scope.$eval(attrs.c6ReplaceKeypress);
+		
+		if (config) {
+			element.bind('keypress', function(event) {
+				event.stopPropagation();
+				event.preventDefault();
+				var expression = config[event.keyCode];
+
+				if (expression) {
+					scope.$eval(expression);
+				}
+			});
+		}
+	};
+}])
 .directive('c6Bar', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',
@@ -244,9 +261,19 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	};
 }])
 
-.directive('c6Autofocus', [function() {
-	return function(scope, element) {
-		element.focus();
+.directive('c6Autofocus', ['$log', function($log) {
+	return function(scope, element, attrs) {
+		var event = attrs.c6Autofocus;
+
+		if (!event) {
+			$log.log('Focusing on initialization');
+			element.focus();
+		} else {
+			scope.$on(event, function() {
+				$log.log('Focusing in response to event: ' + event);
+				element.focus();
+			});
+		}
 	};
 }])
 

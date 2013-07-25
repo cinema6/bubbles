@@ -1,4 +1,4 @@
-/*jshint -W080 */
+/*jshint -W080, -W117 */
 var __C6_BUILD_VERSION__ = undefined,
     __C6_APP_BASE_URL__  = (__C6_BUILD_VERSION__ ? __C6_BUILD_VERSION__ : 'assets');
 (function(){

@@ -41,7 +41,7 @@
 
 			<ul class="progressDock">
 				<li ng-repeat="prompt in inputCtrl.promptModel.prompts">
-					<c6-valid-check checked="inputCtrl.promptModel.responses[$index].length ? true : false">
+					<c6-progress-number filled="inputCtrl.currentPromptIndex() >= $index">
 				</li>
 			</ul>
 

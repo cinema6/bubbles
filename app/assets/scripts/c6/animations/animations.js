@@ -414,7 +414,7 @@
 
 				vidIn.play();
 				setTimeout(function() {
-					if (videoPlayer.src && videoPlayer.paused) { videoPlayer.play(); videoPlayer.currentTime = 0; }
+					$rootScope.$broadcast('finishedAnimatingVideoShow');
 				}, 1850);
 				vidIn.seek(0);
 			}

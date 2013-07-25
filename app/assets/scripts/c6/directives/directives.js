@@ -54,8 +54,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				if (loading) {
 					hasStartedLoading = true;
 
-					console.log('loading started');
-
 					loadingTimeout = setTimeout(function() {
 						element.fadeIn();
 
@@ -68,7 +66,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				} else {
 					if (hasStartedLoading) {
 						clearTimeout(loadingTimeout);
-						console.log('loading complete');
 
 						loadingBar.play('complete');
 

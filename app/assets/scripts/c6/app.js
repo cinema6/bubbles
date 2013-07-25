@@ -1,6 +1,7 @@
+/*jshint -W117 */
 (function(){
 	'use strict';
-	/*jshint -W117 */
+
 	var browserVersion = (function() {
 		var N= navigator.appName, ua= navigator.userAgent, tem;
 		var M= ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);

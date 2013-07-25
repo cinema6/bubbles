@@ -1,3 +1,4 @@
+/* jshint node:true */
 'use strict';
 var fs          = require('fs-extra'),
     path        = require('path'),
@@ -233,7 +234,7 @@ module.exports = function (grunt) {
                 files: {
                     '<%= props.distVersionPath() %>/scripts/c6app.min.js': [
                         '.tmp/scripts/c6app.js'
-                    ],
+                    ]
                 }
             }
         },
@@ -284,7 +285,7 @@ module.exports = function (grunt) {
                         dot    : true,
                         cwd    : path.join(__dirname,'dist'),
                         src    : ['**'],
-                        dest   : '<%= props.installPath() %>',
+                        dest   : '<%= props.installPath() %>'
                     }
                 ]
             }
@@ -313,7 +314,7 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
-                    bucket: 'c6.dev',
+                    bucket: 'c6.dev'
                 },
                 upload: [
                     {
@@ -378,7 +379,8 @@ module.exports = function (grunt) {
         grunt.task.run('build');
     });
 
-    grunt.registerTask('publish',function(/*type*/){
+
+    grunt.registerTask('publish',function(){
         grunt.task.run('build');
         grunt.task.run('s3:demo');
     });

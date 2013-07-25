@@ -26,7 +26,7 @@ function PromptModel(experience) {
 		else if ((typeof q === 'string') || (q instanceof String)){
 			this.prompts.push({
 				query : q,
-				sizeLimit : this.defSizeLimit,
+				sizeLimit : this.defSizeLimit
 			});
 		}
 		else {
@@ -138,7 +138,7 @@ angular.module('c6.ctrl',['c6.svc'])
 			video.player.load();
 		}
 	});
-	
+
 	$scope.$on('finishedAnimatingVideoShow', function() {
 		if (self.videoCanPlay && video.player.paused) {
 			if (video.hasPlayed()) {
@@ -169,7 +169,7 @@ angular.module('c6.ctrl',['c6.svc'])
 					$scope.appCtrl.experience.src = null;
 				}
 				oldResponses = angular.copy(responses);
-				
+
 				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
 					$scope.appCtrl.experience.src = url;
 					video.on(readyEvent, function() {

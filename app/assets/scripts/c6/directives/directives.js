@@ -54,8 +54,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				if (loading) {
 					hasStartedLoading = true;
 
-					console.log('loading started');
-
 					loadingTimeout = setTimeout(function() {
 						element.fadeIn();
 
@@ -68,7 +66,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 				} else {
 					if (hasStartedLoading) {
 						clearTimeout(loadingTimeout);
-						console.log('loading complete');
 
 						loadingBar.play('complete');
 
@@ -81,33 +78,34 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 		}
 	};
 }])
-.directive('c6ValidCheck', ['appBaseUrl', function(base) {
+.directive('c6ProgressNumber', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',
-		template: '<img id="blank" src="' + base + '/img/input_blank.png"><img id="check" src="' + base + '/img/input_check.png">',
+		template: '<img id="blank" src="' + base + '/img/progress_empty{{number()}}.png"><img id="fill" src="' + base + '/img/progress_full{{number()}}.png">',
 		scope: {
-			checked: '&'
+			filled: '&',
+			number: '&'
 		},
 		link: function(scope, element) {
-			var check = element.find('img#check'),
+			var fill = element.find('img#fill'),
 				blank = element.find('img#blank');
 
-			if (scope.checked()) {
-				check.show();
+			if (scope.filled()) {
+				fill.show();
 			} else {
 				blank.show();
 			}
 
-			scope.$watch('checked()', function(checked) {
-				if (checked) {
+			scope.$watch('filled()', function(filled) {
+				if (filled) {
 					var showCheck = new TimelineMax({paused: false});
 
 					showCheck.to(blank, 0.1, {scale: 0, display: 'none'})
-						.to(check, 0.2, {scale: 1, display: 'inline'});
+						.to(fill, 0.2, {scale: 1, display: 'inline'});
 				} else {
 					var hideCheck = new TimelineMax({paused: false});
 
-					hideCheck.to(check, 0.2, {scale: 0, display: 'none'})
+					hideCheck.to(fill, 0.2, {scale: 0, display: 'none'})
 						.to(blank, 0.1, {scale: 1, display: 'inline'});
 				}
 			});
@@ -117,7 +115,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 .directive('c6ReplaceKeypress', [function() {
 	return function(scope, element, attrs) {
 		var config = scope.$eval(attrs.c6ReplaceKeypress);
-		
 		if (config) {
 			element.bind('keypress', function(event) {
 				event.stopPropagation();

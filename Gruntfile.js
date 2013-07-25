@@ -234,7 +234,7 @@ module.exports = function (grunt) {
                 files: {
                     '<%= props.distVersionPath() %>/scripts/c6app.min.js': [
                         '.tmp/scripts/c6app.js'
-                    ],
+                    ]
                 }
             }
         },
@@ -285,7 +285,7 @@ module.exports = function (grunt) {
                         dot    : true,
                         cwd    : path.join(__dirname,'dist'),
                         src    : ['**'],
-                        dest   : '<%= props.installPath() %>',
+                        dest   : '<%= props.installPath() %>'
                     }
                 ]
             }
@@ -314,7 +314,7 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
-                    bucket: 'c6.dev',
+                    bucket: 'c6.dev'
                 },
                 upload: [
                     {
@@ -378,6 +378,7 @@ module.exports = function (grunt) {
     //    grunt.task.run('test');
         grunt.task.run('build');
     });
+
 
     grunt.registerTask('publish',function(){
         grunt.task.run('build');

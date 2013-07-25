@@ -430,7 +430,7 @@ button:disabled {opacity: 0.15;}
             .content { width: 480px; margin: -70px 0  0 -240px; position: absolute;}
         }
         @media screen and (max-width: 320px) {
-            .content {width: 100%; margin: -70px 0 0 0; left: 0;}
+            .content { width: 100%; margin: -70px 0 0 0; left: 0;}
         }
 
         .question__group {padding: 0;}
@@ -447,35 +447,25 @@ button:disabled {opacity: 0.15;}
                     opacity: 1; margin: 2% 0 0 0;
                 }
                     @media screen and (max-width: 568px) {
-                        .question__number {
-                            margin: -2% 0 0 0;
-                            font-size: 0.8em;
-                        }
+                        .question__number {margin: -2% 0 0 0; font-size: 0.8em; }
                     }
 
                     @media screen and (max-width: 320px) {
-                        .question__number {
-                            margin: -8% 0 0 0;
-                        }
+                        .question__number { margin: -8% 0 0 0;}
                     }
 
                 .question__query {
                     width: 100%; height: 11%; 
-                    margin: 1% 0 0 0; 
+                    margin: 1% 0 0 0;  line-height: 120%;
                     text-align: center; font-size: 32px; 
                     display: block; 
                     opacity: 1;
                 }
                     @media screen and (max-width: 1024px) {
-                        .question__query {
-                            width: 80%;
-                            margin: 0 0 0 10%;
-                        }
+                        .question__query { width: 80%; margin: 0 0 0 10%;}
                     }
                     @media screen and (max-width: 568px) {
-                        .question__query {
-                            font-size: 1.5em;
-                        }
+                        .question__query { font-size: 1.3em;}
                     }
             
             .question__userAnswer {
@@ -484,52 +474,79 @@ button:disabled {opacity: 0.15;}
                 top: 50%; left: 50%;
                 margin: 0 0 0 -34%;
             }
+                /* medium desktop */
                 @media screen and (max-width: 568px) {
                     .question__userAnswer {
-                        position: absolute;
+                        margin: 0 0 0 -30%; position: absolute;
                         width: 60%; top: 25%; 
-                        margin: 0 0 0 -30%;
                     }
                 }
+
+                /* small desktop */
                 @media screen and (max-width: 320px) {
-                    .question__userAnswer {
-                        width: 54%;
-                        margin: 0 0 0 -27%;
-                    }
+                    .question__userAnswer { width: 54%; margin: 0 0 0 -27%;}
+                }
+                
+                /* tablet */
+                @media screen and (max-device-width: 1045px) {
+                    .question__userAnswer { width: 74%; }
+                }
+                /* iphone5 landscape */
+                @media screen and (max-device-width: 568px) {
+                    .question__userAnswer { width: 65%; }
+                }
+                /* iphone5 portrait */
+                @media screen and (max-device-width: 320px) {
+                    .question__userAnswer { width: 55%;}
                 }
                 .question__input {
                     width: 100%;
-                    border: 0; background: none;
-                    background: url('../img/inputLine.jpg') bottom center no-repeat; 
+                    border: 0; background: purple;
+                    background: url('../img/inputLine.jpg') bottom center repeat-x; 
                     font-family: "Courier Prime", Courier, Times, serif;
-                    font-size: 28px; font-weight: 700; color: #c20000;
+                    font-size: 1.8em; font-weight: 700; color: #c20000;
                     z-index: 1;
-                 }
-                 .question__input:focus {outline:none;}
-                 .question__input::-ms-clear {display:none;} /*remove X from IE10*/
-                    @media screen and (max-width: 568px) {
-                        .question__input {
-                            font-size: 1.6em;
-                        }
-                    }
-
-                 .question__characterCount {
-                    width: 100%; height: 21px; top: 16px;
-                    font-size: 15px; text-align: right; 
-                    position: absolute;
                 }
-                    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                        .question__characterCount {
-                            width: 102%;
-                        }
+                    .question__input:focus {outline:none;}
+                    .question__input::-ms-clear {display:none;} /*remove X from IE10*/
+                    /* small desktop */
+                    @media screen and (max-width: 568px) {
+                        .question__input { font-size: 1.4em; }
                     }
-                    @media only screen and (max-width: 568px) {
-                        .question__characterCount {
-                            top: 6px;
-                        }
+                    /* ipad landscape  */
+                    @media screen and (max-device-width: 1045px) {
+                        .question__input { width: 100%;}
+                    }
+                    /* ipad portrait  */
+                    @media screen and (max-device-width: 768px) {
+                        .question__input { width: 92%;}
+                    }
+                    /* iphone5 landscape */
+                    @media screen and (max-device-width: 568px) {
+                        .question__input { width: 94%;}
+                    }
+                    /* iphone5 portrait */
+                    @media screen and (max-device-width: 320px) {
+                        .question__input { width: 90%;}
                     }
 
-            /* keyboard up classes */
+                .question__subtext {
+                    width: 100%; height: 16px; margin: 1% 0 0 0;
+                }
+                    /* ipad & iphone landscape  */
+                    @media screen and (max-device-width: 1045px) and (orientation: landscape) {
+                        .question__subtext { width: 97%;}
+                    }
+                    .question__progressMeter {
+                        margin: 0; float: left; font-size: 0.8em;
+                    }
+
+                    /* structure is for mobile only */
+                    .question__characterCount {
+                        margin: 0; float: right; text-align: right; font-size: 0.8em;
+                    }
+
+            /* ------ keyboard up classes ------ */
                 .question__inputCheck {
                     background: url("../img/input_check.png") right no-repeat;
                     height: 32px; width: 68%;
@@ -540,92 +557,62 @@ button:disabled {opacity: 0.15;}
                 }
 
                 /* iPad landscape*/
-                @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                .c6-ios-keyboard-up {
-                    height: 280px; width: 100%; margin-top:40px;
-                }
-                    .c6-ios-keyboard-up .inputScreen__bgArtwork {
-                        bottom: -410px;
+                    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
+                    .c6-ios-keyboard-up {
+                        height: 280px; width: 100%; margin-top:40px;
                     }
-                    .c6-ios-keyboard-up .inputScreen__logo { top: 0px;}
-                    .c6-ios-keyboard-up .inputScreen__btnClose { top: -38px;}
-                    .c6-ios-keyboard-up .progressDock {display: none;}
-                }
+                        .c6-ios-keyboard-up .inputScreen__bgArtwork { bottom: -410px;}
+                        .c6-ios-keyboard-up .inputScreen__logo { top: 0;}
+                        .c6-ios-keyboard-up .inputScreen__btnClose { top: -38px;}
+                    }
 
                 /* iPad portrait */
-                @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
-                .c6-ios-keyboard-up {
-                    height: 620px; width: 100%; margin-top:40px; 
-                }
-                    .c6-ios-keyboard-up .inputScreen__bgArtwork {
-                        bottom: -300px;
+                    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+                    .c6-ios-keyboard-up {
+                        height: 620px; width: 100%; margin-top:40px; 
                     }
-                    .c6-ios-keyboard-up .inputScreen__logo { top: 0px;}
-                    .c6-ios-keyboard-up .inputScreen__btnClose { top: -38px;}
-                    .c6-ios-keyboard-up .progressDock {display: none;}
-                }
+                        .c6-ios-keyboard-up .inputScreen__bgArtwork { bottom: -300px;}
+                        .c6-ios-keyboard-up .inputScreen__logo { top: 0;}
+                        .c6-ios-keyboard-up .inputScreen__btnClose { top: -38px;}
+                    }
 
                 /* iPhone landscape */
-                @media screen and (max-width: 568px) {
-                .question__characterCount {
-                    width: 106%; top: 40%;
-                }
-                .question__inputCheck {
-                    height: 24px; background-size: contain; top: 35%;
-                }
+                    @media screen and (max-width: 568px) {
+                    .question__inputCheck {
+                        height: 24px; background-size: contain; top: 35%;
+                    }
 
-                .c6-ios-keyboard-up {
-                    height: 140px; width: 100%; margin-top:38px;
-                }
-                    .c6-ios-keyboard-up .content { 
-                        height: 100%;
+                    .c6-ios-keyboard-up {
+                        height: 90px; width: 100%; position: absolute; top: 38px;
                     }
-                    .c6-ios-keyboard-up .question__query {
-                        font-size: 1em;
+                        .c6-ios-keyboard-up .content { height: 100%; top: 64px;}
+                        .c6-ios-keyboard-up .question__number { font-size: 0.5em;}
+                        .c6-ios-keyboard-up .question__query { font-size: 1em;}
+
+                        .c6-ios-keyboard-up .question__input { font-size: 1.25em; margin-top: 5%;}
+
+                        .c6-ios-keyboard-up .question__btnStart { height: 40%;}
+                        .c6-ios-keyboard-up .question__inputCheck { height: 18px; top: 42%;}
+                        .c6-ios-keyboard-up .question__btnPrevious { top: 50%; height: 20%;}
+                        .c6-ios-keyboard-up .question__btnNext { top: 50%; height: 20%;}
+
+                        .c6-ios-keyboard-up .inputScreen__logo {top: 5px; }
+                        .c6-ios-keyboard-up .inputScreen__logo img {height: 25px;}
+                        .c6-ios-keyboard-up .inputScreen__bgArtwork {display: none;}
+                        .c6-ios-keyboard-up .inputScreen__btnClose {top: -42px; right: -14px; height: 30px;}
                     }
-                    .c6-ios-keyboard-up .question__number { 
-                        font-size: 0.5em;
-                    }
-                    .c6-ios-keyboard-up .question__input { 
-                        font-size: 1.25em; margin-top: 5%;
-                    }
-                    .c6-ios-keyboard-up .question__btnStart {
-                        top: 80%; height: 30%;
-                    }
-                    .c6-ios-keyboard-up .question__inputCheck {
-                        height: 18px; top: 42%;
-                    }
-                    .c6-ios-keyboard-up .question__characterCount {
-                        font-size: 12px; width: 107%; top: 20px;
-                    }
-                    .c6-ios-keyboard-up .question__btnPrevious { 
-                        top: 32%; height: 20%;
-                    }
-                    .c6-ios-keyboard-up .question__btnNext {
-                        top: 32%; height: 20%;
-                    }
-                    
-                    .c6-ios-keyboard-up .progressDock { display: none;}
-                    .c6-ios-keyboard-up .inputScreen__logo {display: none;}
-                    .c6-ios-keyboard-up .inputScreen__bgArtwork {display: none;}
-                    .c6-ios-keyboard-up .inputScreen__btnClose {display: none;}
-                }
 
                 /* iPhone portrait */
-                @media screen and (max-width: 320px) {
-                    .c6-ios-keyboard-up {
-                        height: 200px; margin-top: 40px;
+                    @media screen and (max-width: 320px) {
+                        .c6-ios-keyboard-up {
+                            height: 200px;
+                        }   
+                            .c6-ios-keyboard-up .content { top: 100px; }
+                            .c6-ios-keyboard-up .inputScreen__logo {top: 0; }
+                            .c6-ios-keyboard-up .question__btnPrevious { top: 25%;}
+                            .c6-ios-keyboard-up .question__btnNext { top: 25%;}
+                            .c6-ios-keyboard-up .question__btnStart { top: 10%;}
                     }
-                       .c6-ios-keyboard-up .question__btnPrevious { 
-                            top: 25%;
-                        }
-                        .c6-ios-keyboard-up .question__btnNext {
-                            top: 25%;
-                        }
-                    .question__characterCount {
-                        width: 110%; top: 40%;
-                    }
-                }
 
         .question__btnPrevious {
             background: url('../img/btn_previous_default.png') no-repeat bottom left; background-size: contain;
@@ -637,14 +624,10 @@ button:disabled {opacity: 0.15;}
          }
             .question__btnPrevious:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left; background-size: contain;}
             @media screen and (max-width: 568px) {
-                .question__btnPrevious {
-                    margin: 0 0 0 8%; top: 25%;
-                }
+                .question__btnPrevious { margin: 0 0 0 8%; top: 25%;}
             }
             @media screen and (max-width: 320px) {
-                .question_btnPrevious {
-                    margin: 0;
-                }
+                .question_btnPrevious {margin: 0;}
             }
 
         .question__btnNext {
@@ -656,9 +639,7 @@ button:disabled {opacity: 0.15;}
          }
             .question__btnNext:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
             @media screen and (max-width: 568px) {
-                .question__btnNext {
-                    margin: 0 8% 0 0; top: 25%;
-                }
+                .question__btnNext { margin: 0 8% 0 0; top: 25%;}
             }
 
         .question__btnStart {
@@ -670,23 +651,21 @@ button:disabled {opacity: 0.15;}
          }
             .question__btnStart:active {background: url('../img/btn_start_tap.png') center no-repeat;}
 
+            /* small desktop */
             @media screen and (max-width: 768px) {
                 .question__btnStart { width: 50%; top: 70%; left: 25%; }
             }
+            /* ipad landscape */
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .question__btnStart { top: 70%;}
             }
-            @media screen and (max-width: 568px) {
-                .question__btnStart {
-                    top: 32%;
-                    width: 28%; left: 36%;
-                }
+            /* iphone landscape */
+            @media screen and (max-device-width: 568px) {
+                .question__btnStart {width: 28%; left: 36%;}
             }
-            @media screen and (max-width: 320px) {
-                .question__btnStart {
-                    top: 38%;
-                    width: 40%; left: 30%;
-                }
+            /* iphone portrait */
+            @media screen and (max-device-width: 320px) {
+                .question__btnStart {top: 20%; width: 40%; left: 30%;}
             }
  
         .inputScreen__btnClose {
@@ -707,15 +686,12 @@ button:disabled {opacity: 0.15;}
 			text-align: center; margin: 250px 50px 0 0;
 		}
             @media screen and (max-device-width:1024px) {
-                .progressDock {
-                    margin: 150px 0 0 0;
-                }
+                .progressDock { margin: 150px 0 0 0;}
             }
             @media screen and (max-device-width: 320px) {
-                .progressDock {
-                    margin: 0 0 0 0;
-                }
+                .progressDock { margin: 0 0 0 0;}
             }
+
 			.progressDock li {
 				display: inline-block; width: 42px;
 			}
@@ -723,46 +699,28 @@ button:disabled {opacity: 0.15;}
 					-webkit-transform:scale(0); -moz-transform:scale(0); -ms-transform:scale(0); -o-transform:scale(0);
                     transform:scale(0); display: none;
 				}
-			@media screen and (max-width: 768px) {
-				.progressDock img {
-					width: 30px;
-				}
-			}
-			@media screen and (max-width: 568px) {
-				.progressDock {
-					margin: 86px 30px 0 0;
-				}
-				.progressDock li {
-					width: 26px;
-				}
-			}
-			@media screen and (max-width: 320px) {
-				.progressDock {
-                    margin: 120px 30px 0 0;
-                }
-                .progressDock li {
-					width: 20px;
-				}
-			}
+    			@media screen and (max-width: 768px) {
+    				.progressDock img {width: 30px;}
+    			}
+    			@media screen and (max-width: 568px) {
+    				.progressDock {margin: 86px 30px 0 0;}
+    				.progressDock li {width: 26px;}
+    			}
+    			@media screen and (max-width: 320px) {
+    				.progressDock { margin: 120px 30px 0 0; }
+                    .progressDock li {width: 20px;}
+    			}
 
     /* artwork */
      .inputScreen__logo {
         top: 48px; left: 10px;
         width: 100%; height: 100%;
         position: absolute;
-        z-index: 0;
+        z-index: 0; background-size: contain;
      } 
-        @media screen and (max-width: 768px) {
-            .inputScreen__logo {
-                height: 60px;
-                background-size: contain;
-            } 
-        }
-        @media screen and (max-width: 568px) {
-            .inputScreen__logo img {
-                height: 30px;
-                background-size: contain;
-            } 
+        /* phone */
+        @media screen and (max-device-width: 568px) {
+            .inputScreen__logo img { height: 30px;} 
         }
 
      .inputScreen__bgArtwork {
@@ -775,10 +733,7 @@ button:disabled {opacity: 0.15;}
         left: -300px;
      }
         @media screen and (max-width: 768px) {
-            .inputScreen__bgArtwork {
-                background-size: contain;
-                width: 450px; height: 450px;
-            }
+            .inputScreen__bgArtwork { background-size: contain; width: 450px; height: 450px;}
         }
         @media screen and (max-width: 568px) {
             .inputScreen__bgArtwork {

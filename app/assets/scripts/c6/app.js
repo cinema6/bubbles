@@ -5,14 +5,16 @@
 	var browserVersion = (function() {
 		var N= navigator.appName, ua= navigator.userAgent, tem;
 		var M= ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
-		var isMobile = ua.match(/iPhone|iPod|iPad|Android/);
+		var isMobile = ua.match(/iPhone|iPod|iPad|Android|Silk/);
 		var isIPad   = ua.match(/iPad/);
+		var isAndroid = ua.match(/Android|Silk/);
+
 		if(M && (tem= ua.match(/version\/([\.\d]+)/i))!== null){
 			M[2]= tem[1];
 		}
 
 		if (M) {
-			return { 'app' : M[1].toLowerCase(), 'version' : M[2], 'isMobile': isMobile, 'isIPad' : isIPad };
+			return { 'app' : M[1].toLowerCase(), 'version' : M[2], 'isMobile': isMobile, 'isIPad' : isIPad, 'isAndroid' : isAndroid };
 		}
 
 		return { 'app' : N, 'version' : navigator.appVersion };

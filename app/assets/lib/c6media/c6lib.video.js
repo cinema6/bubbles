@@ -125,7 +125,7 @@ angular.module('c6lib.video', [])
 				return false;
 			}
 
-			if (c6videoService.isIPhone) {
+			if (c6videoService.isIPhone && video.src) {
 				this.regenerate();
 				video = this.player;
 			}

@@ -1,3 +1,4 @@
+/* jshint node:true */
 'use strict';
 var fs          = require('fs-extra'),
     path        = require('path'),
@@ -378,7 +379,7 @@ module.exports = function (grunt) {
         grunt.task.run('build');
     });
 
-    grunt.registerTask('publish',function(type){
+    grunt.registerTask('publish',function(){
         grunt.task.run('build');
         grunt.task.run('s3:demo');
     });

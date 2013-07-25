@@ -132,7 +132,8 @@ angular.module('c6.ctrl',['c6.svc'])
 	});
 
 	$scope.$on('videoShouldLoad', function() {
-		if (!video.player.readyState) {
+		if (!video.bufferedPercent()) {
+			$log.log('Video not buffered! Attempting to load!');
 			video.player.load();
 		}
 	});
@@ -233,7 +234,9 @@ angular.module('c6.ctrl',['c6.svc'])
 	var category = $stateParams.category;
 	$log.log('Choosing a random experience in the ' + category + ' category.');
 
-	$state.transitionTo('experience.input', { category: $stateParams.category, expid: vsvc.getRandomExperienceFromCategory(category) });
+	vsvc.getRandomExperienceIdFromCategory(category).then(function(experienceId) {
+		$state.transitionTo('experience.input', { category: $stateParams.category, expid: experienceId });
+	});
 }])
 
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$stateParams', '$state', function($log, $scope, $rootScope, $stateParams, $state) {

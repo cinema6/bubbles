@@ -81,10 +81,10 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 		}
 	};
 }])
-.directive('c6ValidCheck', [function() {
+.directive('c6ValidCheck', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',
-		template: '<img id="blank" src="assets/img/input_blank.png"><img id="check" src="assets/img/input_check.png">',
+		template: '<img id="blank" src="' + base + '/img/input_blank.png"><img id="check" src="' + base + '/img/input_check.png">',
 		scope: {
 			checked: '&'
 		},
@@ -109,6 +109,23 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 
 					hideCheck.to(check, 0.2, {scale: 0, display: 'none'})
 						.to(blank, 0.1, {scale: 1, display: 'inline'});
+				}
+			});
+		}
+	};
+}])
+.directive('c6ReplaceKeypress', [function() {
+	return function(scope, element, attrs) {
+		var config = scope.$eval(attrs.c6ReplaceKeypress);
+		
+		if (config) {
+			element.bind('keypress', function(event) {
+				event.stopPropagation();
+				event.preventDefault();
+				var expression = config[event.keyCode];
+
+				if (expression) {
+					scope.$eval(expression);
 				}
 			});
 		}
@@ -244,9 +261,19 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	};
 }])
 
-.directive('c6Autofocus', [function() {
-	return function(scope, element) {
-		element.focus();
+.directive('c6Autofocus', ['$log', function($log) {
+	return function(scope, element, attrs) {
+		var event = attrs.c6Autofocus;
+
+		if (!event) {
+			$log.log('Focusing on initialization');
+			element.focus();
+		} else {
+			scope.$on(event, function() {
+				$log.log('Focusing in response to event: ' + event);
+				element.focus();
+			});
+		}
 	};
 }])
 

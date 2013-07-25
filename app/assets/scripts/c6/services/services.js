@@ -72,6 +72,80 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
+.service('cinema6', ['$window', '$document', '$rootScope', '$location', '$log', function($window, $document, $rootScope, $location, $log) {
+	var parent = $window.parent,
+		ngEventHandlerDeactivateFuncs = [],
+		updateParent = function() {
+			parent.postMessage({ 'pathChange': { path: $location.path() } }, '*');
+		},
+		handleMessage = function(event) {
+			var data = event.data,
+				$broadcast = data.$broadcast;
+
+			if ($broadcast) {
+				(function(broadcast) {
+					var convertToArray = function(data) {
+						var key,
+							array = [];
+
+						for (key in data) {
+							array.push(data[key]);
+						}
+
+						return array;
+					};
+					$rootScope.$broadcast.apply($rootScope, convertToArray(broadcast));
+				})($broadcast);
+			}
+		},
+		noop = angular.noop,
+		listenForLoad = false;
+
+	this.$emit = function(name) {
+		var argsToForward = Array.prototype.slice.call(arguments);
+		argsToForward.splice(0, 1);
+
+		parent.postMessage({ '$emit': { name: name, args: argsToForward } }, '*');
+	};
+
+	ngEventHandlerDeactivateFuncs.push($rootScope.$on('$routeChangeSuccess', function() {
+		updateParent();
+	}));
+	ngEventHandlerDeactivateFuncs.push($rootScope.$on('$stateChangeSuccess', function() {
+		updateParent();
+	}));
+
+	$window.addEventListener('message', handleMessage, false);
+
+	listenForLoad = $rootScope.$on('$viewContentLoaded', function() {
+		listenForLoad();
+		parent.postMessage({ 'loaded': true }, '*');
+	});
+	ngEventHandlerDeactivateFuncs.push(listenForLoad);
+
+	// Disable this service if we're not inside the cinema6 site.
+	if (!parent || parent === $window) {
+		$log.log('Cinema6 service is deactivating!');
+		(function() {
+			var property,
+				value;
+			// Remove the handler for messages on the window
+			$window.removeEventListener('message', handleMessage, false);
+			// Remove the handlers on the $rootScope
+			ngEventHandlerDeactivateFuncs.forEach(function(deactivate) {
+				deactivate();
+			});
+			// Disable all of our functions.
+			for (property in this) {
+				value = this[property];
+
+				if (typeof value === 'function') {
+					this[property] = noop;
+				}
+			}
+		}).call(this);
+	}
+}])
 .service('C6ResponseCachingService', ['$window', function($window) {
 	if (!$window.localStorage) {
 		$window.localStorage = {};

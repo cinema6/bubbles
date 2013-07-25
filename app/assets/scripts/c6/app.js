@@ -98,5 +98,8 @@
 			}]);
 		}])
 		.constant('appBaseUrl', __C6_APP_BASE_URL__)
-		.constant('environment', appConfig);
+		.constant('environment', appConfig)
+		.run(['cinema6', function() {
+			// Make sure the cinema6 service is instantiated
+		}]);
 })();

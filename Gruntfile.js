@@ -378,7 +378,7 @@ module.exports = function (grunt) {
         grunt.task.run('build');
     });
 
-    grunt.registerTask('publish',function(type){
+    grunt.registerTask('publish',function(/*type*/){
         grunt.task.run('build');
         grunt.task.run('s3:demo');
     });

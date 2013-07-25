@@ -117,7 +117,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 .directive('c6ReplaceKeypress', [function() {
 	return function(scope, element, attrs) {
 		var config = scope.$eval(attrs.c6ReplaceKeypress);
-		
 		if (config) {
 			element.bind('keypress', function(event) {
 				event.stopPropagation();

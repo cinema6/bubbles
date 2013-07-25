@@ -81,9 +81,10 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 .directive('c6ProgressNumber', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',
-		template: '<img id="blank" src="' + base + '/img/input_blank.png"><img id="fill" src="' + base + '/img/input_check.png">',
+		template: '<img id="blank" src="' + base + '/img/progress_empty{{number()}}.png"><img id="fill" src="' + base + '/img/progress_full{{number()}}.png">',
 		scope: {
-			filled: '&'
+			filled: '&',
+			number: '&'
 		},
 		link: function(scope, element) {
 			var fill = element.find('img#fill'),

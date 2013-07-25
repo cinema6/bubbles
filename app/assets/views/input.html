@@ -16,7 +16,7 @@
 
 	                    <div ng-if="inputCtrl.currentPromptIndex() === $index"
                             ng-animate="'prompt'" class="question__prompt">
-                            <h1 class="question__number">Question {{$index+1}}</h1>
+                            <h1 class="question__number">Fill in the Blank</h1>
                             <h2 class="question__query">{{inputCtrl.promptModel.prompts[$index].query}}</h2>
                         </div>
                         <div class="question__userAnswer"
@@ -39,11 +39,11 @@
                     </div>
                 </li>
 
-			<!--<ul class="progressDock">
+			<ul class="progressDock">
 				<li ng-repeat="prompt in inputCtrl.promptModel.prompts">
-					<c6-progress-number filled="inputCtrl.currentPromptIndex() >= $index">
+					<c6-progress-number number="$index + 1" filled="inputCtrl.currentPromptIndex() >= $index">
 				</li>
-			</ul>-->
+			</ul>
 
 			<button
                 class="question__btnStart"

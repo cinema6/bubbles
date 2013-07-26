@@ -96,7 +96,7 @@ angular.module('c6.svc',[])
 	};
 }])
 
-.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
+.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', 'environment', function($routeParams, $rootScope, vidSvc, $http, $q, $log, env) {
 	var genVidUrlCache = {};
 
 	this.getAnnotationsModelByType = function(type, annotations) {
@@ -199,7 +199,7 @@ angular.module('c6.svc',[])
 			url.resolve(genVidUrlCache[model.options.vid].url);
 		} else {
 			$log.log('No URL for these responses. Going to the server!');
-			$http.post('http://dub.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+			$http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
 				var urlFromServer = response.data.output;
 
 				genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
@@ -405,6 +405,22 @@ angular.module('c6.svc',[])
 	};
 
 	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+
+	// Web Audio API is too buggy on Mobile Safari :-( Disable It...
+
+	if (this.isMobileSafari) {
+		(function() {
+			var property;
+
+			for (property in this) {
+				if (this.hasOwnProperty(property)) {
+					if (typeof this[property] === 'function') {
+						this[property] = angular.noop;
+					}
+				}
+			}
+		}).call(this);
+	}
 }])
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');

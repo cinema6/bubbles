@@ -26,7 +26,7 @@ function PromptModel(experience) {
 		else if ((typeof q === 'string') || (q instanceof String)){
 			this.prompts.push({
 				query : q,
-				sizeLimit : this.defSizeLimit,
+				sizeLimit : this.defSizeLimit
 			});
 		}
 		else {
@@ -120,10 +120,11 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
+		readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
+		oldResponses,
 		video;
 
 	$scope.$on('c6video-ready', function(event, player) {
-		var readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough';
 		video = player;
 
 		player.on([readyEvent, 'play'], function() {
@@ -132,8 +133,19 @@ angular.module('c6.ctrl',['c6.svc'])
 	});
 
 	$scope.$on('videoShouldLoad', function() {
-		if (!video.player.readyState) {
+		if (!video.bufferedPercent()) {
+			$log.log('Video not buffered! Attempting to load!');
 			video.player.load();
+		}
+	});
+
+	$scope.$on('finishedAnimatingVideoShow', function() {
+		if (self.videoCanPlay && video.player.paused) {
+			if (video.hasPlayed()) {
+				video.player.currentTime = 0;
+			}
+			$log.log('Playing the video!');
+			video.player.play();
 		}
 	});
 
@@ -143,20 +155,24 @@ angular.module('c6.ctrl',['c6.svc'])
 				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', $scope.appCtrl.experience.annotations),
 				responses = $scope.appCtrl.promptModel.responses;
 
-			respSvc.setResponses(responses, $stateParams.category, $stateParams.expid);
-
 			if (bubbleModel) {
 				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, responses);
 			} else {
 				self.annotationsModel = null;
 			}
 			if (txt2SpchModel) {
-				self.videoCanPlay = false;
 				txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, responses);
-				$scope.appCtrl.experience.src = null;
+
+				if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
+					respSvc.setResponses(responses, $stateParams.category, $stateParams.expid);
+					self.videoCanPlay = false;
+					$scope.appCtrl.experience.src = null;
+				}
+				oldResponses = angular.copy(responses);
+
 				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
 					$scope.appCtrl.experience.src = url;
-					video.on('canplaythrough', function() {
+					video.on(readyEvent, function() {
 						$timeout(function() {
 							if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
 						}, 100);
@@ -200,7 +216,8 @@ angular.module('c6.ctrl',['c6.svc'])
 		});
 	};
 
-	this.goToEnd = function() {
+	this.goToEnd = function(player) {
+		player.fullscreen(false);
 		$state.transitionTo('experience.end', $stateParams);
 	};
 

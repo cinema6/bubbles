@@ -1,4 +1,4 @@
-/*jshint -W080 */
+/*jshint -W080, -W117 */
 var __C6_BUILD_VERSION__ = undefined,
     __C6_APP_BASE_URL__  = (__C6_BUILD_VERSION__ ? __C6_BUILD_VERSION__ : 'assets');
 (function(){
@@ -16,7 +16,7 @@ if (__C6_BUILD_VERSION__) {
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
                     'scripts/c6/animations/animations',
-                    'scripts/c6/directives/directives',
+                    'scripts/c6/directives/directives'
                     ];
 }
 

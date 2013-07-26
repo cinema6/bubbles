@@ -380,7 +380,7 @@
 						ease: Power3.easeOut,
 						opacity: 1,
 						left: '0px',
-						bottom: '0px',
+						bottom: '0px'
 					}, '-=0.5')
 			 .eventCallback('onComplete', done);
 
@@ -414,7 +414,7 @@
 
 				vidIn.play();
 				setTimeout(function() {
-					if (videoPlayer.src && videoPlayer.paused) { videoPlayer.play(); videoPlayer.currentTime = 0; }
+					$rootScope.$broadcast('finishedAnimatingVideoShow');
 				}, 1850);
 				vidIn.seek(0);
 			}
@@ -448,10 +448,7 @@
 				});
 			},
 			start: function(annotation, done) {
-				console.log('animate in action bubble');
 				var actionShow	= new TimelineLite();
-					//aText			= $('.a-text');
-
 				actionShow.from(annotation, 0.3, {
 					alpha:0,
 					scale:2,
@@ -465,7 +462,6 @@
 	.animation('action-annotation-hide', [function() {
 		return {
 			start: function(annotation, done) {
-				console.log('animate out action bubble');
 				var actionHide= new TimelineLite();
 
 				actionHide.to(annotation, 0.25, {alpha: 0})
@@ -483,9 +479,7 @@
 				});
 			},
 			start: function(annotation, done) {
-				console.log('animate in fantasy bubble');
-				var fantasyShow= new TimelineLite();
-					//aText	= $('.a-text');
+				var fantasyShow = new TimelineLite();
 
 				fantasyShow.from(annotation, 0.3, {
 					alpha:0,
@@ -501,7 +495,6 @@
 	.animation('fantasy-annotation-hide', [function() {
 		return {
 			start: function(annotation, done) {
-				console.log('animate out fantasy bubble');
 				var fantasyHide= new TimelineLite();
 
 				fantasyHide.to(annotation, 0.3, {alpha: 0})
@@ -519,9 +512,7 @@
 				});
 			},
 			start: function(annotation, done) {
-				console.log('animate in romance bubble');
 				var romanceShow= new TimelineLite();
-					//aText			= $('.a-text');
 
 				romanceShow.from(annotation, 0.3, {
 					alpha:0,
@@ -536,7 +527,6 @@
 	.animation('romance-annotation-hide', [function() {
 		return {
 			start: function(annotation, done) {
-				console.log('animate out romance bubble');
 				var romanceHide= new TimelineLite();
 
 				romanceHide.to(annotation, 0.3, {alpha: 0})

@@ -583,7 +583,7 @@ button:disabled {opacity: 0.15;}
                     }
 
                     .c6-ios-keyboard-up {
-                        height: 90px; width: 100%; position: absolute; margin-top: 38px; background: white;
+                        height: 90px; width: 100%; position: absolute; margin-top: 38px;
                     }
                         .c6-ios-keyboard-up .content { height: 100%; top: 64px;}
                         .c6-ios-keyboard-up .question__number { font-size: 0.5em;}

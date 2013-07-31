@@ -406,9 +406,9 @@ angular.module('c6.svc',[])
 
 	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
 
-	// Web Audio API is too buggy on Mobile Safari :-( Disable It...
+	// Web Audio API is too buggy on Mobile Safari :-( Disable It... Edit: Nope. We're going for it!
 
-	if (this.isMobileSafari) {
+	/*if (this.isMobileSafari) {
 		(function() {
 			var property;
 
@@ -420,7 +420,7 @@ angular.module('c6.svc',[])
 				}
 			}
 		}).call(this);
-	}
+	}*/
 }])
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');

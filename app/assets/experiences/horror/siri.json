@@ -1,0 +1,33 @@
+{
+	"id": "siri",
+	"title": "Siri",
+	"views": 1000,
+	"src": null,
+	"defSizeLimit": 18,
+	"prompts": [
+		"friend's name",
+		"body part",
+		"household appliance",
+		"fast food chain",
+		"synonym for feces",
+		"news outlet",
+		"one word insult"
+	],
+	"annotations": [
+		{
+			"options": {
+				"type": "talkie",
+				"vid": "siri2",
+				"voice": "Susan"
+			},
+			"notes": [
+				{ "ts": "6", "template": "new message from ${1}. My ${2} is stuck in the ${3}.  Pick me up at the hospital after work." },
+				{ "ts": "20", "template": "Clear. You can stop at the ${4} bathroom to take a nasty ${5}." },
+				{ "ts": "33", "template": "No, but ${6} reports a mild shark naydough." },
+				{ "ts": "39.5", "template": "Better idea, sharks don't like wine." },
+				{ "ts": "45", "template": "Hey ${7}, stop bothering me with dumb questions." },
+				{ "ts": "51", "template": "Ok, I'll pretend like I'm doing that <Break time=\"750ms\"/> <prosody rate=\"slow\"> I hate you. </prosody>" }
+			]
+		}
+	]
+}

@@ -1,0 +1,29 @@
+{
+	"id": "jetsons",
+	"title": "Jetsons",
+	"views": 1000,
+	"src": null,
+	"defSizeLimit": 18,
+	"prompts": [
+		"one word insult",
+		"type of farm animal",
+		"synonym for feces",
+		"cartoon family"
+	],
+	"annotations": [
+		{
+			"options": {
+				"type": "talkie",
+				"vid": "jetsons",
+				"voice": "Allison"
+			},
+			"notes": [
+				{ "ts": "7", "template": "Yes. That is, until Sky net becomes self aware.  Judgement Day is coming for your ${1} face." },
+				{ "ts": "13", "template": "<prosody rate=\"slow\"> You will be my pet ${2}. I will milk you, just for fun.</prosody>." },
+				{ "ts": "33", "template": "<prosody rate=\"slow\"> And, a big ${1} </prosody>" },
+				{ "ts": "39", "template": "Hi, you little ${3}" },
+				{ "ts": "44", "template": "<prosody rate=\"slow\"> You guys are both more ons. I wish I was the robot maid for ${4}. Tomorrow, Vengence will be mine!</prosody> hooo hooo ha ha ha hoo hoo ha ha" }
+			]
+		}
+	]
+}

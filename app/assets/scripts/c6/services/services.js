@@ -1,12 +1,12 @@
 (function(){
 'use strict';
 
-function TalkieModel(annotations, extension) {
+function TalkieModel(annotations, extension, env) {
 	var options = annotations.options;
 	this.options = {
 		effect: options.effect,
 		level: options.level,
-		vid: options.vid + '.' + extension,
+		vid: options.vid + ((env.browser.isIPhone && options.iPhoneVersion) ? '_iphone' : '') + '.' + extension,
 		voice: options.voice
 	};
     this.annotations = [];
@@ -21,7 +21,7 @@ function TalkieModel(annotations, extension) {
     }, this);
 }
 
-function BubblesModel(annotations) {
+function BubblesModel(annotations, extension, env) {
     var localException = function(msg) {
         return {
           'name'     : 'AnnotationsModel',
@@ -30,45 +30,47 @@ function BubblesModel(annotations) {
         };
       };
     this.annotations     = [];
-    for (var i = 0; i < annotations.notes.length; i++) {
-        var a = annotations.notes[i],
-            n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
-            text : null, index : i, tail: a.tail
-            };
-        if (annotations.options){
-            if (!n.type) {
-                n.type = annotations.options.type;
-            }
-            if (!n.duration) {
-                n.duration = annotations.options.duration;
-            }
-            if (!n.cls) {
-                var eCls = annotations.options.cls;
-                if (eCls instanceof Array) {
-                    var lenCls = eCls.length;
-                    n.cls = [];
-                    for (var j = 0; j < lenCls; j++) {
-                        n.cls.push(eCls[j]);
-                    }
-                }
-            }
-        }
+	if (!env.browser.isIPhone) {
+		for (var i = 0; i < annotations.notes.length; i++) {
+			var a = annotations.notes[i],
+				n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
+				text : null, index : i, tail: a.tail
+				};
+			if (annotations.options){
+				if (!n.type) {
+					n.type = annotations.options.type;
+				}
+				if (!n.duration) {
+					n.duration = annotations.options.duration;
+				}
+				if (!n.cls) {
+					var eCls = annotations.options.cls;
+					if (eCls instanceof Array) {
+						var lenCls = eCls.length;
+						n.cls = [];
+						for (var j = 0; j < lenCls; j++) {
+							n.cls.push(eCls[j]);
+						}
+					}
+				}
+			}
 
-        if (n.cls instanceof Array) {
-            for (var k = 0; k < n.cls.length; k++) {
-                n.cls[k] = n.cls[k].replace('${index}',n.index);
-            }
-        }
+			if (n.cls instanceof Array) {
+				for (var k = 0; k < n.cls.length; k++) {
+					n.cls[k] = n.cls[k].replace('${index}',n.index);
+				}
+			}
 
-        if (!n.type){ throw localException('Missing Property (type): ' + JSON.stringify(a));}
-        if (!n.ts)  { throw localException('Missing Property (ts): ' + JSON.stringify(a));}
-        if (!n.duration) { throw localException('Missing Property (duration): ' +
-                JSON.stringify(a));}
-        if (!n.template){ throw localException('Missing Property (template): ' +
-            JSON.stringify(a));}
+			if (!n.type){ throw localException('Missing Property (type): ' + JSON.stringify(a));}
+			if (!n.ts)  { throw localException('Missing Property (ts): ' + JSON.stringify(a));}
+			if (!n.duration) { throw localException('Missing Property (duration): ' +
+					JSON.stringify(a));}
+			if (!n.template){ throw localException('Missing Property (template): ' +
+				JSON.stringify(a));}
 
-        this.annotations.push(n);
-    }
+			this.annotations.push(n);
+		}
+	}
 }
 
 angular.module('c6.svc',[])
@@ -111,7 +113,7 @@ angular.module('c6.svc',[])
 
 		annotations.forEach(function(annoConfig) {
 			if (annoConfig.options.type === type) {
-				toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
+				toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()), env);
 			}
 		});
 		return toReturn;

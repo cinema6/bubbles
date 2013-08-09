@@ -6,6 +6,7 @@
 		var N= navigator.appName, ua= navigator.userAgent, tem;
 		var M= ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
 		var isMobile = ua.match(/iPhone|iPod|iPad|Android|Silk/);
+		var isIPhone = ua.match(/iPhone/);
 		var isIPad   = ua.match(/iPad/);
 		var isAndroid = ua.match(/Android|Silk/);
 
@@ -14,7 +15,7 @@
 		}
 
 		if (M) {
-			return { 'app' : M[1].toLowerCase(), 'version' : M[2], 'isMobile': isMobile, 'isIPad' : isIPad, 'isAndroid' : isAndroid };
+			return { 'app' : M[1].toLowerCase(), 'version' : M[2], 'isMobile': isMobile, 'isIPhone' : isIPhone, 'isIPad' : isIPad, 'isAndroid' : isAndroid };
 		}
 
 		return { 'app' : N, 'version' : navigator.appVersion };

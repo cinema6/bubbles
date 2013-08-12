@@ -28,6 +28,16 @@
 				{ "ts": "45", "template": "Hey ${7}, stop bothering me with dumb questions." },
 				{ "ts": "51", "template": "Ok, I'll pretend like I'm doing that <Break time=\"750ms\"/> <prosody rate=\"slow\"> I hate you. </prosody>" }
 			]
+		},
+		{
+			"options": {
+				"type": "bubble",
+				"duration": 4,
+				"cls": ["lotr-${index}"]
+			},
+			"notes": [
+				{ "ts": 25, "template": "Helloooooooo! This is ${1}!", "tail": { "type": "thought", "pos": "bottomRight" } }
+			]
 		}
 	]
 }

@@ -1,0 +1,25 @@
+/* Siri Video Experience specific styles */
+
+.annotation {
+    min-width: 10%;
+    max-width: 30%;
+}
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+        .annotation {
+            min-width: 22%;
+            max-width: 35%;
+        }
+    }
+
+.a-text {
+    max-width: 80%; padding: 10%; margin: 0 auto;
+    text-align: center; line-height: 100%;
+    font-family: arial, sans-serif; 
+    font-size: 125%; color: #fff;
+    text-transform:uppercase;
+}
+
+            
+/* positioning */
+.siri-0 { top: 58%; left: 37%; max-width: 28% }
+

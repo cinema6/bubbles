@@ -33,7 +33,7 @@ function BubblesModel(annotations) {
     this.sfx             = (annotations.options) ? annotations.options.sfx : null;
     for (var i = 0; i < annotations.notes.length; i++) {
         var a = annotations.notes[i],
-            n = {   type : a.type, ts : a.ts, duration : a.duration, template : a.template, 
+            n = {   type : a.type, ts : a.ts, duration : a.duration, template : a.template,
                     cls : a.cls, text : null, index : i, tail: a.tail, sfx : a.sfx
             };
         if (annotations.options){

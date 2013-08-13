@@ -34,10 +34,13 @@
 			"options": {
 				"type": "bubble",
 				"duration": 4,
-				"cls": ["siri-${index}"]
+				"cls": ["siri-${index}"],
+                "sfx" : {
+                    "sms" : "media/iphone_sms"
+                }
 			},
 			"notes": [
-				{ "ts": 55.5, "template": "Eat me ${5} face" }
+				{ "ts": 55.5, "template": "Eat me ${5} face", "sfx" : "sms" }
 			]
 		}
 	]

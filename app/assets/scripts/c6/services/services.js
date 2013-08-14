@@ -30,10 +30,11 @@ function BubblesModel(annotations) {
         };
       };
     this.annotations     = [];
+    this.sfx             = (annotations.options) ? annotations.options.sfx : null;
     for (var i = 0; i < annotations.notes.length; i++) {
         var a = annotations.notes[i],
-            n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
-            text : null, index : i, tail: a.tail
+            n = {   type : a.type, ts : a.ts, duration : a.duration, template : a.template,
+                    cls : a.cls, text : null, index : i, tail: a.tail, sfx : a.sfx
             };
         if (annotations.options){
             if (!n.type) {
@@ -41,6 +42,9 @@ function BubblesModel(annotations) {
             }
             if (!n.duration) {
                 n.duration = annotations.options.duration;
+            }
+            if (!n.sfx) {
+                n.sfx = annotations.options.defaultSfx;
             }
             if (!n.cls) {
                 var eCls = annotations.options.cls;

@@ -47,7 +47,6 @@ angular.module('c6.ctrl',['c6.svc'])
 		{ name: 'pop', src: appBase + '/media/pop_1' },
 		{ name: 'yank', src: appBase + '/media/tw_yank' }
 	]);
-	sfxSvc.playSoundOnEvent('pop', 'annotationActivated');
 
 	this.sfxSvc = sfxSvc;
 	this.experience = null;
@@ -93,6 +92,28 @@ angular.module('c6.ctrl',['c6.svc'])
 
 		self.promptModel = experience? new PromptModel(experience) : null;
 		self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', experience.annotations) : null;
+
+        if (self.annotationsModel && self.annotationsModel.sfx){
+            $log.log('Experience (' + experience.id + ') has some sounds.');
+            var sfxToLoad;
+            angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
+                sfxSrc  = appBase + '/' + sfxSrc;
+                if (!sfxSvc.getSoundByName(sfxName)){
+                    $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
+                    if (!sfxToLoad){
+                        sfxToLoad = [];
+                    }
+                    sfxToLoad.push( { name: sfxName, src: sfxSrc });
+                } else {
+                    $log.info('Already loaded sfx name=' + sfxName);
+                }
+            });
+
+            if (sfxToLoad){
+                $log.info('loading sounds');
+                sfxSvc.loadSounds(sfxToLoad);
+            }
+        }
 	});
 
 	$scope.$watch('appCtrl.promptModel', function(promptModel) {
@@ -117,7 +138,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','C6SfxService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc,sfxSvc){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
@@ -204,7 +225,11 @@ angular.module('c6.ctrl',['c6.svc'])
 			if ((time >= ts) && (time <= (ts + duration))) {
 				if (!inActiveArray) {
 					self.activeAnnotations.push(annotation);
-					$scope.$emit('annotationActivated');
+                    if (annotation.sfx) {
+                        sfxSvc.playSound(annotation.sfx);
+                    } else {
+                        sfxSvc.playSound('pop');
+                    }
 					$log.log('Activated annotation: ' + annotation.text);
 				}
 			} else {

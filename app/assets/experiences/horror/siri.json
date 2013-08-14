@@ -33,14 +33,14 @@
 		{
 			"options": {
 				"type": "bubble",
-				"duration": 4,
+				"duration": 5,
 				"cls": ["siri-${index}"],
                 "sfx" : {
                     "siri" : "media/siri3"
                 }
 			},
 			"notes": [
-				{ "ts": 55.5, "template": "Eat me ${5} face", "sfx" : "siri" }
+				{ "ts": 54.5, "template": "Eat me ${5} face", "sfx" : "siri" }
 			]
 		}
 	]

@@ -864,6 +864,12 @@ button:disabled {opacity: 0.15;}
             font-size: 1em;
         }
 
+        .vidFrame__annotation-horror {
+            margin: 16.8% 0 0 20.6%;
+            font-size: 0.6em;
+            width: 10%;
+        }
+
         .vidMenu { 
             position: absolute;
             height: 8.2%; width: 56.45%; 

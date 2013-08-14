@@ -15,11 +15,12 @@
     max-width: 80%; padding: 10%; margin: 0 auto;
     text-align: center; line-height: 100%;
     font-family: arial, sans-serif; 
-    font-size: 125%; color: #fff;
+    font-size: 120%; color: #cfcfcf;
+    font-weight: bold;
     text-transform:uppercase;
 }
 
             
 /* positioning */
-.siri-0 { top: 58%; left: 37%; max-width: 28% }
+.siri-0 { top: 54%; left: 38%; max-width: 25% }
 

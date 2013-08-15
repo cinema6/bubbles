@@ -362,7 +362,7 @@ button:disabled {opacity: 0.15;}
                     width: 600px; margin: -275px 0 0 -200px;
                 } 
             }
-            @media only screen and (max-height: 485px) {
+            @media only screen and (max-height: 570px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen600.png') no-repeat top left;
                     width: 600px; margin: -275px 0 0 -200px;
@@ -374,7 +374,7 @@ button:disabled {opacity: 0.15;}
                     width: 600px; margin: -270px 0 0 -200px;
                 }
             }
-            @media only screen and (max-height: 354px) {
+            @media only screen and (max-height: 442px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
                     width: 300px; margin: -120px 0 0 -100px;
@@ -383,7 +383,7 @@ button:disabled {opacity: 0.15;}
             @media only screen and (max-width: 568px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
-                    width: 300px; margin: -140px 0 0 -100px;
+                    width: 300px; margin: -120px 0 0 -100px;
                 }
             }
 

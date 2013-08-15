@@ -830,7 +830,7 @@ button:disabled {opacity: 0.15;}
         height:58.30%; width: 55.57%; margin: 11.56% 0 0 21.79%; 
     }
         /* iphone */
-        @media screen and (max-width: 568px) {
+        @media screen and (max-width: 668px) {
             .vidFrame__group {
                 height:65%; width: 61.95%; margin: 10% 0 0 19.29%;
             }
@@ -865,10 +865,21 @@ button:disabled {opacity: 0.15;}
         }
 
         .vidFrame__annotation-horror {
-            margin: 16.8% 0 0 20.6%;
+            margin: 16.4% 0 0 20.6%;
             font-size: 0.6em;
             width: 10%;
         }
+            @media screen and (max-width: 668px) {
+                .vidFrame__annotation-horror {
+                    margin: 18.2% 0 0 23.6%;
+                }
+            } 
+
+            @media screen and (max-width: 320px) {
+                .vidFrame__annotation-horror {
+                    margin: 25.2% 0 0 33%;
+                }
+            } 
 
         .vidMenu { 
             position: absolute;
@@ -952,11 +963,24 @@ button:disabled {opacity: 0.15;}
                 margin: -115px 0 0 0;
             }
         }
+
+        @media screen and (max-height: 990px) {
+            .endScreen__logo {
+                width: 600px;
+                margin: -80px 0 0 0;
+            }
+        }
+        @media screen and (max-height: 692px) {
+            .endScreen__logo {
+                width: 400px;
+                margin: -40px 0 0 0;
+            }
+        } 
         /* iphone */
         @media screen and (max-width: 568px) {
             .endScreen__logo {
-                width: 350px;
-                margin: -30px 0 0 0;
+                width: 300px;
+                margin: -20px 0 0 0;
             } 
         }
 

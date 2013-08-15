@@ -10,9 +10,10 @@
 		"body part",
 		"household appliance",
 		"fast food chain",
-		"synonym for feces",
+		{ "query": "synonym for feces", "sizeLimit": 11 },
 		"news outlet",
 		"one word insult"
+
 	],
 	"annotations": [
 		{

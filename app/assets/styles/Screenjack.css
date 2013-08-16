@@ -703,7 +703,7 @@ button:disabled {opacity: 0.15;}
     				.progressDock img {width: 30px;}
     			}
     			@media screen and (max-width: 568px) {
-    				.progressDock {margin: 86px 30px 0 0;}
+    				.progressDock {margin: 126px 30px 0 0;}
     				.progressDock li {width: 26px;}
     			}
     			@media screen and (max-width: 320px) {
@@ -766,26 +766,33 @@ button:disabled {opacity: 0.15;}
         height: auto; width: 100%;
     }
 
- #player {
-    z-index: 5; position: absolute; 
-    width: 98%; height: 90%;
-    margin-left: -47%; padding: 1%;
-    top: 30px; left: 47%;
-    opacity: 0;
- }
-
- .annotations{
-    z-index: 100; position: absolute;
-    left: 50%; top: 50%; padding: 0;
- }
-    .annotation {   
-        position: absolute; opacity: 1;
-        -ms-transform-origin: 50% 50%; /* IE 9 */
-        -moz-transform-origin: 50% 50%; /* Firefox */
-        -o-transform-origin: 50% 50%; /* Opera */
-        -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
-        transform-origin: 50% 50%;
+    .experience__video {
+        position: absolute;
+        top: 50%; left: 50%;
     }
+     #player {
+        z-index: 1; position: absolute;
+        /*width: 98%; height: 90%;
+        margin-left: -47%; padding: 1%;
+        top: 30px; left: 47%;*/
+        height: 100%; width: 100%;
+        opacity: 0;
+     }
+
+     .annotations{
+        z-index: 2; position: absolute;
+        width: 100%; height: 100%; padding: 0;
+
+        /*left: 50%; top: 50%; padding: 0;*/
+     }
+        .annotation {   
+            position: absolute; opacity: 1;
+            -ms-transform-origin: 50% 50%; /* IE 9 */
+            -moz-transform-origin: 50% 50%; /* Firefox */
+            -o-transform-origin: 50% 50%; /* Opera */
+            -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
+            transform-origin: 50% 50%;
+        }
 
     .loading__group {
     	position: fixed; top: 45%;
@@ -880,6 +887,12 @@ button:disabled {opacity: 0.15;}
                     margin: 25.2% 0 0 33%;
                 }
             } 
+
+            @media only screen and (max-device-width: 1045px) {
+                .vidFrame__annotation-horror {
+                    display: none;
+                    }
+            }
 
         .vidMenu { 
             position: absolute;

@@ -2,6 +2,26 @@
 /*global TimelineMax:false */
 'use strict';
 angular.module('c6.dir.screenJack',['c6.svc'])
+.directive('c6MouseActivity', ['$timeout', function($timeout) {
+	return function(scope, element) {
+		var timeout,
+			moving = false,
+			stopMoving = function() {
+				moving = false;
+				scope.$emit('c6MouseActivityStop');
+			};
+
+		element.bind('mousemove', function() {
+			if (!moving) {
+				scope.$apply(scope.$emit('c6MouseActivityStart'));
+				moving = true;
+			}
+			if (timeout) { $timeout.cancel(timeout); }
+			timeout = $timeout(stopMoving, 250);
+		});
+	};
+}])
+
 .directive('c6ProgressBar', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',

@@ -1,5 +1,5 @@
 (function() {
-	/*global TimelineLite:false, TweenLite:false, $:false, Power3:false, Power4:false, Back:false, Elastic:false */
+	/*global TimelineLite:false, $:false, Power3:false, Power4:false, Back:false, Elastic:false */
 	'use strict';
 
 	angular.module('c6.anim', [])
@@ -328,6 +328,7 @@
 				'-webkit-transform': 'rotate(-20deg)',
 						'-moz-transform': 'rotate(-20deg)',
 						'-ms-transform': 'rotate(-20deg)',
+
 						'-o-transform': 'rotate(-20deg)',
 						'transform': 'rotate(-20deg)',
 					'opacity' : '1',
@@ -401,7 +402,7 @@
 //								//
 
 	//c6Controls ------------------//
-	.animation('c6Controls-show', [function() {
+	/*.animation('c6Controls-show', [function() {
 		return {
 			setup: function(controls$) {
 				controls$.css('opacity', 0);
@@ -429,7 +430,7 @@
 				});
 			}
 		};
-	}])
+	}])*/
 
 	//video player ----------------//
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {

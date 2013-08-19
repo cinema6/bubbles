@@ -416,10 +416,16 @@
 	}])
 	.animation('c6Controls-hide', [function() {
 		return {
+			setup: function(controls$) {
+				controls$.css('opacity', 1);
+			},
 			start: function(controls$, done) {
 				TweenLite.to(controls$, 0.5, {
 					opacity: 0,
-					onComplete: done
+					onComplete: function() {
+						done();
+						controls$.css('opacity', 1);
+					}
 				});
 			}
 		};

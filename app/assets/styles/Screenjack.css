@@ -746,6 +746,12 @@ button:disabled {opacity: 0.15;}
 /*  ==========================================================================
     video experience styles
     ========================================================================== */
+ .c6Controls__group {
+    z-index: 1000;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+ }
  .transition_blackFade {
     background: #000; 
     height: 100%; 

@@ -1,5 +1,5 @@
 (function() {
-	/*global TimelineLite:false, $:false, Power3:false, Power4:false, Back:false, Elastic:false */
+	/*global TimelineLite:false, TweenLite:false, $:false, Power3:false, Power4:false, Back:false, Elastic:false */
 	'use strict';
 
 	angular.module('c6.anim', [])
@@ -395,6 +395,31 @@
 //								// 
 //		VIDEO PLAYER Animations //
 //								//
+
+	//c6Controls ------------------//
+	.animation('c6Controls-show', [function() {
+		return {
+			setup: function(controls$) {
+				controls$.css('opacity', 0);
+			},
+			start: function(controls$, done) {
+				TweenLite.to(controls$, 0.5, {
+					opacity: 1,
+					onComplete: done
+				});
+			}
+		};
+	}])
+	.animation('c6Controls-hide', [function() {
+		return {
+			start: function(controls$, done) {
+				TweenLite.to(controls$, 0.5, {
+					opacity: 0,
+					onComplete: done
+				});
+			}
+		};
+	}])
 
 	//video player ----------------//
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {

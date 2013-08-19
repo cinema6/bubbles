@@ -76,6 +76,65 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
+.service('C6VideoControlsService', [function() {
+	this.bind = function(video, delegate, controller) {
+		var wasPlaying; // Used for seeking
+
+		// Set up video events
+		video
+			.on('play', function() {
+				controller.play();
+			})
+			.on('pause', function() {
+				controller.pause();
+			})
+			.on('timeupdate', function(event, video) {
+				var percent = (video.player.currentTime / video.player.duration) * 100;
+
+				controller.progress(percent);
+			})
+			.on('progress', function(event, video) {
+				controller.buffer(video.bufferedPercent() * 100);
+			})
+			.on('volumechange', function(event, video) {
+				controller.muteChange(video.player.muted);
+				controller.volumeChange(video.player.volume * 100);
+			});
+
+		// Set up delegate methods
+		delegate.play = function() {
+			video.player.play();
+		};
+		delegate.pause = function() {
+			video.player.pause();
+		};
+		delegate.seekStart = function() {
+			if (!video.player.paused) {
+				wasPlaying = true;
+				video.player.pause();
+			}
+		};
+		delegate.seek = function(percent) {
+			video.player.currentTime = (percent * video.player.duration) / 100;
+		};
+		delegate.seekStop = function() {
+			if (wasPlaying) {
+				video.player.play();
+			}
+			wasPlaying = undefined;
+		};
+		delegate.volumeSeek = function(percent) {
+			video.player.volume = percent / 100;
+		};
+		delegate.mute = function() {
+			video.player.muted = true;
+		};
+		delegate.unmute = function() {
+			video.player.muted = false;
+		};
+	};
+}])
+
 .service('C6ResponseCachingService', ['$window', function($window) {
 	if (!$window.localStorage) {
 		$window.localStorage = {};

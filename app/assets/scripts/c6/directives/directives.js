@@ -8,12 +8,12 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 			moving = false,
 			stopMoving = function() {
 				moving = false;
-				scope.$emit('c6MouseActivityStop', event);
+				scope.$emit('c6MouseActivityStop');
 			};
 
-		element.bind('mousemove', function(event) {
+		element.bind('mousemove', function() {
 			if (!moving) {
-				scope.$apply(scope.$emit('c6MouseActivityStart', event));
+				scope.$apply(scope.$emit('c6MouseActivityStart'));
 				moving = true;
 			}
 			if (timeout) { $timeout.cancel(timeout); }

@@ -12,31 +12,33 @@
       <div class="experience__logo">
           <img ng-src="{{appCtrl.currentCategory() ? ('assets/img/logo_vid_' + appCtrl.currentCategory() + '.png') : null }}">
       </div>
-    <video
-      id="player"
-      c6video
-      c6-src="appCtrl.experience.src"
-      c6-events="{timeupdate: 'annoCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'annoCtrl.goToEnd(c6.video);'}"
-      preload="auto"
-      c6-controls="annoCtrl.videoCanPlay">
-    </video>
-    <ul class="annotations" c6-resize="{height:524, width: 1180, font: 28}">
-      <li
-        ng-repeat="a in annoCtrl.annotationsModel.annotations"
-        ng-show="annoCtrl.annotationIsActive(a)"
-        style="display: none;"
-        ng-animate="appCtrl.experience.anim + '-annotation'"
-        ng-class="' annotation ' + a.cls.join(' ')">
-        <div class="a-style">
-          <div class="a-frame">
-            <div class="a-text">
-              {{a.text}}&nbsp;
-              <div class="a-deco-right"></div><div class="a-deco-left"></div>
-              <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
+      <div class="experience__video" c6-resize="{height:528, width: 1280, font: 28}">
+        <video
+          id="player"
+          c6video
+          c6-src="appCtrl.experience.src"
+          c6-events="{timeupdate: 'annoCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'annoCtrl.goToEnd(c6.video);'}"
+          preload="auto"
+          c6-controls="annoCtrl.videoCanPlay">
+       </video>
+        <ul class="annotations" >
+          <li
+            ng-repeat="a in annoCtrl.annotationsModel.annotations"
+            ng-show="annoCtrl.annotationIsActive(a)"
+            style="display: none;"
+            ng-animate="appCtrl.experience.anim + '-annotation'"
+            ng-class="' annotation ' + a.cls.join(' ')">
+            <div class="a-style">
+              <div class="a-frame">
+                <div class="a-text">
+                  {{a.text}}&nbsp;
+                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
+                  <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
+                </div>
+              </div> 
             </div>
-          </div> 
-        </div>
-        </li> 
-    </ul>
+            </li> 
+        </ul>
+      </div>
 <div class="transition_blackFade">&nbsp;</div>
 </div>

@@ -1,5 +1,5 @@
 (function() {
-	/*global TimelineLite:false, TweenLite:false, $:false, Power3:false, Power4:false, Back:false, Elastic:false */
+	/*global TimelineLite:false, $:false, Power3:false, Power4:false, Back:false, Elastic:false */
 	'use strict';
 
 	angular.module('c6.anim', [])
@@ -276,7 +276,8 @@
 					inputScreen = $('.inputScreen'),
 					endScreen = $('.endScreen'),
 					transition= $('.transition_blackFade'),
-					logo	= $('.experience__logo');
+					logo	= $('.experience__logo'),
+					videoControls = $('.c6Controls__group');
 					//videoPlayer = document.getElementById('player');
 
 				if ($rootScope.currentRoute === 'end') {
@@ -285,7 +286,8 @@
 
 					// ANIMATION TIMELINE //
 					expEnd.to(transition, 3, {opacity: 0})
-						.to(logo, 2, {opacity: 0}, '-=3')
+						.to(logo, 1, {opacity: 0}, '-=2.5')
+						.to(videoControls, 1, {opacity: 0}, '-=3')
 						.to(endScreen, 2, {opacity: 1}, '-=2.5')
 						.eventCallback('onComplete', done);
 
@@ -298,9 +300,11 @@
 					inputScreen = $('.inputScreen');
 					transition= $('.transition_blackFade');
 					logo	= $('.experience__logo');
+					videoControls = $('.c6Controls__group');
 
 					// ANIMATION TIMELINE
-					expInput.to(logo, 2, {opacity: 0})
+					expInput.to(logo, 1, {opacity: 0})
+						.to(videoControls, 1, {opacity: 0}, '-=0.5')
 						.to(transition, 2, {opacity: 0}, '-=1')
 						.to(inputScreen, 2, {opacity: 1}, '-=1.5')
 						.to(inputScreen, 0.1, {display: 'block'})
@@ -324,6 +328,7 @@
 				'-webkit-transform': 'rotate(-20deg)',
 						'-moz-transform': 'rotate(-20deg)',
 						'-ms-transform': 'rotate(-20deg)',
+
 						'-o-transform': 'rotate(-20deg)',
 						'transform': 'rotate(-20deg)',
 					'opacity' : '1',
@@ -397,7 +402,7 @@
 //								//
 
 	//c6Controls ------------------//
-	.animation('c6Controls-show', [function() {
+	/*.animation('c6Controls-show', [function() {
 		return {
 			setup: function(controls$) {
 				controls$.css('opacity', 0);
@@ -425,7 +430,7 @@
 				});
 			}
 		};
-	}])
+	}])*/
 
 	//video player ----------------//
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {

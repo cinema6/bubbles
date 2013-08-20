@@ -746,6 +746,12 @@ button:disabled {opacity: 0.15;}
 /*  ==========================================================================
     video experience styles
     ========================================================================== */
+ .c6Controls__group {
+    z-index: 1000;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+ }
  .transition_blackFade {
     background: #000; 
     height: 100%; 
@@ -755,7 +761,7 @@ button:disabled {opacity: 0.15;}
     top: 0; 
     opacity: 1;
  }
- .experience__group {height: 100%; width:100%;}
+ .experience__group {height: 100%; width:100%; position: absolute; top: 0;}
  .experience__logo {
     top: 46px; left: 12px;
     z-index: 99; position: fixed;

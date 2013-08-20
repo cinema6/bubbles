@@ -138,19 +138,40 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','C6SfxService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc,sfxSvc){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','C6SfxService', 'C6VideoControlsService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
 		oldResponses,
-		video;
+		video,
+		hideC6ControlsTimeout;
 
 	$scope.$on('c6video-ready', function(event, player) {
 		video = player;
 
+		var undoWatch = $scope.$watch('annoCtrl.c6ControlsController.ready', function(ready) {
+			if (ready) {
+				vidCtrlsSvc.bind(player, self.c6ControlsDelegate, self.c6ControlsController);
+				undoWatch();
+			}
+		});
+
 		player.on([readyEvent, 'play'], function() {
 			self.videoCanPlay = true;
 		});
+	});
+
+	$scope.$on('c6MouseActivityStart', function() {
+		if (hideC6ControlsTimeout) { $timeout.cancel(hideC6ControlsTimeout); }
+		self.showC6Controls = true;
+	});
+
+	$scope.$on('c6MouseActivityStop', function() {
+		hideC6ControlsTimeout = $timeout(function() {
+			if (!self.userIsUsingControls) {
+				self.showC6Controls = false;
+			}
+		}, 3000);
 	});
 
 	$scope.$on('videoShouldLoad', function() {
@@ -202,6 +223,13 @@ angular.module('c6.ctrl',['c6.svc'])
 			}
 		}
 	});
+
+	this.userIsUsingControls = false;
+	this.showC6Controls = false;
+
+	// For c6Controls
+	this.c6ControlsDelegate = {};
+	this.c6ControlsController = {};
 
 	this.videoCanPlay = false;
 

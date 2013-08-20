@@ -1,0 +1,26 @@
+{
+	"id": "jetsons",
+	"title": "Jetsons",
+	"views": 1000,
+	"src": null,
+	"defSizeLimit": 18,
+	"prompts": [
+		"synonym for feces"
+	],
+	"annotations": [
+		{
+			"options": {
+				"type": "talkie",
+				"vid": "jetsons",
+				"voice": "Allison"
+			},
+			"notes": [
+				{ "ts": "10.5", "template": "<prosody rate=\"slow\"> you ${1}</prosody>" },
+				{ "ts": "16",   "template": "<prosody rate=\"slow\"> you ${1}</prosody>" },
+				{ "ts": "35",   "template": "<prosody rate=\"slow\"> ${1}</prosody>" },
+				{ "ts": "40",   "template": "<prosody rate=\"slow\"> ${1}</prosody>" },
+				{ "ts": "49",   "template": "<prosody rate=\"slow\"> I think you squeezed out a ${1}!</prosody>" }
+			]
+		}
+	]
+}

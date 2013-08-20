@@ -170,6 +170,10 @@ module.exports = function (grunt) {
             ]
         },
         karma: {
+            debug: {
+                configFile: 'test/karma.conf.js',
+                singleRun: false
+            },
             unit: {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
@@ -309,6 +313,11 @@ module.exports = function (grunt) {
                         src: 'dist/index.html',
                         dest: 'screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
+                    },
+                    {
+                        src: 'dist/index.html',
+                        dest: 'screenjack/<%= props.version() %>/index.html',
+                        headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]
             },
@@ -325,6 +334,11 @@ module.exports = function (grunt) {
                     {
                         src: 'dist/index.html',
                         dest: 'www/screenjack/index.html',
+                        headers : { 'cache-control' : 'max-age=0' }
+                    },
+                    {
+                        src: 'dist/index.html',
+                        dest: 'www/screenjack/<%= props.version() %>/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]

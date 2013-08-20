@@ -7,6 +7,7 @@ button {border: 0;}
 button:disabled {opacity: 0.15;}
 .disabled {opacity: 0.15;}
 .hidden {display: none;}
+.transparent {opacity: 0;}
 
 .paperTexture { 
     background: url('../img/bg_tile.jpg') repeat;
@@ -362,7 +363,7 @@ button:disabled {opacity: 0.15;}
                     width: 600px; margin: -275px 0 0 -200px;
                 } 
             }
-            @media only screen and (max-height: 485px) {
+            @media only screen and (max-height: 570px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen600.png') no-repeat top left;
                     width: 600px; margin: -275px 0 0 -200px;
@@ -374,7 +375,7 @@ button:disabled {opacity: 0.15;}
                     width: 600px; margin: -270px 0 0 -200px;
                 }
             }
-            @media only screen and (max-height: 354px) {
+            @media only screen and (max-height: 442px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
                     width: 300px; margin: -120px 0 0 -100px;
@@ -383,7 +384,7 @@ button:disabled {opacity: 0.15;}
             @media only screen and (max-width: 568px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
-                    width: 300px; margin: -140px 0 0 -100px;
+                    width: 300px; margin: -120px 0 0 -100px;
                 }
             }
 
@@ -501,7 +502,7 @@ button:disabled {opacity: 0.15;}
                 }
                 .question__input {
                     width: 100%;
-                    border: 0; background: purple;
+                    border: 0;
                     background: url('../img/inputLine.jpg') bottom center repeat-x; 
                     font-family: "Courier Prime", Courier, Times, serif;
                     font-size: 1.8em; font-weight: 700; color: #c20000;
@@ -703,7 +704,7 @@ button:disabled {opacity: 0.15;}
     				.progressDock img {width: 30px;}
     			}
     			@media screen and (max-width: 568px) {
-    				.progressDock {margin: 86px 30px 0 0;}
+    				.progressDock {margin: 126px 30px 0 0;}
     				.progressDock li {width: 26px;}
     			}
     			@media screen and (max-width: 320px) {
@@ -746,6 +747,14 @@ button:disabled {opacity: 0.15;}
 /*  ==========================================================================
     video experience styles
     ========================================================================== */
+ .c6Controls__group {
+    z-index: 1000;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    
+    -ms-transition: opacity 0.5s; -moz-transition: opacity 0.5s; -o-transition: opacity 0.5s; -webkit-transition: opacity 0.5s; transition: opacity 0.5s;
+ }
  .transition_blackFade {
     background: #000; 
     height: 100%; 
@@ -755,7 +764,7 @@ button:disabled {opacity: 0.15;}
     top: 0; 
     opacity: 1;
  }
- .experience__group {height: 100%; width:100%;}
+ .experience__group {height: 100%; width:100%; position: absolute; top: 0;}
  .experience__logo {
     top: 46px; left: 12px;
     z-index: 99; position: fixed;
@@ -766,26 +775,33 @@ button:disabled {opacity: 0.15;}
         height: auto; width: 100%;
     }
 
- #player {
-    z-index: 5; position: absolute; 
-    width: 98%; height: 90%;
-    margin-left: -47%; padding: 1%;
-    top: 30px; left: 47%;
-    opacity: 0;
- }
-
- .annotations{
-    z-index: 100; position: absolute;
-    left: 50%; top: 50%; padding: 0;
- }
-    .annotation {   
-        position: absolute; opacity: 1;
-        -ms-transform-origin: 50% 50%; /* IE 9 */
-        -moz-transform-origin: 50% 50%; /* Firefox */
-        -o-transform-origin: 50% 50%; /* Opera */
-        -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
-        transform-origin: 50% 50%;
+    .experience__video {
+        position: absolute;
+        top: 50%; left: 50%;
     }
+     #player {
+        z-index: 1; position: absolute;
+        /*width: 98%; height: 90%;
+        margin-left: -47%; padding: 1%;
+        top: 30px; left: 47%;*/
+        height: 100%; width: 100%;
+        opacity: 0;
+     }
+
+     .annotations{
+        z-index: 2; position: absolute;
+        width: 100%; height: 100%; padding: 0;
+
+        /*left: 50%; top: 50%; padding: 0;*/
+     }
+        .annotation {   
+            position: absolute; opacity: 1;
+            -ms-transform-origin: 50% 50%; /* IE 9 */
+            -moz-transform-origin: 50% 50%; /* Firefox */
+            -o-transform-origin: 50% 50%; /* Opera */
+            -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
+            transform-origin: 50% 50%;
+        }
 
     .loading__group {
     	position: fixed; top: 45%;
@@ -830,7 +846,7 @@ button:disabled {opacity: 0.15;}
         height:58.30%; width: 55.57%; margin: 11.56% 0 0 21.79%; 
     }
         /* iphone */
-        @media screen and (max-width: 568px) {
+        @media screen and (max-width: 668px) {
             .vidFrame__group {
                 height:65%; width: 61.95%; margin: 10% 0 0 19.29%;
             }
@@ -863,6 +879,36 @@ button:disabled {opacity: 0.15;}
             margin: 1% 0 0 28%;
             font-size: 1em;
         }
+
+        .vidFrame__annotation-horror {
+            margin: 16.4% 0 0 20.6%;
+            font-size: 0.6em;
+            width: 10%;
+        }
+            @media screen and (max-width: 668px) {
+                .vidFrame__annotation-horror {
+                    margin: 18.2% 0 0 23.6%;
+                }
+            } 
+
+            @media screen and (max-width: 320px) {
+                .vidFrame__annotation-horror {
+                    margin: 25.2% 0 0 33%;
+                }
+            } 
+
+            @media only screen and (max-device-width: 1045px) {
+                .vidFrame__annotation-horror {
+                    margin: 31.4% 0 0 20.6%;
+                    -webkit-transform: rotateX(0deg); transform: rotateX(0deg);
+                }
+            }
+
+            @media only screen and (max-device-width: 568px) {
+                .vidFrame__annotation-horror {
+                    display: none;
+                    }
+            }
 
         .vidMenu { 
             position: absolute;
@@ -946,11 +992,24 @@ button:disabled {opacity: 0.15;}
                 margin: -115px 0 0 0;
             }
         }
+
+        @media screen and (max-height: 990px) {
+            .endScreen__logo {
+                width: 600px;
+                margin: -80px 0 0 0;
+            }
+        }
+        @media screen and (max-height: 692px) {
+            .endScreen__logo {
+                width: 400px;
+                margin: -40px 0 0 0;
+            }
+        } 
         /* iphone */
         @media screen and (max-width: 568px) {
             .endScreen__logo {
-                width: 350px;
-                margin: -30px 0 0 0;
+                width: 300px;
+                margin: -20px 0 0 0;
             } 
         }
 

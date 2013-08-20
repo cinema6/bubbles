@@ -35,6 +35,7 @@
 
 	var dependencies = [
 		'ui.state',
+		'c6.ui',
 		'c6.ctrl',
 		'c6.svc',
 		'c6.anim',

@@ -7,6 +7,7 @@ button {border: 0;}
 button:disabled {opacity: 0.15;}
 .disabled {opacity: 0.15;}
 .hidden {display: none;}
+.transparent {opacity: 0;}
 
 .paperTexture { 
     background: url('../img/bg_tile.jpg') repeat;
@@ -501,7 +502,7 @@ button:disabled {opacity: 0.15;}
                 }
                 .question__input {
                     width: 100%;
-                    border: 0; background: purple;
+                    border: 0;
                     background: url('../img/inputLine.jpg') bottom center repeat-x; 
                     font-family: "Courier Prime", Courier, Times, serif;
                     font-size: 1.8em; font-weight: 700; color: #c20000;
@@ -751,6 +752,8 @@ button:disabled {opacity: 0.15;}
     position: absolute;
     bottom: 10px;
     width: 100%;
+    
+    -ms-transition: opacity 0.5s; -moz-transition: opacity 0.5s; -o-transition: opacity 0.5s; -webkit-transition: opacity 0.5s; transition: opacity 0.5s;
  }
  .transition_blackFade {
     background: #000; 
@@ -895,6 +898,13 @@ button:disabled {opacity: 0.15;}
             } 
 
             @media only screen and (max-device-width: 1045px) {
+                .vidFrame__annotation-horror {
+                    margin: 31.4% 0 0 20.6%;
+                    -webkit-transform: rotateX(0deg); transform: rotateX(0deg);
+                }
+            }
+
+            @media only screen and (max-device-width: 568px) {
                 .vidFrame__annotation-horror {
                     display: none;
                     }

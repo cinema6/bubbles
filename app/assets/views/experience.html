@@ -10,7 +10,7 @@
   <div ng-controller="C6AnnotationsCtrl" c6-mouse-activity ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
 	  <div class="c6Controls__group"
 		  ng-animate="'c6Controls'"
-	      ng-show="annoCtrl.videoCanPlay && annoCtrl.showC6Controls"
+        ng-class="(annoCtrl.videoCanPlay && annoCtrl.showC6Controls) ? '' : 'transparent'"
 		  ng-mouseenter="annoCtrl.userIsUsingControls = true"
 		  ng-mouseleave="annoCtrl.userIsUsingControls = false;">
 		  <c6-controls delegate="annoCtrl.c6ControlsDelegate" controller="annoCtrl.c6ControlsController"></c6-controls>

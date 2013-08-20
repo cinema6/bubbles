@@ -76,7 +76,7 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
-.service('C6VideoControlsService', [function() {
+.service('C6VideoControlsService', ['$timeout', function($timeout) {
 	this.bind = function(video, delegate, controller) {
 		var wasPlaying; // Used for seeking
 
@@ -118,8 +118,8 @@ angular.module('c6.svc',[])
 			video.player.currentTime = (percent * video.player.duration) / 100;
 		};
 		delegate.seekStop = function() {
-			if (wasPlaying) {
-				video.player.play();
+			if (wasPlaying && video.player.paused) {
+        $timeout(function() { video.player.play(); }, 200);
 			}
 			wasPlaying = undefined;
 		};

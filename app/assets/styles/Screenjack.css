@@ -502,7 +502,7 @@ button:disabled {opacity: 0.15;}
                 }
                 .question__input {
                     width: 100%;
-                    border: 0; background: purple;
+                    border: 0;
                     background: url('../img/inputLine.jpg') bottom center repeat-x; 
                     font-family: "Courier Prime", Courier, Times, serif;
                     font-size: 1.8em; font-weight: 700; color: #c20000;

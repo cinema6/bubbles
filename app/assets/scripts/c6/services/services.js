@@ -30,10 +30,11 @@ function BubblesModel(annotations) {
         };
       };
     this.annotations     = [];
+    this.sfx             = (annotations.options) ? annotations.options.sfx : null;
     for (var i = 0; i < annotations.notes.length; i++) {
         var a = annotations.notes[i],
-            n = { type : a.type, ts : a.ts, duration : a.duration, template : a.template, cls : a.cls,
-            text : null, index : i, tail: a.tail
+            n = {   type : a.type, ts : a.ts, duration : a.duration, template : a.template,
+                    cls : a.cls, text : null, index : i, tail: a.tail, sfx : a.sfx
             };
         if (annotations.options){
             if (!n.type) {
@@ -41,6 +42,9 @@ function BubblesModel(annotations) {
             }
             if (!n.duration) {
                 n.duration = annotations.options.duration;
+            }
+            if (!n.sfx) {
+                n.sfx = annotations.options.defaultSfx;
             }
             if (!n.cls) {
                 var eCls = annotations.options.cls;
@@ -72,6 +76,65 @@ function BubblesModel(annotations) {
 }
 
 angular.module('c6.svc',[])
+.service('C6VideoControlsService', ['$timeout', function($timeout) {
+	this.bind = function(video, delegate, controller) {
+		var wasPlaying; // Used for seeking
+
+		// Set up video events
+		video
+			.on('play', function() {
+				controller.play();
+			})
+			.on('pause', function() {
+				controller.pause();
+			})
+			.on('timeupdate', function(event, video) {
+				var percent = (video.player.currentTime / video.player.duration) * 100;
+
+				controller.progress(percent);
+			})
+			.on('progress', function(event, video) {
+				controller.buffer(video.bufferedPercent() * 100);
+			})
+			.on('volumechange', function(event, video) {
+				controller.muteChange(video.player.muted);
+				controller.volumeChange(video.player.volume * 100);
+			});
+
+		// Set up delegate methods
+		delegate.play = function() {
+			video.player.play();
+		};
+		delegate.pause = function() {
+			video.player.pause();
+		};
+		delegate.seekStart = function() {
+			if (!video.player.paused) {
+				wasPlaying = true;
+				video.player.pause();
+			}
+		};
+		delegate.seek = function(percent) {
+			video.player.currentTime = (percent * video.player.duration) / 100;
+		};
+		delegate.seekStop = function() {
+			if (wasPlaying && video.player.paused) {
+        $timeout(function() { video.player.play(); }, 200);
+			}
+			wasPlaying = undefined;
+		};
+		delegate.volumeSeek = function(percent) {
+			video.player.volume = percent / 100;
+		};
+		delegate.mute = function() {
+			video.player.muted = true;
+		};
+		delegate.unmute = function() {
+			video.player.muted = false;
+		};
+	};
+}])
+
 .service('C6ResponseCachingService', ['$window', function($window) {
 	if (!$window.localStorage) {
 		$window.localStorage = {};
@@ -406,9 +469,9 @@ angular.module('c6.svc',[])
 
 	this.isMobileSafari = $window.navigator.userAgent.match(/(iPod|iPhone|iPad)/);
 
-	// Web Audio API is too buggy on Mobile Safari :-( Disable It...
+	// Web Audio API is too buggy on Mobile Safari :-( Disable It... Edit: Nope. We're going for it!
 
-	if (this.isMobileSafari) {
+	/*if (this.isMobileSafari) {
 		(function() {
 			var property;
 
@@ -420,7 +483,7 @@ angular.module('c6.svc',[])
 				}
 			}
 		}).call(this);
-	}
+	}*/
 }])
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');

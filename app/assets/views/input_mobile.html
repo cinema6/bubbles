@@ -63,7 +63,7 @@
                 ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
                 ng-animate="'start-button'"
                 c6-sfx="{click: 'yank'}"
-                ng-click="inputCtrl.startExperience();">
+                ng-click="appCtrl.askForVideoLoad(); inputCtrl.startExperience();">
                 <span class="ir">Start</span>
             </button>
             

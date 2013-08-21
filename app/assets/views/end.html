@@ -22,7 +22,7 @@
         </div>
 
             <menu class="vidMenu">
-                <button class="vidMenu__btnReplay" ng-click="$state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
+                <button class="vidMenu__btnReplay" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
                 <!--<button class="vidMenu__btnEdit" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}');"name="edit"><span class="ir">Edit</span></button>-->
                 <button class="vidMenu__btnNewVid" ng-click="$state.transitionTo('experience.categories');" name="newVid"><span class="ir">Make a new video</span></button>
             </menu>

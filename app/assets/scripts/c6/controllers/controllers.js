@@ -156,9 +156,14 @@ angular.module('c6.ctrl',['c6.svc'])
 			}
 		});
 
-		player.on([readyEvent, 'play'], function() {
+		player.on([readyEvent, 'play'], function(event, video) {
 			self.videoCanPlay = true;
+			if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
 		});
+	});
+
+	$scope.$on('c6video-regenerated', function(event, video) {
+		video.player.load();
 	});
 
 	$scope.$on('c6MouseActivityStart', function() {
@@ -214,11 +219,6 @@ angular.module('c6.ctrl',['c6.svc'])
 
 				annSvc.fetchText2SpeechVideoUrl(txt2SpchModel).then(function(url) {
 					$scope.appCtrl.experience.src = url;
-					video.on(readyEvent, function() {
-						$timeout(function() {
-							if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
-						}, 100);
-					});
 				});
 			}
 		}

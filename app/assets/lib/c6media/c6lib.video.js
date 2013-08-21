@@ -95,6 +95,7 @@ angular.module('c6lib.video', [])
 			events.forEach(function(event) {
 				if (subscribedEvents[event]) {
 					if (handler) { subscribedEvents[event].handlers.push(handler); }
+					if (emit) { subscribedEvents[event].emit = true; }
 				} else {
 					subscribedEvents[event] = { handlers: handler? [handler] : [], emit: emit };
 					video.addEventListener(event, handleEvent, false);
@@ -104,13 +105,22 @@ angular.module('c6lib.video', [])
 			return this;
 		},
 		// Method to remove all event handlers (and Angular broadcasting.)
-		off: function(events) {
+		off: function(events, handler) {
 			events = Object.prototype.toString.call(events) === '[object Array]'? events : [events];
 			var video = this.player;
 
 			events.forEach(function(event) {
-				video.removeEventListener(event, handleEvent, false);
-				delete subscribedEvents[event];
+				if (!handler) {
+					delete subscribedEvents[event];
+				} else {
+					var handlerIndex = subscribedEvents[event].handlers.indexOf(handler);
+
+					subscribedEvents[event].handlers.splice(handlerIndex, 1);
+				}
+
+				if (!subscribedEvents[event] || (!subscribedEvents[event].handlers.length && !subscribedEvents[event].emit)) {
+					video.removeEventListener(event, handleEvent, false);
+				}
 			});
 
 			return this;
@@ -175,6 +185,7 @@ angular.module('c6lib.video', [])
 			video.parentNode.replaceChild(newVideo, video);
 			this.player = newVideo;
 			videoHasPlayed = false;
+			$scope.$emit('c6video-regenerated', this);
 		},
 		// Method to determine what percent of the video is buffered
 		bufferedPercent: function() {

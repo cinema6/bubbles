@@ -28,7 +28,7 @@
                         	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         	ng-disabled="appCtrl.inExperience"
                         	c6-on="{newPrompt: '(inputCtrl.currentPromptIndex() > 0)? $this.focus() : null;', experienceStart: '$this.prop(\'disabled\', true); $this.blur();'}"
-							c6-sfx="{keydown: 'type'}"
+							c6-sfx-on="{keydown: 'type'}"
                         	maxlength="{{inputCtrl.currentPrompt.sizeLimit}}"
                             class="question__input"
                             type="text"
@@ -62,14 +62,14 @@
                 class="question__btnStart"
                 ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
                 ng-animate="'start-button'"
-                c6-sfx="{click: 'yank'}"
+                c6-sfx-on="{click: 'yank'}"
                 ng-click="appCtrl.askForVideoLoad(); inputCtrl.startExperience();">
                 <span class="ir">Start</span>
             </button>
             
             <button
                 class="question__btnNext"
-                c6-sfx="{click: 'bell'}"
+                c6-sfx-on="{click: 'bell'}"
                 ng-disabled="!inputCtrl.canGoForward()"
                 ng-click="inputCtrl.nextQuestion(); appCtrl.askForVideoLoad();"
                 name="next">

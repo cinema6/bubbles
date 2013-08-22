@@ -2,15 +2,19 @@
   <div class="transition__panels-top">&nbsp;</div>
   <div class="transition__panels-bottom">&nbsp;</div>
 
-  <!--#c6Bar-->
-  <c6-bar></c6-bar>
-  
   <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
   
   <div ng-controller="C6AnnotationsCtrl" c6-mouse-activity ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
+	  <!--#c6Bar-->
+	  <div class="c6-bar__container"
+		  ng-mouseenter="annoCtrl.userIsUsingControls = true"
+		  ng-mouseleave="annoCtrl.userIsUsingControls = false"
+		  ng-class="{'offscreen': !(annoCtrl.videoCanPlay && annoCtrl.showC6Controls)}">
+	      <c6-bar></c6-bar>
+	  </div>
 	  <div class="c6Controls__group"
 		  ng-animate="'c6Controls'"
-        ng-class="(annoCtrl.videoCanPlay && annoCtrl.showC6Controls) ? '' : 'transparent'"
+          ng-class="{'offscreen': !(annoCtrl.videoCanPlay && annoCtrl.showC6Controls)}"
 		  ng-mouseenter="annoCtrl.userIsUsingControls = true"
 		  ng-mouseleave="annoCtrl.userIsUsingControls = false;">
 		  <c6-controls delegate="annoCtrl.c6ControlsDelegate" controller="annoCtrl.c6ControlsController"></c6-controls>

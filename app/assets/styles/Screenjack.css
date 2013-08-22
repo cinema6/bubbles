@@ -25,6 +25,18 @@ button:disabled {opacity: 0.15;}
     left: 50%; 
     font-size: 28px; }
 
+.c6-bar__container {
+	position: absolute;
+	height: 2.25em;
+	width: 100%;
+	top: 0px;
+
+    -ms-transition: top 0.5s; -moz-transition: top 0.5s; -o-transition: top 0.5s; -webkit-transition: top 0.5s; transition: top 0.5s;
+}
+	.c6-bar__container.offscreen {
+		top: -2.25em;
+	}
+
 .c6-bar__app-title {
     background: url('../img/logo_alpha.png') center center no-repeat;
     background-size: contain; height:1em; margin:0.6825em 0 0 0.75em;
@@ -753,8 +765,11 @@ button:disabled {opacity: 0.15;}
     bottom: 10px;
     width: 100%;
     
-    -ms-transition: opacity 0.5s; -moz-transition: opacity 0.5s; -o-transition: opacity 0.5s; -webkit-transition: opacity 0.5s; transition: opacity 0.5s;
+    -ms-transition: bottom 0.5s; -moz-transition: bottom 0.5s; -o-transition: bottom 0.5s; -webkit-transition: bottom 0.5s; transition: bottom 0.5s;
  }
+    .c6Controls__group.offscreen {
+        bottom: -40px;
+    }
  .transition_blackFade {
     background: #000; 
     height: 100%; 

@@ -67,6 +67,15 @@ module.exports = function (grunt) {
 
     grunt.initConfig( {
         props: initProps,
+        smbuild : {
+            angular : { options : { args : ['package'], buildDir : 'build'  } },
+            jquery  : { options : { args : [],          buildDir : 'dist' } },
+            c6media : { options : { args : ['build'],   buildDir : 'dist' } },
+            c6ui    : { options : { args : ['build'],   buildDir : 'dist' } },
+            gsap    : { options : { args : [],          buildDir : 'src/minified',
+                             npm : false, grunt : false } } ,
+            'ui-router' : { options : { args : [], buildDir : 'build'  } }
+        },
         watch: {
             livereload: {
                 files: [
@@ -586,6 +595,117 @@ module.exports = function (grunt) {
             grunt.log.errorlns('Please commit pending changes');
             grunt.log.errorlns(result.stdout.replace(/\"/g,''));
             done(false);
+        });
+    });
+
+    grunt.registerMultiTask('smbuild','Build submodules',function(){
+        var opts = this.options({
+                rootDir  : 'vendor',
+                buildDir : 'dist',
+                libDir  : 'app/assets/lib',
+                alias   : this.target,
+                npm     : true,
+                grunt   : true,
+                copy    : true
+            }),
+              done     = this.async(),
+              subTasks = [],
+              npmInstall = function(next){
+                    var spawnOpts = { cmd : 'npm', args : ['install'],
+                      opts : { cwd : opts.source, env : process.env }
+                    };
+
+                    grunt.util.spawn( spawnOpts, function(error, result, code) {
+                        next(error,code);
+                    });
+                },
+              gruntInstall = function(next){
+                    var spawnOpts = { cmd : 'grunt', args : opts.args,
+                      opts : { cwd : opts.source, env : process.env }
+                    };
+                    grunt.util.spawn( spawnOpts, function(error, result, code) {
+                        next(error,code);
+                    });
+                },
+              clean = function(next){
+                    grunt.file.delete(opts.build);
+                    next();
+                },
+              copy= function(next){
+                    var files = grunt.file.expand({ cwd : opts.build},'**/*.*'),
+                        cont = true,targetFile,abspath;
+                    files.forEach(function(file){
+                        //grunt.log.writelns('FILE: ' + file);
+                        if (cont){
+                            abspath     = path.join(opts.build,file);
+                            targetFile  = path.join(opts.target,file);
+                            grunt.file.copy(abspath,targetFile);
+                            if (!grunt.file.exists(targetFile)) {
+                                next( new Error('Failed to copy ' + abspath +
+                                                    ' ==> ' + targetFile));
+                                cont = false;
+                                return;
+                            }
+                        }
+                    });
+                    next();
+                    return ;
+                },
+              run = function(jobs,callback){
+                    if (!jobs) {
+                        callback();
+                        return;
+                    }
+
+                    var job = jobs.shift();
+                    if (!job){
+                        callback();
+                        return;
+                    }
+
+                    grunt.log.writelns('Attempt : ' + job.name);
+                    job.func(function(error,code){
+                        if (error){
+                            callback(error,code,job.name);
+                            return;
+                        }
+
+                        run(jobs,callback);
+                    });
+                };
+
+        if (!opts.source){
+            opts.source = path.join(opts.rootDir,opts.alias);
+        }
+
+        if (!opts.target){
+            opts.target = path.join(opts.libDir,opts.alias);
+        }
+
+        if (!opts.build){
+            opts.build = path.join(opts.rootDir,opts.alias,opts.buildDir);
+        }
+
+        if (opts.npm){
+            subTasks.push({ name : 'npm install', func : npmInstall });
+        }
+
+        if (opts.grunt) {
+            subTasks.push({ name : 'clean', func : clean });
+            subTasks.push({ name : 'grunt', func : gruntInstall });
+        }
+
+        if (opts.copy) {
+            subTasks.push({ name : 'copy', func : copy });
+        }
+
+        run(subTasks,function(error,code,subTask){
+            if (error){
+                grunt.log.errorlns('Failed on ' + subTask + ': ' + error);
+                done(false);
+                return;
+            }
+            done(true);
         });
     });
 };

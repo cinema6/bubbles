@@ -174,7 +174,9 @@ angular.module('c6.ctrl',['c6.svc'])
 
 		player.on([readyEvent, 'play'], function(event, video) {
 			self.videoCanPlay = true;
-			if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
+			$timeout(function() {
+				if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
+			}, 200, false);
 		});
 	});
 

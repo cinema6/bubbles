@@ -287,7 +287,7 @@
 					// ANIMATION TIMELINE //
 					expEnd.to(transition, 3, {opacity: 0})
 						.to(logo, 1, {opacity: 0}, '-=2.5')
-						.call(function(){ videoControls.addClass('transparent');}, null, null, '-=3')
+						.call(function(){ videoControls.addClass('offscreen');}, null, null, '-=3')
 						.to(endScreen, 2, {opacity: 1}, '-=2.5')
 						.eventCallback('onComplete', done);
 
@@ -304,7 +304,7 @@
 
 					// ANIMATION TIMELINE
 					expInput.to(logo, 1, {opacity: 0})
-						.call(function(){ videoControls.removeClass('transparent');}, null, null, '-=0.5')
+						.call(function(){ videoControls.removeClass('offscreen');}, null, null, '-=0.5')
 						.to(transition, 2, {opacity: 0}, '-=1')
 						.to(inputScreen, 2, {opacity: 1}, '-=1.5')
 						.to(inputScreen, 0.1, {display: 'block'})

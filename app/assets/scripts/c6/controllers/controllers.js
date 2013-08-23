@@ -37,9 +37,10 @@ function PromptModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $stateParams, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
 	$log.log('Creating C6AppCtrl');
-	var self = this;
+	var self = this,
+		hideC6ControlsTimeout;
 
 	sfxSvc.loadSounds([
 		{ name: 'type', src: appBase + '/media/tw_strike' },
@@ -66,6 +67,22 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.askForVideoLoad = function() {
 		$scope.$broadcast('videoShouldLoad');
 	};
+
+	this.userIsUsingC6Chrome = false;
+	this.showC6Chrome = false;
+
+	$scope.$on('c6MouseActivityStart', function() {
+		if (hideC6ControlsTimeout) { $timeout.cancel(hideC6ControlsTimeout); }
+		self.showC6Chrome = true;
+	});
+
+	$scope.$on('c6MouseActivityStop', function() {
+		hideC6ControlsTimeout = $timeout(function() {
+			if (!self.userIsUsingC6Chrome) {
+				self.showC6Chrome = false;
+			}
+		}, 3000);
+	});
 
 	$scope.appCtrl = this;
 	$scope.$state = $state;
@@ -143,8 +160,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	var self = this,
 		readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
 		oldResponses,
-		video,
-		hideC6ControlsTimeout;
+		video;
 
 	$scope.$on('c6video-ready', function(event, player) {
 		video = player;
@@ -164,19 +180,6 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.$on('c6video-regenerated', function(event, video) {
 		video.player.load();
-	});
-
-	$scope.$on('c6MouseActivityStart', function() {
-		if (hideC6ControlsTimeout) { $timeout.cancel(hideC6ControlsTimeout); }
-		self.showC6Controls = true;
-	});
-
-	$scope.$on('c6MouseActivityStop', function() {
-		hideC6ControlsTimeout = $timeout(function() {
-			if (!self.userIsUsingControls) {
-				self.showC6Controls = false;
-			}
-		}, 3000);
 	});
 
 	$scope.$on('videoShouldLoad', function() {
@@ -223,9 +226,6 @@ angular.module('c6.ctrl',['c6.svc'])
 			}
 		}
 	});
-
-	this.userIsUsingControls = false;
-	this.showC6Controls = false;
 
 	// For c6Controls
 	this.c6ControlsDelegate = {};

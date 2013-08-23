@@ -28,7 +28,8 @@ require([   'lib/jquery/jquery.min',
     require(['lib/angular/angular.min'],function(){
         require(['lib/c6ui/c6ui'], function() {
             require(['lib/c6ui/computed/computed'], function() {
-				require(['lib/c6ui/controls/controls',
+				require(['lib/c6ui/sfx/sfx',
+					'lib/c6ui/controls/controls',
 					'lib/c6media/c6lib.video',
 					'lib/ui-router/angular-ui-router.min'],function(){
 					require(c6Scripts, function(){

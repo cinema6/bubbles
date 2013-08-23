@@ -193,9 +193,9 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	};
 }])
 
-.directive('c6Sfx', ['C6SfxService', function(sfxSvc) {
+.directive('c6SfxOn', ['c6Sfx', function(sfxSvc) {
 	return function(scope, element, attrs) {
-		var config = scope.$eval(attrs.c6Sfx),
+		var config = scope.$eval(attrs.c6SfxOn),
 			event,
 			soundName,
 			playSound = function() {

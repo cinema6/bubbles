@@ -404,7 +404,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('publish-test',function(){
         grunt.task.run('build');
-        grunt.task.run('s3:demo');
+        grunt.task.run('s3:test');
     });
 
     grunt.registerTask('publish-prod',function(){

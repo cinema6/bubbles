@@ -320,12 +320,12 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'screenjack/index.html',
+                        dest: 'screenjack/<%= props.version() %>/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'screenjack/<%= props.version() %>/index.html',
+                        dest: 'screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]
@@ -342,12 +342,12 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'www/screenjack/index.html',
+                        dest: 'www/screenjack/<%= props.version() %>/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'www/screenjack/<%= props.version() %>/index.html',
+                        dest: 'www/screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]
@@ -402,13 +402,17 @@ module.exports = function (grunt) {
         grunt.task.run('build');
     });
 
-
-    grunt.registerTask('publish',function(){
+    grunt.registerTask('publish-test',function(){
         grunt.task.run('build');
         grunt.task.run('s3:demo');
     });
 
-    grunt.registerTask('default', ['release']);
+    grunt.registerTask('publish-prod',function(){
+        grunt.task.run('build');
+        grunt.task.run('s3:demo');
+    });
+
+    grunt.registerTask('default', ['build']);
 
     grunt.registerTask('mvbuild', 'Move the build to a release folder.', function(){
         if (grunt.config.get('moved')){

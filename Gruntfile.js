@@ -632,7 +632,7 @@ module.exports = function (grunt) {
                     });
                 },
               clean = function(next){
-                    grunt.file.delete(opts.build);
+                    grunt.file['delete'](opts.build);
                     next();
                 },
               copy= function(next){

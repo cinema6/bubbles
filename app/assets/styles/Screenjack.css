@@ -895,32 +895,32 @@ button:disabled {opacity: 0.15;}
             font-size: 1em;
         }
 
-        .vidFrame__annotation-horror {
+        .vidFrame__annotation-tech {
             margin: 16.4% 0 0 20.6%;
             font-size: 0.6em;
             width: 10%;
         }
             @media screen and (max-width: 668px) {
-                .vidFrame__annotation-horror {
+                .vidFrame__annotation-tech {
                     margin: 18.2% 0 0 23.6%;
                 }
             } 
 
             @media screen and (max-width: 320px) {
-                .vidFrame__annotation-horror {
+                .vidFrame__annotation-tech {
                     margin: 25.2% 0 0 33%;
                 }
             } 
 
             @media only screen and (max-device-width: 1045px) {
-                .vidFrame__annotation-horror {
+                .vidFrame__annotation-tech {
                     margin: 31.4% 0 0 20.6%;
                     -webkit-transform: rotateX(0deg); transform: rotateX(0deg);
                 }
             }
 
             @media only screen and (max-device-width: 568px) {
-                .vidFrame__annotation-horror {
+                .vidFrame__annotation-tech {
                     display: none;
                     }
             }

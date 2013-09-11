@@ -43,15 +43,20 @@ button:disabled {opacity: 0.15;}
 }
 
 .disclaimer {
-	position: fixed;
-	top: 1.7em;
+	position: absolute;
+	top: 0.45em;
+	font-family: sans-serif;
 	width: 100%;
 	text-align: center;
-	font-size: 2em;
+	font-size: 3em;
 	font-weight: bold;
+	text-shadow: -1px -1px 0 white;
 	z-index: 999999;
 	color: red;
 }
+	.disclaimer.landing {
+		top: 1.1em;
+	}
 
 
 /*  ==========================================================================

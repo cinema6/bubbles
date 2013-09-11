@@ -944,7 +944,7 @@ button:disabled {opacity: 0.15;}
             width: 20%; 
         }
 
-            .vidFrame__annotation-tech .a-text {padding: 0; margin: 0; max-width: 100%; transform: none; -webkit-transform: none;}
+            .vidFrame__annotation-tech .a-text {padding: 0; margin: 0 5%; max-width: 90%; transform: none; -webkit-transform: none;}
            
         .vidMenu { 
             position: absolute;

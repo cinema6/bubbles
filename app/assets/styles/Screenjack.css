@@ -42,6 +42,17 @@ button:disabled {opacity: 0.15;}
     background-size: contain; height:1em; margin:0.6825em 0 0 0.75em;
 }
 
+.disclaimer {
+	position: fixed;
+	top: 1.7em;
+	width: 100%;
+	text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+	z-index: 999999;
+	color: red;
+}
+
 
 /*  ==========================================================================
     landing page styles

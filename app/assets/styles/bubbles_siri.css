@@ -5,7 +5,7 @@
 }
     @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
         .annotation {
-            min-width: 22%;
+            min-width: 10%;
             max-width: 35%;
         }
     }
@@ -22,5 +22,5 @@
 
             
 /* positioning */
-.siri-0 { top: 51%; left: 40.3%; max-width: 25% }
+.siri-0 { top: 51%; left: 42.3%; max-width: 17% }
 

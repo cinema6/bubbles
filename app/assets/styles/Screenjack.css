@@ -42,6 +42,22 @@ button:disabled {opacity: 0.15;}
     background-size: contain; height:1em; margin:0.6825em 0 0 0.75em;
 }
 
+.disclaimer {
+	position: absolute;
+	top: 0.45em;
+	font-family: sans-serif;
+	width: 100%;
+	text-align: center;
+	font-size: 3em;
+	font-weight: bold;
+	text-shadow: -1px -1px 0 white;
+	z-index: 999999;
+	color: red;
+}
+	.disclaimer.landing {
+		top: 1.1em;
+	}
+
 
 /*  ==========================================================================
     landing page styles
@@ -368,18 +384,38 @@ button:disabled {opacity: 0.15;}
             top: 0; left: 0; margin: -380px 0 0 -250px;
             width: 800px; height: 1300px;
             z-index: -1; position: absolute;
-         }    
+         }
+			.startScreen__this_undefined {
+				display: block;
+				position: fixed;
+				z-index: 1000;
+				top: 860px;
+				left: 0px;
+				width: 35px;
+				height: 50px;
+			}
+				.startScreen__this_undefined:hover {
+					text-decoration: none;
+				}
             @media only screen and (max-width: 768px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen600.png') no-repeat top left;
                     width: 600px; margin: -275px 0 0 -200px;
-                } 
+                }
+				.startScreen__this_undefined {
+					top: 750px;
+					left: 10px;
+				}
             }
             @media only screen and (max-height: 570px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen600.png') no-repeat top left;
                     width: 600px; margin: -275px 0 0 -200px;
                 }
+				.startScreen__this_undefined {
+					top: 750px;
+					left: 10px;
+				}
             }
             @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
                 .startScreen__logo {
@@ -392,12 +428,24 @@ button:disabled {opacity: 0.15;}
                     background: url('../img/logo_pen300.png') no-repeat top left;
                     width: 300px; margin: -120px 0 0 -100px;
                 }
+				.startScreen__this_undefined {
+					top: 390px;
+					height: 20px;
+					width: 20px;
+					left: 0px;
+				}
             }
             @media only screen and (max-width: 568px) {
                 .startScreen__logo {
                     background: url('../img/logo_pen300.png') no-repeat top left;
                     width: 300px; margin: -120px 0 0 -100px;
                 }
+				.startScreen__this_undefined {
+					top: 390px;
+					height: 20px;
+					width: 20px;
+					left: 0px;
+				}
             }
 
         .startScreen__bgArtwork {
@@ -901,7 +949,7 @@ button:disabled {opacity: 0.15;}
             width: 20%; 
         }
 
-            .vidFrame__annotation-tech .a-text {padding: 0; margin: 0; max-width: 100%; transform: none; -webkit-transform: none;}
+            .vidFrame__annotation-tech .a-text {padding: 0; margin: 0 5%; max-width: 90%; transform: none; -webkit-transform: none;}
            
         .vidMenu { 
             position: absolute;

@@ -11,7 +11,7 @@
     }
 
 .a-text {
-    max-width: 75%; padding: 10%; margin: 0 auto;
+    width: 90%; padding: 10% 5%; margin: 0 auto;
     text-align: center; line-height: 135%;
     font-family: 'Helvetica Neue Bold', 'Helvetica', arial, sans-serif; 
     font-size: 90%; color: #fff; letter-spacing: 0.03em; text-transform:uppercase;
@@ -22,5 +22,5 @@
 
             
 /* positioning */
-.siri-0 { top: 51%; left: 40.1%; max-width: 22%;  }
+.siri-0 { top: 53%; left: 40.1%; max-width: 22%;  }
 

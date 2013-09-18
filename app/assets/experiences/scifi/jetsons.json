@@ -19,7 +19,7 @@
 				{ "ts": "16",   "template": "<prosody rate=\"slow\"> you ${1}</prosody>" },
 				{ "ts": "35",   "template": "<prosody rate=\"slow\"> ${1}</prosody>" },
 				{ "ts": "40",   "template": "<prosody rate=\"slow\"> ${1}</prosody>" },
-				{ "ts": "49",   "template": "<prosody rate=\"slow\"> Gross. did you just squeeze out a ${1}?</prosody>" }
+				{ "ts": "48",   "template": "<prosody rate=\"slow\"> Gross. did you just squeeze out a ${1}?</prosody>" }
 			]
 		}
 	]

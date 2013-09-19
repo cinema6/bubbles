@@ -939,9 +939,9 @@ button:disabled {opacity: 0.15;}
         }
 
         .vidFrame__annotation-tech {
-            top: 59.4%; left: 40.3%;
+            top: 59.4%; left: 41.4%;
             font-size: 0.6em;
-            width: 20%; 
+            width: 18%; 
         }
 
             .vidFrame__annotation-tech .a-text {transform: none; -webkit-transform: none;}

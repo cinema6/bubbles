@@ -50,7 +50,7 @@ button:disabled {opacity: 0.15;}
 	color: red; font-family: 'open sans', arial, sans-serif; text-transform: uppercase; 
 }
     @media screen and (max-device-width: 640px){
-        .disclaimer--categories {font-size: 100%; background-color:white;}
+        .disclaimer--categories {font-size: 100%;}
     }
 
 .disclaimer--landing {

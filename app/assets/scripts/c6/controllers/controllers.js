@@ -69,7 +69,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 
     this.loadSfx = function() {
-        $log.log('Experience (' + experience.id + ') has some sounds.');
+        $log.log('Experience (' + this.experience.id + ') has some sounds.');
         var sfxToLoad;
         angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
             sfxSrc  = appBase + '/' + sfxSrc;
@@ -153,6 +153,7 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6SharedVidCtrl', ['$scope', '$log', '$state', '$location', '$q', 'C6UrlShareService', function($scope, $log, $state, $location, $q, shareSvc) {
     
     shareSvc.sharedId = $location.search()['id'];
+    shareSvc.sharedUrl = $location.absUrl();
     $log.log("Creating C6SharedVidCtrl: sharedId = " + shareSvc.sharedId);
 
     shareSvc.getScript(shareSvc.sharedId).then(function(sharedScript) {
@@ -426,11 +427,15 @@ angular.module('c6.ctrl',['c6.svc'])
 	$rootScope.currentRoute = 'experience';
 }])
 
-.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', 'C6AnnotationsService', function($log, $scope, $rootScope, annSvc) {
+.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', 'C6AnnotationsService', 'C6UrlShareService', function($log, $scope, $rootScope, annSvc, shareSvc) {
 	$log.log('Creating C6EndCtrl');
 	$rootScope.currentRoute = 'end';
 
 	this.lastAnnotation = null;
+    
+    this.share = function() {
+        shareSvc.share($scope.appCtrl.experience);
+    }
 
 	$scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {
 		if (annotationsModel) {

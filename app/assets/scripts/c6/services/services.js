@@ -302,11 +302,12 @@ angular.module('c6.svc',[])
 	});
 }])
 
-.service('C6UrlShareService', ['$http', '$log', '$q', 'C6AnnotationsService', function($http, $log, $q, annSvc) {
+.service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'C6AnnotationsService', function($http, $log, $q, $location, annSvc) {
     var s3Bucket = 'c6.dev',
         s3Path = '/media/usr/screenjack/scripts/';
     
     this.sharedId = null;
+    this.sharedUrl = null;
 
     this.getScript = function(id) {
         var url = 'http://s3.amazonaws.com/' + s3Bucket + s3Path + id + '.json',
@@ -339,6 +340,20 @@ angular.module('c6.svc',[])
         }
     }
 
+    this.share = function(experience) {
+        if (this.sharedUrl) console.log(this.sharedUrl);
+        else {
+            var json = {
+                origin: $location.absUrl(),
+                experience: experience
+            }
+
+        	// $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
+            $http.post('http://localhost:3000/dub/share', json).then(function(response) {
+                console.log(response.data.url);
+            });
+        }
+    }
 }])
 
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){

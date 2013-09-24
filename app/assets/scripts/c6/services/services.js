@@ -303,8 +303,10 @@ angular.module('c6.svc',[])
 }])
 
 .service('C6UrlShareService', ['$http', '$log', '$q', 'C6AnnotationsService', function($http, $log, $q, annSvc) {
-    var s3Bucket = "c6.dev",
-        s3Path = "/media/usr/screenjack/scripts/";
+    var s3Bucket = 'c6.dev',
+        s3Path = '/media/usr/screenjack/scripts/';
+    
+    this.sharedId = null;
 
     this.getScript = function(id) {
         var url = 'http://s3.amazonaws.com/' + s3Bucket + s3Path + id + '.json',
@@ -312,7 +314,7 @@ angular.module('c6.svc',[])
             expScript;
         $http.get(url).then(
             function(response) {
-                if (!response.data) deferred.reject("No data in response");
+                if (!response.data) deferred.reject('No data in response');
                 else deferred.resolve(response.data);
             },
             function(error) {
@@ -323,16 +325,15 @@ angular.module('c6.svc',[])
     }
 
     this.verifyVideo = function(experience) {
-        if (!experience.sharedSrc) {
-            $log.log("Missing sharedSrc in experience");
+        if (!experience.src) {
+            $log.log('Missing src in experience');
             return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel)
         } else {
-            var deferred = $q.defer();
-            return $http.head(experience.sharedSrc).then(
-                function() { return $q.when(experience.sharedSrc); },
+            return $http.head(experience.src).then(
+                function() { return $q.when(experience.src); },
                 function(error) {
-                    $log.log("Error verifying shared video: " + error);
-				    return annSvc.fetchText2SpeechVideoUrl(ttsModel);
+                    $log.log('Error verifying shared video: ' + error);
+				    return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel);
                 }
             );
         }

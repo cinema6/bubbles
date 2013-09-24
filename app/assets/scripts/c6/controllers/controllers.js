@@ -68,6 +68,28 @@ angular.module('c6.ctrl',['c6.svc'])
 		$scope.$broadcast('videoShouldLoad');
 	};
 
+    this.loadSfx = function() {
+        $log.log('Experience (' + experience.id + ') has some sounds.');
+        var sfxToLoad;
+        angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
+            sfxSrc  = appBase + '/' + sfxSrc;
+            if (!sfxSvc.getSoundByName(sfxName)){
+                $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
+                if (!sfxToLoad){
+                    sfxToLoad = [];
+                }
+                sfxToLoad.push( { name: sfxName, src: sfxSrc });
+            } else {
+                $log.info('Already loaded sfx name=' + sfxName);
+            }
+        });
+
+        if (sfxToLoad){
+            $log.info('loading sounds');
+            sfxSvc.loadSounds(sfxToLoad);
+        }
+    };
+
 	this.userIsUsingC6Chrome = false;
 	this.showC6Chrome = false;
 
@@ -90,73 +112,32 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	$scope.$watch('$stateParams', function(params) {
 
-        var loadNewExperience = function() {
-            if (!params.category || !params.expid) {
+        if (!params.category || !params.expid) {
 			    self.experience = null;
                 $state.transitionTo('landing');
 			    return false;
-		    }
-		    (function() {
-			    vsvc.getExperience(params.category, params.expid).then(function(experience) {
-				    if ((self.experience && self.experience.id) !== experience.id) {
-					    self.experience = experience;
-				    }
-			    });
-		    })();
-        }
-
-        if (!self.sharedId) self.sharedId = $location.search()['id'];
-
-        if (!self.experience){
-            if (self.sharedId) {
-                shareSvc.getScript(self.sharedId).then(function(sharedScript) {
-                    //TODO: check validity of script?
-                    self.experience = sharedScript;
-                    $state.transitionTo('experience.video', 
-                                        { category: self.experience.category, 
-                                          expid: self.experience.id });
-                }, function(error) {
-                    //TODO: display error on page - "Sorry, we couldn't load that video"
-                    $log.log("Error getting shared script");
-                    self.sharedId = null;
-                    loadNewExperience();
-                });
-            } else loadNewExperience();
-        }
-		
+	    }
+	    (function() {
+		    vsvc.getExperience(params.category, params.expid).then(function(experience) {
+			    if ((self.experience && self.experience.id) !== experience.id) {
+				    self.experience = experience;
+			    }
+		    });
+	    })();
 	}, true);
 
 	$scope.$watch('appCtrl.experience', function(experience) {
-
-        if (self.sharedId && experience) {
-            self.annotationsModel = experience.bubbleModel;
-        } else {
+        if (!$state.is('shared')) {
+            shareSvc.sharedId = null;
             if (experience && experience.src) {
 			    experience.src = appBase + '/' + experience.src;
 		    }
+            console.log("about to initialize prompt model");
 		    self.promptModel = experience? new PromptModel(experience) : null;
 		    self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', experience.annotations) : null;
-        }
 
-        if (self.annotationsModel && self.annotationsModel.sfx){
-            $log.log('Experience (' + experience.id + ') has some sounds.');
-            var sfxToLoad;
-            angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
-                sfxSrc  = appBase + '/' + sfxSrc;
-                if (!sfxSvc.getSoundByName(sfxName)){
-                    $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
-                    if (!sfxToLoad){
-                        sfxToLoad = [];
-                    }
-                    sfxToLoad.push( { name: sfxName, src: sfxSrc });
-                } else {
-                    $log.info('Already loaded sfx name=' + sfxName);
-                }
-            });
-
-            if (sfxToLoad){
-                $log.info('loading sounds');
-                sfxSvc.loadSounds(sfxToLoad);
+            if (self.annotationsModel && self.annotationsModel.sfx){
+                self.loadSfx();
             }
         }
 	});
@@ -167,6 +148,46 @@ angular.module('c6.ctrl',['c6.svc'])
 			promptModel.responses = cachedResponses;
 		}
 	});
+}])
+
+.controller('C6SharedVidCtrl', ['$scope', '$log', '$state', '$location', '$q', 'C6UrlShareService', function($scope, $log, $state, $location, $q, shareSvc) {
+    
+    shareSvc.sharedId = $location.search()['id'];
+    $log.log("Creating C6SharedVidCtrl: sharedId = " + shareSvc.sharedId);
+
+    shareSvc.getScript(shareSvc.sharedId).then(function(sharedScript) {
+        //TODO: check validity of script?
+        $scope.appCtrl.annotationsModel = sharedScript.bubbleModel;
+        $scope.appCtrl.experience = sharedScript;
+        console.log($scope.appCtrl.experience);
+
+        var deferred = $q.defer();
+
+        if ($scope.appCtrl.annotationsModel && $scope.appCtrl.annotationsModel.sfx) {
+            $scope.appCtrl.loadSfx();
+        }
+
+        var ttsModel = $scope.appCtrl.experience.ttsModel
+        if (ttsModel) {
+            console.log("verifying video");
+            return shareSvc.verifyVideo($scope.appCtrl.experience);
+        } else return $q.when($scope.appCtrl.experience.src);
+
+    }).then(function(url) {
+        $log.log('Video verified');
+        $scope.appCtrl.experience.src = url;
+    }).then(function() {
+        console.log("transitioning to experience.video");
+        $state.transitionTo('experience.video', 
+                            { category: $scope.appCtrl.experience.category, 
+                              expid: $scope.appCtrl.experience.id });
+    }, function(error) {
+        //TODO: display error on page - 'Sorry, we couldn't load that video'
+        $log.log('Error getting shared video: ' + error);
+        shareSvc.sharedId = null;
+        $state.transitionTo('landing');
+    });
+
 }])
 
 .controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
@@ -228,19 +249,6 @@ angular.module('c6.ctrl',['c6.svc'])
 			video.player.play();
 		}
 	});
-
-    $scope.$watch('$state.is("experience.video") && appCtrl.sharedId', function(yes) {
-        if (yes) {
-            self.annotationsModel = $scope.appCtrl.annotationsModel;
-            var ttsModel = $scope.appCtrl.experience.ttsModel
-            if (ttsModel) {
-                shareSvc.verifyVideo($scope.appCtrl.experience).then(function(url) {
-                    $log.log("Video verified");
-					$scope.appCtrl.experience.src = url;
-				});
-            }
-        }
-    });
 
 	$scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {
 		if (yes) {

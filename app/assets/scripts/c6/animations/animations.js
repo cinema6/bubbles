@@ -435,6 +435,9 @@
 	//video player ----------------//
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
+            setup: function(element) {
+                element.css({opacity: 0, visibility: 'hidden'});
+            },
 			start: function($playerDiv, done) {
 				$log.log('Fade in Video Experience');
 				var videoPlayer		= document.getElementById('player'),

@@ -37,7 +37,7 @@ function PromptModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', 'C6UrlShareService', function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc, shareSvc) {
 	$log.log('Creating C6AppCtrl');
 	var self = this,
 		hideC6ControlsTimeout;
@@ -89,26 +89,58 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$stateParams = $stateParams;
 
 	$scope.$watch('$stateParams', function(params) {
-		if (!params.category || !params.expid) {
-			self.experience = null;
-			return false;
-		}
-		(function() {
-			vsvc.getExperience(params.category, params.expid).then(function(experience) {
-				if ((self.experience && self.experience.id) !== experience.id) {
-					self.experience = experience;
-				}
-			});
-		})();
+
+        var loadNewExperience = function() {
+            console.log("load new experience");
+            if (!params.category || !params.expid) {
+			    self.experience = null;
+                $state.transitionTo('landing');
+			    return false;
+		    }
+		    (function() {
+			    vsvc.getExperience(params.category, params.expid).then(function(experience) {
+				    if ((self.experience && self.experience.id) !== experience.id) {
+					    self.experience = experience;
+				    }
+			    });
+		    })();
+        }
+
+        if (!self.sharedId) self.sharedId = $location.search()['id'];
+
+        if (!self.experience){
+            if (self.sharedId) {
+                console.log("loading experience from script");
+                shareSvc.getScript(self.sharedId).then(function(sharedScript) {
+                    //TODO: check validity of script?
+                    self.experience = sharedScript;
+                    console.log(self.experience);
+                    console.log(self.experience.category);
+                    $state.transitionTo('experience.video', 
+                                        { category: self.experience.category, 
+                                          expid: self.experience.id });
+                }, function(error) {
+                    //TODO: display error on page - "Sorry, we couldn't load that video"
+                    $log.log("Error getting shared script");
+                    self.sharedId = null;
+                    loadNewExperience();
+                });
+            } else loadNewExperience();
+        }
+		
 	}, true);
 
 	$scope.$watch('appCtrl.experience', function(experience) {
-		if (experience && experience.src) {
-			experience.src = appBase + '/' + experience.src;
-		}
 
-		self.promptModel = experience? new PromptModel(experience) : null;
-		self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', experience.annotations) : null;
+        if (self.sharedId && experience) {
+            self.annotationsModel = experience.bubbleModel;
+        } else {
+            if (experience && experience.src) {
+			    experience.src = appBase + '/' + experience.src;
+		    }
+		    self.promptModel = experience? new PromptModel(experience) : null;
+		    self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', experience.annotations) : null;
+        }
 
         if (self.annotationsModel && self.annotationsModel.sfx){
             $log.log('Experience (' + experience.id + ') has some sounds.');
@@ -155,7 +187,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', 'C6UrlShareService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc, shareSvc){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
@@ -174,6 +206,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
 		player.on([readyEvent, 'play'], function(event, video) {
 			self.videoCanPlay = true;
+            console.log("ready event play");
 			$timeout(function() {
 				if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
 			}, 200, false);
@@ -201,19 +234,38 @@ angular.module('c6.ctrl',['c6.svc'])
 		}
 	});
 
+    $scope.$watch('$state.is("experience.video") && appCtrl.sharedId', function(yes) {
+        console.log("here: " + $scope.appCtrl.sharedId);
+        if (yes) {
+            self.annotationsModel = $scope.appCtrl.annotationsModel;
+            console.log(self.annotationsModel);
+            var ttsModel = $scope.appCtrl.experience.ttsModel
+            if (ttsModel) {
+                shareSvc.verifyVideo($scope.appCtrl.experience).then(function(url) {
+                    console.log("video verified");
+					$scope.appCtrl.experience.src = url;
+				});
+            }
+        }
+    });
+
 	$scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {
 		if (yes) {
 			var bubbleModel = $scope.appCtrl.annotationsModel,
-				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', $scope.appCtrl.experience.annotations),
+				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', 
+                                    $scope.appCtrl.experience.annotations),
 				responses = $scope.appCtrl.promptModel.responses;
 
 			if (bubbleModel) {
 				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, responses);
+                $scope.appCtrl.experience.bubbleModel = self.annotationsModel;
+                console.log($scope.appCtrl.experience);
 			} else {
 				self.annotationsModel = null;
 			}
 			if (txt2SpchModel) {
 				txt2SpchModel = annSvc.interpolateAnnotations(txt2SpchModel, responses);
+                $scope.appCtrl.experience.ttsModel = txt2SpchModel;
 
 				if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
 					respSvc.setResponses(responses, $stateParams.category, $stateParams.expid);
@@ -246,7 +298,7 @@ angular.module('c6.ctrl',['c6.svc'])
 			ts,
 			duration,
 			inActiveArray;
-
+        console.log(self.annotationsModel);
 		annotations.forEach(function(annotation) {
 			ts = annotation.ts;
 			duration = annotation.duration;
@@ -284,7 +336,8 @@ angular.module('c6.ctrl',['c6.svc'])
 }])
 
 .controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
-										'c6VideoListingService', '$state', function($log,$scope,$rootScope,vsvc,$state){
+								  'c6VideoListingService', '$state', 
+                                  function($log,$scope,$rootScope,vsvc,$state){
 	$log.log('Creating cCategoryListCtrl');
 	$rootScope.currentRoute = 'categories';
 
@@ -357,6 +410,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 
 	this.startExperience = function() {
+        console.log("start experience");
 		$scope.$broadcast('experienceStart');
 		$state.transitionTo('experience.video', $stateParams);
 	};

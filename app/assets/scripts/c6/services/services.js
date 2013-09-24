@@ -262,7 +262,8 @@ angular.module('c6.svc',[])
 			url.resolve(genVidUrlCache[model.options.vid].url);
 		} else {
 			$log.log('No URL for these responses. Going to the server!');
-			$http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+			// $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+            $http.post('http://localhost:3000/dub/create', requestBodyObject).then(function(response) {
 				var urlFromServer = response.data.output;
 
 				genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
@@ -299,6 +300,44 @@ angular.module('c6.svc',[])
 			code($window.innerWidth, $window.innerHeight);
 		});
 	});
+}])
+
+.service('C6UrlShareService', ['$http', '$log', '$q', 'C6AnnotationsService', function($http, $log, $q, annSvc) {
+    var s3Bucket = "c6.dev",
+        s3Path = "/media/usr/screenjack/scripts/";
+
+    this.getScript = function(id) {
+        var url = 'http://s3.amazonaws.com/' + s3Bucket + s3Path + id + '.json',
+            deferred = $q.defer(),
+            expScript;
+        $http.get(url).then(
+            function(response) {
+                if (!response.data) deferred.reject("No data in response");
+                else deferred.resolve(response.data);
+            },
+            function(error) {
+                deferred.reject(error)
+            }
+        );
+        return deferred.promise;
+    }
+
+    this.verifyVideo = function(experience) {
+        if (!experience.sharedSrc) {
+            $log.log("Missing sharedSrc in experience");
+            return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel)
+        } else {
+            var deferred = $q.defer();
+            return $http.head(experience.sharedSrc).then(
+                function() { return $q.when(experience.sharedSrc); },
+                function(error) {
+                    $log.log("Error verifying shared video: " + error);
+				    return annSvc.fetchText2SpeechVideoUrl(ttsModel);
+                }
+            );
+        }
+    }
+
 }])
 
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){

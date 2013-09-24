@@ -91,7 +91,6 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$watch('$stateParams', function(params) {
 
         var loadNewExperience = function() {
-            console.log("load new experience");
             if (!params.category || !params.expid) {
 			    self.experience = null;
                 $state.transitionTo('landing');
@@ -110,12 +109,9 @@ angular.module('c6.ctrl',['c6.svc'])
 
         if (!self.experience){
             if (self.sharedId) {
-                console.log("loading experience from script");
                 shareSvc.getScript(self.sharedId).then(function(sharedScript) {
                     //TODO: check validity of script?
                     self.experience = sharedScript;
-                    console.log(self.experience);
-                    console.log(self.experience.category);
                     $state.transitionTo('experience.video', 
                                         { category: self.experience.category, 
                                           expid: self.experience.id });
@@ -206,7 +202,6 @@ angular.module('c6.ctrl',['c6.svc'])
 
 		player.on([readyEvent, 'play'], function(event, video) {
 			self.videoCanPlay = true;
-            console.log("ready event play");
 			$timeout(function() {
 				if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
 			}, 200, false);
@@ -235,14 +230,12 @@ angular.module('c6.ctrl',['c6.svc'])
 	});
 
     $scope.$watch('$state.is("experience.video") && appCtrl.sharedId', function(yes) {
-        console.log("here: " + $scope.appCtrl.sharedId);
         if (yes) {
             self.annotationsModel = $scope.appCtrl.annotationsModel;
-            console.log(self.annotationsModel);
             var ttsModel = $scope.appCtrl.experience.ttsModel
             if (ttsModel) {
                 shareSvc.verifyVideo($scope.appCtrl.experience).then(function(url) {
-                    console.log("video verified");
+                    $log.log("Video verified");
 					$scope.appCtrl.experience.src = url;
 				});
             }
@@ -259,7 +252,6 @@ angular.module('c6.ctrl',['c6.svc'])
 			if (bubbleModel) {
 				self.annotationsModel = annSvc.interpolateAnnotations(bubbleModel, responses);
                 $scope.appCtrl.experience.bubbleModel = self.annotationsModel;
-                console.log($scope.appCtrl.experience);
 			} else {
 				self.annotationsModel = null;
 			}
@@ -298,7 +290,6 @@ angular.module('c6.ctrl',['c6.svc'])
 			ts,
 			duration,
 			inActiveArray;
-        console.log(self.annotationsModel);
 		annotations.forEach(function(annotation) {
 			ts = annotation.ts;
 			duration = annotation.duration;
@@ -410,7 +401,6 @@ angular.module('c6.ctrl',['c6.svc'])
 	};
 
 	this.startExperience = function() {
-        console.log("start experience");
 		$scope.$broadcast('experienceStart');
 		$state.transitionTo('experience.video', $stateParams);
 	};

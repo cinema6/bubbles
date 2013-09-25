@@ -2,22 +2,22 @@
 'use strict';
 
 function TalkieModel(annotations, extension) {
-	var options = annotations.options;
-	this.options = {
-		effect: options.effect,
-		level: options.level,
-		vid: options.vid + '.' + extension,
-		voice: options.voice
-	};
+    var options = annotations.options;
+    this.options = {
+        effect: options.effect,
+        level: options.level,
+        vid: options.vid + '.' + extension,
+        voice: options.voice
+    };
     this.annotations = [];
 
     annotations.notes.forEach(function(annotation) {
         var note = {
-	        ts: annotation.ts,
-	        template: annotation.template,
-	        text: null
+            ts: annotation.ts,
+            template: annotation.template,
+            text: null
         };
-	    this.annotations.push(note);
+        this.annotations.push(note);
     }, this);
 }
 
@@ -77,108 +77,108 @@ function BubblesModel(annotations) {
 
 angular.module('c6.svc',[])
 .service('C6VideoControlsService', ['$timeout', function($timeout) {
-	this.bind = function(video, delegate, controller) {
-		var wasPlaying; // Used for seeking
+    this.bind = function(video, delegate, controller) {
+        var wasPlaying; // Used for seeking
 
-		// Set up video events
-		video
-			.on('play', function() {
-				controller.play();
-			})
-			.on('pause', function() {
-				controller.pause();
-			})
-			.on('timeupdate', function(event, video) {
-				var percent = (video.player.currentTime / video.player.duration) * 100;
+        // Set up video events
+        video
+            .on('play', function() {
+                controller.play();
+            })
+            .on('pause', function() {
+                controller.pause();
+            })
+            .on('timeupdate', function(event, video) {
+                var percent = (video.player.currentTime / video.player.duration) * 100;
 
-				controller.progress(percent);
-			})
-			.on('progress', function(event, video) {
-				controller.buffer(video.bufferedPercent() * 100);
-			})
-			.on('volumechange', function(event, video) {
-				controller.muteChange(video.player.muted);
-				controller.volumeChange(video.player.volume * 100);
-			});
+                controller.progress(percent);
+            })
+            .on('progress', function(event, video) {
+                controller.buffer(video.bufferedPercent() * 100);
+            })
+            .on('volumechange', function(event, video) {
+                controller.muteChange(video.player.muted);
+                controller.volumeChange(video.player.volume * 100);
+            });
 
-		// Set up delegate methods
-		delegate.play = function() {
-			video.player.play();
-		};
-		delegate.pause = function() {
-			video.player.pause();
-		};
-		delegate.seekStart = function() {
-			if (!video.player.paused) {
-				wasPlaying = true;
-				video.player.pause();
-			}
-		};
-		delegate.seek = function(percent) {
-			video.player.currentTime = (percent * video.player.duration) / 100;
-		};
-		delegate.seekStop = function() {
-			if (wasPlaying && video.player.paused) {
-				$timeout(function() { video.player.play(); }, 200);
-			}
-			wasPlaying = undefined;
-		};
-		delegate.volumeSeek = function(percent) {
-			video.player.volume = percent / 100;
-		};
-		delegate.mute = function() {
-			video.player.muted = true;
-		};
-		delegate.unmute = function() {
-			video.player.muted = false;
-		};
-	};
+        // Set up delegate methods
+        delegate.play = function() {
+            video.player.play();
+        };
+        delegate.pause = function() {
+            video.player.pause();
+        };
+        delegate.seekStart = function() {
+            if (!video.player.paused) {
+                wasPlaying = true;
+                video.player.pause();
+            }
+        };
+        delegate.seek = function(percent) {
+            video.player.currentTime = (percent * video.player.duration) / 100;
+        };
+        delegate.seekStop = function() {
+            if (wasPlaying && video.player.paused) {
+                $timeout(function() { video.player.play(); }, 200);
+            }
+            wasPlaying = undefined;
+        };
+        delegate.volumeSeek = function(percent) {
+            video.player.volume = percent / 100;
+        };
+        delegate.mute = function() {
+            video.player.muted = true;
+        };
+        delegate.unmute = function() {
+            video.player.muted = false;
+        };
+    };
 }])
 
 .service('C6ResponseCachingService', ['$window', function($window) {
-	if (!$window.localStorage) {
-		$window.localStorage = {};
-	}
+    if (!$window.localStorage) {
+        $window.localStorage = {};
+    }
 
-	var data = JSON.parse($window.localStorage.responseCache || '{}'),
-		writeToStorage = function() {
-			$window.localStorage.responseCache = JSON.stringify(data);
-		};
+    var data = JSON.parse($window.localStorage.responseCache || '{}'),
+        writeToStorage = function() {
+            $window.localStorage.responseCache = JSON.stringify(data);
+        };
 
-	this.sameResponses = function(a, b) {
-		return JSON.stringify(a) === JSON.stringify(b);
-	};
+    this.sameResponses = function(a, b) {
+        return JSON.stringify(a) === JSON.stringify(b);
+    };
 
-	this.setResponses = function(responses, category, id) {
-		data[category + '/' + id] = responses;
-		writeToStorage();
-	};
+    this.setResponses = function(responses, category, id) {
+        data[category + '/' + id] = responses;
+        writeToStorage();
+    };
 
-	this.getResponses = function(category, id) {
-		return data[category + '/' + id] || null;
-	};
+    this.getResponses = function(category, id) {
+        return data[category + '/' + id] || null;
+    };
 }])
 
-.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', 'environment', function($routeParams, $rootScope, vidSvc, $http, $q, $log, env) {
-	var genVidUrlCache = {};
+.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
+    var genVidUrlCache = {};
 
-	this.getAnnotationsModelByType = function(type, annotations) {
-		var toReturn,
-			Klass;
+    this.getAnnotationsModelByType = function(type, annotations) {
+        var toReturn,
+            Klass;
 
-		if (type === 'bubble') {
-			Klass = BubblesModel;
-		} else if (type === 'talkie') {
-			Klass = TalkieModel;
-		}
+        if (type === 'bubble') {
+            Klass = BubblesModel;
+        } else if (type === 'talkie') {
+            Klass = TalkieModel;
+        }
 
-		annotations.forEach(function(annoConfig) {
-			if (annoConfig.options.type === type) {
-				toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
-			}
-		});
-		return toReturn;
-	};
+        annotations.forEach(function(annoConfig) {
+            if (annoConfig.options.type === type) {
+                toReturn = new Klass(annoConfig, vidSvc.extensionForFormat(vidSvc.bestFormat()));
+            }
+        });
+        return toReturn;
+    };
 
     this.interpolate = function(tmpl,data) {
         var patt  = /\${(\d+)}/,
@@ -209,7 +209,7 @@ angular.module('c6.svc',[])
         return tmpl;
     };
 
-	this.interpolateAnnotations = function(annoModel, responses) {
+    this.interpolateAnnotations = function(annoModel, responses) {
         var annoLength = annoModel.annotations.length;
         $log.info('Interpolate ' + annoLength + ' annotations with ' + responses.length + ' responses.');
 //       for (var x = 0; x < data.length; x++) {
@@ -222,84 +222,84 @@ angular.module('c6.svc',[])
         }
 
         return annoModel;
-	};
+    };
 
-	this.fetchText2SpeechVideoUrl = function(model) {
-		var requestBodyObject = {
-			video: model.options.vid,
-			tts: {
-				voice: model.options.voice,
-				effect: model.options.effect,
-				level: model.options.level
-			},
-			script: []
-		},
-			url = $q.defer(),
-			alreadyHaveUrl = function() {
-				var cache = genVidUrlCache,
-					cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
+    this.fetchText2SpeechVideoUrl = function(model) {
+        var requestBodyObject = {
+            video: model.options.vid,
+            tts: {
+                voice: model.options.voice,
+                effect: model.options.effect,
+                level: model.options.level
+            },
+            script: []
+        },
+            url = $q.defer(),
+            alreadyHaveUrl = function() {
+                var cache = genVidUrlCache,
+                    cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
 
-				return ((cachedModel ? true : false) && (function() {
-					var newModelAnnotations = model.annotations;
+                return ((cachedModel ? true : false) && (function() {
+                    var newModelAnnotations = model.annotations;
 
-					return cachedModel.annotations.every(function(annotation, index) {
-						return annotation.text === newModelAnnotations[index].text;
-					});
-				})());
-			};
+                    return cachedModel.annotations.every(function(annotation, index) {
+                        return annotation.text === newModelAnnotations[index].text;
+                    });
+                })());
+            };
 
-		model.annotations.forEach(function(annotation) {
-			var line = {
-				ts: annotation.ts,
-				line: annotation.text
-			};
+        model.annotations.forEach(function(annotation) {
+            var line = {
+                ts: annotation.ts,
+                line: annotation.text
+            };
 
-			requestBodyObject.script.push(line);
-		});
+            requestBodyObject.script.push(line);
+        });
 
-		if (alreadyHaveUrl()) {
-			$log.log('Already have a URL for these responses: ' + genVidUrlCache[model.options.vid].url);
-			url.resolve(genVidUrlCache[model.options.vid].url);
-		} else {
-			$log.log('No URL for these responses. Going to the server!');
-			// $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+        if (alreadyHaveUrl()) {
+            $log.log('Already have a URL for these responses: ' + genVidUrlCache[model.options.vid].url);
+            url.resolve(genVidUrlCache[model.options.vid].url);
+        } else {
+            $log.log('No URL for these responses. Going to the server!');
+            // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
             $http.post('http://localhost:3000/dub/create', requestBodyObject).then(function(response) {
-				var urlFromServer = response.data.output;
+                var urlFromServer = response.data.output;
 
-				genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
-				url.resolve(urlFromServer);
-			}, function(error) {
-				$log.error(error);
-			});
-		}
+                genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
+                url.resolve(urlFromServer);
+            }, function(error) {
+                $log.error(error);
+            });
+        }
 
-		return url.promise;
-	};
+        return url.promise;
+    };
 }])
 
 .service('C6ResizeService', ['$window', '$log', function($window, $log) {
-	var resizeFunctions = [];
+    var resizeFunctions = [];
 
-	this.registerDirective = function(code) {
-		if (resizeFunctions.indexOf(code) === -1) {
-			resizeFunctions.push(code);
-			$log.log('Registered new resizer. Current total is ' + resizeFunctions.length);
-			code($window.innerWidth, $window.innerHeight);
-		}
-	};
+    this.registerDirective = function(code) {
+        if (resizeFunctions.indexOf(code) === -1) {
+            resizeFunctions.push(code);
+            $log.log('Registered new resizer. Current total is ' + resizeFunctions.length);
+            code($window.innerWidth, $window.innerHeight);
+        }
+    };
 
-	this.unregisterDirective = function(code) {
-		var codesIndex = resizeFunctions.indexOf(code);
+    this.unregisterDirective = function(code) {
+        var codesIndex = resizeFunctions.indexOf(code);
 
-		resizeFunctions.splice(codesIndex, 1);
-		$log.log('Unregistered new resizer. Current total is ' + resizeFunctions.length);
-	};
+        resizeFunctions.splice(codesIndex, 1);
+        $log.log('Unregistered new resizer. Current total is ' + resizeFunctions.length);
+    };
 
-	angular.element($window).bind('resize', function() {
-		resizeFunctions.forEach(function(code) {
-			code($window.innerWidth, $window.innerHeight);
-		});
-	});
+    angular.element($window).bind('resize', function() {
+        resizeFunctions.forEach(function(code) {
+            code($window.innerWidth, $window.innerHeight);
+        });
+    });
 }])
 
 .service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'C6AnnotationsService', function($http, $log, $q, $location, annSvc) {
@@ -311,128 +311,131 @@ angular.module('c6.svc',[])
 
     this.getScript = function(id) {
         var url = 'http://s3.amazonaws.com/' + s3Bucket + s3Path + id + '.json',
-            deferred = $q.defer(),
-            expScript;
+            deferred = $q.defer();
         $http.get(url).then(
             function(response) {
-                if (!response.data) deferred.reject('No data in response');
-                else deferred.resolve(response.data);
+                if (!response.data) {
+                    deferred.reject('No data in response');
+                } else {
+                    deferred.resolve(response.data);
+                }
             },
             function(error) {
-                deferred.reject(error)
+                deferred.reject(error);
             }
         );
         return deferred.promise;
-    }
+    };
 
     this.verifyVideo = function(experience) {
         if (!experience.src) {
             $log.log('Missing src in experience');
-            return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel)
+            return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel);
         } else {
             return $http.head(experience.src).then(
                 function() { return $q.when(experience.src); },
                 function(error) {
                     $log.log('Error verifying shared video: ' + error);
-				    return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel);
+                    return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel);
                 }
             );
         }
-    }
+    };
 
     this.share = function(experience) {
-        if (this.sharedUrl) console.log(this.sharedUrl);
-        else {
+        if (this.sharedUrl) {
+            $log.log(this.sharedUrl); //TODO: do something with these urls
+        } else {
             var json = {
                 origin: $location.absUrl(),
                 experience: experience
-            }
+            };
 
-        	// $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
+            // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
             $http.post('http://localhost:3000/dub/share', json).then(function(response) {
-                console.log(response.data.url);
+                $log.log(response.data.url);
             });
         }
-    }
+    };
 }])
 
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');
     var service = {};
 
-	service.getRandomCategoryFrom = function(categories) {
-		categories = categories || service.getCategories();
-		return categories[Math.floor(Math.random() * categories.length)];
-	};
+    service.getRandomCategoryFrom = function(categories) {
+        categories = categories || service.getCategories();
+        return categories[Math.floor(Math.random() * categories.length)];
+    };
 
-	service.getRandomQuoteForCategory = function(category) {
-		var data = {
-			action: [
-				'Badger on cocaine',
-				'Good comeback David Cross',
-				'Bruce Lee destroys Elmo!'
-			],
-			fantasy: [
-				'Get over here you tiny crap',
-				'Hope this puppy can swim',
-				'You sail, I\'m not doing crap on this trip'
-			],
-			romance: [
-				'Damn she knows I just made a sneeze.',
-				'umm WTF was that? She must punch carrots.'
-			]
-		};
+    service.getRandomQuoteForCategory = function(category) {
+        var data = {
+            action: [
+                'Badger on cocaine',
+                'Good comeback David Cross',
+                'Bruce Lee destroys Elmo!'
+            ],
+            fantasy: [
+                'Get over here you tiny crap',
+                'Hope this puppy can swim',
+                'You sail, I\'m not doing crap on this trip'
+            ],
+            romance: [
+                'Damn she knows I just made a sneeze.',
+                'umm WTF was that? She must punch carrots.'
+            ]
+        };
 
-		var quotes = data[category];
+        var quotes = data[category];
 
-		return quotes[Math.floor(Math.random() * quotes.length)];
-	};
+        return quotes[Math.floor(Math.random() * quotes.length)];
+    };
 
-	service.getRandomExperienceIdFromCategory = function(category) {
-		var experience = $q.defer();
+    service.getRandomExperienceIdFromCategory = function(category) {
+        var experience = $q.defer();
 
-		$http.get(baseUrl + '/experiences/experiences.json').then(function(response) {
-			var experiences = response.data[category];
+        $http.get(baseUrl + '/experiences/experiences.json').then(function(response) {
+            var experiences = response.data[category];
 
-			experience.resolve(experiences[Math.floor(Math.random() * experiences.length)]);
-		});
+            experience.resolve(experiences[Math.floor(Math.random() * experiences.length)]);
+        });
 
-		return experience.promise;
-	};
+        return experience.promise;
+    };
 
     service.getCategories = function() {
-		var categories = $q.defer();
+        var categories = $q.defer();
 
-		$http.get(baseUrl + '/experiences/experiences.json').then(function(response) {
-			var experiences = response.data;
+        $http.get(baseUrl + '/experiences/experiences.json').then(function(response) {
+            var experiences = response.data;
 
-			categories.resolve(Object.keys(experiences));
-		});
+            categories.resolve(Object.keys(experiences));
+        });
 
-		return categories.promise;
+        return categories.promise;
     };
 
     service.getExperienceByCategory = function(category) {
-		var experience = $q.defer();
+        var experience = $q.defer();
 
-		service.getRandomExperienceIdFromCategory(category).then(function(experienceId) {
-			experience.resolve(service.getExperience(category, experienceId));
-		});
+        service.getRandomExperienceIdFromCategory(category).then(function(experienceId) {
+            experience.resolve(service.getExperience(category, experienceId));
+        });
 
-		return experience.promise;
-	};
+        return experience.promise;
+    };
 
-	service.getExperience = function(category, id) {
-		var experience = $q.defer();
+    service.getExperience = function(category, id) {
+        var experience = $q.defer();
 
-		$http.get(baseUrl + '/experiences/' + category + '/' + id + '.json').then(function(data) {
-			experience.resolve(data.data);
-		}, function(err) {
-			experience.reject(err);
-		});
+        $http.get(baseUrl + '/experiences/' + category + '/' + id + '.json').then(function(data) {
+            experience.resolve(data.data);
+        }, function(err) {
+            experience.reject(err);
+        });
 
-		return experience.promise;
-	};
+        return experience.promise;
+    };
 
     return service;
 }]);

@@ -129,10 +129,10 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$watch('appCtrl.experience', function(experience) {
         if (!$state.is('shared')) {
             shareSvc.sharedId = null;
+            shareSvc.sharedUrl = null;
             if (experience && experience.src) {
 			    experience.src = appBase + '/' + experience.src;
 		    }
-            console.log("about to initialize prompt model");
 		    self.promptModel = experience? new PromptModel(experience) : null;
 		    self.annotationsModel = experience? annSvc.getAnnotationsModelByType('bubble', experience.annotations) : null;
 
@@ -154,33 +154,31 @@ angular.module('c6.ctrl',['c6.svc'])
     
     shareSvc.sharedId = $location.search()['id'];
     shareSvc.sharedUrl = $location.absUrl();
-    $log.log("Creating C6SharedVidCtrl: sharedId = " + shareSvc.sharedId);
+    $log.log('Creating C6SharedVidCtrl: sharedId = ' + shareSvc.sharedId);
 
     shareSvc.getScript(shareSvc.sharedId).then(function(sharedScript) {
         //TODO: check validity of script?
         $scope.appCtrl.annotationsModel = sharedScript.bubbleModel;
         $scope.appCtrl.experience = sharedScript;
-        console.log($scope.appCtrl.experience);
-
-        var deferred = $q.defer();
 
         if ($scope.appCtrl.annotationsModel && $scope.appCtrl.annotationsModel.sfx) {
             $scope.appCtrl.loadSfx();
         }
 
-        var ttsModel = $scope.appCtrl.experience.ttsModel
+        var ttsModel = $scope.appCtrl.experience.ttsModel;
         if (ttsModel) {
-            console.log("verifying video");
+            $log.log('verifying video');
             return shareSvc.verifyVideo($scope.appCtrl.experience);
-        } else return $q.when($scope.appCtrl.experience.src);
+        } else {
+            return $q.when($scope.appCtrl.experience.src);
+        }
 
     }).then(function(url) {
         $log.log('Video verified');
         $scope.appCtrl.experience.src = url;
     }).then(function() {
-        console.log("transitioning to experience.video");
-        $state.transitionTo('experience.video', 
-                            { category: $scope.appCtrl.experience.category, 
+        $state.transitionTo('experience.video',
+                            { category: $scope.appCtrl.experience.category,
                               expid: $scope.appCtrl.experience.id });
     }, function(error) {
         //TODO: display error on page - 'Sorry, we couldn't load that video'
@@ -205,7 +203,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', 'C6UrlShareService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc, shareSvc){
+.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc){
 	$log.log('Creating C6AnnotationsCtrl');
 	var self = this,
 		readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
@@ -254,7 +252,7 @@ angular.module('c6.ctrl',['c6.svc'])
 	$scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {
 		if (yes) {
 			var bubbleModel = $scope.appCtrl.annotationsModel,
-				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie', 
+				txt2SpchModel = annSvc.getAnnotationsModelByType('talkie',
                                     $scope.appCtrl.experience.annotations),
 				responses = $scope.appCtrl.promptModel.responses;
 
@@ -336,7 +334,7 @@ angular.module('c6.ctrl',['c6.svc'])
 }])
 
 .controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
-								  'c6VideoListingService', '$state', 
+								  'c6VideoListingService', '$state',
                                   function($log,$scope,$rootScope,vsvc,$state){
 	$log.log('Creating cCategoryListCtrl');
 	$rootScope.currentRoute = 'categories';
@@ -435,7 +433,7 @@ angular.module('c6.ctrl',['c6.svc'])
     
     this.share = function() {
         shareSvc.share($scope.appCtrl.experience);
-    }
+    };
 
 	$scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {
 		if (annotationsModel) {

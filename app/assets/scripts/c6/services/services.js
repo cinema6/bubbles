@@ -350,18 +350,22 @@ angular.module('c6.svc',[])
 
     this.share = function(script) {
         if (this.sharedUrl) {
-            return this.sharedUrl;
+            return $q.when(this.sharedUrl);
         } else {
             var json = {
                 origin: $location.absUrl(),
                 experience: script
-            };
+            },
+                deferred = $q.defer();
 
             $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
             // $http.post('http://localhost:3000/dub/share', json).then(function(response) {
                 self.sharedUrl = response.data.url;
-                return response.data.url;
+                deferred.resolve(response.data.url);
+            }, function(error) {
+                deferred.reject(error);
             });
+            return deferred.promise;
         }
     };
 }])

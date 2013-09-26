@@ -1,6 +1,7 @@
 (function(){
 'use strict';
 
+// Holds data for text-to-speech lines
 function TalkieModel(annotations, extension) {
     var options = annotations.options;
     this.options = {
@@ -21,6 +22,7 @@ function TalkieModel(annotations, extension) {
     }, this);
 }
 
+// Holds data for thought bubble annotations
 function BubblesModel(annotations) {
     var localException = function(msg) {
         return {
@@ -159,6 +161,8 @@ angular.module('c6.svc',[])
     };
 }])
 
+// Has functions for creating annotation models, interpolating responses with tempaltes, and 
+// retrieving urls for text-to-speech videos.
 .service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
     var genVidUrlCache = {};
 
@@ -180,6 +184,7 @@ angular.module('c6.svc',[])
         return toReturn;
     };
 
+    // Insert a response into a line template
     this.interpolate = function(tmpl,data) {
         var patt  = /\${(\d+)}/,
             dataLen,
@@ -209,12 +214,10 @@ angular.module('c6.svc',[])
         return tmpl;
     };
 
+    // Inserts responses into annotations
     this.interpolateAnnotations = function(annoModel, responses) {
         var annoLength = annoModel.annotations.length;
         $log.info('Interpolate ' + annoLength + ' annotations with ' + responses.length + ' responses.');
-//       for (var x = 0; x < data.length; x++) {
-//            $log.info('DATA[' + x + ']: [' + data[x] + ']');
-//        }
         for (var i = 0; i < annoLength; i++) {
             var a = annoModel.annotations[i];
             a.text = this.interpolate(a.template,responses);
@@ -224,6 +227,8 @@ angular.module('c6.svc',[])
         return annoModel;
     };
 
+    // Will first check a local cache, then attempt to verify the src url from the shared script
+    // Then, if those fail, it will go to dub to create a video.
     this.fetchText2SpeechVideoUrl = function(model, sharedUrl) {
         var url = $q.defer(),
             haveCachedUrl = function() {
@@ -276,8 +281,8 @@ angular.module('c6.svc',[])
                     requestBodyObject.script.push(line);
                 });
 
-                // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
-                $http.post('http://localhost:3000/dub/create', requestBodyObject).then(function(response) {
+                $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+                // $http.post('http://localhost:3000/dub/create', requestBodyObject).then(function(response) {
                     var urlFromServer = response.data.output;
 
                     genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
@@ -317,6 +322,7 @@ angular.module('c6.svc',[])
     });
 }])
 
+// Handles retrieving shared scripts and generating shareable urls
 .service('C6UrlShareService', ['$http', '$log', '$q', '$location', function($http, $log, $q, $location) {
     var s3Bucket = 'c6.dev',
         s3Path = '/media/usr/screenjack/scripts/',
@@ -351,8 +357,8 @@ angular.module('c6.svc',[])
                 experience: script
             };
 
-            // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
-            $http.post('http://localhost:3000/dub/share', json).then(function(response) {
+            $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
+            // $http.post('http://localhost:3000/dub/share', json).then(function(response) {
                 self.sharedUrl = response.data.url;
                 $log.log(response.data.url);
             });
@@ -360,6 +366,7 @@ angular.module('c6.svc',[])
     };
 }])
 
+// Functions for retrieving experience objects from local files
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');
     var service = {};

@@ -36,6 +36,8 @@ function PromptModel(experience) {
     }
 }
 
+// A parent controller that contains much of the necessary data and functions needed by multiple 
+// child controllers. Contains code for initializing the experience and other models.
 angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $q, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
     $log.log('Creating C6AppCtrl');
@@ -55,8 +57,8 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$on('$viewContentLoaded', function() {
         $scope.appCtrl.experienceAnimation = 'experience';
     });
-    this.promptModel = null;
-    this.annotationsModel = null;
+    this.promptModel = null; // Holds the prompts for the user and their responses
+    this.annotationsModel = null; // holds the annotations (speech bubbles)
     this.goToRoute = function(route) {
         $location.path(route);
     };
@@ -68,6 +70,9 @@ angular.module('c6.ctrl',['c6.svc'])
         $scope.$broadcast('videoShouldLoad');
     };
 
+    // Load experience from local storage, initialize other models, and load SFX
+    // This may be called when a user starts creating a screenjack, when refreshing a created
+    // video, or when loading a shared experience.
     this.initializeExperience = function(category, expid) {
         var deferred = $q.defer();
 
@@ -132,12 +137,17 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$state = $state;
     $scope.$stateParams = $stateParams;
 
+    // this block will fire whenever the category and experience id parameters in the url change
+    // it will then reset the experience as necessary and look for cached responses if the user has
+    // navigated directly to the video page/state
     $scope.$watch('$stateParams', function(params) {
-
         if (!params.category || !params.expid) {
             self.experience = null;
             $state.transitionTo('landing');
             return false;
+        }
+        if (self.experience && $state.is('experience.video')) { // if experience already set, skip
+            return;
         }
         self.initializeExperience(params.category, params.expid).then(function() {
             if ($state.is('experience.video') || $state.is('experience.end')) {
@@ -167,8 +177,10 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.landingCtrl = this;
 }])
 
-.controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', 'C6UrlShareService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc, shareSvc){
-    $log.log('Creating C6AnnotationsCtrl');
+// Contains code for finishing the setup of the experience object and other models, as well as 
+// controls for the video and interactive content.
+.controller('C6ExperienceCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', 'C6UrlShareService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc, shareSvc){
+    $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
         oldResponses,
@@ -213,6 +225,9 @@ angular.module('c6.ctrl',['c6.svc'])
         }
     });
 
+    // Called as soon as a user loads up a shared url. Will retrieve the shared script object,
+    // corresponding to the id in the url, initialize the experience, and set the responses (using
+    // data from the shared script).
     if ($state.is('shared')) {
         var sharedId = $location.search().id,
             sharedScript;
@@ -240,6 +255,9 @@ angular.module('c6.ctrl',['c6.svc'])
         }
     }
 
+    // This is fired when the app reaches the video state and the promptModel is initialized,
+    // including when a shared experience has been initialized. This will interpolate the user
+    // responses and line templates, and retrieve the text-to-speech video url.
     $scope.$watch('$state.is("experience.video") && appCtrl.promptModel', function(yes) {
         if (yes) {
             var bubbleModel = $scope.appCtrl.annotationsModel,
@@ -282,6 +300,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.activeAnnotations = [];
 
+    // Called while the video is playing to control what speech bubbles are displayed
     this.setActiveAnnotations = function(event, video) {
         var annotations = self.annotationsModel? self.annotationsModel.annotations : [],
             activeAnnotations = self.activeAnnotations,
@@ -423,6 +442,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.lastAnnotation = null;
     
+    // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
     this.share = function() {
         var shareScript = {
             id: $scope.appCtrl.experience.id,
@@ -432,6 +452,7 @@ angular.module('c6.ctrl',['c6.svc'])
         };
         shareSvc.share(shareScript);
     };
+    // If leaving this experience, null out the stored shareable url (so a new one can be created).
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         if (fromState.name == 'experience.end' && toState.name != 'experience.video') {
             shareSvc.sharedUrl = null;
@@ -441,7 +462,9 @@ angular.module('c6.ctrl',['c6.svc'])
         if (annotationsModel) {
             var lastAnnotation = annotationsModel.annotations[annotationsModel.annotations.length - 1];
 
-            if (!lastAnnotation.text) { lastAnnotation.text = annSvc.interpolate(lastAnnotation.template, $scope.appCtrl.promptModel.responses); }
+            if (!lastAnnotation.text) {
+                lastAnnotation.text = annSvc.interpolate(lastAnnotation.template, $scope.appCtrl.promptModel.responses);
+            }
 
             $scope.endCtrl.lastAnnotation = lastAnnotation;
         }

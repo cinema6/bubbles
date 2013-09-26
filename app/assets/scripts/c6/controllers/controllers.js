@@ -37,7 +37,8 @@ function PromptModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', 'c6AniCache', function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc, c6AniCache) {
+	c6AniCache.enabled(true);
 	$log.log('Creating C6AppCtrl');
 	var self = this,
 		hideC6ControlsTimeout;
@@ -70,6 +71,16 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	this.userIsUsingC6Chrome = false;
 	this.showC6Chrome = false;
+
+	this.stateHistory = {
+		from: null,
+		to: null
+	};
+
+	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
+		self.stateHistory.from = fromState.name;
+		self.stateHistory.to = toState.name;
+	});
 
 	$scope.$on('c6MouseActivityStart', function() {
 		if (hideC6ControlsTimeout) { $timeout.cancel(hideC6ControlsTimeout); }

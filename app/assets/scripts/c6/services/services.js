@@ -114,8 +114,8 @@ angular.module('c6.svc',[])
 				video.player.pause();
 			}
 		};
-		delegate.seek = function(percent) {
-			video.player.currentTime = (percent * video.player.duration) / 100;
+		delegate.seek = function(event) {
+			video.player.currentTime = (event.percent * video.player.duration) / 100;
 		};
 		delegate.seekStop = function() {
 			if (wasPlaying && video.player.paused) {

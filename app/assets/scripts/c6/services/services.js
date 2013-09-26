@@ -350,7 +350,7 @@ angular.module('c6.svc',[])
 
     this.share = function(script) {
         if (this.sharedUrl) {
-            $log.log(this.sharedUrl); //TODO: do something with these urls
+            return this.sharedUrl;
         } else {
             var json = {
                 origin: $location.absUrl(),
@@ -360,7 +360,7 @@ angular.module('c6.svc',[])
             $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
             // $http.post('http://localhost:3000/dub/share', json).then(function(response) {
                 self.sharedUrl = response.data.url;
-                $log.log(response.data.url);
+                return response.data.url;
             });
         }
     };

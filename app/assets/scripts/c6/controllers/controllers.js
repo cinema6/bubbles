@@ -448,8 +448,10 @@ angular.module('c6.ctrl',['c6.svc'])
             category: $scope.appCtrl.experience.category,
             src: $scope.appCtrl.experience.src,
             responses: $scope.appCtrl.promptModel.responses
-        };
-        shareSvc.share(shareScript);
+        },
+            url = shareSvc.share(shareScript);
+
+        $log.log(url); // TODO: do something with this url
     };
     // If leaving this experience, null out the stored shareable url (so a new one can be created).
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

@@ -163,7 +163,7 @@ angular.module('c6.svc',[])
 
 // Has functions for creating annotation models, interpolating responses with tempaltes, and 
 // retrieving urls for text-to-speech videos.
-.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', function($routeParams, $rootScope, vidSvc, $http, $q, $log) {
+.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6videoService', '$http', '$q', '$log', 'environment', function($routeParams, $rootScope, vidSvc, $http, $q, $log, env) {
     var genVidUrlCache = {};
 
     this.getAnnotationsModelByType = function(type, annotations) {
@@ -323,7 +323,7 @@ angular.module('c6.svc',[])
 }])
 
 // Handles retrieving shared scripts and generating shareable urls
-.service('C6UrlShareService', ['$http', '$log', '$q', '$location', function($http, $log, $q, $location) {
+.service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'environment', function($http, $log, $q, $location, env) {
     var s3Bucket = 'c6.dev',
         s3Path = '/media/usr/screenjack/scripts/',
         self = this;

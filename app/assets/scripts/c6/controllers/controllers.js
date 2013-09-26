@@ -143,7 +143,6 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$watch('$stateParams', function(params) {
         if (!params.category || !params.expid) {
             self.experience = null;
-            $state.transitionTo('landing');
             return false;
         }
         if (self.experience && $state.is('experience.video')) { // if experience already set, skip

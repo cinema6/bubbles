@@ -224,18 +224,9 @@ angular.module('c6.svc',[])
         return annoModel;
     };
 
-    this.fetchText2SpeechVideoUrl = function(model) {
-        var requestBodyObject = {
-            video: model.options.vid,
-            tts: {
-                voice: model.options.voice,
-                effect: model.options.effect,
-                level: model.options.level
-            },
-            script: []
-        },
-            url = $q.defer(),
-            alreadyHaveUrl = function() {
+    this.fetchText2SpeechVideoUrl = function(model, sharedUrl) {
+        var url = $q.defer(),
+            haveCachedUrl = function() {
                 var cache = genVidUrlCache,
                     cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
 
@@ -246,30 +237,54 @@ angular.module('c6.svc',[])
                         return annotation.text === newModelAnnotations[index].text;
                     });
                 })());
+            },
+            verifySharedUrl = function() {
+                if (!sharedUrl) {
+                    return $q.reject();
+                }
+                $log.log('Checking shared url for video');
+                return $http.head(sharedUrl);
             };
 
-        model.annotations.forEach(function(annotation) {
-            var line = {
-                ts: annotation.ts,
-                line: annotation.text
-            };
-
-            requestBodyObject.script.push(line);
-        });
-
-        if (alreadyHaveUrl()) {
-            $log.log('Already have a URL for these responses: ' + genVidUrlCache[model.options.vid].url);
+        if (haveCachedUrl()) {
+            $log.log('Already have a URL for these responses');
             url.resolve(genVidUrlCache[model.options.vid].url);
         } else {
-            $log.log('No URL for these responses. Going to the server!');
-            // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
-            $http.post('http://localhost:3000/dub/create', requestBodyObject).then(function(response) {
-                var urlFromServer = response.data.output;
-
-                genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
-                url.resolve(urlFromServer);
+            verifySharedUrl().then(function() {
+                url.resolve(sharedUrl);
+                genVidUrlCache[model.options.vid] = { model: model, url: sharedUrl };
             }, function(error) {
-                $log.error(error);
+                if (error) {
+                    $log.error('Could not get shared url: ' + error);
+                }
+                $log.log('No video URL for these responses. Going to the server!');
+
+                var requestBodyObject = {
+                    video: model.options.vid,
+                    tts: {
+                        voice: model.options.voice,
+                        effect: model.options.effect,
+                        level: model.options.level
+                    },
+                    script: []
+                };
+                model.annotations.forEach(function(annotation) {
+                    var line = {
+                        ts: annotation.ts,
+                        line: annotation.text
+                    };
+                    requestBodyObject.script.push(line);
+                });
+
+                // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
+                $http.post('http://localhost:3000/dub/create', requestBodyObject).then(function(response) {
+                    var urlFromServer = response.data.output;
+
+                    genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
+                    url.resolve(urlFromServer);
+                }, function(error) {
+                    $log.error(error);
+                });
             });
         }
 
@@ -302,11 +317,11 @@ angular.module('c6.svc',[])
     });
 }])
 
-.service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'C6AnnotationsService', function($http, $log, $q, $location, annSvc) {
+.service('C6UrlShareService', ['$http', '$log', '$q', '$location', function($http, $log, $q, $location) {
     var s3Bucket = 'c6.dev',
-        s3Path = '/media/usr/screenjack/scripts/';
+        s3Path = '/media/usr/screenjack/scripts/',
+        self = this;
     
-    this.sharedId = null;
     this.sharedUrl = null;
 
     this.getScript = function(id) {
@@ -327,32 +342,18 @@ angular.module('c6.svc',[])
         return deferred.promise;
     };
 
-    this.verifyVideo = function(experience) {
-        if (!experience.src) {
-            $log.log('Missing src in experience');
-            return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel);
-        } else {
-            return $http.head(experience.src).then(
-                function() { return $q.when(experience.src); },
-                function(error) {
-                    $log.log('Error verifying shared video: ' + error);
-                    return annSvc.fetchText2SpeechVideoUrl(experience.ttsModel);
-                }
-            );
-        }
-    };
-
-    this.share = function(experience) {
+    this.share = function(script) {
         if (this.sharedUrl) {
             $log.log(this.sharedUrl); //TODO: do something with these urls
         } else {
             var json = {
                 origin: $location.absUrl(),
-                experience: experience
+                experience: script
             };
 
             // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
             $http.post('http://localhost:3000/dub/share', json).then(function(response) {
+                self.sharedUrl = response.data.url;
                 $log.log(response.data.url);
             });
         }

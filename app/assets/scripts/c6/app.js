@@ -53,8 +53,7 @@
 					url: '/'
 				})
                 .state('shared', {
-//                    templateUrl: __C6_APP_BASE_URL__ + '/views/shared.html',
-                    controller: 'C6SharedVidCtrl',
+                    templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
                     url: '/shared'
                 })
 				.state('experience', {

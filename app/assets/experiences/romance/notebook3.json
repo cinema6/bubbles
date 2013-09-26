@@ -1,6 +1,7 @@
 {
 	"id": "notebook3",
 	"title": "Something Special from Jason",
+    "category": "romance",
 	"views": 993,
 	"src": "media/romance/not_over",
 	"css": "styles/bubbles_romance3.css",

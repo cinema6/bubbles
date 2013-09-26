@@ -854,7 +854,7 @@ button:disabled {opacity: 0.15;}
         margin-left: -47%; padding: 1%;
         top: 30px; left: 47%;*/
         height: 100%; width: 100%;
-        opacity: 0;
+        opacity: 1;
      }
 
      .annotations{

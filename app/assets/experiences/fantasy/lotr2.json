@@ -1,6 +1,7 @@
 {
 	"id": "lotr2",
 	"title": "Heartbreaking Romance",
+    "category": "fantasy",
 	"views": 1000,
 	"src": "media/fantasy/lotr",
 	"css": "styles/bubbles_fantasy2.css",

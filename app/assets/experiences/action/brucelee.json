@@ -1,6 +1,7 @@
 {
 	"id": "brucelee",
 	"title": "Battle for Revenge",
+    "category": "action",
 	"views": 1000,
 	"src": "media/action/bruce_lee",
 	"css": "styles/bubbles_action.css",

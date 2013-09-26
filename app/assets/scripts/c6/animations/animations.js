@@ -435,14 +435,18 @@
 	//video player ----------------//
 	.animation('video-show', ['$rootScope', '$log', function($rootScope, $log) {
 		return {
-			start: function($playerDiv, done) {
+            setup: function(element) {
+                element.css({opacity: 0, visibility: 'hidden'});
+            },
+			start: function(element, done) {
 				$log.log('Fade in Video Experience');
 				var videoPlayer		= document.getElementById('player'),
 					loadingCycle	= document.getElementById('loading-group'),
 					vidIn			= new TimelineLite({paused: true});
 
 				//ANIMATION TIMELINE
-				vidIn.to(videoPlayer, 2, {opacity: 1}, '+=2');
+				vidIn.set(element, {autoAlpha: 1})
+                    .from(videoPlayer, 2, {opacity: 0}, '+=2');
 				if (loadingCycle) {
 					vidIn.to(loadingCycle, 1, {opacity: 1}, '-=2');
 				}

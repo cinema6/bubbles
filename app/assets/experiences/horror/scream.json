@@ -1,6 +1,7 @@
 {
 	"id": "scream",
 	"title": "Scary Movie",
+    "category": "horror",
 	"views": 1000,
 	"src": null,
 	"defSizeLimit": 18,

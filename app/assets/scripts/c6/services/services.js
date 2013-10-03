@@ -327,7 +327,7 @@ angular.module('c6.svc',[])
     var s3Bucket = 'c6.dev',
         s3Path = '/media/usr/screenjack/scripts/',
         self = this;
-    
+
     this.sharedUrl = null;
 
     this.getScript = function(id) {

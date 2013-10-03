@@ -23,7 +23,7 @@
 
             <menu class="vidMenu">
                 <button class="vidMenu__btnReplay" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
-                <button class="vidMenu__btnShare" href="#" name="Share"><span class="ir">Share</span></button>
+                <button class="vidMenu__btnShare" id="videMenu_shareBtn" ng-click="triggerShare" href="#" name="Share"><span class="ir">Share</span></button>
                 <button class="vidMenu__btnNewVid" ng-click="$state.transitionTo('experience.categories');" name="newVid"><span class="ir">Make a new video</span></button>
             </menu>
         </div>
@@ -51,7 +51,7 @@
             </button>
         </footer>-->
 
-        <div class="share__group">
+        <div class="share__group" ng-show="triggerShare" ng-animate="'share'">
             <div class="share__window--group">
                 <button class="share__close--btn"><span class="ir">Close</span></button>
                 <h2 class="share__hdr">Share this Video</h2>

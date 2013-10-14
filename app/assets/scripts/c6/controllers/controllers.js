@@ -441,6 +441,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
     var self = this;
     this.lastAnnotation = null;
+    self.sharedUrl = null;
+    self.sharedMsg = 'Check out this Screenjack I made!';
 
     // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
     this.share = function() {
@@ -451,12 +453,31 @@ angular.module('c6.ctrl',['c6.svc'])
             responses: $scope.appCtrl.promptModel.responses
         };
         shareSvc.share(shareScript).then(function(url) {
-            $log.log("Shared url = " + url);
-            self.sharedUrl = url;
+            // hacky url swap if testing on localhost; FB+twitter won't share localhost urls
+            if (url.search(/localhost/) > 0) {
+                url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/screenjack/#/' + 
+                       url.split('/#/')[1];
+            }
+            self.sharedUrl = encodeURIComponent(url);
+            $log.log('Shared url = ' + self.sharedUrl);
             self.showShareBox = true;
         }, function(error) {
             $log.error('Error sharing script: ' + error);
         });
+    };
+
+    this.fbShare = function() {
+        window.open(
+           'https://www.facebook.com/sharer/sharer.php?u='+self.sharedUrl,
+           'facebook-share-dialog',
+           'width=626,height=436').focus();
+        return false;
+    };
+
+    this.twitShare = function() {
+        window.open('https://twitter.com/share?text=' + self.sharedMsg + '&url=' + self.sharedUrl,
+                    'twitter-share-dialog',
+                    'width=550,height=450').focus();
     };
 
     this.showShareBox = false;

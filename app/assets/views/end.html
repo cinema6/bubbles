@@ -40,8 +40,8 @@
                     <input class="share__url--box" id="urlbox" value={{endCtrl.sharedUrl}} onclick="this.select()">
                     <button class="share__url--btn"><span class="ir">Copy URL</span></button>
                 </form>
-                <a class="share__facebook--btn" title="Share on Facebook"><span class="ir">Share on Facebook</span></a>
-                <a class="share__twitter--btn" title="Share on Twitter"><span class="ir">Share on Twitter</span></a>
+                <a class="share__facebook--btn" title="Share on Facebook" ng-click="endCtrl.fbShare()"><span class="ir">Share on Facebook</span></a>
+                <a class="share__twitter--btn" title="Share on Twitter" ng-click="endCtrl.twitShare()"><span class="ir">Share on Twitter</span></a>
             </div>
         </div>
     </div>

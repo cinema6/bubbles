@@ -454,6 +454,8 @@ angular.module('c6.ctrl',['c6.svc'])
         });
     };
 
+    this.showShareBox = false;
+
     // If leaving this experience, null out the stored shareable url (so a new one can be created).
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState/*, fromParams*/) {
         if (fromState.name === 'experience.end' && toState.name !== 'experience.video') {

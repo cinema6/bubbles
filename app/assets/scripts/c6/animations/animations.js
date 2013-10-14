@@ -786,5 +786,43 @@
 				element.fadeIn(1000, done);
 			}
 		};
+	}])
+
+/* ---------------------- share --------------------- */
+	.animation('shareBox-enter', [function() {
+		return {
+			setup: function(element) {
+				element.css({opacity: 0, visibility: 'hidden'});
+			},
+			start: function(element, done) {
+				var timeline = new TimelineLite({paused: true}),
+					shareBox$ = element.find('#share-box');
+
+				timeline.to(element, 0.65, {autoAlpha: 1})
+					.from(shareBox$, 0.5, {bottom: '-4em', ease: Power4.easeOut}, '-=0.25')
+					.eventCallback('onComplete', done);
+
+				timeline.play();
+			}
+		};
+	}])
+
+	.animation('shareBox-leave', [function() {
+		return {
+			setup: function(element) {
+				element.css({opacity: 1, visibility: 'visible'});
+			},
+			start: function(element, done) {
+				var timeline = new TimelineLite({paused: true}),
+					shareBox$ = element.find('#share-box');
+
+				timeline.to(shareBox$, 0.5, {bottom: '-4em', ease: Power4.easeIn})
+					.to(element, 0.65, {autoAlpha: 0})
+					.eventCallback('onComplete', done);
+
+				timeline.play();
+			}
+		};
 	}]);
+
 })();

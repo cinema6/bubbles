@@ -70,29 +70,34 @@ button:disabled {opacity: 0.15;}
     ========================================================================== */
     
     /* ----- hero box ----- */
-    .hero__group {
-        background: url(../img/herobox_artwork.jpg) center bottom no-repeat #ffb928;
-    }
-        .hero__desc {
-            margin: 2.25em 0 0 0; text-align: center;
-        }
-        .hero__title {
-            width: 100%; height: 1.875em; /* 90px */  
-            margin:0 auto; padding:0; display: block;
+    .landing-hero__group {
+        position: relative; background-size: cover; background: top center;
+        text-align: center;
+    }     
+        .landing-hero__copy-box { background: none; padding: 0;}
+
+        .landing-hero__title {
+            width: 100%; height: 3em; /* 90px */  
+            margin:0 auto; padding:0; margin: 0; display: block;
             background: url(../img/screenjackLogo.png) center center no-repeat;
             background-size: contain;
         }
-        .hero__copy {
-            color:#d9000a; margin:1em auto 0 auto; text-align: center; width: 22em;
+        .landing-hero__copy {
+            color:#d9000a; margin: -1em auto; text-align: center; width: 22em;
             font-family: "courier prime", courier, times, serif; font-size: 1em; line-height: 1.48em;
         }
 
-            @media only screen and (max-width: 374px) {
-                .hero__copy {
-                    width: 19em;
-                    font-size: 0.8em;
-                }
+        .landing-hero__desc {
+            margin-top:0;
+        }
+
+        @media only screen and (max-width:348px) {
+            .landing-hero__desc {
+                margin-top:0;
             }
+        }
+
+
     /* ----- video info ----- */
     .video-info__group {
         margin-top: 2.5em;

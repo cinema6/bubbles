@@ -39,8 +39,7 @@
 		'c6.ctrl',
 		'c6.svc',
 		'c6.anim',
-		'c6.dir.screenJack',
-		'c6lib.video'
+		'c6.dir.screenJack'
 	];
 
 	angular.module('c6.app', dependencies)

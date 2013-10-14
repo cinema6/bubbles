@@ -1,11 +1,16 @@
 <div class="controls__group">
-	<div class="controls__btnPlayPause" title="Play/Pause" ng-click="handle.playPause()">
+	<div ng-if="state.showPlayPause()" class="controls__btnPlayPause" title="Play/Pause" ng-click="handle.playPause()">
 		<button class="controls__btn{{state.playing ? 'Pause' : 'Play'}}-icon"><span class="ir">{{state.playing ? 'Pause' : 'Play'}}</span></button>
 	</div>
 
-	<div class="controls__seek" ng-mouseup="handle.stopSeeking()" ng-mouseleave="handle.stopSeeking()">
-		<button ng-if="state.hasButton('return')" class="controls__btnReturn-icon" ng-click="delegate().return()" title="Return"><span class="ir">Return</span></button>
-		<button ng-if="state.hasButton('fullscreen')" class="controls__btnFullscreen-icon" ng-click="delegate().fullscreen()" title="Return"><span class="ir">Fullscreen</span></button>
+	<div class="controls__seek" ng-style="state.seekbarStyles()" ng-mouseup="handle.stopSeeking()" ng-mouseleave="handle.stopSeeking()">
+		<button ng-repeat="button in buttons()"
+			class="controls__btn{{state.buttonsConfig()[$index].class}}-{{state.buttonsConfig()[$index].disabled ? 'disabled' : 'icon'}}"
+			ng-click="delegate()[button]()"
+			title="{{state.buttonsConfig()[$index].class}}">
+			<span class="ir">{{state.buttonsConfig()[$index].class}}</span>
+		</button>
+		<!--<button ng-if="state.hasButton('fullscreen')" class="controls__btnFullscreen-icon" ng-click="delegate().fullscreen()" title="Return"><span class="ir">Fullscreen</span></button>-->
 		<div class="controls__slider" ng-style="{'margin-left': state.leftMargin() + 'px', 'margin-right': state.rightMargin() + 'px'}" ng-click="handle.seekbarClick($event)">
 
 			<div class="controls__slider-shadow">&nbsp;</div>
@@ -25,7 +30,7 @@
 		</div>
 
 	</div>
-		<div class="volume__btn" title="Volume" ng-mouseenter="handle.volume.show()" ng-mouseleave="handle.volume.hide()">
+		<div ng-if="state.showVolume()" class="volume__btn" title="Volume" ng-mouseenter="handle.volume.show()" ng-mouseleave="handle.volume.hide()">
 			<!--<button class="volume__btn{{state.volume.levelTier()}}-icon" ng-click="handle.volume.muteUnmute()"><span class="ir">Mute/Unmute</span></button>-->
 
 			<button class="volume__btnVolume-icon" ng-mouseenter="handle.volume.show()" ng-click="handle.volume.muteUnmute()"><span class="ir">Volume</span>

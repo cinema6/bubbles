@@ -10,7 +10,7 @@ describe('Controllers', function() {
 	
 	beforeEach(function() {
 		module('ui.state');
-		module('c6lib.video');
+		module('c6.ui');
 		module('c6.svc');
 		module(function($provide){
 			$provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
@@ -65,7 +65,7 @@ describe('Controllers', function() {
 					}
 				}
 			});
-			$provide.value('c6videoService', {
+			$provide.value('c6VideoService', {
 				bestFormat: function() {
 					return 'video/mp4';
 				},

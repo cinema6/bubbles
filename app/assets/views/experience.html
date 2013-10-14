@@ -16,7 +16,7 @@
       <div class="experience__video" c6-resize="{height:528, width: 1280, font: 28}">
         <video
           id="player"
-          c6video
+          c6-video
           c6-src="appCtrl.experience.src"
           c6-events="{timeupdate: 'annoCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'annoCtrl.goToEnd(c6.video);'}"
 		  preload="auto">

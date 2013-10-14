@@ -38,14 +38,14 @@ function PromptModel(experience) {
 
 angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService',
-            'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', 'C6SiteService',
-            function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc, C6SiteService) {
+            'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', 'site',
+            function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc, site) {
 
 	$log.log('Creating C6AppCtrl');
 	var self = this,
 		hideC6ControlsTimeout,
         allowStateChange = false,
-        siteSession = C6SiteService.init({
+        siteSession = site.init({
             pingPathChanges: true
         });
 
@@ -68,13 +68,13 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
         if ((fromState.name === 'landing' || (toState.name === 'landing' && fromState.name)) && !allowStateChange) {
             event.preventDefault();
-            C6SiteService.requestTransitionState(true).then(function() {
+            site.requestTransitionState(true).then(function() {
                 allowStateChange = true;
                 $timeout(function() {
                     $state.transitionTo(toState.name);
                     $timeout(function() {
                         allowStateChange = false;
-                        $timeout(function() { C6SiteService.requestTransitionState(false); });
+                        $timeout(function() { site.requestTransitionState(false); });
                     });
                 });
             });
@@ -109,11 +109,11 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.userIsUsingC6Chrome = false;
 	this.showC6Chrome = false;
     $scope.$watch('appCtrl.showC6Chrome || !$state.is(\'experience.video\')', function(shouldShow) {
-        if (C6SiteService.ready) {
-            C6SiteService.requestBar(shouldShow);
+        if (site.ready) {
+            site.requestBar(shouldShow);
         } else {
-            C6SiteService.once('ready', function() {
-                C6SiteService.requestBar(shouldShow);
+            site.once('ready', function() {
+                site.requestBar(shouldShow);
             });
         }
     });
@@ -194,6 +194,12 @@ angular.module('c6.ctrl',['c6.svc'])
 		readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
 		oldResponses,
 		video;
+
+    $scope.$watch('appCtrl.experience.src', function(src) {
+        if (!src && (video && video.player.src)) {
+            video.regenerate();
+        }
+    });
 
 	$scope.$on('c6video-ready', function(event, player) {
 		video = player;

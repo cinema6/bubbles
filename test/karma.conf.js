@@ -13,6 +13,8 @@ files = [
   '../app/assets/lib/c6ui/c6ui.js',
   '../app/assets/lib/c6ui/sfx/sfx.js',
   '../app/assets/lib/c6ui/events/emitter.js',
+  '../app/assets/lib/c6ui/postmessage/postmessage.js',
+  '../app/assets/lib/c6ui/site/site.js',
   '../app/assets/lib/angular/angular-mocks.js',
 /*
   '../app/assets/lib/require/require.js',

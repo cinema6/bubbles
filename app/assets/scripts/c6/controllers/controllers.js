@@ -247,8 +247,8 @@ angular.module('c6.ctrl',['c6.svc'])
                 $scope.appCtrl.experience.sharedSrc = sharedScript.src;
                 $state.transitionTo('experience.video',
                                     {category: sharedScript.category, expid: sharedScript.id});
-            }, function (/*error*/) {
-                $log.error('Error initializing shared video');
+            }, function (error) {
+                $log.error('Error initializing shared video: ' + error);
                 $state.transitionTo('landing');
             });
         }
@@ -439,6 +439,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $log.log('Creating C6EndCtrl');
     $rootScope.currentRoute = 'end';
 
+    var self = this;
     this.lastAnnotation = null;
 
     // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
@@ -450,7 +451,11 @@ angular.module('c6.ctrl',['c6.svc'])
             responses: $scope.appCtrl.promptModel.responses
         };
         shareSvc.share(shareScript).then(function(url) {
-            $log.log(url); // TODO: do something with this url
+            $log.log("Shared url = " + url);
+            self.sharedUrl = url;
+            self.showShareBox = true;
+        }, function(error) {
+            $log.error('Error sharing script: ' + error);
         });
     };
 

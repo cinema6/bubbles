@@ -37,10 +37,51 @@ function PromptModel(experience) {
 }
 
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$stateParams', '$timeout', 'c6VideoListingService',
+            'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', 'C6SiteService',
+            function($log, $scope, $location, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc, C6SiteService) {
+
 	$log.log('Creating C6AppCtrl');
 	var self = this,
-		hideC6ControlsTimeout;
+		hideC6ControlsTimeout,
+        allowStateChange = false,
+        siteSession = C6SiteService.init({
+            pingPathChanges: true
+        });
+
+    siteSession.on('pendingPath', function(path, respond) {
+        if (path !== '/') {
+            allowStateChange = true;
+            $location.path(path);
+            respond(true);
+        } else {
+            respond(false);
+        }
+    });
+
+    siteSession.on('gotoState', function(state) {
+        if (state === 'start') {
+            $state.transitionTo('landing');
+        }
+    });
+
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+        if ((fromState.name === 'landing' || (toState.name === 'landing' && fromState.name)) && !allowStateChange) {
+            event.preventDefault();
+            C6SiteService.requestTransitionState(true).then(function() {
+                allowStateChange = true;
+                $timeout(function() {
+                    $state.transitionTo(toState.name);
+                    $timeout(function() {
+                        allowStateChange = false;
+                        $timeout(function() { C6SiteService.requestTransitionState(false); });
+                    });
+                });
+            });
+        } else {
+            allowStateChange = false;
+        }
+    });
 
 	sfxSvc.loadSounds([
 		{ name: 'type', src: appBase + '/media/tw_strike' },
@@ -52,9 +93,6 @@ angular.module('c6.ctrl',['c6.svc'])
 	this.sfxSvc = sfxSvc;
 	this.experience = null;
 	this.experienceAnimation = null;
-	$scope.$on('$viewContentLoaded', function() {
-		$scope.appCtrl.experienceAnimation = 'experience';
-	});
 	this.promptModel = null;
 	this.annotationsModel = null;
 	this.goToRoute = function(route) {
@@ -70,6 +108,15 @@ angular.module('c6.ctrl',['c6.svc'])
 
 	this.userIsUsingC6Chrome = false;
 	this.showC6Chrome = false;
+    $scope.$watch('appCtrl.showC6Chrome || !$state.is(\'experience.video\')', function(shouldShow) {
+        if (C6SiteService.ready) {
+            C6SiteService.requestBar(shouldShow);
+        } else {
+            C6SiteService.once('ready', function() {
+                C6SiteService.requestBar(shouldShow);
+            });
+        }
+    });
 
 	$scope.$on('c6MouseActivityStart', function() {
 		if (hideC6ControlsTimeout) { $timeout.cancel(hideC6ControlsTimeout); }
@@ -139,20 +186,6 @@ angular.module('c6.ctrl',['c6.svc'])
 			promptModel.responses = cachedResponses;
 		}
 	});
-}])
-
-.controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
-	var randomCategory = vsvc.getRandomCategoryFrom(['action', 'romance', 'fantasy']),
-		randomQuote = vsvc.getRandomQuoteForCategory(randomCategory);
-
-	$log.log('Creating C6LandingCtrl');
-
-	this.pullQuote = {
-		category: randomCategory,
-		quote: randomQuote
-	};
-
-	$scope.landingCtrl = this;
 }])
 
 .controller('C6AnnotationsCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc){

@@ -1,0 +1,220 @@
+/* ----- about ----- */ 
+.about-scenes__group {
+        margin-top: 2.5em; text-align: left;
+}   
+    .about__hdr {
+        margin: 0;
+    }
+    .about__copy {
+        font-size: 0.939em; line-height: 1.6em; margin: 1em 0 0 0;
+    }
+    .about__copy-group {
+        margin-top: 1.2em; padding: 0.8em 0 0 0; position: relative;
+        width: 100%;
+    }
+        @media only screen and (max-width: 768px) { 
+                .about__copy-group {text-align: center; }
+            }
+        .about__img-left {width: 46%; }
+            @media only screen and (max-width: 768px) { 
+                .about__img-left {width: 90%; }
+            }
+        
+        .about__img-right {width: 46%; }
+            @media only screen and (max-width: 768px) { 
+                .about__img-right {width: 70%; margin-top: 2em;}
+            }
+                
+        .about__caption-right {
+            font-size: 0.939em; line-height: 1.6em; margin-left: 1.5em;
+            width: 48%; display: inline-block; position: absolute; top: 15%;
+        }
+            @media only screen and (max-width: 904px) { 
+                .about__caption-right {margin: -1.2em 0 0 1.5em;}
+            }
+             @media only screen and (max-width: 768px) { 
+                .about__caption-right { position: inherit; margin: 1em 0 0 -0.2em; width: 90%;}
+            }
+
+        .about__caption-left {
+            font-size: 0.939em; line-height: 1.6em; 
+            width: 48%; display: inline-block; margin-bottom: 2.1em;
+        }
+            @media only screen and (max-width: 884px) { 
+                .about__caption-left {margin: -1.2em 0 0 0;}
+            }   
+            @media only screen and (max-width: 768px) { 
+                .about__caption-left { position: inherit; width: 90%;}
+            }
+
+/* ---- pull quote ---- */
+.quote__group {
+    margin-top: 2.5em;
+}
+
+.quote__base {
+    width: 100%; margin-top: 1.2em;
+}
+
+@media only screen and (max-width: 768px) and (min-width: 500px) {
+    .quote__base {
+        width: 70%; margin: 1.5em auto;
+    }
+}
+
+    /* ---- action styles ----- */
+    .action .quote__style {
+        position: relative; padding: 11px; 
+        background: url('../img/action/annotation-body.png'); background-clip: content-box;
+    }
+
+    .action .quote__frame {
+        background: url('../img/action/annotation-right.png') repeat-y right, 
+                    url('../img/action/annotation-left.png') repeat-y left, 
+                    url('../img/action/annotation-top.png') repeat-x top, 
+                    url('../img/action/annotation-bottom.png') repeat-x bottom;
+        margin: -11px;
+    }
+        .action .quote__deco-right {
+            position: absolute; height: 100%; width: 12px; top: 0; right: 0; z-index: 10;
+            background: url('../img/action/annotation-bottomRight.png') no-repeat bottom right,
+                        url('../img/action/annotation-topRight.png') no-repeat top right;
+        }  
+        .action .quote__deco-left {
+            position: absolute; height: 100%; width: 12px; top: 0; left: 0; z-index: 11;
+            background: url('../img/action/annotation-bottomLeft.png') no-repeat bottom left,
+                        url('../img/action/annotation-topLeft.png') no-repeat top left;
+        } 
+
+    .action .quote__text {
+        width: 84%; padding: 8%;  margin: 0 auto;
+        text-align: center; font-family: "uppercut-angle", "courier prime", georgia, serif; font-size: 105%; line-height: 100%; color: #111111; font-size: 175%;
+    }
+        @media only screen and (max-width: 768px) and (min-width: 500px) {
+            .action .quote__text {
+                font-size: 250%
+            }
+        }
+    .action .quote__tail {
+        position: absolute;
+        background: url('../img/action/bottomRight-thought.png') no-repeat 30% 0%;
+        height: 35%; width: 100%;
+        bottom: -30%; left: 0;
+    }
+
+    .action .quote__portrait {
+        height: 48px; width: 48px; background: url('../img/quote__portrait-lee.png');
+        position: absolute; bottom: -60px; left: 42%;
+    }
+
+    /* ---- romance styles ----- */
+    .romance .quote__style {
+        position: relative; padding: 11px; border-radius: 50px;
+        background: url('../img/romance/annotation-body.png'); background-clip: content-box;
+    }
+
+    .romance .quote__frame {
+        background: url('../img/romance/annotation-right.png') repeat-y right, 
+                    url('../img/romance/annotation-left.png') repeat-y left, 
+                    url('../img/romance/annotation-top.png') repeat-x top, 
+                    url('../img/romance/annotation-bottom.png') repeat-x bottom;
+        margin: -5px; border-radius: 50px;
+    }
+        .romance .quote__deco-right {
+            position: absolute;
+            background: url('../img/romance/annotation-bottomRight.png') no-repeat bottom right,
+                        url('../img/romance/annotation-topRight.png') no-repeat top right,
+                        url('../img/romance/annotation-bottomLeft.png') no-repeat bottom left,
+                        url('../img/romance/annotation-topLeft.png') no-repeat top left;
+            height: 90%; width: 98%;
+            top: 5%;
+            left: 1%;
+        }  
+       
+    .romance .quote__text {
+        width: 84%; padding: 8%;  margin: 0 auto;
+        text-align: center; font-family: "LadylikeBB", "courier prime", georgia, serif; font-size: 105%; line-height: 100%; color: #111111; font-size: 220%;
+    }
+        @media only screen and (max-width: 768px) and (min-width: 500px) {
+            .romance .quote__text {
+                font-size: 300%
+            }
+        }
+         @font-face {
+        font-family: LadylikeBB;
+        src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),
+            url('../media/romance/ladylikebb-webfont.woff') format('woff'), 
+            url('../media/romance/ladylikebb-webfont.eot') format('embedded-opentype'), 
+            url('../media/romance/ladylikebb-webfont.svg#ladylike_bbregular') format('svg'); 
+        font-weight: normal;
+        font-style: normal;
+    }
+    .romance .quote__tail {
+        position: absolute;
+        background: url('../img/romance/bottomRight-thought.png') no-repeat 30% 0%;
+        height: 35%; width: 100%;
+        bottom: -30%; left: 0;
+    }
+
+    .romance .quote__portrait {
+        height: 48px; width: 48px; background: url('../img/quote__portrait-notebook.png');
+        position: absolute; bottom: -60px; left: 42%;
+    }
+
+    /* ---- fantasy styles ----- */
+    .fantasy .quote__style {
+        position: relative; border-radius: 40px; box-shadow: 0 3px 5px #c1c1c1;
+        background: url('../img/fantasy/annotation-right.png') repeat-y right, 
+                    url('../img/fantasy/annotation-left.png') repeat-y left, 
+                    url('../img/fantasy/annotation-top.png') repeat-x top, 
+                    url('../img/fantasy/annotation-bottom.png') repeat-x bottom,
+                    url('../img/fantasy/annotation-body.png');
+    }
+
+    .fantasy .quote__frame {
+        background: url('../img/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
+            url('../img/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
+            url('../img/fantasy/annotation-topRight.png') no-repeat 100% 0%,
+            url('../img/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
+        margin: 0px;
+    }
+        .fantasy .quote__deco-right {
+            position: absolute;
+            background: url('../img/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
+            height: 68px; width: 71px;
+            bottom: -14px;
+            right: -14px;
+        }  
+       .fantasy .quote__deco-left {
+          position: absolute;
+          background: url('../img/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
+          height: 68px; width: 71px;
+          top: -14px;
+          left: -14px;
+        }  
+    .fantasy .quote__text {
+        width: 80%;
+        padding: 10%;
+        margin: 0 auto;
+        text-align: center;
+        font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif;
+        font-size: 150%;
+        line-height: 150%;
+        color: #fff;
+    }
+        @media only screen and (max-width: 768px) and (min-width: 500px) {
+            .fantasy .quote__text {
+                font-size: 250%;
+            }
+        }
+    .fantasy .quote__tail {
+        position: absolute; 
+        background: url('../img/fantasy/bottomRight-thought.png') no-repeat 30% 0%;
+        height: 35%; width: 100%;
+        bottom: -35%; left: 0; 
+    }
+
+    .fantasy .quote__portrait {
+        height: 48px; width: 48px; background: url('../img/quote__portrait-lotr.png');
+        position: absolute; bottom: -60px; left: 42%;
+    }

@@ -174,7 +174,10 @@ describe('Controllers', function() {
 		$location = _$location_;
 		vsvc = c6VideoListingService;
 		appCtrl = $controller('C6AppCtrl', {
-			$scope: _$rootScope_
+			$scope: _$rootScope_,
+            c6Sfx: {
+                loadSounds: angular.noop
+            }
 		});
 	}));
 	
@@ -453,7 +456,11 @@ describe('Controllers', function() {
 				on: function() {}
 			};
 			controller = $controller('C6AnnotationsCtrl', {
-				$scope: scope
+				$scope: scope,
+                c6Sfx: {
+                    loadSounds: angular.noop,
+                    playSound: angular.noop
+                }
 			});
 			scope.$broadcast('c6video-ready', video);
 			scope.$digest();

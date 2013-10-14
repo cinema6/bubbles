@@ -458,7 +458,7 @@ angular.module('c6.ctrl',['c6.svc'])
                 url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/screenjack/#/' + 
                        url.split('/#/')[1];
             }
-            self.sharedUrl = encodeURIComponent(url);
+            self.sharedUrl = url;
             $log.log('Shared url = ' + self.sharedUrl);
             self.showShareBox = true;
         }, function(error) {
@@ -468,14 +468,15 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.fbShare = function() {
         window.open(
-           'https://www.facebook.com/sharer/sharer.php?u='+self.sharedUrl,
+           'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(self.sharedUrl),
            'facebook-share-dialog',
            'width=626,height=436').focus();
         return false;
     };
 
     this.twitShare = function() {
-        window.open('https://twitter.com/share?text=' + self.sharedMsg + '&url=' + self.sharedUrl,
+        window.open('https://twitter.com/share?text=' + self.sharedMsg + '&url=' +
+                                                        encodeURIComponent(self.sharedUrl),
                     'twitter-share-dialog',
                     'width=550,height=450').focus();
     };

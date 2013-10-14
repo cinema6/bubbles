@@ -247,7 +247,7 @@ angular.module('c6.ctrl',['c6.svc'])
                 $scope.appCtrl.experience.sharedSrc = sharedScript.src;
                 $state.transitionTo('experience.video',
                                     {category: sharedScript.category, expid: sharedScript.id});
-            }, function (error) {
+            }, function (/*error*/) {
                 $log.error('Error initializing shared video');
                 $state.transitionTo('landing');
             });
@@ -440,7 +440,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $rootScope.currentRoute = 'end';
 
     this.lastAnnotation = null;
-    
+
     // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
     this.share = function() {
         var shareScript = {
@@ -454,9 +454,11 @@ angular.module('c6.ctrl',['c6.svc'])
         });
     };
 
+    this.showShareBox = false;
+
     // If leaving this experience, null out the stored shareable url (so a new one can be created).
-    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        if (fromState.name == 'experience.end' && toState.name != 'experience.video') {
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState/*, fromParams*/) {
+        if (fromState.name === 'experience.end' && toState.name !== 'experience.video') {
             shareSvc.sharedUrl = null;
         }
     });

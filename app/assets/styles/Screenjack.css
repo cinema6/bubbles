@@ -321,9 +321,9 @@ button:disabled {opacity: 0.15;}
 
         .fantasy .quote__portrait {
             height: 48px; width: 48px; background: url('../img/quote__portrait-lotr.png');
-            position: absolute; bottom: -60px; left: 42%;
         }
 
+            position: absolute; bottom: -60px; left: 42%;
     /* ---- transition panels ---- */
     .transition__panels-top {
             height: 100%; width: 100%; background: #232527; bottom: 100%;
@@ -976,20 +976,26 @@ button:disabled {opacity: 0.15;}
             .vidMenu__btnReplay:hover {background: url('../img/btn_playAgain_hover.png') no-repeat top center; background-size: contain}
             .vidMenu__btnReplay:active {background: url('../img/btn_playAgain_tap.png') no-repeat top center; background-size: contain}
 
+            .vidMenu__btnShare { 
+                background: url('../img/btn_share_default.png') no-repeat top center; background-size: contain; 
+                height: 100%; width: 6.67%; float:left;
+            }
+            .vidMenu__btnShare:hover {background: url('../img/btn_share_hover.png') no-repeat top center; background-size: contain}
+            .vidMenu__btnShare:active {background: url('../img/btn_share_tap.png') no-repeat top center; background-size: contain}
+
             .vidMenu__btnNewVid { 
                 background: url('../img/btn_newVid_default.png') no-repeat top center; background-size: contain; 
                 height: 100%; width: 34.56%; float: right;
             }
             .vidMenu__btnNewVid:active {background: url('../img/btn_newVid_tap.png') no-repeat top center; background-size: contain; float:right;}
 
-        .shareMenu {
+        /*.shareMenu {
             background: url('../img/header_shareWithOthers.png') no-repeat 0 25%; background-size: 30.54% auto;
             height: 6%; width: 70%;
             position: absolute;
             bottom: 0; left: 50%;
             margin: 0 0 0 -35%;
          }
-            /* iphone */
             @media screen and (max-width: 568px) {
                 .shareMenu {
                     width: 95%;
@@ -1013,7 +1019,7 @@ button:disabled {opacity: 0.15;}
                 background: url('../img/btn_email_default.png') no-repeat top; background-size: contain; 
                 height: 100%; width: 13.57%; float: right; margin: 0 0 0 8%;
             }
-            .shareMenu__btnEmail:active {background: url('../img/btn_email_tap.png') no-repeat top; background-size: contain;}
+            .shareMenu__btnEmail:active {background: url('../img/btn_email_tap.png') no-repeat top; background-size: contain;}*/
 
     /* artwork */
      .endScreen__logo {
@@ -1058,3 +1064,72 @@ button:disabled {opacity: 0.15;}
         width: 80%; height: auto;
         margin: 0;
      }
+
+/*  ==========================================================================
+    share module styles (should be added to c6ui)
+    ========================================================================== */
+
+    .share__group {
+        background: rgba(0, 0, 0, 0.88);
+        position:absolute; height: 100%; width: 100%;
+        text-align: center;
+        z-index: 99;
+        font-family: 'museo-sans', 'Open Sans', Arial, Helvetica, sans-serif; letter-spacing: 0.05em; 
+    }
+
+    .share__window--group /* div */ {
+        position: absolute;  bottom: 50%; left: 50%; margin: 0 0 -3.9125em -12.375em;
+        width: 24.75em; height: 7.825em;
+        background: #232527; border-radius: 0.25em; box-shadow: 0 0.125em 0.5em #000;        
+    }
+
+        .share__close--btn /* button */ {
+            position: absolute; top: -0.25em; right: -0.25em;
+            width: 2.75em; height: 2.75em;
+            background: url(../img/share__close--btn.png) center center;
+        }
+
+        .share__hdr /* h2 */ {
+            text-transform: uppercase; font-size: 1.375em; font-weight: 500;
+            color: #d7d7d7; margin: 0.6875em 0;
+        }
+
+        .share__links--group {
+            height:2.75em; line-height: 2.75em;
+        }
+
+            .share__facebook--btn /* button */ {
+                display: inline-block;
+                width: 2.75em; height: 2.75em;
+                background: url(../img/share__facebook--btn.png) center center; background-color: #3b5999;
+                border-radius: 0.125em; box-shadow: 0 1px 0 #191717; margin: 0 0.35em; cursor: pointer;
+                transition: background-color 0.5s;
+            }
+                .share__facebook--btn:hover {background-color: #627aad;}
+
+            .share__twitter--btn /* button */ {
+                display: inline-block;
+                width: 2.75em; height: 2.75em; line-height: 2.75em;
+                background: url(../img/share__twitter--btn.png) center center; background-color: #00acee; 
+                border-radius: 0.125em; box-shadow: 0 1px 0 #191717; margin: 0 0.35em; cursor: pointer;
+                transition: background-color 0.5s;
+            }
+                .share__twitter--btn:hover {background-color: #99def8;}
+
+            .share__url--group {
+                display: inline-block; margin: 0 0 0 0.85em;
+                height: 100%; font-size: 0.8em; vertical-align: top;
+            }
+
+            .share__url--label {
+                text-transform: uppercase; color: #a5a5a5; margin: 0 0.3em 0 0;
+            }
+
+            .share__url--box {
+                display:inline-block;
+                height: 100%; padding: 0 2.5em 0 1.25em;
+                color: #686767; background-color: #1a1a1c;
+                box-shadow: 0 1px 0 #29292b; border:0;
+            }
+
+            .share__url--btn {display:none;}

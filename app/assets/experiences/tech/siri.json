@@ -1,6 +1,7 @@
 {
 	"id": "siri",
 	"title": "Siri",
+    "category": "tech",
 	"views": 1000,
 	"src": null,
 	"css": "styles/bubbles_siri.css",

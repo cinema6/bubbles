@@ -437,7 +437,7 @@ describe('Controllers', function() {
 		});
 	});
 	
-	describe('Controller: C6AnnotationsCtrl', function() {
+	describe('Controller: C6ExperienceCtrl', function() {
 		var controller,
 			scope,
 			video,
@@ -452,7 +452,7 @@ describe('Controllers', function() {
 				},
 				on: function() {}
 			};
-			controller = $controller('C6AnnotationsCtrl', {
+			controller = $controller('C6ExperienceCtrl', {
 				$scope: scope
 			});
 			scope.$broadcast('c6video-ready', video);

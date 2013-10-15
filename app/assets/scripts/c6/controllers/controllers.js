@@ -435,7 +435,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $rootScope.currentRoute = 'experience';
 }])
 
-.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', 'C6AnnotationsService', 'C6UrlShareService', function($log, $scope, $rootScope, annSvc, shareSvc) {
+.controller('C6EndCtrl', ['$log', '$scope', '$window', '$rootScope', 'C6AnnotationsService', 'C6UrlShareService', function($log, $scope, $window, $rootScope, annSvc, shareSvc) {
     $log.log('Creating C6EndCtrl');
     $rootScope.currentRoute = 'end';
 
@@ -467,7 +467,7 @@ angular.module('c6.ctrl',['c6.svc'])
     };
 
     this.fbShare = function() {
-        window.open(
+        $window.open(
            'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(self.sharedUrl),
            'facebook-share-dialog',
            'width=626,height=436').focus();
@@ -475,7 +475,7 @@ angular.module('c6.ctrl',['c6.svc'])
     };
 
     this.twitShare = function() {
-        window.open('https://twitter.com/share?text=' + self.sharedMsg + '&url=' +
+        $window.open('https://twitter.com/share?text=' + self.sharedMsg + '&url=' +
                                                         encodeURIComponent(self.sharedUrl),
                     'twitter-share-dialog',
                     'width=550,height=450').focus();

@@ -39,10 +39,18 @@ function PromptModel(experience) {
 // A parent controller that contains much of the necessary data and functions needed by multiple 
 // child controllers. Contains code for initializing the experience and other models.
 angular.module('c6.ctrl',['c6.svc'])
-.controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout', 'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService', 'C6ResponseCachingService', function($log, $scope, $location, $q, $stateParams, $timeout, vsvc, appBase, sfxSvc, $state, annSvc, respSvc) {
+.controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
+            'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
+            'C6ResponseCachingService', 'c6AniCache',
+            function($log, $scope, $location, $q, $stateParams, $timeout,
+                     vsvc, appBase, sfxSvc, $state, annSvc,
+                     respSvc, c6AniCache) {
+
     $log.log('Creating C6AppCtrl');
     var self = this,
         hideC6ControlsTimeout;
+
+    c6AniCache.enabled(true);
 
     sfxSvc.loadSounds([
         { name: 'type', src: appBase + '/media/tw_strike' },
@@ -119,6 +127,16 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.userIsUsingC6Chrome = false;
     this.showC6Chrome = false;
+
+    this.stateHistory = {
+        from: null,
+        to: null
+    };
+
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
+        self.stateHistory.from = fromState.name;
+        self.stateHistory.to = toState.name;
+    });
 
     $scope.$on('c6MouseActivityStart', function() {
         if (hideC6ControlsTimeout) { $timeout.cancel(hideC6ControlsTimeout); }
@@ -289,6 +307,12 @@ angular.module('c6.ctrl',['c6.svc'])
         }
     });
 
+    $scope.$watch('!$state.is(\'experience.video\')', function(notInVideoState) {
+        if (notInVideoState && !video.player.paused) {
+            video.player.pause();
+        }
+    });
+
     // For c6Controls
     this.c6ControlsDelegate = {};
     this.c6ControlsController = {};
@@ -455,7 +479,7 @@ angular.module('c6.ctrl',['c6.svc'])
         shareSvc.share(shareScript).then(function(url) {
             // hacky url swap if testing on localhost; FB+twitter won't share localhost urls
             if (url.search(/localhost/) > 0) {
-                url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/screenjack/#/' + 
+                url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/screenjack/#/' +
                        url.split('/#/')[1];
             }
             self.sharedUrl = url;

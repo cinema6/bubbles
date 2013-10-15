@@ -116,8 +116,8 @@ angular.module('c6.svc',[])
                 video.player.pause();
             }
         };
-        delegate.seek = function(percent) {
-            video.player.currentTime = (percent * video.player.duration) / 100;
+        delegate.seek = function(event) {
+            video.player.currentTime = (event.percent * video.player.duration) / 100;
         };
         delegate.seekStop = function() {
             if (wasPlaying && video.player.paused) {
@@ -351,7 +351,7 @@ angular.module('c6.svc',[])
     var getPageUrl = function() {
         //TODO: add in logic for asynchronously getting location if running in iframe
         return $q.when($location.absUrl());
-    }
+    };
 
     this.share = function(script) {
         if (self.sharedUrl) {
@@ -364,7 +364,7 @@ angular.module('c6.svc',[])
 
             getPageUrl().then(function(url) {
                 json.origin = url;
-                return $http.post('http://' + (env.release ? 'dub' : 'alpha') + 
+                return $http.post('http://' + (env.release ? 'dub' : 'alpha') +
                                   '.cinema6.net/dub/share', json);
             }).then(function(response) {
             // $http.post('http://localhost:3000/dub/share', json).then(function(response) {

@@ -1,7 +1,7 @@
 <div class="experience partial">
-  <div class="transition__panels-top">&nbsp;</div>
   <div class="transition__panels-bottom">&nbsp;</div>
 
+  <div class="transition__panels-top">&nbsp;</div>
   <div class="c6-bar__container"
       ng-mouseenter="appCtrl.userIsUsingC6Chrome = true"
       ng-mouseleave="appCtrl.userIsUsingC6Chrome = false"
@@ -9,7 +9,7 @@
       <c6-bar></c6-bar>
   </div>
 
-  <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
+  <div ui-view ng-animate="appCtrl.stateHistory.from + '=>' + appCtrl.stateHistory.to" class="paperTexture ng-cloak"></div>
   
   <div ng-controller="C6ExperienceCtrl" c6-mouse-activity ng-show="($state.is('experience.video') || $state.is('shared'))" ng-animate="'video'" class="experience__group" style="display: none;">
 	  <div class="c6Controls__group"
@@ -31,6 +31,7 @@
           c6-events="{timeupdate: 'annoCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'annoCtrl.goToEnd(c6.video);'}"
 		  preload="auto">
        </video>
+
         <ul class="annotations" >
           <li
             ng-repeat="a in annoCtrl.annotationsModel.annotations"
@@ -49,6 +50,8 @@
             </div>
             </li> 
         </ul>
+
       </div>
-<div class="transition_blackFade">&nbsp;</div>
+      <div class="transition_blackFade">&nbsp;</div>
+    </div>
 </div>

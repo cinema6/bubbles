@@ -324,10 +324,10 @@ angular.module('c6.svc',[])
 
 // Handles retrieving shared scripts and generating shareable urls
 .service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'environment', function($http, $log, $q, $location, env) {
-    var s3Bucket = 'c6.dev',
+    var s3Bucket = (env.release ? 'c6media' : 'c6.dev'),
         s3Path = '/media/usr/screenjack/scripts/',
         self = this;
-    
+
     this.sharedUrl = null;
 
     this.getScript = function(id) {
@@ -348,17 +348,25 @@ angular.module('c6.svc',[])
         return deferred.promise;
     };
 
+    var getPageUrl = function() {
+        //TODO: add in logic for asynchronously getting location if running in iframe
+        return $q.when($location.absUrl());
+    }
+
     this.share = function(script) {
-        if (this.sharedUrl) {
-            return $q.when(this.sharedUrl);
+        if (self.sharedUrl) {
+            return $q.when(self.sharedUrl);
         } else {
             var json = {
-                origin: $location.absUrl(),
                 experience: script
             },
                 deferred = $q.defer();
 
-            $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/share', json).then(function(response) {
+            getPageUrl().then(function(url) {
+                json.origin = url;
+                return $http.post('http://' + (env.release ? 'dub' : 'alpha') + 
+                                  '.cinema6.net/dub/share', json);
+            }).then(function(response) {
             // $http.post('http://localhost:3000/dub/share', json).then(function(response) {
                 self.sharedUrl = response.data.url;
                 deferred.resolve(response.data.url);

@@ -248,7 +248,7 @@ angular.module('c6.ctrl',['c6.svc'])
                 $state.transitionTo('experience.video',
                                     {category: sharedScript.category, expid: sharedScript.id});
             }, function (error) {
-                $log.error('Error initializing shared video');
+                $log.error('Error initializing shared video: ' + error);
                 $state.transitionTo('landing');
             });
         }
@@ -435,12 +435,15 @@ angular.module('c6.ctrl',['c6.svc'])
     $rootScope.currentRoute = 'experience';
 }])
 
-.controller('C6EndCtrl', ['$log', '$scope', '$rootScope', 'C6AnnotationsService', 'C6UrlShareService', function($log, $scope, $rootScope, annSvc, shareSvc) {
+.controller('C6EndCtrl', ['$log', '$scope', '$window', '$rootScope', 'C6AnnotationsService', 'C6UrlShareService', function($log, $scope, $window, $rootScope, annSvc, shareSvc) {
     $log.log('Creating C6EndCtrl');
     $rootScope.currentRoute = 'end';
 
+    var self = this;
     this.lastAnnotation = null;
-    
+    self.sharedUrl = null;
+    self.sharedMsg = 'Check out this Screenjack I made!';
+
     // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
     this.share = function() {
         var shareScript = {
@@ -450,13 +453,39 @@ angular.module('c6.ctrl',['c6.svc'])
             responses: $scope.appCtrl.promptModel.responses
         };
         shareSvc.share(shareScript).then(function(url) {
-            $log.log(url); // TODO: do something with this url
+            // hacky url swap if testing on localhost; FB+twitter won't share localhost urls
+            if (url.search(/localhost/) > 0) {
+                url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/screenjack/#/' + 
+                       url.split('/#/')[1];
+            }
+            self.sharedUrl = url;
+            $log.log('Shared url = ' + self.sharedUrl);
+            self.showShareBox = true;
+        }, function(error) {
+            $log.error('Error sharing script: ' + error);
         });
     };
 
+    this.fbShare = function() {
+        $window.open(
+           'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(self.sharedUrl),
+           'facebook-share-dialog',
+           'width=626,height=436').focus();
+        return false;
+    };
+
+    this.twitShare = function() {
+        $window.open('https://twitter.com/share?text=' + self.sharedMsg + '&url=' +
+                                                        encodeURIComponent(self.sharedUrl),
+                    'twitter-share-dialog',
+                    'width=550,height=450').focus();
+    };
+
+    this.showShareBox = false;
+
     // If leaving this experience, null out the stored shareable url (so a new one can be created).
-    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        if (fromState.name == 'experience.end' && toState.name != 'experience.video') {
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState/*, fromParams*/) {
+        if (fromState.name === 'experience.end' && toState.name !== 'experience.video') {
             shareSvc.sharedUrl = null;
         }
     });

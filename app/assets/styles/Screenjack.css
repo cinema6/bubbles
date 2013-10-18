@@ -70,34 +70,29 @@ button:disabled {opacity: 0.15;}
     ========================================================================== */
     
     /* ----- hero box ----- */
-    .landing-hero__group {
-        position: relative; background-size: cover; background: top center;
-        text-align: center;
-    }     
-        .landing-hero__copy-box { background: none; padding: 0;}
-
-        .landing-hero__title {
-            width: 100%; height: 3em; /* 90px */  
-            margin:0 auto; padding:0; margin: 0; display: block;
+    .hero__group {
+        background: url(../img/herobox_artwork.jpg) center bottom no-repeat #ffb928;
+    }
+        .hero__desc {
+            margin: 2.25em 0 0 0; text-align: center;
+        }
+        .hero__title {
+            width: 100%; height: 1.875em; /* 90px */  
+            margin:0 auto; padding:0; display: block;
             background: url(../img/screenjackLogo.png) center center no-repeat;
             background-size: contain;
         }
-        .landing-hero__copy {
-            color:#d9000a; margin: -1em auto; text-align: center; width: 22em;
+        .hero__copy {
+            color:#d9000a; margin:1em auto 0 auto; text-align: center; width: 22em;
             font-family: "courier prime", courier, times, serif; font-size: 1em; line-height: 1.48em;
         }
 
-        .landing-hero__desc {
-            margin-top:0;
-        }
-
-        @media only screen and (max-width:348px) {
-            .landing-hero__desc {
-                margin-top:0;
+            @media only screen and (max-width: 374px) {
+                .hero__copy {
+                    width: 19em;
+                    font-size: 0.8em;
+                }
             }
-        }
-
-
     /* ----- video info ----- */
     .video-info__group {
         margin-top: 2.5em;
@@ -606,7 +601,7 @@ button:disabled {opacity: 0.15;}
  .experience__group {height: 100%; width:100%; position: absolute; top: 0;}
  .experience__logo {
     top: 46px; left: 12px;
-    z-index: 99; position: fixed;
+    z-index: 2; position: fixed;
     opacity: 1;
     width: 25%;
  }
@@ -620,18 +615,12 @@ button:disabled {opacity: 0.15;}
     }
      #player {
         z-index: 1; position: absolute;
-        /*width: 98%; height: 90%;
-        margin-left: -47%; padding: 1%;
-        top: 30px; left: 47%;*/
         height: 100%; width: 100%;
-        opacity: 0;
      }
 
      .annotations{
         z-index: 2; position: absolute;
         width: 100%; height: 100%; padding: 0;
-
-        /*left: 50%; top: 50%; padding: 0;*/
      }
         .annotation {   
             position: absolute; opacity: 1;
@@ -706,17 +695,17 @@ button:disabled {opacity: 0.15;}
         }
 
         .vidFrame__annotation-action {
-            margin: 4% 56% 0 0; right: 0;
+            margin: 4% 62% 0 0; right: 0;
             font-size: 0.6em;
         }
 
         .vidFrame__annotation-fantasy {
-            margin: 3% 0 0 2%;
+            margin: 4% 0 0 8%;
             font-size: 0.7em;
         }
         .vidFrame__annotation-romance {
-            margin: 1% 0 0 28%;
-            font-size: 1em;
+            margin: 1% 0 0 55%;
+            font-size: 0.65em;
         }
 
         .vidFrame__annotation-tech {
@@ -752,20 +741,26 @@ button:disabled {opacity: 0.15;}
             .vidMenu__btnReplay:hover {background: url('../img/btn_playAgain_hover.png') no-repeat top center; background-size: contain}
             .vidMenu__btnReplay:active {background: url('../img/btn_playAgain_tap.png') no-repeat top center; background-size: contain}
 
+            .vidMenu__btnShare { 
+                background: url('../img/btn_share_default.png') no-repeat top center; background-size: contain; 
+                height: 100%; width: 6.67%; float:left;
+            }
+            .vidMenu__btnShare:hover {background: url('../img/btn_share_hover.png') no-repeat top center; background-size: contain}
+            .vidMenu__btnShare:active {background: url('../img/btn_share_tap.png') no-repeat top center; background-size: contain}
+
             .vidMenu__btnNewVid { 
                 background: url('../img/btn_newVid_default.png') no-repeat top center; background-size: contain; 
                 height: 100%; width: 34.56%; float: right;
             }
             .vidMenu__btnNewVid:active {background: url('../img/btn_newVid_tap.png') no-repeat top center; background-size: contain; float:right;}
 
-        .shareMenu {
+        /*.shareMenu {
             background: url('../img/header_shareWithOthers.png') no-repeat 0 25%; background-size: 30.54% auto;
             height: 6%; width: 70%;
             position: absolute;
             bottom: 0; left: 50%;
             margin: 0 0 0 -35%;
          }
-            /* iphone */
             @media screen and (max-width: 568px) {
                 .shareMenu {
                     width: 95%;
@@ -789,7 +784,7 @@ button:disabled {opacity: 0.15;}
                 background: url('../img/btn_email_default.png') no-repeat top; background-size: contain; 
                 height: 100%; width: 13.57%; float: right; margin: 0 0 0 8%;
             }
-            .shareMenu__btnEmail:active {background: url('../img/btn_email_tap.png') no-repeat top; background-size: contain;}
+            .shareMenu__btnEmail:active {background: url('../img/btn_email_tap.png') no-repeat top; background-size: contain;}*/
 
     /* artwork */
      .endScreen__logo {
@@ -834,3 +829,72 @@ button:disabled {opacity: 0.15;}
         width: 80%; height: auto;
         margin: 0;
      }
+
+/*  ==========================================================================
+    share module styles (should be added to c6ui)
+    ========================================================================== */
+
+    .share__group {
+        background: rgba(0, 0, 0, 0.88);
+        position:absolute; height: 100%; width: 100%;
+        text-align: center;
+        z-index: 99;
+        font-family: 'museo-sans', 'Open Sans', Arial, Helvetica, sans-serif; letter-spacing: 0.05em; 
+    }
+
+    .share__window--group /* div */ {
+        position: absolute;  bottom: 50%; left: 50%; margin: 0 0 -3.9125em -12.375em;
+        width: 24.75em; height: 7.825em;
+        background: #232527; border-radius: 0.25em; box-shadow: 0 0.125em 0.5em #000;        
+    }
+
+        .share__close--btn /* button */ {
+            position: absolute; top: -0.25em; right: -0.25em;
+            width: 2.75em; height: 2.75em;
+            background: url(../img/share__close--btn.png) center center;
+        }
+
+        .share__hdr /* h2 */ {
+            text-transform: uppercase; font-size: 1.375em; font-weight: 500;
+            color: #d7d7d7; margin: 0.6875em 0;
+        }
+
+        .share__links--group {
+            height:2.75em; line-height: 2.75em;
+        }
+
+            .share__facebook--btn /* button */ {
+                display: inline-block;
+                width: 2.75em; height: 2.75em;
+                background: url(../img/share__facebook--btn.png) center center; background-color: #3b5999;
+                border-radius: 0.125em; box-shadow: 0 1px 0 #191717; margin: 0 0.35em; cursor: pointer;
+                transition: background-color 0.5s;
+            }
+                .share__facebook--btn:hover {background-color: #627aad;}
+
+            .share__twitter--btn /* button */ {
+                display: inline-block;
+                width: 2.75em; height: 2.75em; line-height: 2.75em;
+                background: url(../img/share__twitter--btn.png) center center; background-color: #00acee; 
+                border-radius: 0.125em; box-shadow: 0 1px 0 #191717; margin: 0 0.35em; cursor: pointer;
+                transition: background-color 0.5s;
+            }
+                .share__twitter--btn:hover {background-color: #99def8;}
+
+            .share__url--group {
+                display: inline-block; margin: 0 0 0 0.85em;
+                height: 100%; font-size: 0.8em; vertical-align: top;
+            }
+
+            .share__url--label {
+                text-transform: uppercase; color: #a5a5a5; margin: 0 0.3em 0 0;
+            }
+
+            .share__url--box {
+                display:inline-block;
+                height: 100%; padding: 0 2.5em 0 1.25em;
+                color: #686767; background-color: #1a1a1c;
+                box-shadow: 0 1px 0 #29292b; border:0;
+            }
+
+            .share__url--btn {display:none;}

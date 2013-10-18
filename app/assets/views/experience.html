@@ -1,7 +1,7 @@
 <div class="experience partial">
-  <div ui-view ng-animate="currentRoute + '-partial'" class="paperTexture ng-cloak"></div>
+  <div ui-view ng-animate="appCtrl.stateHistory.from + '=>' + appCtrl.stateHistory.to" class="paperTexture ng-cloak"></div>
   
-  <div ng-controller="C6AnnotationsCtrl" c6-mouse-activity ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
+  <div ng-controller="C6ExperienceCtrl" c6-mouse-activity ng-show="($state.is('experience.video') || $state.is('shared'))" ng-animate="'video'" class="experience__group" style="display: none;">
 	  <div class="c6Controls__group"
 		  ng-animate="'c6Controls'"
           ng-class="{'offscreen': !(annoCtrl.videoCanPlay && appCtrl.showC6Chrome)}"
@@ -9,7 +9,7 @@
 		  ng-mouseleave="appCtrl.userIsUsingC6Chrome = false;">
 		  <c6-controls delegate="annoCtrl.c6ControlsDelegate" controller="annoCtrl.c6ControlsController"></c6-controls>
 	  </div>
-	  <c6-progress-bar loading="($state.is('experience.video') && !annoCtrl.videoCanPlay)" id="loading-group"></c6-progress-bar>
+	  <c6-progress-bar loading="(($state.is('experience.video') || $state.is('shared')) && !annoCtrl.videoCanPlay)" id="loading-group"></c6-progress-bar>
       <div class="experience__logo">
           <img ng-src="{{appCtrl.currentCategory() ? ('assets/img/logo_vid_' + appCtrl.currentCategory() + '.png') : null }}">
       </div>
@@ -21,6 +21,7 @@
           c6-events="{timeupdate: 'annoCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'annoCtrl.goToEnd(c6.video);'}"
 		  preload="auto">
        </video>
+
         <ul class="annotations" >
           <li
             ng-repeat="a in annoCtrl.annotationsModel.annotations"
@@ -39,6 +40,8 @@
             </div>
             </li> 
         </ul>
+
       </div>
-<div class="transition_blackFade">&nbsp;</div>
+      <div class="transition_blackFade">&nbsp;</div>
+    </div>
 </div>

@@ -50,10 +50,15 @@ angular.module('c6.ctrl',['c6.svc'])
     var self = this,
         hideC6ControlsTimeout,
         allowStateChange = false,
-        siteSession = site.init({
-            pingPathChanges: true
-        });
-
+        siteSession = site.init();
+        
+    this.sfxSvc = sfxSvc;
+    this.experience = null;
+    this.expData = null;
+    this.experienceAnimation = null;
+    this.promptModel = null; // Holds the prompts for the user and their responses
+    this.annotationsModel = null; // holds the annotations (speech bubbles)
+        
     siteSession.on('pendingPath', function(path, respond) {
         if (path !== '/') {
             allowStateChange = true;
@@ -97,14 +102,10 @@ angular.module('c6.ctrl',['c6.svc'])
         { name: 'yank', src: appBase + '/media/tw_yank' }
     ]);
 
-    this.sfxSvc = sfxSvc;
-    this.experience = null;
-    this.experienceAnimation = null;
     $scope.$on('$viewContentLoaded', function() {
         $scope.appCtrl.experienceAnimation = 'experience';
     });
-    this.promptModel = null; // Holds the prompts for the user and their responses
-    this.annotationsModel = null; // holds the annotations (speech bubbles)
+
     this.goToRoute = function(route) {
         $location.path(route);
     };
@@ -114,53 +115,6 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.askForVideoLoad = function() {
         $scope.$broadcast('videoShouldLoad');
-    };
-
-    // Load experience from local storage, initialize other models, and load SFX
-    // This may be called when a user starts creating a screenjack, when refreshing a created
-    // video, or when loading a shared experience.
-    this.initializeExperience = function(category, expid) {
-        var deferred = $q.defer();
-
-        vsvc.getExperience(category, expid).then(function(experience) {
-            self.experience = experience;
-            if (self.experience && self.experience.src) {
-                experience.src = appBase + '/' + self.experience.src;
-            }
-            self.promptModel = new PromptModel(self.experience);
-            self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',
-                                                                     self.experience.annotations);
-
-            if (self.annotationsModel && self.annotationsModel.sfx){
-                $log.log('Experience (' + self.experience.id + ') has some sounds.');
-                var sfxToLoad;
-                angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
-                    sfxSrc  = appBase + '/' + sfxSrc;
-                    if (!sfxSvc.getSoundByName(sfxName)){
-                        $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
-                        if (!sfxToLoad){
-                            sfxToLoad = [];
-                        }
-                        sfxToLoad.push( { name: sfxName, src: sfxSrc });
-                    } else {
-                        $log.info('Already loaded sfx name=' + sfxName);
-                    }
-                });
-
-                if (sfxToLoad){
-                    $log.info('loading sounds');
-                    sfxSvc.loadSounds(sfxToLoad);
-                }
-            }
-            deferred.resolve();
-
-        }, function(error) {
-            $log.log('Failed to get experience: ' + error);
-            $state.transitionTo('landing');
-            deferred.reject();
-        });
-
-        return deferred.promise;
     };
 
     this.userIsUsingC6Chrome = false;
@@ -201,30 +155,49 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.appCtrl = this;
     $scope.$state = $state;
     $scope.$stateParams = $stateParams;
+    
+    site.getAppData().then(function(data) {
+        console.log(data.experience);
+        var deferred = $q.defer();
+        
+        self.experience = data.experience;
+        self.expData = data.experience.data;
 
-    // this block will fire whenever the category and experience id parameters in the url change
-    // it will then reset the experience as necessary and look for cached responses if the user has
-    // navigated directly to the video page/state
-    $scope.$watch('$stateParams', function(params) {
-        if (!params.category || !params.expid) {
-            self.experience = null;
-            return false;
+        if (self.expData && self.expData.src) {
+            self.expData.src = appBase + '/' + self.expData.src;
         }
-        if (self.experience && $state.is('experience.video')) { // if experience already set, skip
-            return;
-        }
-        self.initializeExperience(params.category, params.expid).then(function() {
-            if ($state.is('experience.video') || $state.is('experience.end')) {
-                var cachedResponses = respSvc.getResponses(params.category, params.expid);
-                if (self.promptModel && cachedResponses) {
-                    self.promptModel.responses = cachedResponses;
+        self.promptModel = new PromptModel(self.expData);
+        self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',
+                                                                 self.expData.annotations);
+
+        if (self.annotationsModel && self.annotationsModel.sfx){
+            $log.log('Experience (' + self.experience.uri + ') has some sounds.');
+            var sfxToLoad;
+            angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
+                sfxSrc  = appBase + '/' + sfxSrc;
+                if (!sfxSvc.getSoundByName(sfxName)){
+                    $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
+                    if (!sfxToLoad){
+                        sfxToLoad = [];
+                    }
+                    sfxToLoad.push( { name: sfxName, src: sfxSrc });
                 } else {
-                    $log.error('Failed to find cached responses, returning to input');
-                    $state.transitionTo('experience.input', $stateParams);
+                    $log.info('Already loaded sfx name=' + sfxName);
                 }
+            });
+
+            if (sfxToLoad){
+                $log.info('loading sounds');
+                sfxSvc.loadSounds(sfxToLoad);
             }
-        });
-    }, true);
+        }
+
+    }, function(error) {
+        // if here, communication has somehow broken down with the site. Show a fail screen?
+        console.error("Failed to get experience from site");
+        console.error(error);
+    });
+
 }])
 
 .controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
@@ -309,7 +282,7 @@ angular.module('c6.ctrl',['c6.svc'])
                     return;
                 }
                 $scope.appCtrl.promptModel.responses = sharedScript.responses;
-                $scope.appCtrl.experience.sharedSrc = sharedScript.src;
+                $scope.appCtrl.expData.sharedSrc = sharedScript.src;
                 $state.transitionTo('experience.video',
                                     {category: sharedScript.category, expid: sharedScript.id});
             }, function (error) {
@@ -326,7 +299,7 @@ angular.module('c6.ctrl',['c6.svc'])
         if (yes) {
             var bubbleModel = $scope.appCtrl.annotationsModel,
                 txt2SpchModel = annSvc.getAnnotationsModelByType('talkie',
-                                    $scope.appCtrl.experience.annotations),
+                                    $scope.appCtrl.expData.annotations),
                 responses = $scope.appCtrl.promptModel.responses;
 
             if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
@@ -346,9 +319,9 @@ angular.module('c6.ctrl',['c6.svc'])
 
                 oldResponses = angular.copy(responses);
 
-                annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.experience.sharedSrc)
+                annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
                 .then(function(url) {
-                    $scope.appCtrl.experience.src = url;
+                    $scope.appCtrl.expData.src = url;
                 });
             }
         }
@@ -516,11 +489,11 @@ angular.module('c6.ctrl',['c6.svc'])
     self.sharedMsg = 'Check out this Screenjack I made!';
 
     // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
-    this.share = function() {
+    this.share = function() { // TODO: update!
         var shareScript = {
-            id: $scope.appCtrl.experience.id,
-            category: $scope.appCtrl.experience.category,
-            src: $scope.appCtrl.experience.src,
+            id: $scope.appCtrl.expData.id,
+            category: $scope.appCtrl.expData.category,
+            src: $scope.appCtrl.expData.src,
             responses: $scope.appCtrl.promptModel.responses
         };
         shareSvc.share(shareScript).then(function(url) {

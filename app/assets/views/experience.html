@@ -17,7 +17,7 @@
         <video
           id="player"
           c6-video
-          c6-src="appCtrl.experience.src"
+          c6-src="appCtrl.expData.src"
           c6-events="{timeupdate: 'annoCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'annoCtrl.goToEnd(c6.video);'}"
 		  preload="auto">
        </video>
@@ -27,7 +27,7 @@
             ng-repeat="a in annoCtrl.annotationsModel.annotations"
             ng-show="annoCtrl.annotationIsActive(a)"
             style="display: none;"
-            ng-animate="appCtrl.experience.anim + '-annotation'"
+            ng-animate="appCtrl.expData.anim + '-annotation'"
             ng-class="' annotation ' + a.cls.join(' ')">
             <div class="a-style">
               <div class="a-frame">

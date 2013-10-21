@@ -157,18 +157,16 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$stateParams = $stateParams;
     
     site.getAppData().then(function(data) {
-        console.log(data.experience);
         var deferred = $q.defer();
         
         self.experience = data.experience;
         self.expData = data.experience.data;
 
-        if (self.expData && self.expData.src) {
+        if (self.expData && self.expData.src && !self.expData.src.match(appBase)) {
             self.expData.src = appBase + '/' + self.expData.src;
         }
         self.promptModel = new PromptModel(self.expData);
-        self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',
-                                                                 self.expData.annotations);
+        self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',self.expData.annotations);
 
         if (self.annotationsModel && self.annotationsModel.sfx){
             $log.log('Experience (' + self.experience.uri + ') has some sounds.');
@@ -191,6 +189,14 @@ angular.module('c6.ctrl',['c6.svc'])
                 sfxSvc.loadSounds(sfxToLoad);
             }
         }
+        
+        if (self.expData.responses) {
+            $scope.appCtrl.promptModel.responses = self.expData.responses;
+            // $scope.appCtrl.expData.sharedSrc = self.expData.src;
+            $state.transitionTo('experience.video',
+                                {category: self.expData.category, expid: self.expData.video});
+        }
+
 
     }, function(error) {
         // if here, communication has somehow broken down with the site. Show a fail screen?
@@ -216,7 +222,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
 // Contains code for finishing the setup of the experience object and other models, as well as 
 // controls for the video and interactive content.
-.controller('C6ExperienceCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', 'C6UrlShareService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc, shareSvc){
+.controller('C6ExperienceCtrl',['$log','$scope','$rootScope','$location','$stateParams',
+'C6AnnotationsService','$state','$timeout','environment','C6ResponseCachingService','c6Sfx','C6VideoControlsService','C6UrlShareService',function($log,$scope,$rootScope,$location,$stateParams,annSvc,$state,$timeout,env,respSvc,sfxSvc,vidCtrlsSvc,shareSvc){
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
@@ -490,16 +497,17 @@ angular.module('c6.ctrl',['c6.svc'])
 
     // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
     this.share = function() { // TODO: update!
-        var shareScript = {
+        /*var shareScript = {
             id: $scope.appCtrl.expData.id,
             category: $scope.appCtrl.expData.category,
             src: $scope.appCtrl.expData.src,
             responses: $scope.appCtrl.promptModel.responses
-        };
-        shareSvc.share(shareScript).then(function(url) {
+        };*/
+        $scope.appCtrl.experience.data.responses = $scope.appCtrl.promptModel.responses;
+        shareSvc.share($scope.appCtrl.experience).then(function(url) {
             // hacky url swap if testing on localhost; FB+twitter won't share localhost urls
             if (url.search(/localhost/) > 0) {
-                url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/screenjack/#/' +
+                url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/site/#/' +
                        url.split('/#/')[1];
             }
             self.sharedUrl = url;

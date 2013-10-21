@@ -163,7 +163,9 @@ angular.module('c6.svc',[])
 
 // Has functions for creating annotation models, interpolating responses with tempaltes, and 
 // retrieving urls for text-to-speech videos.
-.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6VideoService', '$http', '$q', '$log', 'environment', function($routeParams, $rootScope, vidSvc, $http, $q, $log, env) {
+.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6VideoService', '$http', '$q', 
+                                  '$log', 'environment', function($routeParams, $rootScope, vidSvc,
+                                                                  $http, $q, $log, env) {
     var genVidUrlCache = {};
 
     this.getAnnotationsModelByType = function(type, annotations) {
@@ -281,8 +283,8 @@ angular.module('c6.svc',[])
                     requestBodyObject.script.push(line);
                 });
 
-                $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create', requestBodyObject).then(function(response) {
-                // $http.post('http://localhost:3000/dub/create', requestBodyObject).then(function(response) {
+                $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create',
+                           requestBodyObject).then(function(response) {
                     var urlFromServer = response.data.output;
 
                     genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
@@ -323,7 +325,8 @@ angular.module('c6.svc',[])
 }])
 
 // Handles retrieving shared scripts and generating shareable urls
-.service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'environment', function($http, $log, $q, $location, env) {
+.service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'environment', '$window', 'site',
+                               function($http, $log, $q, $location, env, $window, site) {
     var s3Bucket = (env.release ? 'c6media' : 'c6.dev'),
         s3Path = '/media/usr/screenjack/scripts/',
         self = this;
@@ -349,8 +352,11 @@ angular.module('c6.svc',[])
     };
 
     var getPageUrl = function() {
-        //TODO: add in logic for asynchronously getting location if running in iframe
-        return $q.when($location.absUrl());
+        if ($window.parent === $window) { // we're not in an iframe
+            return $q.when($location.absUrl());
+        } else { // we are in an iframe
+            return site.getSiteUrl();
+        }
     };
 
     this.share = function(script) {
@@ -363,11 +369,12 @@ angular.module('c6.svc',[])
                 deferred = $q.defer();
 
             getPageUrl().then(function(url) {
+                url.replace(new RegExp(script.src + '/?$'), ''); 
                 json.origin = url;
-                return $http.post('http://' + (env.release ? 'dub' : 'alpha') +
-                                  '.cinema6.net/dub/share', json);
+                //return $http.post('http://' + (env.release ? 'dub' : 'alpha') +
+                //                  '.cinema6.net/dub/share', json);
+                return $http.post('http://localhost:3000/dub/share', json);
             }).then(function(response) {
-            // $http.post('http://localhost:3000/dub/share', json).then(function(response) {
                 self.sharedUrl = response.data.url;
                 deferred.resolve(response.data.url);
             }, function(error) {

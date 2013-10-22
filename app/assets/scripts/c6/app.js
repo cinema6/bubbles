@@ -50,15 +50,15 @@
 					templateUrl: __C6_APP_BASE_URL__ + '/views/landing.html',
 					url: '/'
 				})
-                .state('shared', {
+/*                .state('shared', {
                     templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
                     url: '/shared'
-                })
+                })*/
 				.state('experience', {
 					templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
-					url: '/categories'
+					url: '/exp'
 				})
-					.state('experience.categories', {
+/*					.state('experience.categories', {
 						templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
 						controller: 'C6CategoryListCtrl',
 						url: '/'
@@ -66,21 +66,21 @@
 					.state('experience.randomInput', {
 						controller: 'C6RandomCategoryCtrl',
 						url: '/:category'
-					})
+					})*/
 					.state('experience.input', {
 						templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
 						controller: 'C6InputCtrl',
-						url: '/:category/:expid'
+						url: '/input'
 					})
 					.state('experience.video', {
 						template: '<!-- Foo -->',
 						controller: 'C6VideoCtrl',
-						url: '/:category/:expid/video'
+						url: '/video'
 					})
 					.state('experience.end', {
 						templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
 						controller: 'C6EndCtrl',
-						url: '/:category/:expid/end'
+						url: '/end'
 					});
 		}])
 		.config(['$provide', 'environment', function($provide, env) {

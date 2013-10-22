@@ -109,8 +109,13 @@ angular.module('c6.ctrl',['c6.svc'])
     this.goToRoute = function(route) {
         $location.path(route);
     };
+    
     this.currentCategory = function() {
-        return $stateParams.category;
+        return this.expData.category;
+    };
+    
+    this.currentVideo = function() {
+        return this.expData.video;
     };
 
     this.askForVideoLoad = function() {
@@ -193,8 +198,8 @@ angular.module('c6.ctrl',['c6.svc'])
         if (self.expData.responses) {
             $scope.appCtrl.promptModel.responses = self.expData.responses;
             // $scope.appCtrl.expData.sharedSrc = self.expData.src;
-            $state.transitionTo('experience.video',
-                                {category: self.expData.category, expid: self.expData.video});
+            $state.transitionTo('experience.video');
+                                //{category: self.expData.category, expid: self.expData.video});
         }
 
 
@@ -233,7 +238,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$on('c6video-ready', function(event, player) {
         video = player;
 
-        var undoWatch = $scope.$watch('annoCtrl.c6ControlsController.ready', function(ready) {
+        var undoWatch = $scope.$watch('expCtrl.c6ControlsController.ready', function(ready) {
             if (ready) {
                 vidCtrlsSvc.bind(player, self.c6ControlsDelegate, self.c6ControlsController);
                 undoWatch();
@@ -272,7 +277,7 @@ angular.module('c6.ctrl',['c6.svc'])
     // Called as soon as a user loads up a shared url. Will retrieve the shared script object,
     // corresponding to the id in the url, initialize the experience, and set the responses (using
     // data from the shared script).
-    if ($state.is('shared')) {
+    /*if ($state.is('shared')) {
         var sharedId = $location.search().id,
             sharedScript;
         if (!sharedId) {
@@ -297,7 +302,7 @@ angular.module('c6.ctrl',['c6.svc'])
                 $state.transitionTo('landing');
             });
         }
-    }
+    }*/
 
     // This is fired when the app reaches the video state and the promptModel is initialized,
     // including when a shared experience has been initialized. This will interpolate the user
@@ -310,7 +315,8 @@ angular.module('c6.ctrl',['c6.svc'])
                 responses = $scope.appCtrl.promptModel.responses;
 
             if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
-                respSvc.setResponses(responses, $stateParams.category, $stateParams.expid);
+                respSvc.setResponses(responses, $scope.appCtrl.currentCategory(), 
+                                     $scope.appCtrl.currentVideo());
                 if (txt2SpchModel) {
                     self.videoCanPlay = false;
                 }
@@ -391,9 +397,9 @@ angular.module('c6.ctrl',['c6.svc'])
          return self.activeAnnotations.indexOf(annotation) !== -1;
     };
 
-    $scope.annoCtrl = this;
+    $scope.expCtrl = this;
 }])
-
+/*
 .controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
                                   'c6VideoListingService', '$state',
                                   function($log,$scope,$rootScope,vsvc,$state){
@@ -412,7 +418,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
     $scope.catCtrl = this;
 }])
-
+*/
+/*
 .controller('C6RandomCategoryCtrl', ['$state', '$stateParams', 'c6VideoListingService', '$log', function($state, $stateParams, vsvc, $log) {
     var category = $stateParams.category;
     $log.log('Choosing a random experience in the ' + category + ' category.');
@@ -421,7 +428,7 @@ angular.module('c6.ctrl',['c6.svc'])
         $state.transitionTo('experience.input', { category: $stateParams.category, expid: experienceId });
     });
 }])
-
+*/
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$stateParams', '$state', function($log, $scope, $rootScope, $stateParams, $state) {
     var self = this;
     $log.log('Creating C6InputCtrl: ' + $stateParams.category);

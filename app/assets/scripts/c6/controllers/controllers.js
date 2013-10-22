@@ -40,11 +40,10 @@ function PromptModel(experience) {
 // child controllers. Contains code for initializing the experience and other models.
 angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
-            'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
-            'C6ResponseCachingService', 'c6AniCache', 'site',
-            function($log, $scope, $location, $q, $stateParams, $timeout,
-                     vsvc, appBase, sfxSvc, $state, annSvc,
-                     respSvc, c6AniCache, site) {
+                          'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
+                          'C6ResponseCachingService', 'c6AniCache', 'site',
+            function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
+                     annSvc, respSvc, c6AniCache, site) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
@@ -120,6 +119,14 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.askForVideoLoad = function() {
         $scope.$broadcast('videoShouldLoad');
+    };
+    
+    this.startExperience = function() {
+        if (self.expData.responses) {
+            $state.transitionTo('experience.video');
+        } else {
+            $state.transitionTo('experience.input');
+        }
     };
 
     this.userIsUsingC6Chrome = false;
@@ -198,8 +205,6 @@ angular.module('c6.ctrl',['c6.svc'])
         if (self.expData.responses) {
             $scope.appCtrl.promptModel.responses = self.expData.responses;
             // $scope.appCtrl.expData.sharedSrc = self.expData.src;
-            $state.transitionTo('experience.video');
-                                //{category: self.expData.category, expid: self.expData.video});
         }
 
 
@@ -210,7 +215,7 @@ angular.module('c6.ctrl',['c6.svc'])
     });
 
 }])
-
+/*
 .controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
     var randomCategory = vsvc.getRandomCategoryFrom(['action', 'romance', 'fantasy']),
         randomQuote = vsvc.getRandomQuoteForCategory(randomCategory);
@@ -224,11 +229,16 @@ angular.module('c6.ctrl',['c6.svc'])
 
     $scope.landingCtrl = this;
 }])
-
+*/
 // Contains code for finishing the setup of the experience object and other models, as well as 
 // controls for the video and interactive content.
 .controller('C6ExperienceCtrl',['$log','$scope','$rootScope','$location','$stateParams',
-'C6AnnotationsService','$state','$timeout','environment','C6ResponseCachingService','c6Sfx','C6VideoControlsService','C6UrlShareService',function($log,$scope,$rootScope,$location,$stateParams,annSvc,$state,$timeout,env,respSvc,sfxSvc,vidCtrlsSvc,shareSvc){
+                                'C6AnnotationsService','$state','$timeout','environment',
+                                'C6ResponseCachingService','c6Sfx','C6VideoControlsService',
+                                'C6UrlShareService',
+            function($log,$scope,$rootScope,$location,$stateParams,annSvc,$state,$timeout,env,
+                     respSvc,sfxSvc,vidCtrlsSvc,shareSvc) {
+                     
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
@@ -503,7 +513,7 @@ angular.module('c6.ctrl',['c6.svc'])
     self.sharedMsg = 'Check out this Screenjack I made!';
 
     // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
-    this.share = function() { // TODO: update!
+    this.share = function() {
         /*var shareScript = {
             id: $scope.appCtrl.expData.id,
             category: $scope.appCtrl.expData.category,
@@ -511,6 +521,9 @@ angular.module('c6.ctrl',['c6.svc'])
             responses: $scope.appCtrl.promptModel.responses
         };*/
         $scope.appCtrl.experience.data.responses = $scope.appCtrl.promptModel.responses;
+        
+        // site.share($scope.appCtrl.experience); // TODO: update this
+        
         shareSvc.share($scope.appCtrl.experience).then(function(url) {
             // hacky url swap if testing on localhost; FB+twitter won't share localhost urls
             if (url.search(/localhost/) > 0) {

@@ -386,6 +386,7 @@ angular.module('c6.svc',[])
 }])
 
 // Functions for retrieving experience objects from local files
+/*
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){
     $log.log('Creating c6VideoListingService');
     var service = {};
@@ -466,5 +467,5 @@ angular.module('c6.svc',[])
 
     return service;
 }]);
-
+*/
 })();

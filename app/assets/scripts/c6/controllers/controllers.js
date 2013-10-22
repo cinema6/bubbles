@@ -46,7 +46,7 @@ angular.module('c6.ctrl',['c6.svc'])
 		hideC6ControlsTimeout,
         allowStateChange = false,
         siteSession = site.init({
-            pingPathChanges: true
+           //pingPathChanges: true
         });
 
     siteSession.on('pendingPath', function(path, respond) {

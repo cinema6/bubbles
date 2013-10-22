@@ -68,36 +68,70 @@ button:disabled {opacity: 0.15;}
 /*  ==========================================================================
     landing page styles
     ========================================================================== */
-    
-    /* ----- hero box ----- */
-    .landing-hero__group {
-        position: relative; background-size: cover; background: top center;
-        text-align: center;
-    }     
-        .landing-hero__copy-box { background: none; padding: 0;}
-
-        .landing-hero__title {
-            width: 100%; height: 3em; /* 90px */  
-            margin:0 auto; padding:0; margin: 0; display: block;
-            background: url(../img/screenjackLogo.png) center center no-repeat;
-            background-size: contain;
-        }
-        .landing-hero__copy {
-            color:#d9000a; margin: -1em auto; text-align: center; width: 22em;
-            font-family: "courier prime", courier, times, serif; font-size: 1em; line-height: 1.48em;
-        }
-
-        .landing-hero__desc {
-            margin-top:0;
-        }
-
-        @media only screen and (max-width:348px) {
-            .landing-hero__desc {
-                margin-top:0;
+    .landing--hero__series {
+        background: url(../img/series__screenjack.png) no-repeat; 
+        background-size: contain;
+        position: absolute; top: 0; left: 0;
+        height: 12.5em; width: 12.5em;
+    }
+        @media screen and (max-width: 600px) and (min-width: 481px) {
+            .landing--hero__series {
+                width: 9em;
             }
         }
 
+        @media screen and (max-width: 480px) {
+            .landing--hero__series {
+                width: 7em;
+            }
+        }
 
+    .hero-slides__launch {
+        display:block; width:8em; height:9em; 
+        position:absolute; top:50%; left:50%; margin:-4.5em 0 0 -4em; z-index:10;
+        background: url(../img/c6-sprite--alpha.png) 94% 100% no-repeat; background-size:265px 265px;
+        opacity:0.22;
+        -webkit-transition:opacity 0.5s; transition:opacity 0.5s;
+    }
+        .hero-slides__launch:hover {
+            opacity: 1;
+        }
+
+        @media only screen and (max-width: 420px) {
+            .hero-slides__launch {
+                width:4em; height:4.5em; 
+                margin:-2.25em 0 0 -2em; z-index:10;
+                background-size:132px 132px;
+            }
+        }
+        .landing--hero__video-group {
+            position:absolute; 
+            width:100%; height: 100%;
+        }
+        .landing--hero__video {
+            max-height: 33.475em; max-width: 57.89em; padding: 0;
+            border-radius: 0.33em; box-shadow: 0 0 2.1em #000;
+            margin: 0 auto;
+        }
+
+        .landing--hero__overlay {
+            background: #000; position: absolute; 
+            height: 100%; width: 100%; opacity: 0.78;
+        }
+
+        @media only screen and (max-width:480px) {
+            .landing-hero__group {
+                background-position:70% center; background-size:cover;
+            }
+            .landing--hero__video {
+                    margin-top:13em;
+                }
+            }
+            @media only screen and (max-width:348px) {
+                .landing--hero__video {
+                    margin-top:15em;
+                }
+            }
     /* ----- video info ----- */
     .video-info__group {
         margin-top: 2.5em;

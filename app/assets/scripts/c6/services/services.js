@@ -323,7 +323,7 @@ angular.module('c6.svc',[])
         });
     });
 }])
-
+/*
 // Handles retrieving shared scripts and generating shareable urls
 .service('C6UrlShareService', ['$http', '$log', '$q', '$location', 'environment', '$window', 'site',
                                function($http, $log, $q, $location, env, $window, site) {
@@ -384,7 +384,7 @@ angular.module('c6.svc',[])
         }
     };
 }])
-
+*/
 // Functions for retrieving experience objects from local files
 /*
 .factory('c6VideoListingService',['$log','$q','$http','appBaseUrl',function($log,$q,$http,baseUrl){

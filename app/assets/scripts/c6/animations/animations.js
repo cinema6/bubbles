@@ -457,11 +457,11 @@
                 start: function(element, done, timeline) {
                     $log.log('In video-show start');
                     var logo$ = element.find('#exp-logo'),
-                        player$ = element.find('#player');
+                        player$ = element.find('#player').css({opacity: 0, visibility: 'hidden'});
 
                     timeline.to(element, 1.5, {autoAlpha:1}, '+=0.5')
                         .from(logo$, 1, {autoAlpha: 0}, '-=0.5')
-                        .from(player$, 1, {autoAlpha: 0}, '-=1')
+                        .to(player$, 1, {autoAlpha: 1}, '-=1')
                         .eventCallback('onComplete', function() {
                             $log.info('video-show done');
                             $rootScope.$broadcast('finishedAnimatingVideoShow');

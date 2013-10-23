@@ -1,17 +1,17 @@
-<section class="landing-hero__group" style="background-image:url(assets/img/brucelee__bg.jpg);">
+<section class="landing-hero__group" style="background-image:url({{appCtrl.experience.img.bg}});">
     <h1 class="landing-hero-slides__hdr tk--hdr">
         <a ng-click="appCtrl.startExperience()" class="landing-hero-slides__slide--link" title="Play Now">
-            <span class="hero-slides__play"><span class="ir">Play Now</span></span>
+            <span class="hero-slides__launch"><span class="ir">Play Now</span></span>
         </a>
     </h1>
     <div class="container">
         <div class="grid grid--middle">
             <div class="landing-hero__desc grid__item one-third palm--one-whole lap--one-half">
                 <div class="landing-hero__copy-box">
-                    <h1 class="landing-hero__title tk--hdr">The Battle for Revenge</h1>
-                    <h2 class="landing-hero__sub tk--hdr">Exerpt from <em>Fist of Fury</em></h2>
+                    <h1 class="landing-hero__title tk--hdr">{{appCtrl.experience.title}}</h1>
+                    <h2 class="landing-hero__sub tk--hdr">{{appCtrl.experience.subtitle}}</h2>
                     <div class="landing-hero__copy">
-                        <p>Chen Zhen takes on an entire dojo single handedly.</p>
+                        <p>{{appCtrl.experience.summary}}</p>
                     </div>
                 </div>
             </div>

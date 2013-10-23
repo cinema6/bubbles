@@ -46,27 +46,18 @@
 		.config(['$stateProvider', '$urlRouterProvider', 'environment', function ($stateProvider, $urlRouterProvider, env) {
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
-				.state('landing', {
-					templateUrl: __C6_APP_BASE_URL__ + '/views/landing.html',
-					url: '/'
+				.state('landing_wizard', {
+					templateUrl: __C6_APP_BASE_URL__ + '/views/wizard_landing.html',
+					url: '/wizard'
 				})
-/*                .state('shared', {
-                    templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
-                    url: '/shared'
-                })*/
+				.state('landing_usergen', {
+				    templateUrl: __C6_APP_BASE_URL__ + '/views/usergen_landing.html',
+				    url: '/usergen'
+				})
 				.state('experience', {
 					templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
 					url: '/exp'
 				})
-/*					.state('experience.categories', {
-						templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
-						controller: 'C6CategoryListCtrl',
-						url: '/'
-					})
-					.state('experience.randomInput', {
-						controller: 'C6RandomCategoryCtrl',
-						url: '/:category'
-					})*/
 					.state('experience.input', {
 						templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
 						controller: 'C6InputCtrl',

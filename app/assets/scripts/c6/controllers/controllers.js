@@ -70,12 +70,13 @@ angular.module('c6.ctrl',['c6.svc'])
 
     siteSession.on('gotoState', function(state) {
         if (state === 'start') {
-            $state.transitionTo('landing');
+            var appUrlParts = self.experience.appUrl.split('/');
+            $state.transitionTo('landing_' + appUrlParts[appUrlParts.length - 1]);
         }
     });
 
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
-        if ((fromState.name === 'landing' || (toState.name === 'landing' && fromState.name)) && !allowStateChange) {
+        if ((fromState.name.match(/landing/) || (toState.name.match(/landing/) && fromState.name)) && !allowStateChange) {
             event.preventDefault();
             site.requestTransitionState(true).then(function() {
                 allowStateChange = true;
@@ -144,6 +145,10 @@ angular.module('c6.ctrl',['c6.svc'])
     this.stateHistory = {
         from: null,
         to: null
+    };
+    
+    this.getRandomAnnotations = function(num) {
+        //TODO
     };
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {

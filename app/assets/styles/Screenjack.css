@@ -641,7 +641,7 @@ button:disabled {opacity: 0.15;}
  .experience__group {height: 100%; width:100%; position: absolute; top: 0;}
  .experience__logo {
     top: 46px; left: 12px;
-    z-index: 2; position: fixed;
+    z-index: 99; position: fixed;
     opacity: 1;
     width: 25%;
  }
@@ -661,6 +661,8 @@ button:disabled {opacity: 0.15;}
      .annotations{
         z-index: 2; position: absolute;
         width: 100%; height: 100%; padding: 0;
+
+        /*left: 50%; top: 50%; padding: 0;*/
      }
         .annotation {   
             position: absolute; opacity: 1;
@@ -735,17 +737,17 @@ button:disabled {opacity: 0.15;}
         }
 
         .vidFrame__annotation-action {
-            margin: 4% 62% 0 0; right: 0;
+            margin: 4% 56% 0 0; right: 0;
             font-size: 0.6em;
         }
 
         .vidFrame__annotation-fantasy {
-            margin: 4% 0 0 8%;
+            margin: 3% 0 0 2%;
             font-size: 0.7em;
         }
         .vidFrame__annotation-romance {
-            margin: 1% 0 0 55%;
-            font-size: 0.65em;
+            margin: 1% 0 0 28%;
+            font-size: 1em;
         }
 
         .vidFrame__annotation-tech {

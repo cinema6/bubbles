@@ -215,21 +215,7 @@ angular.module('c6.ctrl',['c6.svc'])
     });
 
 }])
-/*
-.controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
-    var randomCategory = vsvc.getRandomCategoryFrom(['action', 'romance', 'fantasy']),
-        randomQuote = vsvc.getRandomQuoteForCategory(randomCategory);
 
-    $log.log('Creating C6LandingCtrl');
-
-    this.pullQuote = {
-        category: randomCategory,
-        quote: randomQuote
-    };
-
-    $scope.landingCtrl = this;
-}])
-*/
 // Contains code for finishing the setup of the experience object and other models, as well as 
 // controls for the video and interactive content.
 .controller('C6ExperienceCtrl',['$log','$scope','$rootScope','$location','$stateParams',
@@ -282,36 +268,6 @@ angular.module('c6.ctrl',['c6.svc'])
             video.player.play();
         }
     });
-
-    // Called as soon as a user loads up a shared url. Will retrieve the shared script object,
-    // corresponding to the id in the url, initialize the experience, and set the responses (using
-    // data from the shared script).
-    /*if ($state.is('shared')) {
-        var sharedId = $location.search().id,
-            sharedScript;
-        if (!sharedId) {
-            $state.transitionTo('landing');
-        } else {
-            shareSvc.sharedUrl = $location.absUrl();
-            shareSvc.getScript(sharedId).then(function(script) {
-                sharedScript = script;
-                return $scope.appCtrl.initializeExperience(script.category, script.id);
-            }).then(function() {
-                if (!sharedScript.responses) {
-                    $state.transitionTo('experience.input',
-                                        {category: sharedScript.category, expid: sharedScript.id});
-                    return;
-                }
-                $scope.appCtrl.promptModel.responses = sharedScript.responses;
-                $scope.appCtrl.expData.sharedSrc = sharedScript.src;
-                $state.transitionTo('experience.video',
-                                    {category: sharedScript.category, expid: sharedScript.id});
-            }, function (error) {
-                $log.error('Error initializing shared video: ' + error);
-                $state.transitionTo('landing');
-            });
-        }
-    }*/
 
     // This is fired when the app reaches the video state and the promptModel is initialized,
     // including when a shared experience has been initialized. This will interpolate the user
@@ -408,36 +364,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
     $scope.expCtrl = this;
 }])
-/*
-.controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
-                                  'c6VideoListingService', '$state',
-                                  function($log,$scope,$rootScope,vsvc,$state){
-    $log.log('Creating cCategoryListCtrl');
-    $rootScope.currentRoute = 'categories';
 
-    this.categories = vsvc.getCategories();
-
-    this.loadCategory = function(category) {
-        category = angular.lowercase(category);
-
-        vsvc.getExperienceByCategory(category).then(function(exp) {
-            $state.transitionTo('experience.input', { category: category, expid: exp.id });
-        });
-    };
-
-    $scope.catCtrl = this;
-}])
-*/
-/*
-.controller('C6RandomCategoryCtrl', ['$state', '$stateParams', 'c6VideoListingService', '$log', function($state, $stateParams, vsvc, $log) {
-    var category = $stateParams.category;
-    $log.log('Choosing a random experience in the ' + category + ' category.');
-
-    vsvc.getRandomExperienceIdFromCategory(category).then(function(experienceId) {
-        $state.transitionTo('experience.input', { category: $stateParams.category, expid: experienceId });
-    });
-}])
-*/
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$stateParams', '$state', function($log, $scope, $rootScope, $stateParams, $state) {
     var self = this;
     $log.log('Creating C6InputCtrl: ' + $stateParams.category);
@@ -513,18 +440,14 @@ angular.module('c6.ctrl',['c6.svc'])
     self.sharedUrl = null;
     self.sharedMsg = 'Check out this Screenjack I made!';
 
-    // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
+    // Called by share buttons. Will ask the site to complete the share action.
     this.share = function() {
-        $scope.appCtrl.experience.data.responses = $scope.appCtrl.promptModel.responses;
+        $scope.appCtrl.expData.responses = $scope.appCtrl.promptModel.responses;
+        $scope.appCtrl.expData.sharedSrc = $scope.appCtrl.expData.src;
+        $scope.appCtrl.expData.src = null;
         site.shareUrl($scope.appCtrl.experience);
     };
 
-    // If leaving this experience, null out the stored shareable url (so a new one can be created).
-    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState/*, fromParams*/) {
-        if (fromState.name === 'experience.end' && toState.name !== 'experience.video') {
-            shareSvc.sharedUrl = null;
-        }
-    });
     $scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {
         if (annotationsModel) {
             var lastAnnotation = annotationsModel.annotations[annotationsModel.annotations.length - 1];

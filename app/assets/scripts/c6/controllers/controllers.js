@@ -148,7 +148,25 @@ angular.module('c6.ctrl',['c6.svc'])
     };
     
     this.getRandomAnnotations = function(num) {
-        //TODO
+        if (!self.expData || !self.expData.annotations || !self.expData.responses) {
+            return [];
+        }
+        var randAnnots = [];
+        var bubbleNotes = [];
+        self.expData.annotations.forEach(function(annotation) {
+            if (annotation.options && annotation.options.type === 'talkie') {
+                num = 0;
+            } else if (annotation.options && annotation.options.type === 'bubble') {
+                bubbleNotes = annotation.notes;
+            }
+        });
+        
+        var randAnnots = [];
+        for (var i = 0; i < Math.min(num, bubbleNotes.length); i++) {
+            var randNote = bubbleNotes[Math.floor(Math.random() * bubbleNotes.length)];
+            randAnnots.push(annSvc.interpolate(randNote.template, self.expData.responses));
+        }
+        return randAnnots;
     };
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
@@ -210,7 +228,6 @@ angular.module('c6.ctrl',['c6.svc'])
         if ($state.is('landing_usergen') && self.expData.responses) {
             $scope.appCtrl.promptModel.responses = self.expData.responses;
         }
-
 
     }, function(error) {
         // if here, communication has somehow broken down with the site. Show a fail screen?
@@ -446,8 +463,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
     // Called by share buttons. Will ask the site to complete the share action.
     this.share = function() {
-        var shareExp = {};
-        shareExp = angular.copy($scope.appCtrl.experience, shareExp);
+        var shareExp = angular.copy($scope.appCtrl.experience);
         shareExp.data.responses = $scope.appCtrl.promptModel.responses;
         shareExp.data.annotations.forEach(function(annotation) {
             if (annotation.options && annotation.options.type === 'talkie') {

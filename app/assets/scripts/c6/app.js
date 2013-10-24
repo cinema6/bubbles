@@ -20,16 +20,19 @@
 		return { 'app' : N, 'version' : navigator.appVersion };
 	})(),
 		releaseConfig = {
-		'release'           : true,
-		'browser'           : browserVersion,
-		'logging'           : [],
-		'showPlayerData'    : false
+		    'release'           : true,
+		    'browser'           : browserVersion,
+		    'logging'           : [],
+		    'showPlayerData'    : false,
+		    'vidUrl'            : 'https://s3.amazonaws.com/c6media/media/src/screenjack/video/'
 		},
 		debugConfig = {
-		'release'           : false,
-		'browser'           : browserVersion,
-		'logging'           : ['error','warn','log','info'],
-		'showPlayerData'    : true
+		    'release'           : false,
+		    'browser'           : browserVersion,
+		    'logging'           : ['error','warn','log','info'],
+		    'showPlayerData'    : true,
+		    // 'vidUrl'            : __C6_APP_BASE_URL__ + 'media/'
+		    'vidUrl'            : 'https://s3.amazonaws.com/c6.dev/media/src/screenjack/video/'
 		},
 		appConfig = ((!window.location.host.match(/cinema6.com/i)) || (window.location.search.indexOf('debug=true') !== -1)) ? debugConfig : releaseConfig;
 

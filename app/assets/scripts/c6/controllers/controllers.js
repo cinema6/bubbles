@@ -41,9 +41,9 @@ function PromptModel(experience) {
 angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
                           'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
-                          'C6ResponseCachingService', 'c6AniCache', 'site',
+                          'C6ResponseCachingService', 'c6AniCache', 'site', 'environment',
             function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
-                     annSvc, respSvc, c6AniCache, site) {
+                     annSvc, respSvc, c6AniCache, site, env) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
@@ -123,7 +123,7 @@ angular.module('c6.ctrl',['c6.svc'])
     };
     
     this.startExperience = function() {
-        if (self.expData.responses) {
+        if ($state.is('landing_usergen') && self.expData.responses) {
             $state.transitionTo('experience.video');
         } else {
             $state.transitionTo('experience.input');
@@ -179,8 +179,8 @@ angular.module('c6.ctrl',['c6.svc'])
         self.experience = data.experience;
         self.expData = data.experience.data;
 
-        if (self.expData && self.expData.src && !self.expData.src.match(appBase)) {
-            self.expData.src = appBase + '/' + self.expData.src;
+        if (self.expData && self.expData.src && !self.expData.src.match(env.vidUrl)) {
+            self.expData.src = env.vidUrl + self.expData.src;
         }
         self.promptModel = new PromptModel(self.expData);
         self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',self.expData.annotations);
@@ -207,9 +207,8 @@ angular.module('c6.ctrl',['c6.svc'])
             }
         }
         
-        if (self.expData.responses) {
+        if ($state.is('landing_usergen') && self.expData.responses) {
             $scope.appCtrl.promptModel.responses = self.expData.responses;
-            // $scope.appCtrl.expData.sharedSrc = self.expData.src;
         }
 
 
@@ -447,10 +446,18 @@ angular.module('c6.ctrl',['c6.svc'])
 
     // Called by share buttons. Will ask the site to complete the share action.
     this.share = function() {
-        $scope.appCtrl.expData.responses = $scope.appCtrl.promptModel.responses;
-        $scope.appCtrl.expData.sharedSrc = $scope.appCtrl.expData.src;
-        $scope.appCtrl.expData.src = null;
-        site.shareUrl($scope.appCtrl.experience);
+        var shareExp = {};
+        shareExp = angular.copy($scope.appCtrl.experience, shareExp);
+        shareExp.data.responses = $scope.appCtrl.promptModel.responses;
+        shareExp.data.annotations.forEach(function(annotation) {
+            if (annotation.options && annotation.options.type === 'talkie') {
+                shareExp.data.sharedSrc = $scope.appCtrl.expData.src;
+                shareExp.data.src = null;
+            }
+        });
+        shareExp.data.content_type = 'usergen';
+        shareExp.appUrl = shareExp.appUrl.replace(/wizard$/, 'usergen');
+        site.shareUrl(shareExp);
     };
 
     $scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {

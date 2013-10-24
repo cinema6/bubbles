@@ -91,7 +91,7 @@ button:disabled {opacity: 0.15;}
         display:block; width:8em; height:9em; 
         position:absolute; top:50%; left:50%; margin:-4.5em 0 0 -4em; z-index:10;
         background: url(../img/c6-sprite--alpha.png) 94% 100% no-repeat; background-size:265px 265px;
-        opacity:0.22;
+        opacity:0.22; cursor: pointer;
         -webkit-transition:opacity 0.5s; transition:opacity 0.5s;
     }
         .hero-slides__launch:hover {
@@ -121,9 +121,9 @@ button:disabled {opacity: 0.15;}
         }
 
         @media only screen and (max-width:480px) {
-            .landing-hero__group {
+            /*.landing-hero__group {
                 background-position:70% center; background-size:cover;
-            }
+            }*/ /* ------ this is needed for the user-generated landing pages ------ */
             .landing--hero__video {
                     margin-top:13em;
                 }

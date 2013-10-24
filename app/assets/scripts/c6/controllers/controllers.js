@@ -161,7 +161,6 @@ angular.module('c6.ctrl',['c6.svc'])
             }
         });
         
-        var randAnnots = [];
         for (var i = 0; i < Math.min(num, bubbleNotes.length); i++) {
             var randNote = bubbleNotes[Math.floor(Math.random() * bubbleNotes.length)];
             randAnnots.push(annSvc.interpolate(randNote.template, self.expData.responses));
@@ -192,8 +191,6 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$stateParams = $stateParams;
     
     site.getAppData().then(function(data) {
-        var deferred = $q.defer();
-        
         self.experience = data.experience;
         self.expData = data.experience.data;
 
@@ -231,8 +228,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
     }, function(error) {
         // if here, communication has somehow broken down with the site. Show a fail screen?
-        console.error("Failed to get experience from site");
-        console.error(error);
+        $log.error('Failed to get experience from site');
+        $log.error(error);
     });
 
 }])
@@ -301,7 +298,7 @@ angular.module('c6.ctrl',['c6.svc'])
                 responses = $scope.appCtrl.promptModel.responses;
 
             if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
-                respSvc.setResponses(responses, $scope.appCtrl.currentCategory(), 
+                respSvc.setResponses(responses, $scope.appCtrl.currentCategory(),
                                      $scope.appCtrl.currentVideo());
                 if (txt2SpchModel) {
                     self.videoCanPlay = false;

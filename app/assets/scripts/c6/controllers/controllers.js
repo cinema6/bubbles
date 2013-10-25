@@ -41,16 +41,16 @@ function PromptModel(experience) {
 angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
                           'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
-                          'C6ResponseCachingService', 'c6AniCache', 'site',
+                          'C6ResponseCachingService', 'c6AniCache', 'site', 'environment',
             function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
-                     annSvc, respSvc, c6AniCache, site) {
+                     annSvc, respSvc, c6AniCache, site, env) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
         hideC6ControlsTimeout,
         allowStateChange = false,
         siteSession = site.init();
-        
+
     this.sfxSvc = sfxSvc;
     this.experience = null;
     this.expData = null;
@@ -123,7 +123,7 @@ angular.module('c6.ctrl',['c6.svc'])
     };
     
     this.startExperience = function() {
-        if (self.expData.responses) {
+        if ($state.is('landing_usergen') && self.expData.responses) {
             $state.transitionTo('experience.video');
         } else {
             $state.transitionTo('experience.input');
@@ -147,8 +147,32 @@ angular.module('c6.ctrl',['c6.svc'])
         to: null
     };
     
+    this.randomAnnotations = [];
     this.getRandomAnnotations = function(num) {
-        //TODO
+        var randAnnots = [];   
+        var bubblesExist = false;
+        
+        self.expData.annotations.forEach(function(annotation) {
+            if (annotation.options && annotation.options.type === 'talkie') {
+                num = 0;
+            }
+        });
+        
+        if (num === 0 || !self.annotationsModel || !self.expData.responses) {
+            self.randomAnnotations = [];
+            return;
+        }
+        
+        var annots = self.annotationsModel.annotations;
+        
+        for (var i = 0; i < Math.min(num, annots.length); i++) {
+            var randIndex = Math.floor(Math.random() * annots.length);
+            var randAnnot = angular.copy(annots[randIndex]);
+            randAnnot.text = annSvc.interpolate(randAnnot.template, self.expData.responses);
+            randAnnots.push(randAnnot);
+        }
+        
+        self.randomAnnotations = randAnnots;
     };
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
@@ -174,16 +198,16 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$stateParams = $stateParams;
     
     site.getAppData().then(function(data) {
-        var deferred = $q.defer();
-        
         self.experience = data.experience;
         self.expData = data.experience.data;
 
-        if (self.expData && self.expData.src && !self.expData.src.match(appBase)) {
-            self.expData.src = appBase + '/' + self.expData.src;
+        if (self.expData && self.expData.src && !self.expData.src.match(env.vidUrl)) {
+            self.expData.src = env.vidUrl + self.expData.src;
         }
         self.promptModel = new PromptModel(self.expData);
         self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',self.expData.annotations);
+        
+        self.getRandomAnnotations(3);
 
         if (self.annotationsModel && self.annotationsModel.sfx){
             $log.log('Experience (' + self.experience.uri + ') has some sounds.');
@@ -209,16 +233,14 @@ angular.module('c6.ctrl',['c6.svc'])
         
         if (self.expData.responses) {
             $scope.appCtrl.promptModel.responses = self.expData.responses;
-            // $scope.appCtrl.expData.sharedSrc = self.expData.src;
         }
-
 
     }, function(error) {
         // if here, communication has somehow broken down with the site. Show a fail screen?
-        console.error("Failed to get experience from site");
-        console.error(error);
+        $log.error('Failed to get experience from site');
+        $log.error(error);
     });
-
+        
 }])
 
 // Contains code for finishing the setup of the experience object and other models, as well as 
@@ -283,9 +305,9 @@ angular.module('c6.ctrl',['c6.svc'])
                 txt2SpchModel = annSvc.getAnnotationsModelByType('talkie',
                                     $scope.appCtrl.expData.annotations),
                 responses = $scope.appCtrl.promptModel.responses;
-
+                
             if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
-                respSvc.setResponses(responses, $scope.appCtrl.currentCategory(), 
+                respSvc.setResponses(responses, $scope.appCtrl.currentCategory(),
                                      $scope.appCtrl.currentVideo());
                 if (txt2SpchModel) {
                     self.videoCanPlay = false;
@@ -447,10 +469,17 @@ angular.module('c6.ctrl',['c6.svc'])
 
     // Called by share buttons. Will ask the site to complete the share action.
     this.share = function() {
-        $scope.appCtrl.expData.responses = $scope.appCtrl.promptModel.responses;
-        $scope.appCtrl.expData.sharedSrc = $scope.appCtrl.expData.src;
-        $scope.appCtrl.expData.src = null;
-        site.shareUrl($scope.appCtrl.experience);
+        var shareExp = angular.copy($scope.appCtrl.experience);
+        shareExp.data.responses = $scope.appCtrl.promptModel.responses;
+        shareExp.data.annotations.forEach(function(annotation) {
+            if (annotation.options && annotation.options.type === 'talkie') {
+                shareExp.data.sharedSrc = $scope.appCtrl.expData.src;
+                shareExp.data.src = null;
+            }
+        });
+        shareExp.data.content_type = 'usergen';
+        shareExp.appUrl = shareExp.appUrl.replace(/wizard$/, 'usergen');
+        site.shareUrl(shareExp);
     };
 
     $scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {

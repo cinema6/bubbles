@@ -163,11 +163,11 @@ angular.module('c6.ctrl',['c6.svc'])
             return;
         }
         
-        var annots = self.annotationsModel.annotations;
+        var new_annots = angular.copy(self.annotationsModel.annotations);
         
-        for (var i = 0; i < Math.min(num, annots.length); i++) {
-            var randIndex = Math.floor(Math.random() * annots.length);
-            var randAnnot = angular.copy(annots[randIndex]);
+        for (var i = 0; i < Math.min(num, self.annotationsModel.annotations.length); i++) {
+            var randIndex = Math.floor(Math.random() * new_annots.length);
+            var randAnnot = new_annots.splice(randIndex, 1)[0];
             randAnnot.text = annSvc.interpolate(randAnnot.template, self.expData.responses);
             randAnnots.push(randAnnot);
         }

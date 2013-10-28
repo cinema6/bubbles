@@ -18,13 +18,13 @@
 	              </div>  
 	            </div>
 		    </div>
-            <img class="vidFrame" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{$stateParams.expid}}.jpg">
+            <img class="vidFrame" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{appCtrl.currentVideo()}}.jpg">
         </div>
 
             <menu class="vidMenu">
                 <button class="vidMenu__btnReplay" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
                 <button class="vidMenu__btnShare" id="videMenu_shareBtn" ng-click="endCtrl.share()" href="#" name="Share"><span class="ir">Share</span></button>
-                <button class="vidMenu__btnNewVid" ng-click="$state.transitionTo('experience.categories');" name="newVid"><span class="ir">Make a new video</span></button>
+                <button class="vidMenu__btnNewVid" ng-click="$state.transitionTo('experience.input');" name="newVid"><span class="ir">Make a new video</span></button>
             </menu>
         </div>
         

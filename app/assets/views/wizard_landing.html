@@ -1,0 +1,26 @@
+<section class="landing-hero__group" ng-style="{'background-image': 'url(' + appCtrl.experience.img.bg + ')'};">
+    <h1 class="landing-hero-slides__hdr tk--hdr">
+        <a ng-click="appCtrl.startExperience()" class="landing-hero-slides__slide--link" title="Play Now">
+            <span class="hero-slides__launch"><span class="ir">Play Now</span></span>
+        </a>
+    </h1>
+    <div class="container">
+        <div class="grid grid--middle">
+            <div class="landing-hero__desc grid__item one-third palm--one-whole lap--one-half">
+                <div class="landing-hero__copy-box">
+                    <h1 class="landing-hero__title tk--hdr">{{appCtrl.experience.title}}</h1>
+                    <h2 class="landing-hero__sub tk--hdr">{{appCtrl.experience.subtitle}}</h2>
+                    <div class="landing-hero__copy">
+                        <p>{{appCtrl.experience.summary}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__item one-twelfth palm--hide">
+                <div style="height:42em;">&nbsp;</div>
+            </div>
+            <div class="landing--hero__series">
+                <span class="ir">Screenjack</span>
+            </div>
+        </div>
+    </div>
+</section><!--.hero__group-->

@@ -10,7 +10,7 @@ describe('Controllers', function() {
 	
 	beforeEach(function() {
 		module('ui.state');
-		module('c6lib.video');
+		module('c6.ui');
 		module('c6.svc');
 		module(function($provide){
 			$provide.constant('appBaseUrl', __C6_APP_BASE_URL__);
@@ -65,7 +65,7 @@ describe('Controllers', function() {
 					}
 				}
 			});
-			$provide.value('c6videoService', {
+			$provide.value('c6VideoService', {
 				bestFormat: function() {
 					return 'video/mp4';
 				},
@@ -174,13 +174,17 @@ describe('Controllers', function() {
 		$location = _$location_;
 		vsvc = c6VideoListingService;
 		appCtrl = $controller('C6AppCtrl', {
-			$scope: _$rootScope_
+			$scope: _$rootScope_,
+            c6Sfx: {
+                loadSounds: angular.noop
+            }
 		});
 	}));
 	
 	describe('Controller: C6AppCtrl', function() {
 		it('Should start with no experience.', function() {
 			expect($rootScope.appCtrl.experience).toBe(null);
+			expect($rootScope.appCtrl.expData).toBe(null);
 		});
 	});
 	
@@ -200,6 +204,7 @@ describe('Controllers', function() {
 		});
 		it('Should clear the experience.', function() {
 			expect(scope.appCtrl.experience).toBe(null);
+			expect(scope.appCtrl.expData).toBe(null);
 		});
 		it('Should add the service\'s categories to the scope.', function() {
 			expect(typeof scope.catCtrl.categories === 'object').toBe(true);
@@ -216,7 +221,7 @@ describe('Controllers', function() {
 				$scope: scope
 			});
 			
-			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			appCtrl.expData = vsvc.getExperienceByCategory('action');
 			$rootScope.$digest();
 		}));
 		
@@ -453,14 +458,18 @@ describe('Controllers', function() {
 				on: function() {}
 			};
 			controller = $controller('C6ExperienceCtrl', {
-				$scope: scope
+				$scope: scope,
+                c6Sfx: {
+                    loadSounds: angular.noop,
+                    playSound: angular.noop
+                }
 			});
 			scope.$broadcast('c6video-ready', video);
 			scope.$digest();
 		}));
 		
 		it('Should set up the model with annotations if there are responses when the experience starts.', function() {
-			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			appCtrl.expData = vsvc.getExperienceByCategory('action');
 			$rootScope.$digest();
 			appCtrl.promptModel.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
 			$state.transitionTo('experience.video');
@@ -496,7 +505,7 @@ describe('Controllers', function() {
 					}
 				},
 				event = null;
-			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			appCtrl.expData = vsvc.getExperienceByCategory('action');
 			$rootScope.$digest();
 			appCtrl.promptModel.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
 			$state.transitionTo('experience.video');
@@ -578,7 +587,7 @@ describe('Controllers', function() {
 				},
 				event = null,
 				isActive = scope.annoCtrl.annotationIsActive;
-			appCtrl.experience = vsvc.getExperienceByCategory('action');
+			appCtrl.expData = vsvc.getExperienceByCategory('action');
 			$rootScope.$digest();
 			appCtrl.promptModel.responses = ['hello', 'cow', 'superman', 'knees', 'mushrooms', 'oven', 'elmo', 'darth vader', 'oprah', 'butterfinger'];
 			$state.transitionTo('experience.video');

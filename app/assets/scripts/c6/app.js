@@ -20,16 +20,19 @@
 		return { 'app' : N, 'version' : navigator.appVersion };
 	})(),
 		releaseConfig = {
-		'release'           : true,
-		'browser'           : browserVersion,
-		'logging'           : [],
-		'showPlayerData'    : false
+		    'release'           : true,
+		    'browser'           : browserVersion,
+		    'logging'           : [],
+		    'showPlayerData'    : false,
+		    'vidUrl'            : 'https://s3.amazonaws.com/c6media/media/src/screenjack/video/'
 		},
 		debugConfig = {
-		'release'           : false,
-		'browser'           : browserVersion,
-		'logging'           : ['error','warn','log','info'],
-		'showPlayerData'    : true
+		    'release'           : false,
+		    'browser'           : browserVersion,
+		    'logging'           : ['error','warn','log','info'],
+		    'showPlayerData'    : true,
+		    // 'vidUrl'            : __C6_APP_BASE_URL__ + 'media/'
+		    'vidUrl'            : 'https://s3.amazonaws.com/c6.dev/media/src/screenjack/video/'
 		},
 		appConfig = ((!window.location.host.match(/cinema6.com/i)) || (window.location.search.indexOf('debug=true') !== -1)) ? debugConfig : releaseConfig;
 
@@ -39,50 +42,39 @@
 		'c6.ctrl',
 		'c6.svc',
 		'c6.anim',
-		'c6.dir.screenJack',
-		'c6lib.video'
+		'c6.dir.screenJack'
 	];
 
 	angular.module('c6.app', dependencies)
 		.config(['$stateProvider', '$urlRouterProvider', 'environment', function ($stateProvider, $urlRouterProvider, env) {
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
-				.state('landing', {
-					templateUrl: __C6_APP_BASE_URL__ + '/views/landing.html',
-					controller: 'C6LandingCtrl',
-					url: '/'
+				.state('landing_wizard', {
+					templateUrl: __C6_APP_BASE_URL__ + '/views/wizard_landing.html',
+					url: '/wizard'
 				})
-                .state('shared', {
-                    templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
-                    url: '/shared'
-                })
+				.state('landing_usergen', {
+				    templateUrl: __C6_APP_BASE_URL__ + '/views/usergen_landing.html',
+				    url: '/usergen'
+				})
 				.state('experience', {
 					templateUrl: __C6_APP_BASE_URL__ + '/views/experience.html',
-					url: '/categories'
+					url: '/exp'
 				})
-					.state('experience.categories', {
-						templateUrl: __C6_APP_BASE_URL__ + '/views/categories.html',
-						controller: 'C6CategoryListCtrl',
-						url: '/'
-					})
-					.state('experience.randomInput', {
-						controller: 'C6RandomCategoryCtrl',
-						url: '/:category'
-					})
 					.state('experience.input', {
 						templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
 						controller: 'C6InputCtrl',
-						url: '/:category/:expid'
+						url: '/input'
 					})
 					.state('experience.video', {
 						template: '<!-- Foo -->',
 						controller: 'C6VideoCtrl',
-						url: '/:category/:expid/video'
+						url: '/video'
 					})
 					.state('experience.end', {
 						templateUrl: __C6_APP_BASE_URL__ + '/views/end.html',
 						controller: 'C6EndCtrl',
-						url: '/:category/:expid/end'
+						url: '/end'
 					});
 		}])
 		.config(['$provide', 'environment', function($provide, env) {

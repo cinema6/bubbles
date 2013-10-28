@@ -4,6 +4,7 @@ var fs          = require('fs-extra'),
     path        = require('path'),
     lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
     proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest,
+    c6sandbox  = require('c6-sandbox'),
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
     },
@@ -116,6 +117,16 @@ module.exports = function (grunt) {
                     }
                 }
             },
+            sandbox: {
+                options: {
+                    port: 8000,
+                    middleware: function (connect) {
+                        return [c6sandbox({
+                                    experiences: grunt.file.readJSON(path.join(__dirname, 'app/assets/mock/experiences.json'))
+                               })];
+                    }
+                }
+            },
             test: {
                 options: {
                     middleware: function (connect) {
@@ -130,7 +141,7 @@ module.exports = function (grunt) {
         },
         open: {
             server: {
-                url: 'http://localhost:<%= connect.options.port %>'
+                url: 'http://localhost:8000'
             }
         },
         clean: {
@@ -373,6 +384,7 @@ module.exports = function (grunt) {
         'configureProxies',
         'livereload-start',
         'connect:livereload',
+        'connect:sandbox',
         'open',
         'watch'
     ]);

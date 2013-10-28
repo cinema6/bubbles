@@ -1,0 +1,34 @@
+<section class="landing-hero__group" ng-style="{'background-image': 'url(' + appCtrl.experience.img.bg + ')'};">
+    <div class="landing--hero__overlay">&nbsp;</div>
+    <h1 class="landing-hero-slides__hdr tk--hdr">
+        <a ng-click="appCtrl.startExperience()" class="landing-hero-slides__slide--link" title="Play Now">
+            <span class="hero-slides__play"><span class="ir">Play Now</span></span>
+        </a>
+    </h1>
+    <div class="landing--hero__video-group">
+        <div class="grid grid--middle grid--center">
+            <img class="landing--hero__video grid__item eleven-twelfths" ng-src="{{appCtr.experience.img.screenshot}}">
+            <div class="grid__item one-twelfth palm--hide" style="margin-left: -12%; padding: 0;">
+                <div style="height:42em;">&nbsp;</div>
+            </div> 
+        </div>
+    </div>
+    <div class="landing--hero__series">
+        <span class="ir">Screenjack</span>
+    </div>
+    <ul class="annotations" >
+      <li
+        ng-repeat="a in appCtrl.randomAnnotations"
+        ng-class="' annotation ' + a.cls.join(' ')">
+        <div class="a-style">
+          <div class="a-frame">
+            <div class="a-text">
+              {{a.text}}&nbsp;
+              <div class="a-deco-right"></div><div class="a-deco-left"></div>
+              <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
+            </div>
+          </div> 
+        </div>
+        </li> 
+    </ul>
+</section><!--.hero__group-->

@@ -8,37 +8,62 @@ require.config({
     baseUrl:  __C6_APP_BASE_URL__
 });
 
-var c6Scripts;
+var appScripts,
+    c6uiScripts = [
+        'lib/c6ui/c6ui',
+        'lib/c6ui/computed/computed',
+        'lib/c6ui/sfx/sfx',
+        'lib/c6ui/events/emitter',
+        'lib/c6ui/anicache/anicache',
+        'lib/c6ui/postmessage/postmessage',
+        'lib/c6ui/site/site',
+        'lib/c6ui/controls/controls',
+        'lib/c6ui/videos/video'
+    ],
+    libScripts = [
+        'lib/jquery/jquery.min',
+        'lib/greensock/TimelineMax.min',
+        'lib/greensock/TweenMax.min',
+        'lib/angular/angular.min',
+        'lib/ui-router/angular-ui-router.min'
+    ];
+
+function loadScriptsInOrder(scriptsList, done) {
+    if (scriptsList) {
+        var script = scriptsList.shift();
+        if (script) {
+            require([script], function() {
+                loadScriptsInOrder(scriptsList, done);
+            });
+            return;
+        }
+    }
+    done();
+}
+
 if (__C6_BUILD_VERSION__) {
-    c6Scripts = [   'scripts/c6app.min' ];
+    appScripts = [   'scripts/c6app.min' ];
 } else {
-    c6Scripts = [   'scripts/c6/app',
+    appScripts = [   'scripts/c6/app',
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
                     'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives'
                     ];
 }
+require(['lib/modernizr/modernizr.custom.29953'], function() {
+    var Modernizr = window.Modernizr;
 
-require([   'lib/jquery/jquery.min',
-            'lib/greensock/TimelineMax.min',
-            'lib/greensock/TweenMax.min'
-            /*'lib/jqueryui/jquery-ui.min'*/], function(){
+    Modernizr.load({
+        test: Modernizr.touch,
+        nope: __C6_APP_BASE_URL__ + '/lib/c6ui/controls/controls--hover.css'
+    });
 
-    require(['lib/angular/angular.min'],function(){
-        require(['lib/c6ui/c6ui'], function() {
-            require(['lib/c6ui/computed/computed'], function() {
-				require(['lib/c6ui/sfx/sfx',
-					'lib/c6ui/controls/controls',
-                    'lib/c6ui/events/emitter',
-                    'lib/c6ui/anicache/anicache',
-					'lib/c6media/c6lib.video',
-					'lib/ui-router/angular-ui-router.min'],function(){
-					require(c6Scripts, function(){
-						angular.bootstrap(document, ['c6.app']);
-					});
-				});
-			});
+    loadScriptsInOrder(libScripts, function() {
+        loadScriptsInOrder(c6uiScripts, function() {
+            require(appScripts, function() {
+                angular.bootstrap(document, ['c6.app']);
+            });
         });
     });
 });

@@ -40,15 +40,58 @@ function PromptModel(experience) {
 // child controllers. Contains code for initializing the experience and other models.
 angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
-            'c6VideoListingService', 'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
-            'C6ResponseCachingService', 'c6AniCache',
-            function($log, $scope, $location, $q, $stateParams, $timeout,
-                     vsvc, appBase, sfxSvc, $state, annSvc,
-                     respSvc, c6AniCache) {
+                          'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
+                          'C6ResponseCachingService', 'c6AniCache', 'site', 'environment',
+            function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
+                     annSvc, respSvc, c6AniCache, site, env) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
-        hideC6ControlsTimeout;
+        hideC6ControlsTimeout,
+        allowStateChange = false,
+        siteSession = site.init();
+
+    this.sfxSvc = sfxSvc;
+    this.experience = null;
+    this.expData = null;
+    this.experienceAnimation = null;
+    this.promptModel = null; // Holds the prompts for the user and their responses
+    this.annotationsModel = null; // holds the annotations (speech bubbles)
+        
+    siteSession.on('pendingPath', function(path, respond) {
+        if (path !== '/') {
+            allowStateChange = true;
+            $location.path(path);
+            respond(true);
+        } else {
+            respond(false);
+        }
+    });
+
+    siteSession.on('gotoState', function(state) {
+        if (state === 'start') {
+            var appUrlParts = self.experience.appUrl.split('/');
+            $state.transitionTo('landing_' + appUrlParts[appUrlParts.length - 1]);
+        }
+    });
+
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+        if ((fromState.name.match(/landing/) || (toState.name.match(/landing/) && fromState.name)) && !allowStateChange) {
+            event.preventDefault();
+            site.requestTransitionState(true).then(function() {
+                allowStateChange = true;
+                $timeout(function() {
+                    $state.transitionTo(toState.name);
+                    $timeout(function() {
+                        allowStateChange = false;
+                        $timeout(function() { site.requestTransitionState(false); });
+                    });
+                });
+            });
+        } else {
+            allowStateChange = false;
+        }
+    });
 
     c6AniCache.enabled(true);
 
@@ -59,78 +102,77 @@ angular.module('c6.ctrl',['c6.svc'])
         { name: 'yank', src: appBase + '/media/tw_yank' }
     ]);
 
-    this.sfxSvc = sfxSvc;
-    this.experience = null;
-    this.experienceAnimation = null;
     $scope.$on('$viewContentLoaded', function() {
         $scope.appCtrl.experienceAnimation = 'experience';
     });
-    this.promptModel = null; // Holds the prompts for the user and their responses
-    this.annotationsModel = null; // holds the annotations (speech bubbles)
+
     this.goToRoute = function(route) {
         $location.path(route);
     };
+    
     this.currentCategory = function() {
-        return $stateParams.category;
+        return this.expData.category;
+    };
+    
+    this.currentVideo = function() {
+        return this.expData.video;
     };
 
     this.askForVideoLoad = function() {
         $scope.$broadcast('videoShouldLoad');
     };
-
-    // Load experience from local storage, initialize other models, and load SFX
-    // This may be called when a user starts creating a screenjack, when refreshing a created
-    // video, or when loading a shared experience.
-    this.initializeExperience = function(category, expid) {
-        var deferred = $q.defer();
-
-        vsvc.getExperience(category, expid).then(function(experience) {
-            self.experience = experience;
-            if (self.experience && self.experience.src) {
-                experience.src = appBase + '/' + self.experience.src;
-            }
-            self.promptModel = new PromptModel(self.experience);
-            self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',
-                                                                     self.experience.annotations);
-
-            if (self.annotationsModel && self.annotationsModel.sfx){
-                $log.log('Experience (' + self.experience.id + ') has some sounds.');
-                var sfxToLoad;
-                angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
-                    sfxSrc  = appBase + '/' + sfxSrc;
-                    if (!sfxSvc.getSoundByName(sfxName)){
-                        $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
-                        if (!sfxToLoad){
-                            sfxToLoad = [];
-                        }
-                        sfxToLoad.push( { name: sfxName, src: sfxSrc });
-                    } else {
-                        $log.info('Already loaded sfx name=' + sfxName);
-                    }
-                });
-
-                if (sfxToLoad){
-                    $log.info('loading sounds');
-                    sfxSvc.loadSounds(sfxToLoad);
-                }
-            }
-            deferred.resolve();
-
-        }, function(error) {
-            $log.log('Failed to get experience: ' + error);
-            $state.transitionTo('landing');
-            deferred.reject();
-        });
-
-        return deferred.promise;
+    
+    this.startExperience = function() {
+        if ($state.is('landing_usergen') && self.expData.responses) {
+            $state.transitionTo('experience.video');
+        } else {
+            $state.transitionTo('experience.input');
+        }
     };
 
     this.userIsUsingC6Chrome = false;
     this.showC6Chrome = false;
+    $scope.$watch('appCtrl.showC6Chrome || !$state.is(\'experience.video\')', function(shouldShow) {
+        if (site.ready) {
+            site.requestBar(shouldShow);
+        } else {
+            site.once('ready', function() {
+                site.requestBar(shouldShow);
+            });
+        }
+    });
 
     this.stateHistory = {
         from: null,
         to: null
+    };
+    
+    this.randomAnnotations = [];
+    this.getRandomAnnotations = function(num) {
+        var randAnnots = [];   
+        var bubblesExist = false;
+        
+        self.expData.annotations.forEach(function(annotation) {
+            if (annotation.options && annotation.options.type === 'talkie') {
+                num = 0;
+            }
+        });
+        
+        if (num === 0 || !self.annotationsModel || !self.expData.responses) {
+            self.randomAnnotations = [];
+            return;
+        }
+        
+        var new_annots = angular.copy(self.annotationsModel.annotations);
+        
+        for (var i = 0; i < Math.min(num, self.annotationsModel.annotations.length); i++) {
+            var randIndex = Math.floor(Math.random() * new_annots.length);
+            var randAnnot = new_annots.splice(randIndex, 1)[0];
+            randAnnot.text = annSvc.interpolate(randAnnot.template, self.expData.responses);
+            randAnnots.push(randAnnot);
+        }
+        
+        self.randomAnnotations = randAnnots;
     };
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
@@ -154,49 +196,61 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.appCtrl = this;
     $scope.$state = $state;
     $scope.$stateParams = $stateParams;
+    
+    site.getAppData().then(function(data) {
+        self.experience = data.experience;
+        self.expData = data.experience.data;
 
-    // this block will fire whenever the category and experience id parameters in the url change
-    // it will then reset the experience as necessary and look for cached responses if the user has
-    // navigated directly to the video page/state
-    $scope.$watch('$stateParams', function(params) {
-        if (!params.category || !params.expid) {
-            self.experience = null;
-            return false;
+        if (self.expData && self.expData.src && !self.expData.src.match(env.vidUrl)) {
+            self.expData.src = env.vidUrl + self.expData.src;
         }
-        if (self.experience && $state.is('experience.video')) { // if experience already set, skip
-            return;
-        }
-        self.initializeExperience(params.category, params.expid).then(function() {
-            if ($state.is('experience.video') || $state.is('experience.end')) {
-                var cachedResponses = respSvc.getResponses(params.category, params.expid);
-                if (self.promptModel && cachedResponses) {
-                    self.promptModel.responses = cachedResponses;
+        self.promptModel = new PromptModel(self.expData);
+        self.annotationsModel = annSvc.getAnnotationsModelByType('bubble',self.expData.annotations);
+        
+        self.getRandomAnnotations(3);
+
+        if (self.annotationsModel && self.annotationsModel.sfx){
+            $log.log('Experience (' + self.experience.uri + ') has some sounds.');
+            var sfxToLoad;
+            angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
+                sfxSrc  = appBase + '/' + sfxSrc;
+                if (!sfxSvc.getSoundByName(sfxName)){
+                    $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
+                    if (!sfxToLoad){
+                        sfxToLoad = [];
+                    }
+                    sfxToLoad.push( { name: sfxName, src: sfxSrc });
                 } else {
-                    $log.error('Failed to find cached responses, returning to input');
-                    $state.transitionTo('experience.input', $stateParams);
+                    $log.info('Already loaded sfx name=' + sfxName);
                 }
+            });
+
+            if (sfxToLoad){
+                $log.info('loading sounds');
+                sfxSvc.loadSounds(sfxToLoad);
             }
-        });
-    }, true);
-}])
+        }
+        
+        if (self.expData.responses) {
+            $scope.appCtrl.promptModel.responses = self.expData.responses;
+        }
 
-.controller('C6LandingCtrl', ['$scope', '$log', 'c6VideoListingService', function($scope, $log, vsvc) {
-    var randomCategory = vsvc.getRandomCategoryFrom(['action', 'romance', 'fantasy']),
-        randomQuote = vsvc.getRandomQuoteForCategory(randomCategory);
-
-    $log.log('Creating C6LandingCtrl');
-
-    this.pullQuote = {
-        category: randomCategory,
-        quote: randomQuote
-    };
-
-    $scope.landingCtrl = this;
+    }, function(error) {
+        // if here, communication has somehow broken down with the site. Show a fail screen?
+        $log.error('Failed to get experience from site');
+        $log.error(error);
+    });
+        
 }])
 
 // Contains code for finishing the setup of the experience object and other models, as well as 
 // controls for the video and interactive content.
-.controller('C6ExperienceCtrl',['$log', '$scope', '$rootScope', '$location', '$stateParams', 'C6AnnotationsService', '$state', '$timeout', 'environment', 'C6ResponseCachingService','c6Sfx', 'C6VideoControlsService', 'C6UrlShareService', function($log, $scope, $rootScope, $location, $stateParams, annSvc, $state, $timeout, env, respSvc, sfxSvc, vidCtrlsSvc, shareSvc){
+.controller('C6ExperienceCtrl',['$log','$scope','$rootScope','$location','$stateParams',
+                                'C6AnnotationsService','$state','$timeout','environment',
+                                'C6ResponseCachingService','c6Sfx','C6VideoControlsService',
+            function($log,$scope,$rootScope,$location,$stateParams,annSvc,$state,$timeout,env,
+                     respSvc,sfxSvc,vidCtrlsSvc) {
+                     
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
@@ -206,7 +260,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$on('c6video-ready', function(event, player) {
         video = player;
 
-        var undoWatch = $scope.$watch('annoCtrl.c6ControlsController.ready', function(ready) {
+        var undoWatch = $scope.$watch('expCtrl.c6ControlsController.ready', function(ready) {
             if (ready) {
                 vidCtrlsSvc.bind(player, self.c6ControlsDelegate, self.c6ControlsController);
                 undoWatch();
@@ -242,36 +296,6 @@ angular.module('c6.ctrl',['c6.svc'])
         }
     });
 
-    // Called as soon as a user loads up a shared url. Will retrieve the shared script object,
-    // corresponding to the id in the url, initialize the experience, and set the responses (using
-    // data from the shared script).
-    if ($state.is('shared')) {
-        var sharedId = $location.search().id,
-            sharedScript;
-        if (!sharedId) {
-            $state.transitionTo('landing');
-        } else {
-            shareSvc.sharedUrl = $location.absUrl();
-            shareSvc.getScript(sharedId).then(function(script) {
-                sharedScript = script;
-                return $scope.appCtrl.initializeExperience(script.category, script.id);
-            }).then(function() {
-                if (!sharedScript.responses) {
-                    $state.transitionTo('experience.input',
-                                        {category: sharedScript.category, expid: sharedScript.id});
-                    return;
-                }
-                $scope.appCtrl.promptModel.responses = sharedScript.responses;
-                $scope.appCtrl.experience.sharedSrc = sharedScript.src;
-                $state.transitionTo('experience.video',
-                                    {category: sharedScript.category, expid: sharedScript.id});
-            }, function (error) {
-                $log.error('Error initializing shared video: ' + error);
-                $state.transitionTo('landing');
-            });
-        }
-    }
-
     // This is fired when the app reaches the video state and the promptModel is initialized,
     // including when a shared experience has been initialized. This will interpolate the user
     // responses and line templates, and retrieve the text-to-speech video url.
@@ -279,11 +303,12 @@ angular.module('c6.ctrl',['c6.svc'])
         if (yes) {
             var bubbleModel = $scope.appCtrl.annotationsModel,
                 txt2SpchModel = annSvc.getAnnotationsModelByType('talkie',
-                                    $scope.appCtrl.experience.annotations),
+                                    $scope.appCtrl.expData.annotations),
                 responses = $scope.appCtrl.promptModel.responses;
-
+                
             if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
-                respSvc.setResponses(responses, $stateParams.category, $stateParams.expid);
+                respSvc.setResponses(responses, $scope.appCtrl.currentCategory(),
+                                     $scope.appCtrl.currentVideo());
                 if (txt2SpchModel) {
                     self.videoCanPlay = false;
                 }
@@ -299,9 +324,9 @@ angular.module('c6.ctrl',['c6.svc'])
 
                 oldResponses = angular.copy(responses);
 
-                annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.experience.sharedSrc)
+                annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
                 .then(function(url) {
-                    $scope.appCtrl.experience.src = url;
+                    $scope.appCtrl.expData.src = url;
                 });
             }
         }
@@ -364,35 +389,7 @@ angular.module('c6.ctrl',['c6.svc'])
          return self.activeAnnotations.indexOf(annotation) !== -1;
     };
 
-    $scope.annoCtrl = this;
-}])
-
-.controller('C6CategoryListCtrl',['$log','$scope', '$rootScope',
-                                  'c6VideoListingService', '$state',
-                                  function($log,$scope,$rootScope,vsvc,$state){
-    $log.log('Creating cCategoryListCtrl');
-    $rootScope.currentRoute = 'categories';
-
-    this.categories = vsvc.getCategories();
-
-    this.loadCategory = function(category) {
-        category = angular.lowercase(category);
-
-        vsvc.getExperienceByCategory(category).then(function(exp) {
-            $state.transitionTo('experience.input', { category: category, expid: exp.id });
-        });
-    };
-
-    $scope.catCtrl = this;
-}])
-
-.controller('C6RandomCategoryCtrl', ['$state', '$stateParams', 'c6VideoListingService', '$log', function($state, $stateParams, vsvc, $log) {
-    var category = $stateParams.category;
-    $log.log('Choosing a random experience in the ' + category + ' category.');
-
-    vsvc.getRandomExperienceIdFromCategory(category).then(function(experienceId) {
-        $state.transitionTo('experience.input', { category: $stateParams.category, expid: experienceId });
-    });
+    $scope.expCtrl = this;
 }])
 
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$stateParams', '$state', function($log, $scope, $rootScope, $stateParams, $state) {
@@ -459,7 +456,9 @@ angular.module('c6.ctrl',['c6.svc'])
     $rootScope.currentRoute = 'experience';
 }])
 
-.controller('C6EndCtrl', ['$log', '$scope', '$window', '$rootScope', 'C6AnnotationsService', 'C6UrlShareService', function($log, $scope, $window, $rootScope, annSvc, shareSvc) {
+.controller('C6EndCtrl', ['$log', '$scope', '$window', '$rootScope', 'C6AnnotationsService', 'site',
+            function($log, $scope, $window, $rootScope, annSvc, site) {
+            
     $log.log('Creating C6EndCtrl');
     $rootScope.currentRoute = 'end';
 
@@ -468,51 +467,21 @@ angular.module('c6.ctrl',['c6.svc'])
     self.sharedUrl = null;
     self.sharedMsg = 'Check out this Screenjack I made!';
 
-    // Called by share buttons. Will upload the script (through dub) and generate a shareable url.
+    // Called by share buttons. Will ask the site to complete the share action.
     this.share = function() {
-        var shareScript = {
-            id: $scope.appCtrl.experience.id,
-            category: $scope.appCtrl.experience.category,
-            src: $scope.appCtrl.experience.src,
-            responses: $scope.appCtrl.promptModel.responses
-        };
-        shareSvc.share(shareScript).then(function(url) {
-            // hacky url swap if testing on localhost; FB+twitter won't share localhost urls
-            if (url.search(/localhost/) > 0) {
-                url = 'http://c6.dev.s3-website-us-east-1.amazonaws.com/www/screenjack/#/' +
-                       url.split('/#/')[1];
+        var shareExp = angular.copy($scope.appCtrl.experience);
+        shareExp.data.responses = $scope.appCtrl.promptModel.responses;
+        shareExp.data.annotations.forEach(function(annotation) {
+            if (annotation.options && annotation.options.type === 'talkie') {
+                shareExp.data.sharedSrc = $scope.appCtrl.expData.src;
+                shareExp.data.src = null;
             }
-            self.sharedUrl = url;
-            $log.log('Shared url = ' + self.sharedUrl);
-            self.showShareBox = true;
-        }, function(error) {
-            $log.error('Error sharing script: ' + error);
         });
+        shareExp.data.content_type = 'usergen';
+        shareExp.appUrl = shareExp.appUrl.replace(/wizard$/, 'usergen');
+        site.shareUrl(shareExp);
     };
 
-    this.fbShare = function() {
-        $window.open(
-           'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(self.sharedUrl),
-           'facebook-share-dialog',
-           'width=626,height=436').focus();
-        return false;
-    };
-
-    this.twitShare = function() {
-        $window.open('https://twitter.com/share?text=' + self.sharedMsg + '&url=' +
-                                                        encodeURIComponent(self.sharedUrl),
-                    'twitter-share-dialog',
-                    'width=550,height=450').focus();
-    };
-
-    this.showShareBox = false;
-
-    // If leaving this experience, null out the stored shareable url (so a new one can be created).
-    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState/*, fromParams*/) {
-        if (fromState.name === 'experience.end' && toState.name !== 'experience.video') {
-            shareSvc.sharedUrl = null;
-        }
-    });
     $scope.$watch('appCtrl.annotationsModel', function(annotationsModel) {
         if (annotationsModel) {
             var lastAnnotation = annotationsModel.annotations[annotationsModel.annotations.length - 1];

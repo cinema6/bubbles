@@ -742,12 +742,12 @@ button:disabled {opacity: 0.15;}
         }
 
         .vidFrame__annotation-fantasy {
-            margin: 3% 0 0 2%;
+            margin: 3% 0 0 10%;
             font-size: 0.7em;
         }
         .vidFrame__annotation-romance {
-            margin: 1% 0 0 28%;
-            font-size: 1em;
+            margin: 1% 0 0 50%;
+            font-size: 0.65em;
         }
 
         .vidFrame__annotation-tech {

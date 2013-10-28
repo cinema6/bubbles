@@ -8,7 +8,26 @@ var fs          = require('fs-extra'),
     mountFolder = function (connect, dir) {
             return connect.static(require('path').resolve(dir));
     },
-    os = require('os');
+    os = require('os'),
+    myIp = (function(){
+        var os=require('os'),
+            ifaces=os.networkInterfaces(),
+            result;
+        for (var dev in ifaces) {
+            if (dev.substr(0,2) === 'lo'){
+                continue;
+            }
+            ifaces[dev].forEach(function(details){
+                if (details.family==='IPv4') {
+                    result = details.address;
+                }
+            });
+        }
+        if (!result) {
+            result = 'localhost';
+        }
+        return result;
+    }());
 
 module.exports = function (grunt) {
     // load all grunt tasks
@@ -16,6 +35,7 @@ module.exports = function (grunt) {
 
     // configurable paths
     var initProps = {
+        c6AppUrl    : 'http://' + myIp + ':9000/',
         prefix      : process.env.HOME,
         app         : path.join(__dirname,'app'),
         dist        : path.join(__dirname,'dist'),
@@ -120,9 +140,21 @@ module.exports = function (grunt) {
             sandbox: {
                 options: {
                     port: 8000,
-                    middleware: function (connect) {
+                    middleware: function () {
                         return [c6sandbox({
-                                    experiences: grunt.file.readJSON(path.join(__dirname, 'app/assets/mock/experiences.json'))
+                                    experiences: (function() {
+                                        var experiences = grunt.file.readJSON(path.join(__dirname, 'app/assets/mock/experiences.json'));
+
+                                        experiences.forEach(function(experience) {
+                                            experience.appUrl = (function() {
+                                                var url = experience.appUrl;
+
+                                                return url.replace('<%= appUrl %>', initProps.c6AppUrl);
+                                            })();
+                                        });
+
+                                        return experiences;
+                                    })()
                                })];
                     }
                 }

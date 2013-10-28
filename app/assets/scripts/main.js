@@ -11,6 +11,7 @@ require.config({
 var appScripts,
     c6uiScripts = [
         'lib/c6ui/c6ui',
+        'lib/c6ui/browser/user_agent',
         'lib/c6ui/computed/computed',
         'lib/c6ui/sfx/sfx',
         'lib/c6ui/events/emitter',

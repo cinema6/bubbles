@@ -74,6 +74,7 @@ button:disabled {opacity: 0.15;}
         background-size: contain;
         position: absolute; top: 0; left: 0;
         height: 12.5em; width: 12.5em;
+        z-index: 4;
     }
         @media screen and (max-width: 600px) and (min-width: 481px) {
             .landing--hero__series {
@@ -91,11 +92,15 @@ button:disabled {opacity: 0.15;}
         display:block; width:8em; height:9em; 
         position:absolute; top:50%; left:50%; margin:-4.5em 0 0 -4em; z-index:10;
         background: url(../img/c6-sprite--alpha.png) 94% 100% no-repeat; background-size:265px 265px;
-        opacity:0.22;
+        opacity:0.22; cursor: pointer;
         -webkit-transition:opacity 0.5s; transition:opacity 0.5s;
     }
         .hero-slides__launch:hover {
             opacity: 1;
+        }
+
+        .hero-slides__play {
+            cursor: pointer;
         }
 
         @media only screen and (max-width: 420px) {
@@ -108,6 +113,7 @@ button:disabled {opacity: 0.15;}
         .landing--hero__video-group {
             position:absolute; 
             width:100%; height: 100%;
+            z-index: 3;
         }
         .landing--hero__video {
             max-height: 33.475em; max-width: 57.89em; padding: 0;
@@ -121,9 +127,6 @@ button:disabled {opacity: 0.15;}
         }
 
         @media only screen and (max-width:480px) {
-            .landing-hero__group {
-                background-position:70% center; background-size:cover;
-            }
             .landing--hero__video {
                     margin-top:13em;
                 }
@@ -141,6 +144,37 @@ button:disabled {opacity: 0.15;}
         background: url(../img/userBanner_c6.jpg) no-repeat bottom;
         background-size: contain;
         width: 100%;
+    }
+
+    .landing--hero__annotations {
+        max-width: 78.89em; height: 100%;
+        margin: 0 auto; padding: 0.5em;
+        opacity: 0.7;
+    }
+        .landing__annotation {
+            max-width: 18em; min-width: 10em;
+        }
+
+        .landing__annoation-position--0 {
+            margin: 0 0 0 70%; padding: 1em 0 0 1em; 
+        }
+        .landing__annoation-position--1 {
+            margin:12em 0 0 2%;
+        }
+        .landing__annoation-position--2 {
+            margin:14em 0 0 75%;
+        }
+
+    @media only screen and (max-width: 768px) {
+        .landing__annoation-position--0 {
+            margin: 0 0 0 35%; padding: 3em 0 0 1em;
+        }
+        .landing__annoation-position--1 {
+            margin:21em 0 0 2%;
+        }
+        .landing__annoation-position--2 {
+            margin:2em 0 0 50%;
+        }
     }
 
 /*  ==========================================================================

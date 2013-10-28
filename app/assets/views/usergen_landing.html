@@ -7,7 +7,7 @@
     </h1>
     <div class="landing--hero__video-group">
         <div class="grid grid--middle grid--center">
-            <img class="landing--hero__video grid__item eleven-twelfths" ng-src="{{appCtr.experience.img.screenshot}}">
+            <img class="landing--hero__video grid__item eleven-twelfths" ng-src="{{url(' + appCtrl.experience.img.bg + ')}}" src="https://s3.amazonaws.com/c6.dev/media/src/site/landing_templates/screenjack~brucelee/assets/landing-hero__screenshot--brucelee.jpg">
             <div class="grid__item one-twelfth palm--hide" style="margin-left: -12%; padding: 0;">
                 <div style="height:42em;">&nbsp;</div>
             </div> 
@@ -16,19 +16,17 @@
     <div class="landing--hero__series">
         <span class="ir">Screenjack</span>
     </div>
-    <ul class="annotations" >
-      <li
-        ng-repeat="a in appCtrl.randomAnnotations"
-        ng-class="' annotation ' + a.cls.join(' ')">
-        <div class="a-style">
-          <div class="a-frame">
-            <div class="a-text">
-              {{a.text}}&nbsp;
-              <div class="a-deco-right"></div><div class="a-deco-left"></div>
-              <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
+    <ul class="landing--hero__annotations">
+        <li class="landing__annotation landing__annoation-position--{{$index}}" ng-repeat="a in appCtrl.randomAnnotations">
+            <div class="a-style">
+                <div class="a-frame">
+                    <div class="a-text">
+                        {{a.text}}&nbsp;
+                        <div class="a-deco-right"></div><div class="a-deco-left"></div>
+                        <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
+                    </div>
+                </div> 
             </div>
-          </div> 
-        </div>
         </li> 
     </ul>
 </section><!--.hero__group-->

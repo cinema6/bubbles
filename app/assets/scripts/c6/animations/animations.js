@@ -283,6 +283,39 @@
                 }
             });
         }])
+        
+    /* --- from video --- */
+        .animation('experience.video=>experience.input-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
+            return c6AniCache({
+                id: 'input-enter',
+                setup: function(element) {
+                    $log.log('In input-enter setup');
+
+                    element.css({opacity: 0, visibility: 'hidden'});
+
+                    var timeline = new TimelineLite({paused:true});
+                    return timeline;
+                },
+                start: function(element, done, timeline) {
+                    $log.log('In input-enter start');
+
+                    timeline.to(element, 2, {autoAlpha: 1}, '+=1')
+                        .eventCallback('onComplete', function() {
+                            $log.info('input-enter done');
+                            done();
+                        });
+
+                    timeline.play();
+                    timeline.seek(0);
+                },
+                cancel: function(element, done, timeline) {
+                    $log.log('In input-enter cancel');
+                    timeline.kill();
+                    timeline.clear();
+                    done();
+                }
+            });
+        }])    
 
     // start button //
         .animation('start-button-enter', [function() {
@@ -456,12 +489,12 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In video-show start');
-                    var logo$ = element.find('#exp-logo'),
+                    var //logo$ = element.find('#exp-logo'),
                         player$ = element.find('#player').css({opacity: 0, visibility: 'hidden'});
 
                     timeline.to(element, 1.5, {autoAlpha:1}, '+=0.5')
-                        .from(logo$, 1, {autoAlpha: 0}, '-=0.5')
-                        .to(player$, 1, {autoAlpha: 1}, '-=1')
+                        //.from(logo$, 1, {autoAlpha: 0}, '-=0.5')
+                        .to(player$, 1, {autoAlpha: 1}, '-=0.5')
                         .eventCallback('onComplete', function() {
                             $log.info('video-show done');
                             $rootScope.$broadcast('finishedAnimatingVideoShow');
@@ -494,8 +527,10 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In video-hide start');
+                    var player$ = element.find('#player').css({opacity: 1, visibility: 'visible'});
 
-                    timeline.to(element, 1, {autoAlpha:0})
+                    timeline.to(player$, 1, {autoAlpha: 0})
+                        .to(element, 1, {autoAlpha:0})
                         .eventCallback('onComplete', function() {
                             $log.info('video-hide done');
                             done();

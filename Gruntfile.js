@@ -255,6 +255,7 @@ module.exports = function (grunt) {
                         '<%= props.app %>/assets/lib/c6ui/site/site.js',
                         '<%= props.app %>/assets/lib/c6ui/controls/controls.js',
                         '<%= props.app %>/assets/lib/c6ui/videos/video.js',
+                        '<%= props.app %>/assets/lib/c6ui/browser/user_agent.js',
                         // Lib Scripts
                         '<%= props.app %>/assets/lib/jquery/jquery.min.js',
                         '<%= props.app %>/assets/lib/greensock/TimelineMax.min.js',

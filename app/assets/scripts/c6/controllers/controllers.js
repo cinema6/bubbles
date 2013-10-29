@@ -263,7 +263,7 @@ angular.module('c6.ctrl',['c6.svc'])
                      
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
-        readyEvent = c6UserAgent.device.isMobile? 'loadstart' : 'canplaythrough',
+        readyEvent = c6UserAgent.device.isMobile() ? 'loadstart' : 'canplaythrough',
         oldResponses,
         video;
 

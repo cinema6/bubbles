@@ -146,11 +146,7 @@ module.exports = function (grunt) {
                                         var experiences = grunt.file.readJSON(path.join(__dirname, 'app/assets/mock/experiences.json'));
 
                                         experiences.forEach(function(experience) {
-                                            experience.appUrl = (function() {
-                                                var url = experience.appUrl;
-
-                                                return url.replace('<%= appUrl %>', initProps.c6AppUrl);
-                                            })();
+                                            experience.appUriPrefix = initProps.c6AppUrl;
                                         });
 
                                         return experiences;

@@ -2,33 +2,14 @@
 (function(){
 	'use strict';
 
-	var browserVersion = (function() {
-		var N= navigator.appName, ua= navigator.userAgent, tem;
-		var M= ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
-		var isMobile = ua.match(/iPhone|iPod|iPad|Android|Silk/);
-		var isIPad   = ua.match(/iPad/);
-		var isAndroid = ua.match(/Android|Silk/);
-
-		if(M && (tem= ua.match(/version\/([\.\d]+)/i))!== null){
-			M[2]= tem[1];
-		}
-
-		if (M) {
-			return { 'app' : M[1].toLowerCase(), 'version' : M[2], 'isMobile': isMobile, 'isIPad' : isIPad, 'isAndroid' : isAndroid };
-		}
-
-		return { 'app' : N, 'version' : navigator.appVersion };
-	})(),
-		releaseConfig = {
+	var releaseConfig = {
 		    'release'           : true,
-		    'browser'           : browserVersion,
 		    'logging'           : [],
 		    'showPlayerData'    : false,
-		    'vidUrl'            : 'https://s3.amazonaws.com/c6media/media/src/screenjack/video/'
+		    'vidUrl'            : 'https://s3.amazonaws.com/c6media/src/screenjack/video/'
 		},
 		debugConfig = {
 		    'release'           : false,
-		    'browser'           : browserVersion,
 		    'logging'           : ['error','warn','log','info'],
 		    'showPlayerData'    : true,
 		    // 'vidUrl'            : __C6_APP_BASE_URL__ + 'media/'
@@ -37,7 +18,7 @@
 		appConfig = ((!window.location.host.match(/cinema6.com/i)) || (window.location.search.indexOf('debug=true') !== -1)) ? debugConfig : releaseConfig;
 
 	var dependencies = [
-		'ui.state',
+		'ui.router',
 		'c6.ui',
 		'c6.ctrl',
 		'c6.svc',
@@ -46,7 +27,7 @@
 	];
 
 	angular.module('c6.app', dependencies)
-		.config(['$stateProvider', '$urlRouterProvider', 'environment', function ($stateProvider, $urlRouterProvider, env) {
+		.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
 				.state('landing_wizard', {
@@ -62,7 +43,7 @@
 					url: '/exp'
 				})
 					.state('experience.input', {
-						templateUrl: __C6_APP_BASE_URL__ + '/views/input' + (env.browser.isMobile? '_mobile' : '') + '.html',
+						templateUrl: __C6_APP_BASE_URL__ + '/views/input.html',
 						controller: 'C6InputCtrl',
 						url: '/input'
 					})

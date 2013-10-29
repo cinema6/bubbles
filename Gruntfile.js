@@ -207,11 +207,28 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     '.tmp/scripts/c6app.js' : [
+                        // App Scripts
                         '<%= props.app %>/assets/scripts/c6/app.js',
                         '<%= props.app %>/assets/scripts/c6/services/services.js',
                         '<%= props.app %>/assets/scripts/c6/controllers/controllers.js',
                         '<%= props.app %>/assets/scripts/c6/directives/directives.js',
-                        '<%= props.app %>/assets/scripts/c6/animations/animations.js'
+                        '<%= props.app %>/assets/scripts/c6/animations/animations.js',
+                        // C6UI Scripts
+                        '<%= props.app %>/assets/lib/c6ui/c6ui.js',
+                        '<%= props.app %>/assets/lib/c6ui/computed/computed.js',
+                        '<%= props.app %>/assets/lib/c6ui/sfx/sfx.js',
+                        '<%= props.app %>/assets/lib/c6ui/events/emitter.js',
+                        '<%= props.app %>/assets/lib/c6ui/anicache/anicache.js',
+                        '<%= props.app %>/assets/lib/c6ui/postmessage/postmessage.js',
+                        '<%= props.app %>/assets/lib/c6ui/site/site.js',
+                        '<%= props.app %>/assets/lib/c6ui/controls/controls.js',
+                        '<%= props.app %>/assets/lib/c6ui/videos/video.js',
+                        // Lib Scripts
+                        '<%= props.app %>/assets/lib/jquery/jquery.min.js',
+                        '<%= props.app %>/assets/lib/greensock/TimelineMax.min.js',
+                        '<%= props.app %>/assets/lib/greensock/TweenMax.min.js',
+                        '<%= props.app %>/assets/lib/angular/angular.min.js',
+                        '<%= props.app %>/assets/lib/ui-router/angular-ui-router.min.js'
                     ]
                 }
             }
@@ -348,17 +365,17 @@ module.exports = function (grunt) {
                 upload: [
                     {
                         src: 'dist/**',
-                        dest: 'www/screenjack/',
+                        dest: 'content/screenjack/',
                         rel : 'dist/'
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'www/screenjack/<%= props.version() %>/index.html',
+                        dest: 'content/screenjack/<%= props.version() %>/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'www/screenjack/index.html',
+                        dest: 'content/screenjack/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]

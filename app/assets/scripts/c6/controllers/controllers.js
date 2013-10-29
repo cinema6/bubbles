@@ -155,8 +155,7 @@ angular.module('c6.ctrl',['c6.svc'])
     
     this.randomAnnotations = [];
     this.getRandomAnnotations = function(num) {
-        var randAnnots = [];   
-        var bubblesExist = false;
+        var randAnnots = [];
         
         self.expData.annotations.forEach(function(annotation) {
             if (annotation.options && annotation.options.type === 'talkie') {
@@ -204,6 +203,10 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$stateParams = $stateParams;
     
     site.getAppData().then(function(data) {
+        $log.log('Profile: ' + JSON.stringify(data.profile, null, 3));
+
+        TweenLite.ticker.useRAF(data.profile.raf);
+
         self.experience = data.experience;
         self.expData = data.experience.data;
 

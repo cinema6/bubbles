@@ -76,8 +76,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
     siteSession.on('gotoState', function(state) {
         if (state === 'start') {
-            var appUrlParts = self.experience.appUrl.split('/');
-            $state.transitionTo('landing_' + appUrlParts[appUrlParts.length - 1]);
+            var appUriParts = self.experience.appUri.split('/');
+            $state.transitionTo('landing_' + appUriParts[appUriParts.length - 1]);
         }
     });
 
@@ -485,7 +485,7 @@ angular.module('c6.ctrl',['c6.svc'])
             }
         });
         shareExp.data.content_type = 'usergen';
-        shareExp.appUrl = shareExp.appUrl.replace(/wizard$/, 'usergen');
+        shareExp.appUri = shareExp.appUri.replace(/wizard$/, 'usergen');
         site.shareUrl(shareExp);
     };
 

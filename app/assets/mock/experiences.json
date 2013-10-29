@@ -8,7 +8,7 @@
         "type": "Word Bubble Screenjack",
         "content_type": "wizard",
         "summary": "Chen Zhen takes on an entire dojo single handedly.",
-        "appUrl": "http://localhost:9000/#/wizard",
+        "appUrl": "<%= appUrl %>#/wizard",
         "landingPageContent": {
             "middle": "screenjack~brucelee/middle.html",
             "right": "screenjack~brucelee/right.html"
@@ -81,7 +81,7 @@
         "type": "Text-to-Speech Screenjack",
         "content_type": "wizard",
         "summary": "Dave attempts to resolve some... technical issues.",
-        "appUrl": "http://localhost:9000/#/wizard",
+        "appUrl": "<%= appUrl %>#/wizard",
         "landingPageContent": {
             "middle": "screenjack~2001/middle.html",
             "right": "screenjack~2001/right.html"
@@ -140,7 +140,7 @@
         "type": "Word Bubble Screenjack",
         "content_type": "wizard",
         "summary": "The Hobbits share their feelings before Frodo leaves.",
-        "appUrl": "http://localhost:9000/#/wizard",
+        "appUrl": "<%= appUrl %>#/wizard",
         "landingPageContent": {
             "middle": "screenjack~lotr2/middle.html",
             "right": "screenjack~lotr2/right.html"
@@ -215,7 +215,7 @@
         "type": "Text-to-Speech Screenjack",
         "content_type": "wizard",
         "summary": "A babysitter is alone when the phone starts to ring...",
-        "appUrl": "http://localhost:9000/#/wizard",
+        "appUrl": "<%= appUrl %>#/wizard",
         "landingPageContent": {
             "middle": "screenjack~scream/middle.html",
             "right": "screenjack~scream/right.html"
@@ -273,7 +273,7 @@
         "type": "Word Bubble Screenjack",
         "content_type": "wizard",
         "summary": "Noah and Allie really get to know each other.",
-        "appUrl": "http://localhost:9000/#/wizard",
+        "appUrl": "<%= appUrl %>#/wizard",
         "landingPageContent": {
             "middle": "screenjack~notebook3/middle.html",
             "right": "screenjack~notebook3/right.html"
@@ -348,7 +348,7 @@
         "type": "Text to Speech Screenjack",
         "content_type": "wizard",
         "summary": "You haven't really met Siri. Not yet.",
-        "appUrl": "http://localhost:9000/#/wizard",
+        "appUrl": "<%= appUrl %>#/wizard",
         "landingPageContent": {
             "middle": "screenjack~siri/middle.html",
             "right": "screenjack~siri/right.html"

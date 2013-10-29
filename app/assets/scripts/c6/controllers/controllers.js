@@ -42,14 +42,20 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
                           'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
                           'C6ResponseCachingService', 'c6AniCache', 'site', 'environment',
+                          'c6UserAgent',
             function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
-                     annSvc, respSvc, c6AniCache, site, env) {
+                     annSvc, respSvc, c6AniCache, site, env,
+                    c6UserAgent) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
         hideC6ControlsTimeout,
         allowStateChange = false,
         siteSession = site.init();
+
+    if (c6UserAgent.device.isMobile()) {
+        $state.get('experience.input').templateUrl = appBase + '/views/input_mobile.html';
+    }
 
     this.sfxSvc = sfxSvc;
     this.experience = null;
@@ -248,12 +254,13 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6ExperienceCtrl',['$log','$scope','$rootScope','$location','$stateParams',
                                 'C6AnnotationsService','$state','$timeout','environment',
                                 'C6ResponseCachingService','c6Sfx','C6VideoControlsService',
+                                'c6UserAgent',
             function($log,$scope,$rootScope,$location,$stateParams,annSvc,$state,$timeout,env,
-                     respSvc,sfxSvc,vidCtrlsSvc) {
+                     respSvc,sfxSvc,vidCtrlsSvc,c6UserAgent) {
                      
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
-        readyEvent = env.browser.isMobile? 'loadstart' : 'canplaythrough',
+        readyEvent = c6UserAgent.device.isMobile? 'loadstart' : 'canplaythrough',
         oldResponses,
         video;
 
@@ -306,7 +313,7 @@ angular.module('c6.ctrl',['c6.svc'])
                                     $scope.appCtrl.expData.annotations),
                 responses = $scope.appCtrl.promptModel.responses;
                 
-            if (!angular.equals(responses, oldResponses) || env.browser.isMobile) {
+            if (!angular.equals(responses, oldResponses) || c6UserAgent.device.isMobile) {
                 respSvc.setResponses(responses, $scope.appCtrl.currentCategory(),
                                      $scope.appCtrl.currentVideo());
                 if (txt2SpchModel) {

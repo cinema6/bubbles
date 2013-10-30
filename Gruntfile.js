@@ -1,12 +1,12 @@
 /* jshint node:true */
 'use strict';
-var fs          = require('fs-extra'),
-    path        = require('path'),
-    lrSnippet   = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
+var fs           = require('fs-extra'),
+    path         = require('path'),
+    lrSnippet    = require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
     proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest,
-    c6sandbox  = require('c6-sandbox'),
-    mountFolder = function (connect, dir) {
-            return connect.static(require('path').resolve(dir));
+    c6sandbox    = require('c6-sandbox'),
+    mountFolder  = function (connect, dir) {
+        return connect.static(require('path').resolve(dir));
     },
     os = require('os'),
     myIp = (function(){
@@ -36,6 +36,7 @@ module.exports = function (grunt) {
     // configurable paths
     var initProps = {
         c6AppUrl    : 'http://' + myIp + ':9000/',
+        contentPath : '/media/src/site/landingContent/',
         prefix      : process.env.HOME,
         app         : path.join(__dirname,'app'),
         dist        : path.join(__dirname,'dist'),
@@ -87,7 +88,7 @@ module.exports = function (grunt) {
     };
 
     grunt.initConfig( {
-        props: initProps,
+        settings: initProps,
         smbuild : {
             angular : { options : { args : ['package'], buildDir : 'build'  } },
             jquery  : { options : { args : [],          buildDir : 'dist' } },
@@ -100,12 +101,12 @@ module.exports = function (grunt) {
         watch: {
             livereload: {
                 files: [
-                    '<%= props.app %>/{,*/}*.html',
-                    '<%= props.app %>/assets/views/{,*/}*.html',
-                    '{.tmp,<%= props.app %>}/assets/styles/{,*/}*.css',
-                    '{.tmp,<%= props.app %>}/assets/scripts/{,*/}*.js',
-                    '{.tmp,<%= props.app %>}/assets/scripts/c6/{,*/}*.js',
-                    '<%= props.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= settings.app %>/{,*/}*.html',
+                    '<%= settings.app %>/assets/views/{,*/}*.html',
+                    '{.tmp,<%= settings.app %>}/assets/styles/{,*/}*.css',
+                    '{.tmp,<%= settings.app %>}/assets/scripts/{,*/}*.js',
+                    '{.tmp,<%= settings.app %>}/assets/scripts/c6/{,*/}*.js',
+                    '<%= settings.app %>/assets/media/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ],
                 tasks: ['livereload']
             }
@@ -178,8 +179,8 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= props.dist %>/*',
-                        '!<%= props.dist %>/.git*'
+                        '<%= settings.dist %>/*',
+                        '!<%= settings.dist %>/.git*'
                     ]
                 }]
             },
@@ -188,23 +189,23 @@ module.exports = function (grunt) {
         sed: {
             index: {
                 pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.dist %>/index.html'
+                replacement: '<%= settings.version() %>',
+                path: '<%= settings.dist %>/index.html'
             },
             index2: {
                 pattern: 'ng-app="c6.app" ',
                 replacement: '',
-                path: '<%= props.dist %>/index.html'
+                path: '<%= settings.dist %>/index.html'
             },
             main: {
                 pattern: 'undefined',
-                replacement: '\'<%= props.version() %>\'',
-                path: '<%= props.distVersionPath() %>/scripts/main.js'
+                replacement: '\'<%= settings.version() %>\'',
+                path: '<%= settings.distVersionPath() %>/scripts/main.js'
             },
             views: {
                 pattern: 'assets',
-                replacement: '<%= props.version() %>',
-                path: '<%= props.distVersionPath() %>/views',
+                replacement: '<%= settings.version() %>',
+                path: '<%= settings.distVersionPath() %>/views',
                 recursive: true
             }
         },
@@ -214,7 +215,7 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= props.app %>/assets/scripts/**/{,*/}*.js'
+                '<%= settings.app %>/assets/scripts/**/{,*/}*.js'
             ]
         },
         karma: {
@@ -236,28 +237,28 @@ module.exports = function (grunt) {
                 files: {
                     '.tmp/scripts/c6app.js' : [
                         // App Scripts
-                        '<%= props.app %>/assets/scripts/c6/app.js',
-                        '<%= props.app %>/assets/scripts/c6/services/services.js',
-                        '<%= props.app %>/assets/scripts/c6/controllers/controllers.js',
-                        '<%= props.app %>/assets/scripts/c6/directives/directives.js',
-                        '<%= props.app %>/assets/scripts/c6/animations/animations.js',
+                        '<%= settings.app %>/assets/scripts/c6/app.js',
+                        '<%= settings.app %>/assets/scripts/c6/services/services.js',
+                        '<%= settings.app %>/assets/scripts/c6/controllers/controllers.js',
+                        '<%= settings.app %>/assets/scripts/c6/directives/directives.js',
+                        '<%= settings.app %>/assets/scripts/c6/animations/animations.js',
                         // C6UI Scripts
-                        '<%= props.app %>/assets/lib/c6ui/c6ui.js',
-                        '<%= props.app %>/assets/lib/c6ui/computed/computed.js',
-                        '<%= props.app %>/assets/lib/c6ui/sfx/sfx.js',
-                        '<%= props.app %>/assets/lib/c6ui/events/emitter.js',
-                        '<%= props.app %>/assets/lib/c6ui/anicache/anicache.js',
-                        '<%= props.app %>/assets/lib/c6ui/postmessage/postmessage.js',
-                        '<%= props.app %>/assets/lib/c6ui/site/site.js',
-                        '<%= props.app %>/assets/lib/c6ui/controls/controls.js',
-                        '<%= props.app %>/assets/lib/c6ui/videos/video.js',
-                        '<%= props.app %>/assets/lib/c6ui/browser/user_agent.js',
+                        '<%= settings.app %>/assets/lib/c6ui/c6ui.js',
+                        '<%= settings.app %>/assets/lib/c6ui/computed/computed.js',
+                        '<%= settings.app %>/assets/lib/c6ui/sfx/sfx.js',
+                        '<%= settings.app %>/assets/lib/c6ui/events/emitter.js',
+                        '<%= settings.app %>/assets/lib/c6ui/anicache/anicache.js',
+                        '<%= settings.app %>/assets/lib/c6ui/postmessage/postmessage.js',
+                        '<%= settings.app %>/assets/lib/c6ui/site/site.js',
+                        '<%= settings.app %>/assets/lib/c6ui/controls/controls.js',
+                        '<%= settings.app %>/assets/lib/c6ui/videos/video.js',
+                        '<%= settings.app %>/assets/lib/c6ui/browser/user_agent.js',
                         // Lib Scripts
-                        '<%= props.app %>/assets/lib/jquery/jquery.min.js',
-                        '<%= props.app %>/assets/lib/greensock/TimelineMax.min.js',
-                        '<%= props.app %>/assets/lib/greensock/TweenMax.min.js',
-                        '<%= props.app %>/assets/lib/angular/angular.min.js',
-                        '<%= props.app %>/assets/lib/ui-router/angular-ui-router.min.js'
+                        '<%= settings.app %>/assets/lib/jquery/jquery.min.js',
+                        '<%= settings.app %>/assets/lib/greensock/TimelineMax.min.js',
+                        '<%= settings.app %>/assets/lib/greensock/TweenMax.min.js',
+                        '<%= settings.app %>/assets/lib/angular/angular.min.js',
+                        '<%= settings.app %>/assets/lib/ui-router/angular-ui-router.min.js'
                     ]
                 }
             }
@@ -266,8 +267,8 @@ module.exports = function (grunt) {
             dist: {
                 expand: true,
                 flatten: true,
-                src:    ['<%= props.app %>/assets/styles/{,*/}*.css'],
-                dest:   '<%= props.distVersionPath() %>/styles/'
+                src:    ['<%= settings.app %>/assets/styles/{,*/}*.css'],
+                dest:   '<%= settings.distVersionPath() %>/styles/'
             }
         },
         htmlmin: {
@@ -286,15 +287,15 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= props.app %>',
+                        cwd: '<%= settings.app %>',
                         src: ['*.html'],
-                        dest: '<%= props.dist %>'
+                        dest: '<%= settings.dist %>'
                     },
                     {
                         expand: true,
-                        cwd: '<%= props.app %>/assets',
+                        cwd: '<%= settings.app %>/assets',
                         src: ['views/*.html'],
-                        dest: '<%= props.distVersionPath() %>'
+                        dest: '<%= settings.distVersionPath() %>'
                     }
                 ]
             }
@@ -302,7 +303,7 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                    '<%= props.distVersionPath() %>/scripts/c6app.min.js': [
+                    '<%= settings.distVersionPath() %>/scripts/c6app.min.js': [
                         '.tmp/scripts/c6app.js'
                     ]
                 }
@@ -310,24 +311,24 @@ module.exports = function (grunt) {
         },
         copy: {
             angular: {
-                files: [{ expand: true, dot: true, cwd: '<%= props.angular.buildDir %>',
-                dest: '<%= props.angular.targetDir %>', src: [ '*.js', 'version.*' ] }]
+                files: [{ expand: true, dot: true, cwd: '<%= settings.angular.buildDir %>',
+                dest: '<%= settings.angular.targetDir %>', src: [ '*.js', 'version.*' ] }]
             },
             jquery: {
-                files: [{ expand: true, dot: true, cwd: '<%= props.jquery.buildDir %>',
-                dest: '<%= props.jquery.targetDir %>', src: [ '*.js', 'version.*' ] }]
+                files: [{ expand: true, dot: true, cwd: '<%= settings.jquery.buildDir %>',
+                dest: '<%= settings.jquery.targetDir %>', src: [ '*.js', 'version.*' ] }]
             },
             jqueryui: {
-                files: [{ expand: true, dot: true, cwd: '<%= props.jqueryui.buildDir %>',
-                dest: '<%= props.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
+                files: [{ expand: true, dot: true, cwd: '<%= settings.jqueryui.buildDir %>',
+                dest: '<%= settings.jqueryui.targetDir %>', src: [ '*.js', 'version.*' ] }]
             },
             dist: {
                 files: [
                     {
                         expand: true,
                         dot: true,
-                        cwd: '<%= props.app %>',
-                        dest: '<%= props.dist %>',
+                        cwd: '<%= settings.app %>',
+                        dest: '<%= settings.dist %>',
                         src: [
                           '*.{ico,txt}',
                           '.htaccess'
@@ -336,8 +337,8 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         dot: true,
-                        cwd: '<%= props.app %>/assets',
-                        dest: '<%= props.distVersionPath() %>',
+                        cwd: '<%= settings.app %>/assets',
+                        dest: '<%= settings.distVersionPath() %>',
                         src: [
                           'img/**',
                           'media/**',
@@ -355,15 +356,15 @@ module.exports = function (grunt) {
                         dot    : true,
                         cwd    : path.join(__dirname,'dist'),
                         src    : ['**'],
-                        dest   : '<%= props.installPath() %>'
+                        dest   : '<%= settings.installPath() %>'
                     }
                 ]
             }
         },
         s3: {
             options: {
-                key:    '<%= props.aws.accessKeyId %>',
-                secret: '<%= props.aws.secretAccessKey %>',
+                key:    '<%= settings.aws.accessKeyId %>',
+                secret: '<%= settings.aws.secretAccessKey %>',
                 bucket: 'demos.cinema6.com',
                 access: 'public-read',
                 maxOperations: 4
@@ -377,7 +378,7 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'screenjack/<%= props.version() %>/index.html',
+                        dest: 'screenjack/<%= settings.version() %>/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     },
                     {
@@ -399,12 +400,25 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'content/screenjack/<%= props.version() %>/index.html',
+                        dest: 'content/screenjack/<%= settings.version() %>/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'content/screenjack/index.html',
+                        headers : { 'cache-control' : 'max-age=0' }
+                    }
+                ]
+            },
+            landingTest: {
+                options: {
+                    bucket: 'c6.dev'
+                },            
+                upload: [
+                    {
+                        src: 'landingContent/**',
+                        rel: 'landingContent/',
+                        dest: '<%= settings.contentPath %>',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]
@@ -417,8 +431,8 @@ module.exports = function (grunt) {
                 mode     : '755'
             },
             www : {
-                target : '<%= props.installPath() %>',
-                link   : path.join('<%= props.linkPath() %>','<%= props.name() %>')
+                target : '<%= settings.installPath() %>',
+                link   : path.join('<%= settings.linkPath() %>','<%= settings.name() %>')
             }
         }
     });
@@ -463,6 +477,7 @@ module.exports = function (grunt) {
     grunt.registerTask('publish-test',function(){
         grunt.task.run('build');
         grunt.task.run('s3:test');
+        grunt.task.run('s3:landingTest');
     });
 
     grunt.registerTask('publish-prod',function(){
@@ -477,8 +492,8 @@ module.exports = function (grunt) {
             grunt.log.writeln('Already moved!');
             return;
         }
-        var props = grunt.config.get('props'),
-            installPath = props.installPath();
+        var settings = grunt.config.get('settings'),
+            installPath = settings.installPath();
         grunt.log.writeln('Moving the module to ' + installPath);
         grunt.task.run('copy:release');
         grunt.config.set('moved',true);
@@ -533,8 +548,8 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('installCheck', 'Install check', function(){
-        var props = grunt.config.get('props'),
-            installPath = props.installPath();
+        var settings = grunt.config.get('settings'),
+            installPath = settings.installPath();
 
         if (fs.existsSync(installPath)){
             grunt.log.errorlns('Install dir (' + installPath +
@@ -559,9 +574,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('rmbuild','Remove old copies of the install',function(){
         this.requires(['gitLastCommit']);
-        var props       = grunt.config.get('props'),
-            installBase = props.name(),
-            installPath = props.installPath(),
+        var settings       = grunt.config.get('settings'),
+            installBase = settings.name(),
+            installPath = settings.installPath(),
             installRoot = path.dirname(installPath),
             pattPart = new RegExp(installBase),
             pattFull = new RegExp(installBase +  '.(\\d{8})T(\\d{9})Z'),
@@ -605,7 +620,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('gitLastCommit','Get a version number using git commit', function(){
-        var props = grunt.config.get('props'),
+        var settings = grunt.config.get('settings'),
             done = this.async(),
             handleVersionData = function(data){
                 if ((data.commit === undefined) || (data.date === undefined)){
@@ -613,14 +628,14 @@ module.exports = function (grunt) {
                     return done(false);
                 }
                 data.date = new Date(data.date * 1000);
-                props.gitLastCommit = data;
+                settings.gitLastCommit = data;
                 grunt.log.writelns('Last git Commit: ' +
-                    JSON.stringify(props.gitLastCommit,null,3));
-                grunt.config.set('props',props);
+                    JSON.stringify(settings.gitLastCommit,null,3));
+                grunt.config.set('settings',settings);
                 return done(true);
             };
 
-        if (props.gitLastCommit){
+        if (settings.gitLastCommit){
             return done(true);
         }
 

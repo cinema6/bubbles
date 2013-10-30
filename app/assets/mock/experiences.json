@@ -142,8 +142,8 @@
         "summary": "The Hobbits share their feelings before Frodo leaves.",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~lotr2/middle.html",
-            "right": "screenjack~lotr2/right.html"
+            "middle": "screenjack~lotr/middle.html",
+            "right": "screenjack~lotr/right.html"
         },
         "img": {
         },
@@ -275,8 +275,8 @@
         "summary": "Noah and Allie really get to know each other.",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~notebook3/middle.html",
-            "right": "screenjack~notebook3/right.html"
+            "middle": "screenjack~notebook/middle.html",
+            "right": "screenjack~notebook/right.html"
         },
         "img": {
         },

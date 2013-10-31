@@ -14,8 +14,13 @@
             "right": "screenjack~brucelee/right.html"
         },
         "img": {
-            "thumb": "mock/landing_templates/screenjack~brucelee/assets/brucelee__thumbnail.jpg",
-            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/landing_templates/screenjack~brucelee/assets/brucelee__bg.jpg"
+            "thumb": "experiences/screenjack~brucelee/assets/slice__thumbnail--brucelee.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~brucelee/assets/landing-hero__screenshot--brucelee.jpg",
+			"logo": "experiences/screenjack~brucelee/assets/logo_alpha.png",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~brucelee/assets/landing-hero__bg--brucelee.jpg"
+        },
+        "min_features": {
+            "inlineVideo": true
         },
         "_links": {
             "expGroup": "g-9c75025882485a",
@@ -76,7 +81,8 @@
     {
         "id": "e-6f859f2c58e608",
         "uri": "screenjack~2001",
-        "title": "Dave & HAL Communicate Better",
+        "title": "Dave & HAL Need to Talk",
+        "subtitle": "Excerpt from 2001: Space Odyssey",
         "tags": ["Screenjack", "2001", "Space Odyssey", "Dave Bowman", "HAL 9000", "sassy computers"],
         "type": "Text-to-Speech Screenjack",
         "content_type": "wizard",
@@ -87,8 +93,10 @@
             "right": "screenjack~2001/right.html"
         },
         "img": {
-            "thumb": "mock/landing_templates/screenjack~2001/assets/2001__thumbnail.jpg",
-            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/landing_templates/screenjack~2001/assets/2001__bg.jpg"
+            "thumb": "experiences/screenjack~2001/assets/slice__thumbnail--2001.jpg",
+            "logo": "experiences/screenjack~2001/assets/logo_alpha.png",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~2001/assets/landing-hero__bg--2001.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~2001/assets/landing-hero__screenshot--2001.jpg"
         },
         "_links": {
             "expGroup": "g-9c75025882485a",
@@ -134,9 +142,10 @@
     },
     {
         "id": "e-1d56468d1a38b5",
-        "uri": "screenjack~lotr2",
+        "uri": "screenjack~lotr",
         "title": "The Fond Farewell",
-        "tags": ["Screenjack", "Lord of the Rings", "hobbits", "Gandalf", "poop"],
+        "subtitle": "Excerpt from Return of the King",
+        "tags": ["Screenjack", "Lord of the Rings", "Return of the King", "hobbits", "Frodo", "Gandalf", "poop"],
         "type": "Word Bubble Screenjack",
         "content_type": "wizard",
         "summary": "The Hobbits share their feelings before Frodo leaves.",
@@ -146,17 +155,24 @@
             "right": "screenjack~lotr/right.html"
         },
         "img": {
+            "thumb": "experiences/screenjack~lotr/assets/slice__thumbnail--lotr.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~lotr/assets/landing-hero__bg--lotr.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~lotr/assets/landing-hero__screenshot--lotr.jpg",
+            "logo": "experiences/screenjack~lotr/assets/logo_alpha.png"
         },
         "_links": {
             "expGroup": "g-9c75025882485a",
             "org": "o-f021ec9e94cdc3"
         },
+        "min_features": {
+            "inlineVideo": true
+        },
         "data": {
-            "video": "lotr2",
+            "video": "lotr",
             "category": "fantasy",
             "views": 1000,
             "src": "lotr",
-            "css": "styles/bubbles_fantasy2.css",
+            "css": "styles/bubbles_fantasy.css",
             "anim": "fantasy",
             "defSizeLimit": 18,
             "prompts": [
@@ -211,7 +227,8 @@
         "id": "e-3974807b472a2c",
         "uri": "screenjack~scream",
         "title": "A Late Night Phonecall Gone Wrong",
-        "tags": ["Screenjack", "Scream", "Popcorn", "2scary4you"],
+        "subtitle": "Excerpt from Scream",
+        "tags": ["Screenjack", "Scream", "Popcorn", "scary movies", "spooky phonecalls", "creepy dudes", "you know", "2scary4you"],
         "type": "Text-to-Speech Screenjack",
         "content_type": "wizard",
         "summary": "A babysitter is alone when the phone starts to ring...",
@@ -221,6 +238,10 @@
             "right": "screenjack~scream/right.html"
         },
         "img": {
+            "thumb": "experiences/screenjack~scream/assets/slice__thumbnail--scream.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~scream/assets/landing-hero__bg--scream.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~scream/assets/landing-hero__screenshot--scream.jpg",
+            "logo": "experiences/screenjack~scream/assets/logo_alpha.png"
         },
         "_links": {
             "expGroup": "g-9c75025882485a",
@@ -267,8 +288,9 @@
     },
     {
         "id": "e-54b00619a993dc",
-        "uri": "screenjack~notebook3",
+        "uri": "screenjack~notebook",
         "title": "True Love",
+        "subtitle": "Excerpt from The Notebook",
         "tags": ["Screenjack", "The Notebook", "Romance", "Awkwardly Silent Boat Rides"],
         "type": "Word Bubble Screenjack",
         "content_type": "wizard",
@@ -279,17 +301,24 @@
             "right": "screenjack~notebook/right.html"
         },
         "img": {
+            "thumb": "experiences/screenjack~notebook/assets/slice__thumbnail--notebook.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~notebook/assets/landing-hero__bg--notebook.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~notebook/assets/landing-hero__screenshot--notebook.jpg",
+            "logo": "experiences/screenjack~notebook/assets/logo_alpha.png"
+        },
+        "min_features": {
+            "inlineVideo": true
         },
         "_links": {
             "expGroup": "g-9c75025882485a",
             "org": "o-f021ec9e94cdc3"
         },
         "data": {
-	        "video": "notebook3",
+	        "video": "notebook",
             "category": "romance",
 	        "views": 993,
 	        "src": "not_over",
-	        "css": "styles/bubbles_romance3.css",
+	        "css": "styles/bubbles_romance.css",
 	        "anim": "romance",
 	        "defsizeLimit": 18,
 	        "prompts": [
@@ -343,7 +372,8 @@
     {
         "id": "e-18f36ed7b54770",
         "uri": "screenjack~siri",
-        "title": "The Truth Behind Siri",
+        "title": "Get to Know Siri",
+        "subtitle": "Excerpt from Siri Commercial 2011",
         "tags": ["Screenjack", "Siri", "Nasty Poop", "sassy computers"],
         "type": "Text to Speech Screenjack",
         "content_type": "wizard",
@@ -354,6 +384,10 @@
             "right": "screenjack~siri/right.html"
         },
         "img": {
+            "thumb": "experiences/screenjack~siri/assets/slice__thumbnail--siri.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~siri/assets/landing-hero__bg--siri.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~siri/assets/landing-hero__screenshot--siri.jpg",
+            "logo": "experiences/screenjack~siri/assets/logo_alpha.png"
         },
         "_links": {
             "expGroup": "g-9c75025882485a",

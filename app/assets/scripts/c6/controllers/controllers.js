@@ -316,7 +316,7 @@ angular.module('c6.ctrl',['c6.svc'])
                                     $scope.appCtrl.expData.annotations),
                 responses = $scope.appCtrl.promptModel.responses;
                 
-            if (!angular.equals(responses, oldResponses) || c6UserAgent.device.isMobile) {
+            if (!angular.equals(responses, oldResponses) || c6UserAgent.device.isMobile()) {
                 respSvc.setResponses(responses, $scope.appCtrl.currentCategory(),
                                      $scope.appCtrl.currentVideo());
                 if (txt2SpchModel) {

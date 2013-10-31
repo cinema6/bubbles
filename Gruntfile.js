@@ -36,7 +36,7 @@ module.exports = function (grunt) {
     // configurable paths
     var initProps = {
         c6AppUrl    : 'http://' + myIp + ':9000/',
-        contentPath : '/media/src/site/landingContent/',
+        contentPath : '/media/src/site/collateral/experiences/',
         prefix      : process.env.HOME,
         app         : path.join(__dirname,'app'),
         dist        : path.join(__dirname,'dist'),
@@ -410,14 +410,14 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-            landingTest: {
+            contentTest: {
                 options: {
                     bucket: 'c6.dev'
                 },            
                 upload: [
                     {
-                        src: 'landingContent/**',
-                        rel: 'landingContent/',
+                        src: 'siteContent/**',
+                        rel: 'siteContent/',
                         dest: '<%= settings.contentPath %>',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
@@ -477,7 +477,7 @@ module.exports = function (grunt) {
     grunt.registerTask('publish-test',function(){
         grunt.task.run('build');
         grunt.task.run('s3:test');
-        grunt.task.run('s3:landingTest');
+        grunt.task.run('s3:contentTest');
     });
 
     grunt.registerTask('publish-prod',function(){

@@ -89,6 +89,13 @@ module.exports = function (grunt) {
 
     grunt.initConfig( {
         settings: initProps,
+        smadd : {
+            angular  : { git : 'git@github.com:cinema6/angular.js.git' },
+            jquery   : { git : 'git@github.com:cinema6/jquery.git' },
+            gsap     : { git : 'git@github.com:cinema6/GreenSock-JS.git' },
+            c6ui     : { git : 'git@github.com:cinema6/c6ui.git' },
+            'ui-router' : { git : 'git@github.com:cinema6/ui-router.git' }
+        },
         smbuild : {
             angular : { options : { args : ['package'], buildDir : 'build'  } },
             jquery  : { options : { args : [],          buildDir : 'dist' } },
@@ -672,6 +679,40 @@ module.exports = function (grunt) {
             grunt.log.errorlns('Please commit pending changes');
             grunt.log.errorlns(result.stdout.replace(/\"/g,''));
             done(false);
+        });
+    });
+
+    grunt.registerMultiTask('smadd','Add submodules',function(){
+        var target  = this.target,
+            data    = this.data,
+            opts    = this.options({
+                rootDir : 'vendor',
+                alias   : this.target
+            }),
+            done    = this.async();
+        if (!opts.subDir){
+            opts.subDir = path.join(opts.rootDir,opts.alias);
+        }
+
+        grunt.log.writelns('Add submodule for: ' + target);
+        grunt.util.spawn({
+            cmd : 'git',
+            args : ['submodule','add',data.git,opts.subDir]
+        },function(error/*,result,code*/){
+            if (error) {
+                grunt.log.errorlns('submodule add failed: ' + error);
+                done(false);
+                return;
+            }
+
+            grunt.util.spawn({ cmd : 'git', args : ['init'] },function(err/*,result,code*/){
+                if (err) {
+                    grunt.log.errorlns('submodule init failed: ' + err);
+                    done(false);
+                } else {
+                    done(true);
+                }
+            });
         });
     });
 

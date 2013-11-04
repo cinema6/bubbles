@@ -42,16 +42,22 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
                           'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
                           'C6ResponseCachingService', 'c6AniCache', 'site', 'environment',
-                          'c6UserAgent',
+                          'c6UserAgent', 'c6ImagePreloader',
             function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
                      annSvc, respSvc, c6AniCache, site, env,
-                    c6UserAgent) {
+                    c6UserAgent, c6ImagePreloader) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
         hideC6ControlsTimeout,
         allowStateChange = false,
-        siteSession = site.init();
+        siteSession = site.init({
+            setup: function(appData) {
+                var experience = appData.experience;
+
+                return c6ImagePreloader.load([experience.img.bg]);
+            }
+        });
 
     if (c6UserAgent.device.isMobile()) {
         $state.get('experience.input').templateUrl = appBase + '/views/input_mobile.html';

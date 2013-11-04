@@ -251,6 +251,7 @@ module.exports = function (grunt) {
                         '<%= settings.app %>/assets/scripts/c6/animations/animations.js',
                         // C6UI Scripts
                         '<%= settings.app %>/assets/lib/c6ui/c6ui.js',
+                        '<%= settings.app %>/assets/lib/c6ui/imagepreloader/imagepreloader.js',
                         '<%= settings.app %>/assets/lib/c6ui/computed/computed.js',
                         '<%= settings.app %>/assets/lib/c6ui/sfx/sfx.js',
                         '<%= settings.app %>/assets/lib/c6ui/events/emitter.js',

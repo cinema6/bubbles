@@ -315,7 +315,7 @@
                     done();
                 }
             });
-        }])    
+        }])
 
     // start button //
         .animation('start-button-enter', [function() {

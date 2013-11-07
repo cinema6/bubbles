@@ -14,7 +14,7 @@ var fs           = require('fs-extra'),
             ifaces=os.networkInterfaces(),
             result;
         for (var dev in ifaces) {
-            if (dev.substr(0,2) === 'lo'){
+            if (dev.substr(0,3) === 'Loo'){
                 continue;
             }
             ifaces[dev].forEach(function(details){
@@ -221,7 +221,6 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc'
             },
             all: [
-                'Gruntfile.js',
                 '<%= settings.app %>/assets/scripts/**/{,*/}*.js'
             ]
         },
@@ -421,7 +420,7 @@ module.exports = function (grunt) {
             contentTest: {
                 options: {
                     bucket: 'c6.dev'
-                },            
+                },
                 upload: [
                     {
                         src: 'siteContent/**',

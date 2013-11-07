@@ -1,4 +1,5 @@
 (function(){
+/* jshint -W106 */
 'use strict';
 
 function PromptModel(experience) {

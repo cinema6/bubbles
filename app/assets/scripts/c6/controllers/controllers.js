@@ -69,6 +69,8 @@ angular.module('c6.ctrl',['c6.svc'])
     this.experienceAnimation = null;
     this.promptModel = null; // Holds the prompts for the user and their responses
     this.annotationsModel = null; // holds the annotations (speech bubbles)
+
+    this.sfxReady = false;
         
     siteSession.on('pendingPath', function(path, respond) {
         if (path !== '/') {
@@ -93,6 +95,17 @@ angular.module('c6.ctrl',['c6.svc'])
             site.requestTransitionState(true).then(function() {
                 allowStateChange = true;
                 $timeout(function() {
+                    if (!self.sfxReady) {
+                        $log.warn('Sfx failed to load. NUKING!');
+                        sfxSvc.getSounds().forEach(function(sfx) {
+                            angular.forEach(sfx, function(value, key) {
+                                if (angular.isFunction(value)) {
+                                    sfx[key] = angular.noop;
+                                }
+                            });
+                        });
+                    }
+
                     $state.transitionTo(toState.name);
                     $timeout(function() {
                         allowStateChange = false;
@@ -106,13 +119,6 @@ angular.module('c6.ctrl',['c6.svc'])
     });
 
     c6AniCache.enabled(true);
-
-    sfxSvc.loadSounds([
-        { name: 'type', src: appBase + '/media/tw_strike' },
-        { name: 'bell', src: appBase + '/media/tw_bell' },
-        { name: 'pop', src: appBase + '/media/pop_1' },
-        { name: 'yank', src: appBase + '/media/tw_yank' }
-    ]);
 
     $scope.$on('$viewContentLoaded', function() {
         $scope.appCtrl.experienceAnimation = 'experience';
@@ -209,6 +215,13 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$stateParams = $stateParams;
     
     site.getAppData().then(function(data) {
+        var sfxToLoad = [
+            { name: 'type', src: appBase + '/media/tw_strike' },
+            { name: 'bell', src: appBase + '/media/tw_bell' },
+            { name: 'pop', src: appBase + '/media/pop_1' },
+            { name: 'yank', src: appBase + '/media/tw_yank' }
+        ];
+
         $log.log('Profile: ' + JSON.stringify(data.profile, null, 3));
 
         TweenLite.ticker.useRAF(data.profile.raf);
@@ -226,26 +239,23 @@ angular.module('c6.ctrl',['c6.svc'])
 
         if (self.annotationsModel && self.annotationsModel.sfx){
             $log.log('Experience (' + self.experience.uri + ') has some sounds.');
-            var sfxToLoad;
             angular.forEach(self.annotationsModel.sfx,function(sfxSrc,sfxName){
                 sfxSrc  = appBase + '/' + sfxSrc;
-                if (!sfxSvc.getSoundByName(sfxName)){
+                if (sfxToLoad.map(function(sfx) { return sfx.name; }).indexOf(sfxName) < 0){
                     $log.info('Will load sfx name=' + sfxName + ', src=' + sfxSrc);
-                    if (!sfxToLoad){
-                        sfxToLoad = [];
-                    }
                     sfxToLoad.push( { name: sfxName, src: sfxSrc });
                 } else {
                     $log.info('Already loaded sfx name=' + sfxName);
                 }
             });
-
-            if (sfxToLoad){
-                $log.info('loading sounds');
-                sfxSvc.loadSounds(sfxToLoad);
-            }
         }
-        
+
+        $log.info('Loading sounds');
+        sfxSvc.loadSounds(sfxToLoad).then(function() {
+            $log.info('Sounds successfuly loaded!');
+            self.sfxReady = true;
+        });
+
         if (self.expData.responses) {
             $scope.appCtrl.promptModel.responses = self.expData.responses;
         }

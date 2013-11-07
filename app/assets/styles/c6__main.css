@@ -89,9 +89,9 @@
     .c6-resize--50_50 {
         position: absolute; top:50%; left:50%;
     }
-    .c6-ios-keyboard-up {
+    /*.c6-ios-keyboard-up {
         height: 300px; width: 100%; top:-50%; position: absolute;
-    }
+    }*/
     .c6-ui__prev-arrow {
         background-image:url(../img/c6-ui__prev-arrow.svg);
     }

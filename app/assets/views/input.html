@@ -1,26 +1,23 @@
-<div class="inputScreen" id="input-screen">
-    <!--artwork-->
-    <header class="inputScreen__logo"><img ng-src="assets/img/logo_small_{{appCtrl.currentCategory()}}.png"></header>
-    <div class="inputScreen__bgArtwork">&nbsp;</div>
+<div class="input__group" id="input-screen">
+    <img ng-src="assets/img/logo_small_{{appCtrl.currentCategory()}}.png" class="input__logo">
+    <div class="input__art">&nbsp;</div>
     
-    <!--content-->
-    <button class="inputScreen__btnClose" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></button> 
+    <button class="input__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></button> 
      
-    <div>   
-       <form class="content" >
-            <ul class="question__group" c6-ios-keyboard="target">
-                <li class="question">
-                    
-                    <div ng-repeat="prompt in inputCtrl.promptModel.prompts">
+    <form class="input__questions">
+        <ul class="question__group">
+            <li class="question__item">
+                
+                <div ng-repeat="prompt in inputCtrl.promptModel.prompts">
 
-	                    <div ng-if="inputCtrl.currentPromptIndex() === $index"
-                            ng-animate="'prompt'" class="question__prompt">
-                            <h1 class="question__number">Fill in the Blank</h1>
-                            <h2 class="question__query">{{inputCtrl.promptModel.prompts[$index].query}}</h2>
-                        </div>
-                        <div class="question__userAnswer"
-                            ng-if="$index === inputCtrl.currentPromptIndex()"
-                            ng-animate="'response-' + inputCtrl.currentDirection" >
+                    <div ng-if="inputCtrl.currentPromptIndex() === $index"
+                        ng-animate="'prompt'" class="question__prompt">
+                        <h1 class="question__instructions">Fill in the Blank</h1>
+                        <h2 class="question__query">{{inputCtrl.promptModel.prompts[$index].query}}</h2>
+                    </div>
+                    <div class="question__answer-box"
+                        ng-if="$index === inputCtrl.currentPromptIndex()"
+                        ng-animate="'response-' + inputCtrl.currentDirection" >
 	                    <input
 	                    	ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
 	                    	ng-disabled="appCtrl.inExperience"
@@ -33,46 +30,42 @@
 	                        name="response"
 	                        autocomplete="off">
 	                    </input>
-                        <h6 class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}
-                        </h6>
-                    </div>
-                </li>
+                        <div class="question__subtext">
+                            <span class="question__characterCount">{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit - inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}</span>
+                        </div>
+                </div>
+            </li>
+        </ul>
+        <button
+            class="question__start-btn"
+            ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
+            ng-animate="'start-button'"
+            c6-sfx-on="{click: 'yank'}"
+            ng-click="inputCtrl.startExperience();">
+            <span class="ir">Start</span>
+        </button>
 
-			<ul class="progressDock">
-				<li ng-repeat="prompt in inputCtrl.promptModel.prompts">
-					<c6-progress-number number="$index + 1" filled="inputCtrl.currentPromptIndex() >= $index">
-				</li>
-			</ul>
+        <button
+            class="question__next-btn"
+            ng-disabled="!inputCtrl.canGoForward()"
+            ng-click="inputCtrl.nextQuestion();"
+            c6-sfx-on="{click: 'bell'}"
+            name="next">
+            <span class="ir">Next</span>
+        </button>
+                    
+        <button
+            class="question__back-btn"
+            ng-disabled="!inputCtrl.canGoBack()"
+            ng-click="inputCtrl.prevQuestion();"
+            name="prev">
+            <span class="ir">Prev</span>
+        </button>
 
-			<button
-                class="question__btnStart"
-                ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
-                ng-animate="'start-button'"
-                c6-sfx-on="{click: 'yank'}"
-                ng-click="inputCtrl.startExperience();">
-                <span class="ir">Start</span>
-            </button>
-            
-            <button
-                class="question__btnNext"
-                ng-disabled="!inputCtrl.canGoForward()"
-                ng-click="inputCtrl.nextQuestion();"
-                c6-sfx-on="{click: 'bell'}"
-                name="next">
-                <span class="ir">Next</span>
-            </button>
-                        
-            <button
-                class="question__btnPrevious"
-                ng-disabled="!inputCtrl.canGoBack()"
-                ng-click="inputCtrl.prevQuestion();"
-                name="prev">
-                <span class="ir">Prev</span>
-            </button>
-            
-            </ul>
-
-            
-        </form>
-    </div>
+		<ul class="progress-dock__group">
+			<li class="progress-dock__item" ng-repeat="prompt in inputCtrl.promptModel.prompts">
+				<c6-progress-number number="$index + 1" filled="inputCtrl.currentPromptIndex() >= $index">
+			</li>
+		</ul>		
+    </form>
 </div>

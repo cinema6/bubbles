@@ -9,6 +9,7 @@ require.config({
 });
 
 var appScripts,
+    scripts,
     c6uiScripts = [
         'lib/c6ui/c6ui',
         'lib/c6ui/imagepreloader/imagepreloader',
@@ -44,7 +45,7 @@ function loadScriptsInOrder(scriptsList, done) {
 }
 
 if (__C6_BUILD_VERSION__) {
-    appScripts = [   'scripts/c6app.min' ];
+    scripts = [   'scripts/c6app.min' ];
 } else {
     appScripts = [   'scripts/c6/app',
                     'scripts/c6/services/services',
@@ -52,6 +53,9 @@ if (__C6_BUILD_VERSION__) {
                     'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives'
                     ];
+
+    c6uiScripts.push.apply(c6uiScripts, appScripts);
+    scripts = c6uiScripts;
 }
 require(['lib/modernizr/modernizr.custom.29953'], function() {
     var Modernizr = window.Modernizr;
@@ -62,10 +66,8 @@ require(['lib/modernizr/modernizr.custom.29953'], function() {
     });
 
     loadScriptsInOrder(libScripts, function() {
-        loadScriptsInOrder(c6uiScripts, function() {
-            require(appScripts, function() {
-                angular.bootstrap(document, ['c6.app']);
-            });
+        loadScriptsInOrder(scripts, function() {
+            angular.bootstrap(document, ['c6.app']);
         });
     });
 });

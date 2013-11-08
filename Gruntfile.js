@@ -209,11 +209,10 @@ module.exports = function (grunt) {
                 replacement: '\'<%= settings.version() %>\'',
                 path: '<%= settings.distVersionPath() %>/scripts/main.js'
             },
-            views: {
+            templates: {
                 pattern: 'assets',
                 replacement: '<%= settings.version() %>',
-                path: '<%= settings.distVersionPath() %>/views',
-                recursive: true
+                path: '.tmp/angular_templates/templates.js'
             }
         },
         jshint: {
@@ -239,9 +238,9 @@ module.exports = function (grunt) {
             }
         },
         concat: {
-            dist: {
+            app: {
                 files: {
-                    '.tmp/scripts/c6app.js' : [
+                    '.tmp/scripts/app.js' : [
                         // App Scripts
                         '<%= settings.app %>/assets/scripts/c6/app.js',
                         '<%= settings.app %>/assets/scripts/c6/services/services.js',
@@ -259,13 +258,15 @@ module.exports = function (grunt) {
                         '<%= settings.app %>/assets/lib/c6ui/site/site.js',
                         '<%= settings.app %>/assets/lib/c6ui/controls/controls.js',
                         '<%= settings.app %>/assets/lib/c6ui/videos/video.js',
-                        '<%= settings.app %>/assets/lib/c6ui/browser/user_agent.js',
-                        // Lib Scripts
-                        '<%= settings.app %>/assets/lib/jquery/jquery.min.js',
-                        '<%= settings.app %>/assets/lib/greensock/TimelineMax.min.js',
-                        '<%= settings.app %>/assets/lib/greensock/TweenMax.min.js',
-                        '<%= settings.app %>/assets/lib/angular/angular.min.js',
-                        '<%= settings.app %>/assets/lib/ui-router/angular-ui-router.min.js'
+                        '<%= settings.app %>/assets/lib/c6ui/browser/user_agent.js'
+                    ]
+                }
+            },
+            dist: {
+                files: {
+                    '.tmp/scripts/c6app.js': [
+                        '.tmp/scripts/app.js',
+                        '.tmp/angular_templates/templates.js'
                     ]
                 }
             }
@@ -278,18 +279,37 @@ module.exports = function (grunt) {
                 dest:   '<%= settings.distVersionPath() %>/styles/'
             }
         },
+        ngtemplates: {
+            app: {
+                cwd: '<%= settings.app %>',
+                src: 'assets/views/**/*.html',
+                dest: '.tmp/angular_templates/templates.js',
+                options: {
+                    module: 'c6.app',
+                    htmlmin: {
+                        collapseBooleanAttributes: true,
+                        collapseWhitespace: true,
+                        removeAttributeQuotes: true,
+                        removeComments: true,
+                        removeEmptyAttributes: true,
+                        removeRedundantAttributes: true,
+                        removeScriptTypeAttributes: true,
+                        removeStyleLinkTypeAttributes: true
+                    }
+                }
+            }
+        },
         htmlmin: {
             dist: {
                 options: {
-                    /*removeCommentsFromCDATA: true,
-                    // https://github.com/props/grunt-usemin/issues/44
-                    //collapseWhitespace: true,
                     collapseBooleanAttributes: true,
+                    collapseWhitespace: true,
                     removeAttributeQuotes: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
+                    removeComments: true,
                     removeEmptyAttributes: true,
-                    removeOptionalTags: true*/
+                    removeRedundantAttributes: true,
+                    removeScriptTypeAttributes: true,
+                    removeStyleLinkTypeAttributes: true
                 },
                 files: [
                     {
@@ -297,12 +317,6 @@ module.exports = function (grunt) {
                         cwd: '<%= settings.app %>',
                         src: ['*.html'],
                         dest: '<%= settings.dist %>'
-                    },
-                    {
-                        expand: true,
-                        cwd: '<%= settings.app %>/assets',
-                        src: ['views/*.html'],
-                        dest: '<%= settings.distVersionPath() %>'
                     }
                 ]
             }
@@ -469,10 +483,15 @@ module.exports = function (grunt) {
         'clean:dist',
         'cssmin',
         'htmlmin',
-        'concat',
+        'ngtemplates',
+        'sed:templates',
+        'concat:app',
+        'concat:dist',
         'copy:dist',
         'uglify',
-        'sed'
+        'sed:index',
+        'sed:index2',
+        'sed:main'
     ]);
 
     grunt.registerTask('release',function(type){

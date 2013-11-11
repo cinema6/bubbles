@@ -36,7 +36,7 @@ module.exports = function (grunt) {
     // configurable paths
     var initProps = {
         c6AppUrl    : 'http://' + myIp + ':9000/',
-        contentPath : '/media/src/site/collateral/experiences/',
+        contentPath : '/media/src/site/collateral/',
         prefix      : process.env.HOME,
         app         : path.join(__dirname,'app'),
         dist        : path.join(__dirname,'dist'),

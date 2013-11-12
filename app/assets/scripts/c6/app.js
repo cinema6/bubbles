@@ -2,20 +2,6 @@
 (function(){
 	'use strict';
 
-	var releaseConfig = {
-		    'release'           : true,
-		    'logging'           : [],
-		    'showPlayerData'    : false,
-		    'vidUrl'            : 'https://s3.amazonaws.com/c6media/src/screenjack/video/'
-		},
-		debugConfig = {
-		    'release'           : false,
-		    'logging'           : ['error','warn','log','info'],
-		    'showPlayerData'    : true,
-		    'vidUrl'            : 'https://s3.amazonaws.com/c6.dev/media/src/screenjack/video/'
-		},
-		appConfig = ((!window.location.host.match(/cinema6.com/i)) || (window.location.search.indexOf('debug=true') !== -1)) ? debugConfig : releaseConfig;
-
 	var dependencies = [
 		'ui.router',
 		'c6.ui',
@@ -75,5 +61,5 @@
 			}]);
 		}])
 		.constant('appBaseUrl', __C6_APP_BASE_URL__)
-		.constant('environment', appConfig);
+		.constant('environment', window.c6.appConfig);
 })();

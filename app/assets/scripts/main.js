@@ -8,27 +8,46 @@ require.config({
     baseUrl:  __C6_APP_BASE_URL__
 });
 
-var appScripts,
-    scripts,
-    c6uiScripts = [
-        'lib/c6ui/c6ui',
-        'lib/c6ui/imagepreloader/imagepreloader',
-        'lib/c6ui/browser/user_agent',
-        'lib/c6ui/computed/computed',
-        'lib/c6ui/sfx/sfx',
-        'lib/c6ui/events/emitter',
-        'lib/c6ui/anicache/anicache',
-        'lib/c6ui/postmessage/postmessage',
-        'lib/c6ui/site/site',
-        'lib/c6ui/controls/controls',
-        'lib/c6ui/videos/video'
-    ],
+var c6 = window.c6,
+    releaseConfig = {
+        'release'           : true,
+        'logging'           : [],
+        'showPlayerData'    : false,
+        'vidUrl'            : 'https://s3.amazonaws.com/c6media/src/screenjack/video/'
+    },
+    debugConfig = {
+        'release'           : false,
+        'logging'           : ['error','warn','log','info'],
+        'showPlayerData'    : true,
+        'vidUrl'            : 'https://s3.amazonaws.com/c6.dev/media/src/screenjack/video/'
+    };
+
+function extend(dest, src) {
+    var keys = Object.keys(src),
+        length = keys.length,
+        key;
+
+    while(length--) {
+        key = keys[length];
+
+        dest[key] = src[key];
+    }
+
+    return dest;
+}
+
+extend(c6.appConfig, ((c6.env === 'release') ? releaseConfig : debugConfig));
+
+var libUrl = c6.libUrl.bind(window.c6),
+    appScripts,
     libScripts = [
-        'lib/jquery/jquery.min',
-        'lib/greensock/TimelineMax.min',
-        'lib/greensock/TweenMax.min',
-        'lib/angular/angular.min',
-        'lib/ui-router/angular-ui-router.min'
+        libUrl('modernizr/modernizr.custom.71747.js'),
+        libUrl('jquery/2.0.3-0-gf576d00/jquery.min.js'),
+        libUrl('gsap/1.11.1-0-g4819f8a/TimelineMax.min.js'),
+        libUrl('gsap/1.11.1-0-g4819f8a/TweenMax.min.js'),
+        libUrl('angular/v1.1.5-0-g9a7035e/angular.min.js'),
+        libUrl('ui-router/0.2.0-0-g818b0d6/angular-ui-router.min.js'),
+        libUrl('c6ui/v1.0.0-0-gc527e0e/c6uilib.min.js'),
     ];
 
 function loadScriptsInOrder(scriptsList, done) {
@@ -45,7 +64,7 @@ function loadScriptsInOrder(scriptsList, done) {
 }
 
 if (__C6_BUILD_VERSION__) {
-    scripts = [   'scripts/c6app.min' ];
+    appScripts = [   'scripts/c6app.min' ];
 } else {
     appScripts = [   'scripts/c6/app',
                     'scripts/c6/services/services',
@@ -53,22 +72,17 @@ if (__C6_BUILD_VERSION__) {
                     'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives'
                     ];
-
-    c6uiScripts.push.apply(c6uiScripts, appScripts);
-    scripts = c6uiScripts;
 }
-require(['lib/modernizr/modernizr.custom.29953'], function() {
+loadScriptsInOrder(libScripts, function() {
     var Modernizr = window.Modernizr;
 
     Modernizr.load({
         test: Modernizr.touch,
-        nope: __C6_APP_BASE_URL__ + '/lib/c6ui/controls/controls--hover.css'
+        nope: libUrl('c6ui/v1.0.0-0-gc527e0e/css/c6uilib--hover.min.css')
     });
 
-    loadScriptsInOrder(libScripts, function() {
-        loadScriptsInOrder(scripts, function() {
-            angular.bootstrap(document, ['c6.app']);
-        });
+    loadScriptsInOrder(appScripts, function() {
+        angular.bootstrap(document, ['c6.app']);
     });
 });
 

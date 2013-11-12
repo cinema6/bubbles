@@ -10,8 +10,8 @@
         "summary": "Chen Zhen takes on an entire dojo single handedly.",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~brucelee/middle.html",
-            "right": "screenjack~brucelee/right.html"
+            "middle": "experiences/screenjack~brucelee/middle.html",
+            "right": "experiences/screenjack~brucelee/right.html"
         },
         "img": {
             "thumb": "experiences/screenjack~brucelee/assets/slice__thumbnail--brucelee.jpg",
@@ -89,8 +89,8 @@
         "summary": "Dave attempts to resolve some... technical issues.",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~2001/middle.html",
-            "right": "screenjack~2001/right.html"
+            "middle": "experiences/screenjack~2001/middle.html",
+            "right": "experiences/screenjack~2001/right.html"
         },
         "img": {
             "thumb": "experiences/screenjack~2001/assets/slice__thumbnail--2001.jpg",
@@ -151,8 +151,8 @@
         "summary": "The Hobbits share their feelings before Frodo leaves.",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~lotr/middle.html",
-            "right": "screenjack~lotr/right.html"
+            "middle": "experiences/screenjack~lotr/middle.html",
+            "right": "experiences/screenjack~lotr/right.html"
         },
         "img": {
             "thumb": "experiences/screenjack~lotr/assets/slice__thumbnail--lotr.jpg",
@@ -234,8 +234,8 @@
         "summary": "A babysitter is alone when the phone starts to ring...",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~scream/middle.html",
-            "right": "screenjack~scream/right.html"
+            "middle": "experiences/screenjack~scream/middle.html",
+            "right": "experiences/screenjack~scream/right.html"
         },
         "img": {
             "thumb": "experiences/screenjack~scream/assets/slice__thumbnail--scream.jpg",
@@ -297,8 +297,8 @@
         "summary": "Noah and Allie really get to know each other.",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~notebook/middle.html",
-            "right": "screenjack~notebook/right.html"
+            "middle": "experiences/screenjack~notebook/middle.html",
+            "right": "experiences/screenjack~notebook/right.html"
         },
         "img": {
             "thumb": "experiences/screenjack~notebook/assets/slice__thumbnail--notebook.jpg",
@@ -380,8 +380,8 @@
         "summary": "You haven't really met Siri. Not yet.",
         "appUri": "screenjack/#/wizard",
         "landingPageContent": {
-            "middle": "screenjack~siri/middle.html",
-            "right": "screenjack~siri/right.html"
+            "middle": "experiences/screenjack~siri/middle.html",
+            "right": "experiences/screenjack~siri/right.html"
         },
         "img": {
             "thumb": "experiences/screenjack~siri/assets/slice__thumbnail--siri.jpg",

@@ -9,10 +9,6 @@
     <meta property="og:image" content="assets/img/c6logo64x64.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="assets/styles/csswizardry-grid.css">
-        <link rel="stylesheet" href="assets/lib/c6ui/style/css/c6__main.css">
-        <link rel="stylesheet" href="assets/lib/c6ui/style/css/c6__main--hover.css">
-        <link rel="stylesheet" href="assets/lib/c6ui/controls/controls.css">
         <link rel="stylesheet" href="assets/styles/Screenjack.css">
         <link id="experience_css" rel="stylesheet" ng-href="{{appCtrl.expData.css && ('assets/' + appCtrl.expData.css)}}">
         <!--<script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script>--> <!-- c6 typekit -->
@@ -24,7 +20,42 @@
   <body>
         <ui-view></ui-view>
 
-    <script data-main="assets/scripts/main" src="assets/lib/require/require.min.js"></script>
+    <script>
+        (function() {
+            var c6 = {
+                env: (function() {
+                    return (!window.location.host.match(/cinema6.com/i)) ? 'debug' : 'release';
+                })(),
+                appConfig: {},
+                libUrl: function(url) {
+                    return this.appConfig.libUrl + url;
+                }
+            };
+            function requireScript(src, main) {
+                var script = document.createElement('script');
+                script.setAttribute('data-main', main);
+                script.setAttribute('src', src);
+                return script;
+            }
+            function stylesheet(href) {
+                var stylesheet = document.createElement('link');
+                stylesheet.setAttribute('rel', 'stylesheet');
+                stylesheet.setAttribute('href', href);
+                return stylesheet;
+            }
+            c6.appConfig.libUrl = (function() {
+                if (c6.env === 'debug') {
+                    return 'http://s3.amazonaws.com/c6.dev/ext/';
+                } else {
+                    return 'http://s3.amazonaws.com/c6.ext/';
+                }
+            })();
+            document.getElementsByTagName('head')[0].appendChild(stylesheet(c6.libUrl('c6ui/v1.0.0-0-gc527e0e/css/c6uilib.min.css')));
+
+            document.getElementsByTagName('body')[0].appendChild(requireScript(c6.libUrl('require/2.1.5/require.min.js'), 'assets/scripts/main'));
+            window.c6 = c6;
+        })();
+    </script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--<script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

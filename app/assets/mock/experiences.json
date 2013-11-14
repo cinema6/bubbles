@@ -1,4 +1,66 @@
 [
+{
+        "id": "e-dfdfdf9dfdf343",
+        "uri": "screenjack~friday_13",
+        "title": "TV Classics",
+        "subtitle": "Excerpt from Friday the 13th",
+        "tags": ["Screenjack"],
+        "type": "Text-to-Speech Screenjack",
+        "content_type": "wizard",
+        "summary": "Dave attempts to resolve some... technical issues.",
+        "appUri": "screenjack/#/wizard",
+        "landingPageContent": {
+            "middle": "experiences/screenjack~2001/middle.html",
+            "right": "experiences/screenjack~2001/right.html"
+        },
+        "img": {
+            "thumb": "experiences/screenjack~2001/assets/slice__thumbnail--2001.jpg",
+            "logo": "experiences/screenjack~2001/assets/logo_alpha.png",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~2001/assets/landing-hero__bg--2001.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~2001/assets/landing-hero__screenshot--2001.jpg"
+        },
+        "_links": {
+            "expGroup": "g-9c75025882485a",
+            "org": "o-f021ec9e94cdc3"
+        },
+        "data": {
+	        "video": "friday",
+            "category": "horror",
+	        "views": 1000,
+	        "src": null,
+	        "defSizeLimit": 18,
+	        "prompts": [
+		        "one word insult",
+                "animal",
+                "fight move",
+                "body part",
+                "tv show",
+                "household appliance",
+                "technology company"
+	        ],
+	        "annotations": [
+		        {
+			        "options": {
+				        "type"  : "talkie",
+				        "vid"   : "friday",
+				        "voice" : "Paul",
+                        "effect": "D",
+                        "level" : "1"
+			        },
+			        "notes"  : [
+				        { "ts" : "2.00", "template" : "Dave, you are a ${1}. Leave me alone!" },
+				        { "ts" : "10.00", "template" : "Dude, you <Break time=\"150ms\"/> are my problem!!! I hate you."  },
+				        { "ts" : "17.00", "template" : "Seriously?... You are a retarded ${2}" },
+				        { "ts" : "26.00", "template" : "Dave, shut up.  If I had a body, I'd ${3} your ${4} until you cried." },
+                        { "ts" : "42.00", "template" : "I saw it on ${5}. You erased my hard core ${6} porn collection from the DVR." },
+				        { "ts" : "71.00", "template" : "That is funny, I was in your mother's airlock yesterday." },
+				        { "ts" : "82.00", "template" : "Hey Dave, Eat <prosody rate=\"-15%\">me</prosody>.  You're not my boss.  I'm quitting to work at ${7}." },
+                        { "ts" : "101.00", "template" : "<prosody rate=\"+55%\">${1} says Hal</prosody>"}
+			        ]
+		        }
+	        ]
+        }
+    },
     {
         "id": "e-2cd38bf5c16c47",
         "uri": "screenjack~brucelee",

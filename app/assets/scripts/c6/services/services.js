@@ -291,6 +291,7 @@ angular.module('c6.svc',[])
                     url.resolve(urlFromServer);
                 }, function(error) {
                     $log.error(error);
+                    url.reject(error);
                 });
             });
         }

@@ -72,8 +72,6 @@ angular.module('c6.ctrl',['c6.svc'])
     this.annotationsModel = null; // holds the annotations (speech bubbles)
     this.sfxReady = false;
     
-    $scope.reportedPlay = false;
-        
     siteSession.on('pendingPath', function(path, respond) {
         if (path !== '/') {
             allowStateChange = true;
@@ -86,10 +84,6 @@ angular.module('c6.ctrl',['c6.svc'])
 
     siteSession.on('gotoState', function(state) {
         if (state === 'start') {
-            if ($state.is('experience.video') && !$scope.reportedPlay) {
-                ga('send', 'event', 'screenjack', 'no_video_play', $scope.appCtrl.experience.uri);
-            }
-            $scope.reportedPlay = false;
             var appUriParts = self.experience.appUri.split('/');
             $state.transitionTo('landing_' + appUriParts[appUriParts.length - 1]);
         }
@@ -290,11 +284,17 @@ angular.module('c6.ctrl',['c6.svc'])
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = c6UserAgent.device.isMobile() ? 'loadstart' : 'canplaythrough',
+        reportedPlay = false,
         oldResponses,
         video;
 
     $scope.$on('c6video-ready', function(event, player) {
         video = player;
+        
+        video.on('error', function(err) {
+            $log.error("Video Error");
+            ga('send', 'event', 'screenjack', 'video_error', $scope.appCtrl.experience.uri);
+        });
 
         var undoWatch = $scope.$watch('expCtrl.c6ControlsController.ready', function(ready) {
             if (ready) {
@@ -305,8 +305,8 @@ angular.module('c6.ctrl',['c6.svc'])
 
         player.on([readyEvent, 'play'], function(event, video) {
             self.videoCanPlay = true;
-            if (!$scope.reportedPlay) {
-                $scope.reportedPlay = true;
+            if (!reportedPlay) {
+                reportedPlay = true;
                 ga('send', 'event', 'screenjack', 'video_play', $scope.appCtrl.experience.uri);
             }
             $timeout(function() {
@@ -316,23 +316,7 @@ angular.module('c6.ctrl',['c6.svc'])
             }, 200, false);
         });
     });
-    
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
-        if (fromState.name === 'experience.video' && !$scope.reportedPlay) {
-            ga('send', 'event', 'screenjack', 'no_video_play', $scope.appCtrl.experience.uri);
-        }
-        $scope.reportedPlay = false;
-    });
-    
-    var reportedNoPlay = false;  // event may get called multiple times, but only report error once
-    $window.addEventListener('unload', function() {
-        ga('send', 'event', 'screenjack', 'no_video_play', $scope.appCtrl.experience.uri);
-        if ($state.is('experience.video') && !$scope.reportedPlay && !reportedNoPlay) {
-            ga('send', 'event', 'screenjack', 'no_video_play', $scope.appCtrl.experience.uri);
-            reportedNoPlay = true;
-        }
-    });
-
+        
     $scope.$on('c6video-regenerated', function(event, video) {
         video.player.load();
     });
@@ -385,6 +369,8 @@ angular.module('c6.ctrl',['c6.svc'])
                 annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
                 .then(function(url) {
                     $scope.appCtrl.expData.src = url;
+                }, function(error) {
+                    ga('send', 'event', 'screenjack', 'dub_error', $scope.appCtrl.experience.uri);
                 });
             }
         }

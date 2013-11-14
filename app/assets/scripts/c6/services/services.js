@@ -283,8 +283,7 @@ angular.module('c6.svc',[])
                     requestBodyObject.script.push(line);
                 });
 
-                // $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create',
-                $http.post('http://localhost:3000/dub/create',
+                $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create',
                            requestBodyObject).then(function(response) {
                     var urlFromServer = response.data.output;
 

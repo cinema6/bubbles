@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="assets/styles/Screenjack.css">
+        <link rel="stylesheet" href="assets/styles/TEMP-c6__exp.css"> <!-- temp -->
+        <link rel="stylesheet" href="assets/styles/TEMP-c6__exp--hover.css"> <!-- temp -->
+        <link rel="stylesheet" href="assets/sandbox/styles/Sandbox.css"> <!-- temp -->
         <link id="experience_css" rel="stylesheet" ng-href="{{appCtrl.expData.css && ('assets/' + appCtrl.expData.css)}}">
         <!--<script type="text/javascript" src="//use.typekit.net/xuz8gem.js"></script>--> <!-- c6 typekit -->
         <script type="text/javascript" src="//use.typekit.net/ffz0fzf.js"></script> <!-- screenjack typekit -->
@@ -17,7 +20,7 @@
 
     <!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
   </head>
-  <body>
+  <body class="sj__bg">
         <ui-view></ui-view>
 
     <script>
@@ -50,7 +53,7 @@
                     return 'http://s3.amazonaws.com/c6.ext/';
                 }
             })();
-            document.getElementsByTagName('head')[0].appendChild(stylesheet(c6.libUrl('c6ui/v1.0.0-0-gc527e0e/css/c6uilib.min.css')));
+            document.getElementsByTagName('head')[0].appendChild(stylesheet(c6.libUrl('c6ui/v1.2.1-0-g79dbac9/css/c6uilib.min.css')));
 
             document.getElementsByTagName('body')[0].appendChild(requireScript(c6.libUrl('require/2.1.5/require.min.js'), 'assets/scripts/main'));
             window.c6 = c6;

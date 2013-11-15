@@ -1,6 +1,6 @@
-<div class="input__group">
-    <img ng-src="assets/img/logo_small_{{appCtrl.currentCategory()}}.png" class="input__logo">       
-    <div class="input__art">&nbsp;</div>
+<div class="input__group c6-view--fill-100">
+    <img ng-src="assets/img/logo_small_{{appCtrl.currentCategory()}}.png" class="sj__logo--small">       
+    <div class="sj__art">&nbsp;</div>
     
     <button class="input__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></button>
 
@@ -45,7 +45,7 @@
             <span class="ir">Start</span>
         </button>
         <button
-            class="question__next-btn"
+            class="question__arrow-btn question__arrow-btn--next"
             c6-sfx-on="{click: 'bell'}"
             ng-disabled="!inputCtrl.canGoForward()"
             ng-click="inputCtrl.nextQuestion(); appCtrl.askForVideoLoad();"
@@ -53,7 +53,7 @@
             <span class="ir">Next</span>
         </button>         
         <button
-            class="question__back-btn"
+            class="question__arrow-btn question__arrow-btn--back"
             ng-disabled="!inputCtrl.canGoBack()"
             ng-click="inputCtrl.prevQuestion();"
             name="prev">

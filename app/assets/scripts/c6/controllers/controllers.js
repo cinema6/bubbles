@@ -284,16 +284,20 @@ angular.module('c6.ctrl',['c6.svc'])
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = c6UserAgent.device.isMobile() ? 'loadstart' : 'canplaythrough',
-        reportedPlay = false,
+        // reportedPlay = false,
         oldResponses,
         video;
+
+    $scope.gaLabel = $scope.appCtrl.experience.uri.match(/shared~/)
+                         ? $scope.appCtrl.experience.uri + ', vid=' + $scope.appCtrl.expData.video
+                         : $scope.appCtrl.experience.uri;
 
     $scope.$on('c6video-ready', function(event, player) {
         video = player;
         
         video.on('error', function(err) {
             $log.error("Video Error");
-            ga('send', 'event', 'screenjack', 'video_error', $scope.appCtrl.experience.uri);
+            ga('send', 'event', 'screenjack', 'video_error', $scope.appCtrl.expData.src);
         });
 
         var undoWatch = $scope.$watch('expCtrl.c6ControlsController.ready', function(ready) {
@@ -305,13 +309,10 @@ angular.module('c6.ctrl',['c6.svc'])
 
         player.on([readyEvent, 'play'], function(event, video) {
             self.videoCanPlay = true;
-            if (!reportedPlay) {
-                reportedPlay = true;
-                ga('send', 'event', 'screenjack', 'video_play', $scope.appCtrl.experience.uri);
-            }
             $timeout(function() {
                 if ($state.is('experience.video') && video.player.paused) {
                     video.player.play();
+                    ga('send', 'event', 'screenjack', 'video_play', $scope.gaLabel);
                 }
             }, 200, false);
         });
@@ -335,6 +336,7 @@ angular.module('c6.ctrl',['c6.svc'])
             }
             $log.log('Playing the video!');
             video.player.play();
+            ga('send', 'event', 'screenjack', 'video_play', $scope.gaLabel);
         }
     });
 
@@ -370,7 +372,7 @@ angular.module('c6.ctrl',['c6.svc'])
                 .then(function(url) {
                     $scope.appCtrl.expData.src = url;
                 }, function(error) {
-                    ga('send', 'event', 'screenjack', 'dub_error', $scope.appCtrl.experience.uri);
+                    ga('send', 'event', 'screenjack', 'dub_error', $scope.gaLabel);
                 });
             }
         }
@@ -427,7 +429,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.goToEnd = function(player) {
         player.fullscreen(false);
         $state.transitionTo('experience.end', $stateParams);
-        ga('send', 'event', 'screenjack', 'completed_video', $scope.appCtrl.experience.uri);
+        ga('send', 'event', 'screenjack', 'completed_video', $scope.gaLabel);
     };
 
     this.annotationIsActive = function(annotation) {
@@ -486,7 +488,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.startExperience = function() {
         $scope.$broadcast('experienceStart');
         $state.transitionTo('experience.video', $stateParams);
-        ga('send', 'event', 'screenjack', 'submit_responses', $scope.appCtrl.experience.uri);
+        ga('send', 'event', 'screenjack', 'submit_responses', $scope.gaLabel);
     };
 
     $scope.inputCtrl = this;

@@ -70,9 +70,8 @@ angular.module('c6.ctrl',['c6.svc'])
     this.experienceAnimation = null;
     this.promptModel = null; // Holds the prompts for the user and their responses
     this.annotationsModel = null; // holds the annotations (speech bubbles)
-
     this.sfxReady = false;
-        
+    
     siteSession.on('pendingPath', function(path, respond) {
         if (path !== '/') {
             allowStateChange = true;
@@ -196,6 +195,10 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
         self.stateHistory.from = fromState.name;
         self.stateHistory.to = toState.name;
+        ga('send','pageview', {
+            'page'  : $location.absUrl(),
+            'title' : 'screenjack ' + toState.name
+        });
     });
 
     $scope.$on('c6MouseActivityStart', function() {
@@ -274,18 +277,28 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6ExperienceCtrl',['$log','$scope','$rootScope','$location','$stateParams',
                                 'C6AnnotationsService','$state','$timeout','environment',
                                 'C6ResponseCachingService','c6Sfx','C6VideoControlsService',
-                                'c6UserAgent',
+                                'c6UserAgent', '$window',
             function($log,$scope,$rootScope,$location,$stateParams,annSvc,$state,$timeout,env,
-                     respSvc,sfxSvc,vidCtrlsSvc,c6UserAgent) {
+                     respSvc,sfxSvc,vidCtrlsSvc,c6UserAgent,$window) {
                      
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = c6UserAgent.device.isMobile() ? 'loadstart' : 'canplaythrough',
+        // reportedPlay = false,
         oldResponses,
         video;
 
+    $scope.gaLabel = $scope.appCtrl.experience.uri.match(/shared~/)
+                         ? $scope.appCtrl.experience.uri + ', vid=' + $scope.appCtrl.expData.video
+                         : $scope.appCtrl.experience.uri;
+
     $scope.$on('c6video-ready', function(event, player) {
         video = player;
+        
+        video.on('error', function(err) {
+            $log.error("Video Error");
+            ga('send', 'event', 'screenjack', 'video_error', $scope.appCtrl.expData.src);
+        });
 
         var undoWatch = $scope.$watch('expCtrl.c6ControlsController.ready', function(ready) {
             if (ready) {
@@ -297,11 +310,14 @@ angular.module('c6.ctrl',['c6.svc'])
         player.on([readyEvent, 'play'], function(event, video) {
             self.videoCanPlay = true;
             $timeout(function() {
-                if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
+                if ($state.is('experience.video') && video.player.paused) {
+                    video.player.play();
+                    ga('send', 'event', 'screenjack', 'video_play', $scope.gaLabel);
+                }
             }, 200, false);
         });
     });
-
+        
     $scope.$on('c6video-regenerated', function(event, video) {
         video.player.load();
     });
@@ -320,6 +336,7 @@ angular.module('c6.ctrl',['c6.svc'])
             }
             $log.log('Playing the video!');
             video.player.play();
+            ga('send', 'event', 'screenjack', 'video_play', $scope.gaLabel);
         }
     });
 
@@ -354,6 +371,8 @@ angular.module('c6.ctrl',['c6.svc'])
                 annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
                 .then(function(url) {
                     $scope.appCtrl.expData.src = url;
+                }, function(error) {
+                    ga('send', 'event', 'screenjack', 'dub_error', $scope.gaLabel);
                 });
             }
         }
@@ -410,6 +429,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.goToEnd = function(player) {
         player.fullscreen(false);
         $state.transitionTo('experience.end', $stateParams);
+        ga('send', 'event', 'screenjack', 'completed_video', $scope.gaLabel);
     };
 
     this.annotationIsActive = function(annotation) {
@@ -468,6 +488,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.startExperience = function() {
         $scope.$broadcast('experienceStart');
         $state.transitionTo('experience.video', $stateParams);
+        ga('send', 'event', 'screenjack', 'submit_responses', $scope.gaLabel);
     };
 
     $scope.inputCtrl = this;

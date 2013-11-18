@@ -1,32 +1,36 @@
-<section class="landing-hero__group" ng-style="{'background-image': 'url(' + appCtrl.experience.img.bg + ')'};">
-    <div class="landing--hero__overlay">&nbsp;</div>
-    <h1 class="landing-hero-slides__hdr tk--hdr">
-        <a ng-click="appCtrl.startExperience()" class="landing-hero-slides__slide--link" title="Play Now">
-            <span class="hero-slides__play"><span class="ir">Play Now</span></span>
-        </a>
-    </h1>
-    <div class="landing--hero__video-group">
-        <div class="grid grid--middle grid--center">
-            <img class="landing--hero__video grid__item eleven-twelfths" ng-src="{{appCtrl.experience.img.screenshot}}">
-            <div class="grid__item one-twelfth palm--hide" style="margin-left: -12%; padding: 0;">
-                <div style="height:42em;">&nbsp;</div>
-            </div> 
-        </div>
-    </div>
-    <div class="landing--hero__series">
-        <span class="ir">Screenjack</span>
-    </div>
-    <ul class="landing--hero__annotations">
-        <li class="landing__annotation landing__annoation-position--{{$index}}" ng-repeat="a in appCtrl.randomAnnotations">
-            <div class="a-style">
-                <div class="a-frame">
-                    <div class="a-text">
-                        {{a.text}}&nbsp;
-                        <div class="a-deco-right"></div><div class="a-deco-left"></div>
-                        <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
-                    </div>
+<section class="exp-hero__group" ng-style="{'background-image': 'url(' + appCtrl.experience.img.bg + ')'};">
+    <div class="c6-view__blackout">
+        <h1 class="exp-hero-slides__hdr">
+            <a ng-click="appCtrl.startExperience()" class="exp-hero-slides__link" title="Play Now">
+                <span class="c6-ui__play"><span class="ir">Play Now</span></span>
+            </a>
+        </h1>
+        <div class="exp-screenshot__group">
+            <div class="grid grid--middle grid--center">
+                <div class="exp-screenshot__box grid__item eleven-twelfths">
+                    <img class="exp-screenshot__img" ng-src="{{appCtrl.experience.img.screenshot}}">
+                </div>
+                <div class="grid__item one-twelfth palm--hide" style="margin-left: -12%; padding: 0;">
+                    <div class="exp-hero__vertical-spacer">&nbsp;</div>
                 </div> 
             </div>
-        </li> 
-    </ul>
+        </div>
+        <div class="exp-hero__tag">
+            <span class="ir">Screenjack</span>
+        </div>
+        <ul class="landing--hero__annotations">
+            <li class="landing__annotation landing__annoation-position--{{$index}}" ng-repeat="a in appCtrl.randomAnnotations">
+                <div class="annotations__style">
+                    <div class="annotations__frame">
+                        <div class="annotations__text">
+                            {{a.text}}&nbsp;
+                            <div class="annotations__corner annotations__corner--right"></div>
+                            <div class="annotations__corner annotations__corner--left"></div>
+                            <div class="annotations__tail" ng-class="'annotations__tail--' + a.tail.pos + '-' + a.tail.type"></div>
+                        </div>
+                    </div> 
+                </div>
+            </li> 
+        </ul>
+    </div>
 </section><!--.hero__group-->

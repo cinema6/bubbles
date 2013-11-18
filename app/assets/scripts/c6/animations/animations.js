@@ -4,213 +4,8 @@
     angular.module('c6.anim', ['c6.ui'])
 
 /*  ==========================================================================
-    categories state animations
-    ========================================================================== */
-
-    /* --- to input --- */
-        .animation('experience.categories=>experience.input-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
-            return c6AniCache({
-                id: 'categories-leave',
-                setup: function(element) {
-                    $log.log('In categories-leave setup');
-                    var timeline = new TimelineLite({paused:true});
-
-                    element.css({
-                        '-webkit-transform': 'rotate(0deg)',
-                        '-moz-transform': 'rotate(0deg)',
-                        '-ms-transform': 'rotate(0deg)',
-                        '-o-transform': 'rotate(0deg)',
-                        'transform': 'rotate(0deg)',
-                        bottom: 0, left: 0,
-                        opacity: 1, visibility: 'visible'
-                    });
-
-                    return timeline;
-                },
-                start: function(element, done, timeline) {
-                    $log.log('In categories-leave start');
-
-                    timeline.to(element, 2, {autoAlpha: 0, rotation: '45deg', left: '-500px', bottom: '-1500px', ease: Power3.easeIn})
-                        .eventCallback('onComplete', function() {
-                            $log.info('categories-leave done');
-                            done();
-                        });
-
-                    timeline.play();
-                    timeline.seek(0);
-                },
-                cancel: function(element, done, timeline) {
-                    $log.log('In categories-leave cancel');
-                    timeline.kill();
-                    timeline.clear();
-                    done();
-                }
-            });
-        }])
-
-    /* --- to end --- */
-        .animation('experience.categories=>experience.end-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
-            return c6AniCache({
-                id: 'categories-leave',
-                setup: function(element) {
-                    $log.log('In categories-leave setup');
-
-                    element.css({
-                        '-webkit-transform': 'rotate(0deg)',
-                        '-moz-transform': 'rotate(0deg)',
-                        '-ms-transform': 'rotate(0deg)',
-                        '-o-transform': 'rotate(0deg)',
-                        'transform': 'rotate(0deg)',
-                        bottom: 0, left: 0,
-                        opacity: 1, visibility: 'visible'
-                    });
-
-                    var timeline = new TimelineLite({paused:true});
-                    return timeline;
-                },
-                start: function(element, done, timeline) {
-                    $log.log('In categories-leave start');
-
-                    timeline.to(element, 2, {rotation: '-20deg', autoAlpha: 0, left: '1800px', bottom: '400px', ease: Power3.easeIn})
-                        .eventCallback('onComplete', function() {
-                            $log.info('categories-leave done');
-                            done();
-                        });
-
-                    timeline.play();
-                    timeline.seek(0);
-                },
-                cancel: function(element, done, timeline) {
-                    $log.log('In categories-leave cancel');
-                    timeline.kill();
-                    timeline.clear();
-                    done();
-                }
-            });
-        }])
-
-    /* --- from input --- */
-        .animation('experience.input=>experience.categories-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
-            return c6AniCache({
-                id: 'categories-enter',
-                setup: function(element) {
-                    $log.log('In categories-enter setup');
-                    var timeline = new TimelineLite({paused:true});
-
-                    element.css({
-                        '-webkit-transform': 'rotate(45deg)',
-                        '-moz-transform': 'rotate(45deg)',
-                        '-ms-transform': 'rotate(45deg)',
-                        '-o-transform': 'rotate(45deg)',
-                        'transform': 'rotate(45deg)',
-                        bottom: '-1500px', left: '-500px',
-                        opacity: 0, visibility: 'hidden'
-                    });
-
-                    return timeline;
-                },
-                start: function(element, done, timeline) {
-                    $log.log('In categories-enter start');
-                    timeline.to(element, 2, {rotation: '0deg', autoAlpha: 1, left: 0, bottom: 0, ease: Power3.easeOut}, '+=1.5')
-                        .eventCallback('onComplete', function() {
-                            $log.info('input-enter done');
-                            done();
-                        });
-
-                    timeline.play();
-                    timeline.seek(0);
-                },
-                cancel: function(element, done, timeline) {
-                    $log.log('In categories-enter cancel');
-                    timeline.kill();
-                    timeline.clear();
-                    done();
-                }
-            });
-        }])
-
-    /* --- from end --- */
-        .animation('experience.end=>experience.categories-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
-            return c6AniCache({
-                id: 'categories-enter',
-                setup: function(element) {
-                    $log.log('In categories-enter setup');
-                    var timeline = new TimelineLite({paused:true});
-
-                    element.css({
-                        '-webkit-transform': 'rotate(-20deg)',
-                        '-moz-transform': 'rotate(-20deg)',
-                        '-ms-transform': 'rotate(-20deg)',
-                        '-o-transform': 'rotate(-20deg)',
-                        'transform': 'rotate(-20deg)',
-                        bottom: '400px', left: '1800px',
-                        opacity: 0, visibility: 'hidden'
-                    });
-
-                    return timeline;
-                },
-                start: function(element, done, timeline) {
-                    $log.log('In categories-enter start');
-
-                    timeline.to(element, 2, {autoAlpha: 1, rotation: '0deg', left: 0, bottom: 0, ease: Power3.easeOut}, '+=1.5')
-                        .eventCallback('onComplete', function() {
-                            $log.info('categories-enter done');
-                            done();
-                        });
-
-                    timeline.play();
-                    timeline.seek(0);
-                },
-                cancel: function(element, done, timeline) {
-                    $log.log('In categories-enter cancel');
-                    timeline.kill();
-                    timeline.clear();
-                    done();
-                }
-            });
-        }])
-
-/*  ==========================================================================
     input state animations
     ========================================================================== */
-
-    /* --- to categories --- */
-        .animation('experience.input=>experience.categories-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
-            return c6AniCache({
-                id: 'input-leave',
-                setup: function(element) {
-                    $log.log('In input-leave setup');
-                    element.css({
-                        '-webkit-transform': 'rotate(0deg)',
-                        '-moz-transform': 'rotate(0deg)',
-                        '-ms-transform': 'rotate(0deg)',
-                        '-o-transform': 'rotate(0deg)',
-                        opacity: 1, visibility: 'visible',
-                        left: 0, top : 0
-                    });
-                    var timeline = new TimelineLite({paused:true});
-                    return timeline;
-                },
-                start: function(element, done, timeline) {
-                    $log.log('In input-leave start');
-
-                    timeline.to(element, 2, {autoAlpha: 0, rotation: '-30deg', left: '-400px', top: '-1800px', ease: Power3.easeIn})
-                        .eventCallback('onComplete', function() {
-                            $log.info('input-leave done');
-                            done();
-                        });
-
-                    timeline.play();
-                    timeline.seek(0);
-                },
-                cancel: function(element, done, timeline) {
-                    $log.log('In input-leave cancel');
-                    timeline.kill();
-                    timeline.clear();
-                    done();
-                }
-            });
-        }])
 
     /* --- to video --- */
         .animation('experience.input=>experience.video-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
@@ -244,31 +39,33 @@
                 }
             });
         }])
-
-    /* --- from categories --- */
-        .animation('experience.categories=>experience.input-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
+        
+    /* --- to end --- */
+        .animation('experience.input=>experience.end-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
-                id: 'input-enter',
+                id: 'input-leave',
                 setup: function(element) {
-                    $log.log('In input-enter setup');
+                    $log.log('In input-leave setup');
+
                     element.css({
-                        '-webkit-transform': 'rotate(-30deg)',
-                        '-moz-transform': 'rotate(-30deg)',
-                        '-ms-transform': 'rotate(-30deg)',
-                        '-o-transform': 'rotate(-30deg)',
-                        opacity: 0, visibility: 'hidden',
-                        left: '400px', top : '-1800px'
+                        '-webkit-transform': 'rotate(0deg)',
+                        '-moz-transform': 'rotate(0deg)',
+                        '-ms-transform': 'rotate(0deg)',
+                        '-o-transform': 'rotate(0deg)',
+                        'transform': 'rotate(0deg)',
+                        bottom: 0, left: 0,
+                        opacity: 1, visibility: 'visible'
                     });
 
                     var timeline = new TimelineLite({paused:true});
                     return timeline;
                 },
                 start: function(element, done, timeline) {
-                    $log.log('In input-enter start');
+                    $log.log('In input-leave start');
 
-                    timeline.to(element, 2, {rotation: '0deg', autoAlpha: 1, left: 0, top: 0, ease: Power4.easeOut}, '+=1.5')
+                    timeline.to(element, 2, {rotation: '-20deg', autoAlpha: 0, left: '1800px', bottom: '400px', ease: Power3.easeIn})
                         .eventCallback('onComplete', function() {
-                            $log.info('input-enter done');
+                            $log.info('input-leave done');
                             done();
                         });
 
@@ -276,14 +73,14 @@
                     timeline.seek(0);
                 },
                 cancel: function(element, done, timeline) {
-                    $log.log('In input-enter cancel');
+                    $log.log('In input-leave cancel');
                     timeline.kill();
                     timeline.clear();
                     done();
                 }
             });
         }])
-        
+
     /* --- from video --- */
         .animation('experience.video=>experience.input-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
@@ -300,6 +97,47 @@
                     $log.log('In input-enter start');
 
                     timeline.to(element, 2, {autoAlpha: 1}, '+=1')
+                        .eventCallback('onComplete', function() {
+                            $log.info('input-enter done');
+                            done();
+                        });
+
+                    timeline.play();
+                    timeline.seek(0);
+                },
+                cancel: function(element, done, timeline) {
+                    $log.log('In input-enter cancel');
+                    timeline.kill();
+                    timeline.clear();
+                    done();
+                }
+            });
+        }])
+
+    /* --- from end --- */
+        .animation('experience.end=>experience.input-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
+            return c6AniCache({
+                id: 'input-enter',
+                setup: function(element) {
+                    $log.log('In Input-enter setup');
+                    var timeline = new TimelineLite({paused:true});
+
+                    element.css({
+                        '-webkit-transform': 'rotate(-20deg)',
+                        '-moz-transform': 'rotate(-20deg)',
+                        '-ms-transform': 'rotate(-20deg)',
+                        '-o-transform': 'rotate(-20deg)',
+                        'transform': 'rotate(-20deg)',
+                        bottom: '400px', left: '1800px',
+                        opacity: 0, visibility: 'hidden'
+                    });
+
+                    return timeline;
+                },
+                start: function(element, done, timeline) {
+                    $log.log('In input-enter start');
+
+                    timeline.to(element, 2, {autoAlpha: 1, rotation: '0deg', left: 0, bottom: 0, ease: Power3.easeOut}, '+=1.5')
                         .eventCallback('onComplete', function() {
                             $log.info('input-enter done');
                             done();
@@ -489,11 +327,9 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In video-show start');
-                    var //logo$ = element.find('#exp-logo'),
-                        player$ = element.find('#player').css({opacity: 0, visibility: 'hidden'});
+                    var player$ = element.find('#player').css({opacity: 0, visibility: 'hidden'});
 
                     timeline.to(element, 1.5, {autoAlpha:1}, '+=0.5')
-                        //.from(logo$, 1, {autoAlpha: 0}, '-=0.5')
                         .to(player$, 1, {autoAlpha: 1}, '-=0.5')
                         .eventCallback('onComplete', function() {
                             $log.info('video-show done');
@@ -681,8 +517,8 @@
             });
         }])
 
-    /* --- to categories --- */
-        .animation('experience.end=>experience.categories-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
+    /* --- to input --- */
+        .animation('experience.end=>experience.input-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
                 id: 'end-leave',
                 setup: function(element) {
@@ -754,8 +590,8 @@
             });
         }])
 
-    /* --- from categories --- */
-        .animation('experience.categories=>experience.end-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
+    /* --- from input --- */
+        .animation('experience.input=>experience.end-enter', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
                 id: 'end-enter',
                 setup: function(element) {
@@ -792,42 +628,5 @@
                     done();
                 }
             });
-        }])
-
-    /* ---------------------- share --------------------- */
-        .animation('shareBox-enter', [function() {
-            return {
-                setup: function(element) {
-                    element.css({opacity: 0, visibility: 'hidden'});
-                },
-                start: function(element, done) {
-                    var timeline = new TimelineLite({paused: true}),
-                        shareBox$ = element.find('#share-box');
-
-                    timeline.to(element, 0.65, {autoAlpha: 1})
-                        .from(shareBox$, 0.5, {bottom: '-4em', ease: Power4.easeOut}, '-=0.25')
-                        .eventCallback('onComplete', done);
-
-                    timeline.play();
-                }
-            };
-        }])
-
-        .animation('shareBox-leave', [function() {
-            return {
-                setup: function(element) {
-                    element.css({opacity: 1, visibility: 'visible'});
-                },
-                start: function(element, done) {
-                    var timeline = new TimelineLite({paused: true}),
-                        shareBox$ = element.find('#share-box');
-
-                    timeline.to(shareBox$, 0.5, {bottom: '-4em', ease: Power4.easeIn})
-                        .to(element, 0.65, {autoAlpha: 0})
-                        .eventCallback('onComplete', done);
-
-                    timeline.play();
-                }
-            };
         }]);
 })();

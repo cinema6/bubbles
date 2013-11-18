@@ -4,22 +4,37 @@
     .sj__bg { 
         background: url(../img/bg_tile.jpg) repeat;
     }
-
     .sj__art {
         position: absolute; 
         width: 34.9375em; height: 35.1875em;
-        bottom: -18.75em; left: -18.75em;
+        bottom: -20.75em; left: -20.75em;
         background: url(../img/paperball.png) no-repeat center; background-size: contain;
     }
-
     .sj__logo--small {
-        top: 36px; left: 0; position: absolute;
+        top: 0; left: 0; position: absolute;
     } 
-
     .sj__logo--big {
-            position: absolute; z-index: 2;
-            width: 50%; margin-top: -9%; top: 36px;
+        position: absolute; z-index: 2;
+        width: 50%; margin-top: -9%; top: 36px;
+    }
+
+    .sj-loading__group {
+        position: fixed; top: 45%;
+        width: 100%; z-index: 9000;
+    }
+        .sj-loading__scroller {
+            font-family: 'courier prime', courier, times, serif; color: #fff; height: 3.75em;
         }
+            .sj-loading__text {
+                display: inline-block; text-align: center; width: 35.5em; 
+                position: absolute; left: 50%; margin-left: -17.75em;
+            }
+        .sj-loading__bar { 
+            background: #232527; width: 25%; margin: 0 auto;
+        }
+            .sj-loading__bar--active {
+                background: red; height: 0.375em; width: 0
+            }
 
     @media screen and (max-width: 768px) {
         .sj__art {
@@ -33,13 +48,28 @@
             bottom: -8.75em; left: -7.25em; 
         }
         .sj__logo--small {
-            top: 2.5em; left: 0.25em;
+            top: 0; left: 0.25em;
             height: 2.5em; width: 6.625em;
         }
+        .sj-loading__scroller {
+            font-size: 0.8em;
+        }
+            .sj-loading__text {
+                width: 20em; margin-left: -10em;
+            }
+    }
+
+    @media screen and (max-width: 320px) {
+        .sj-loading__scroller {
+            font-size: 0.6em;
+        }
+            .sj-loading__text {
+                width: 15em; margin-left: -7.5em;
+            }
     }
 
 /*  ==========================================================================
-    exp-hero__group styles
+    exp-hero__group styles : important stuff!!
     ========================================================================== */
     @media only screen and (max-device-width:400px) and (orientation: portrait), (max-width:480px) {
         .exp-hero__group {
@@ -56,23 +86,11 @@
     }
 
 /*  ==========================================================================
-    c6__main overides
+    c6__main.css overides : for branding 
     ========================================================================== */
-    .c6-bar__container {
-        position: absolute;
-        height: 2.25em;
-        width: 100%;
-        top: 0px;
-
-        -ms-transition: top 0.5s; -moz-transition: top 0.5s; -o-transition: top 0.5s; -webkit-transition: top 0.5s; transition: top 0.5s;
-    }
-        .c6-bar__container.offscreen {
-            top: -2.25em;
-        }
-
     .c6-bar__app-title {
-        background: url('../img/logo_alpha.png') center center no-repeat;
-        background-size: contain; height:1em; margin:0.6825em 0 0 0.75em;
+        background: url(../img/logo_alpha.png) center center no-repeat;
+        background-size: contain; height: 1em; margin: 0.6825em 0 0 0.75em;
     }
 
     .exp-hero__tag {
@@ -80,30 +98,14 @@
     }
 
 /*  ==========================================================================
-    disclaimer styles
+    c6 controls  styles
     ========================================================================== */
-    /*.disclaimer--categories {
-        position: absolute; width: 100%;
-        top: 40px; text-align: center;
-        font-size: 200%; font-weight: bold;
-        z-index: 999999;
-        color: red; font-family: 'open sans', arial, sans-serif; text-transform: uppercase; 
+    .c6-controls__group {
+        position: absolute; bottom: 10px; width: 100%; z-index: 1000;
     }
-        @media screen and (max-device-width: 640px){
-            .disclaimer--categories {font-size: 100%;}
+        .c6-controls__group.offscreen {
+            bottom: -40px;
         }
-
-    .disclaimer--landing {
-        position: absolute;
-        top: 1.8em; width: 100%; text-align: center;
-        font-size: 200%; font-weight: bold;
-        z-index: 999999;
-        color: red; font-family: 'open sans', arial, sans-serif; text-transform: uppercase; 
-    }
-        @media screen and (max-device-width: 640px){
-            .disclaimer--landing {font-size: 140%; top: 5.8em;}
-        }*/
-
 
 /*  ==========================================================================
     landing page styles
@@ -246,7 +248,7 @@
                 .question__start-btn:active {background: url('../img/btn_start_tap.png') center no-repeat;}
  
         .input__close-btn {
-            position: absolute; top: 3.5em; right: 0.25em;
+            position: absolute; top: 3.25em; right: 0.25em;
             width: 4.125em; height: 3.375em; border: 0;
             background: url(../img/btn_close_default.png) no-repeat top left; background-size: cover;
             z-index: 1;
@@ -262,7 +264,6 @@
                 display: inline-block; width: 2.625em;
             }
                 
-        /* small desktop */
         @media screen and (max-width: 567px) {
             .progress-dock__item {
                 width: 1.875em;
@@ -272,7 +273,6 @@
             }
         }
 
-        /* tablet */
         @media screen and (max-width: 768px) {
             .question__arrow-btn--back {
                 left: 0;
@@ -285,7 +285,6 @@
             }
         }
         
-        /* phone */
         @media screen and (max-device-width: 568px) {
             .input__questions {
                 top: 20%;
@@ -322,92 +321,20 @@
 /*  ==========================================================================
     video experience styles
     ========================================================================== */
-    .c6Controls__group {
-        z-index: 1000;
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-        
-        -ms-transition: bottom 0.5s; -moz-transition: bottom 0.5s; -o-transition: bottom 0.5s; -webkit-transition: bottom 0.5s; transition: bottom 0.5s;
+    .video__group {
+        background-color: #000;
     }
-    .c6Controls__group.offscreen {
-        bottom: -40px;
-    }
-
-    .transition_blackFade {
-        background: #000; 
-        height: 100%; 
-        width: 100%; 
-        z-index: 0;
-        position: fixed; 
-        top: 0; 
-        opacity: 1;
-    }
-    .experience__group {
-        height: 100%; width:100%; 
-        position: absolute; top: 0;
-    }
-    .experience__logo {
-        top: 46px; left: 12px;
-        z-index: 99; position: fixed;
-        opacity: 1;
-        width: 25%;
-    }
-    .experience__logo img {
-        height: auto; width: 100%;
-    }
-
-    .experience__video {
-        position: absolute;
-        top: 50%; left: 50%;
-    }
-     #player {
-        z-index: 1; position: absolute;
-        height: 100%; width: 100%;
-     }
-
-     .annotations{
-        z-index: 2; position: absolute;
-        width: 100%; height: 100%; padding: 0;
-     }
-        .annotation {   
-            position: absolute; opacity: 1;
-            -ms-transform-origin: 50% 50%; /* IE 9 */
-            -moz-transform-origin: 50% 50%; /* Firefox */
-            -o-transform-origin: 50% 50%; /* Opera */
-            -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
-            transform-origin: 50% 50%;
+        .annotations__group {
+            z-index: 2; padding: 0; list-style: none;
         }
-
-    .loading__group {
-        position: fixed; top: 45%;
-        width: 100%; z-index: 9000;
-        }
-        .loading__text {
-            font-family: "courier prime", courier, times, serif; color: #fff; height: 30px;
-        }
-            @media screen and (max-width: 568px) {
-                .loading__text {font-size: 0.8em;}
+            .annotations__bubble {   
+                position: absolute; opacity: 1;
+                -ms-transform-origin: 50% 50%; /* IE 9 */
+                -moz-transform-origin: 50% 50%; /* Firefox */
+                -o-transform-origin: 50% 50%; /* Opera */
+                -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
+                transform-origin: 50% 50%;
             }
-            @media screen and (max-width: 320px) {
-                .loading__text {font-size: 0.6em;}
-            }
-
-            .loading__text li {
-                display: inline-block; text-align: center; width: 568px; 
-                position: absolute; left: 50%; margin-left: -284px;
-            }
-                @media screen and (max-width: 568px) {
-                    .loading__text li{width: 320px; margin-left: -160px;}
-                }
-                @media screen and (max-width: 320px) {
-                    .loading__text li{width: 240px; margin-left: -120px;}
-                }
-
-        .loading__container { 
-            background: #232527; width: 25%; margin: 0 auto;
-        }
-            .loading__bar {background: red; height: 6px; width: 0}
 
 /*  ==========================================================================
     end styles
@@ -418,7 +345,6 @@
         -ms-transform: rotate(0deg); -moz-transform: rotate(0deg);  -o-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);
     }
 
-    /* content */
     .end-frame__group {
         width: 70%; height: 0; padding-bottom: 44.9079%; 
         margin: -22.45395% 0 0 -35%; position: relative;
@@ -457,21 +383,25 @@
             left: 14.5%; top: 80%; padding: 0; 
          }
             .end-menu__group__replay-btn { 
-                background: url('../img/btn_playAgain_default.png') no-repeat top center; background-size: contain; 
+                background: url(../img/btn_playAgain_default.png) no-repeat top center; background-size: contain; 
                 height: 100%; width: 6.67%; float:left; border: 0;
             }
-                .end-menu__group__replay-btn:hover {background: url('../img/btn_playAgain_hover.png') no-repeat top center; background-size: contain}
-                .end-menu__group__replay-btn:active {background: url('../img/btn_playAgain_tap.png') no-repeat top center; background-size: contain}
+                .end-menu__group__replay-btn:active {
+                    background: url(../img/btn_playAgain_tap.png) no-repeat top center; background-size: contain
+                }
 
             .end-menu__group__share-btn { 
-                background: url('../img/btn_share_default.png') no-repeat top center; background-size: contain; 
+                background: url(../img/btn_share_default.png) no-repeat top center; background-size: contain; 
                 height: 100%; width: 6.67%; float:left; border: 0;
             }
-                .end-menu__group__share-btn:hover {background: url('../img/btn_share_hover.png') no-repeat top center; background-size: contain}
-                .end-menu__group__share-btn:active {background: url('../img/btn_share_tap.png') no-repeat top center; background-size: contain}
+                .end-menu__group__share-btn:active {
+                    background: url(../img/btn_share_tap.png) no-repeat top center; background-size: contain
+                }
 
             .end-menu__group__new-btn { 
-                background: url('../img/btn_newVid_default.png') no-repeat top center; background-size: contain; 
+                background: url(../img/btn_newVid_default.png) no-repeat top center; background-size: contain; 
                 height: 100%; width: 34.56%; float: right; border: 0;
             }
-              .end-menu__group__new-btn:active {background: url('../img/btn_newVid_tap.png') no-repeat top center; background-size: contain; float:right;}
+              .end-menu__group__new-btn:active {
+                background: url(../img/btn_newVid_tap.png) no-repeat top center; background-size: contain; float:right;
+            }

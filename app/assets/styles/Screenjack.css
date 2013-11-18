@@ -8,10 +8,10 @@
         position: absolute; 
         width: 34.9375em; height: 35.1875em;
         bottom: -20.75em; left: -20.75em;
-        background: url(../img/paperball.png) no-repeat center; background-size: contain;
+        background: url(../img/sj__paperball.png) no-repeat center; background-size: contain;
     }
     .sj__logo--small {
-        top: 0; left: 0; position: absolute;
+        top: 0; left: -235px; position: absolute;
     } 
     .sj__logo--big {
         position: absolute; z-index: 2;
@@ -42,29 +42,29 @@
         }
     }
 
-    @media screen and (max-device-width: 568px) {
-        .sj__art {
-            width: 12.5em; height: 12.5em;
-            bottom: -8.75em; left: -7.25em; 
-        }
-        .sj__logo--small {
-            top: 0; left: 0.25em;
-            height: 2.5em; width: 6.625em;
-        }
-        .sj-loading__scroller {
-            font-size: 0.8em;
-        }
-            .sj-loading__text {
-                width: 20em; margin-left: -10em;
-            }
-    }
-
     @media screen and (max-width: 320px) {
         .sj-loading__scroller {
             font-size: 0.6em;
         }
             .sj-loading__text {
                 width: 15em; margin-left: -7.5em;
+            }
+    }
+
+    @media screen and (max-device-width: 568px) {
+        .sj__art {
+            width: 12.5em; height: 12.5em;
+            bottom: -8.75em; left: -7.25em; 
+        }
+        .sj__logo--small {
+            top: 1em; left: -6.5em;
+            width: 12.5em;
+        }
+        .sj-loading__scroller {
+            font-size: 0.8em;
+        }
+            .sj-loading__text {
+                width: 20em; margin-left: -10em;
             }
     }
 
@@ -359,22 +359,25 @@
         }
             .end-frame__annotation--action {
                 margin: 4% 56% 0 0; right: 0;
-                font-size: 0.6em;
+                font-size: 1em;
             }
             .end-frame__annotation--fantasy {
                 margin: 3% 0 0 10%;
-                font-size: 0.7em;
+                font-size: 1em;
             }
             .end-frame__annotation--romance {
-                margin: 1% 0 0 50%;
-                font-size: 0.65em;
+                margin: 1% 0 0 50%; max-width: 25%;
+                font-size: 0.75em;
             }
+                .end-frame__annotation--romance .annotations__text {
+                    width: 64%; padding: 12%;
+                }
             .end-frame__annotation--tech {
-                top: 59.4%; left: 41.4%;
+                top: 52.4%; left: 41.4%;
                 font-size: 0.6em;
                 width: 18%; 
             }
-                .end-frame__annotation--tech .a-text {
+                .end-frame__annotation--tech .annotations__text {
                     transform: none; -webkit-transform: none;
                 }
            

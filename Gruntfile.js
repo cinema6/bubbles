@@ -26,6 +26,7 @@ var fs           = require('fs-extra'),
         if (!result) {
             result = 'localhost';
         }
+
         return result;
     }());
 

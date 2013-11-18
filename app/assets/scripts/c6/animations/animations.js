@@ -1,5 +1,5 @@
 (function() {
-    /*global TimelineLite:false, Power3:false, Power4:false, Back:false, Elastic:false */
+    /*global TimelineLite:false, Power4:false, Back:false, Elastic:false */
     'use strict';
     angular.module('c6.anim', ['c6.ui'])
 
@@ -48,12 +48,12 @@
                     $log.log('In input-leave setup');
 
                     element.css({
-                        '-webkit-transform': 'rotate(0deg)',
+                        /*'-webkit-transform': 'rotate(0deg)',
                         '-moz-transform': 'rotate(0deg)',
                         '-ms-transform': 'rotate(0deg)',
                         '-o-transform': 'rotate(0deg)',
                         'transform': 'rotate(0deg)',
-                        bottom: 0, left: 0,
+                        bottom: 0, left: 0,*/
                         opacity: 1, visibility: 'visible'
                     });
 
@@ -63,7 +63,7 @@
                 start: function(element, done, timeline) {
                     $log.log('In input-leave start');
 
-                    timeline.to(element, 2, {rotation: '-20deg', autoAlpha: 0, left: '1800px', bottom: '400px', ease: Power3.easeIn})
+                    timeline.to(element, 1, {autoAlpha: 0/*, rotation: '-20deg', left: '1800px', bottom: '400px', ease: Power3.easeIn*/})
                         .eventCallback('onComplete', function() {
                             $log.info('input-leave done');
                             done();
@@ -123,12 +123,12 @@
                     var timeline = new TimelineLite({paused:true});
 
                     element.css({
-                        '-webkit-transform': 'rotate(-20deg)',
+                        /*-webkit-transform': 'rotate(-20deg)',
                         '-moz-transform': 'rotate(-20deg)',
                         '-ms-transform': 'rotate(-20deg)',
                         '-o-transform': 'rotate(-20deg)',
                         'transform': 'rotate(-20deg)',
-                        bottom: '400px', left: '1800px',
+                        bottom: '400px', left: '1800px',*/
                         opacity: 0, visibility: 'hidden'
                     });
 
@@ -137,7 +137,7 @@
                 start: function(element, done, timeline) {
                     $log.log('In input-enter start');
 
-                    timeline.to(element, 2, {autoAlpha: 1, rotation: '0deg', left: 0, bottom: 0, ease: Power3.easeOut}, '+=1.5')
+                    timeline.to(element, 1, {autoAlpha: 1/*, rotation: '0deg', left: 0, bottom: 0, ease: Power3.easeOut*/}, '+=0.5')
                         .eventCallback('onComplete', function() {
                             $log.info('input-enter done');
                             done();
@@ -525,12 +525,12 @@
                     $log.log('In end-leave setup');
 
                     element.css({
-                        '-webkit-transform': 'rotate(0deg)',
+                        /*'-webkit-transform': 'rotate(0deg)',
                         '-moz-transform': 'rotate(0deg)',
                         '-ms-transform': 'rotate(0deg)',
                         '-o-transform': 'rotate(0deg)',
-                        opacity: 1, visibility: 'visible',
-                        left: 0, top: 0
+                        left: 0, top: 0,*/
+                        opacity: 1, visibility: 'visible'
                     });
 
                     var timeline = new TimelineLite({paused:true});
@@ -539,7 +539,7 @@
                 start: function(element, done, timeline) {
                     $log.log('In end-leave start');
 
-                    timeline.to(element, 2, {autoAlpha: 0, rotation: '30deg', left: '-2400px', top: '-200px', ease: Power3.easeIn})
+                    timeline.to(element, 1, {autoAlpha: 0/*, rotation: '30deg', left: '-2400px', top: '-200px', ease: Power3.easeIn*/})
                         .eventCallback('onComplete', function() {
                             $log.info('end-leave done');
                             done();
@@ -599,12 +599,12 @@
                     var timeline = new TimelineLite({paused:true});
 
                     element.css({
-                        '-webkit-transform': 'rotate(30deg)',
+                        /*'-webkit-transform': 'rotate(30deg)',
                         '-moz-transform': 'rotate(30deg)',
                         '-ms-transform': 'rotate(30deg)',
                         '-o-transform': 'rotate(30deg)',
-                        opacity: 0, visibility: 'hidden',
-                        left: '-2400px', top: '-200px'
+                        left: '-2400px', top: '-200px',*/
+                        opacity: 0, visibility: 'hidden'
                     });
 
                     return timeline;
@@ -612,7 +612,7 @@
                 start: function(element, done, timeline) {
                     $log.log('In end-enter start');
 
-                    timeline.to(element, 2, {autoAlpha: 1, rotation: '0deg', left: 0, top: 0, ease: Power4.easeOut}, '+=1.5')
+                    timeline.to(element, 1, {autoAlpha: 1/*, rotation: '0deg', left: 0, top: 0, ease: Power4.easeOut*/}, '+=0.5')
                         .eventCallback('onComplete', function() {
                             $log.info('end-enter done');
                             done();

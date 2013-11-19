@@ -78,7 +78,7 @@ loadScriptsInOrder(libScripts, function() {
 
     Modernizr.load({
         test: Modernizr.touch,
-        nope: libUrl('c6ui/v1.2.1-0-g79dbac9/css/c6uilib--hover.min.css')
+        nope: libUrl('c6ui/v1.2.4-0-g148dede/css/c6uilib--hover.min.css')
     });
 
     loadScriptsInOrder(appScripts, function() {

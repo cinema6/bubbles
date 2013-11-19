@@ -532,7 +532,6 @@ angular.module('c6.ctrl',['c6.svc'])
         shareExp.appUri = shareExp.appUri.replace(/wizard$/, 'usergen');
         ['title', 'subtitle', 'summary'].forEach(function(key) {
             if (shareExp.data[key + '_usergen']) {
-                console.log('replacing');
                 shareExp[key] = shareExp.data[key + '_usergen'];
             }
         });

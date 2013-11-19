@@ -530,6 +530,15 @@ angular.module('c6.ctrl',['c6.svc'])
         });
         shareExp.data.content_type = 'usergen';
         shareExp.appUri = shareExp.appUri.replace(/wizard$/, 'usergen');
+        ['title', 'subtitle', 'summary'].forEach(function(key) {
+            if (shareExp.data[key + '_usergen']) {
+                console.log('replacing');
+                shareExp[key] = shareExp.data[key + '_usergen'];
+            }
+        });
+        var landCont = shareExp.landingPageContent;
+        landCont.middle = landCont.middle.replace(/\.html$/, '_usergen.html');
+        landCont.right = landCont.right.replace(/\.html$/, '_usergen.html');
         site.shareUrl(shareExp);
     };
 

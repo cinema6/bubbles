@@ -57,8 +57,7 @@
 
     @media screen and (max-device-width: 568px) {
         .sj__art {
-            width: 12.5em; height: 12.5em;
-            bottom: -3em; left: -5em; 
+            display:none;
         }
         .sj__logo--small {
             top: 1em; left: -6.5em;
@@ -93,9 +92,6 @@
     @media only screen and (max-device-width:400px) and (orientation: portrait), (max-width:480px) {
         .exp-hero__group {
             background-size:cover !important; background-position:50% top !important; 
-        }
-        .exp-hero__copy-box {
-            background:rgb(0,0,0) !important;; background:rgba(0,0,0,0.78) !important;; padding:1em 1.5em !important;;
         }
         .c6-ui__play {
             top: 50% !important;
@@ -132,6 +128,16 @@
 /*  ==========================================================================
     landing annotation styles
     ========================================================================== */
+    .exp-screenshot__group {
+        position:absolute; width:100%; height: 100%; z-index: 3; margin-left: 24px;
+    }
+        .exp-screenshot__box {
+            max-height: 33.475em; max-width: 57.89em; 
+        }
+        .exp-screenshot__img {
+            border-radius: 0.33em; box-shadow: 0 0 2.1em #000;
+        }
+
     .landing--hero__annotations {
         max-width: 78.89em; height: 100%;
         margin: 0 auto; padding: 0.5em;
@@ -164,6 +170,15 @@
         .landing__annoation-position--2 {
             display:none;
         }
+    }
+
+    @media only screen and (max-device-width : 480px) and (orientation: landscape) {
+        .exp-screenshot__group {
+            width: 90%; margin-left: 10%;
+        }
+            .exp-screenshot__box {
+                margin-top:0;
+            }
     }
 
 /*  ==========================================================================
@@ -291,7 +306,7 @@
         
         @media screen and (max-device-width: 568px) {
             .input__questions {
-                top: 15%;
+                top: 20%;
             }
             .question__instructions { 
                 font-size: 0.625em; /* 10px */

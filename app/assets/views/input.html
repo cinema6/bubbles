@@ -1,6 +1,6 @@
-<div class="input__group" id="input-screen">
-    <img ng-src="assets/img/logo_small_{{appCtrl.currentCategory()}}.png" class="input__logo">
-    <div class="input__art">&nbsp;</div>
+<div class="input__group c6-view--fill-100" id="input-screen" style="overflow:visible">
+    <img ng-src="assets/img/sj__logo--small.png" class="sj__logo--small">
+    <div class="sj__art">&nbsp;</div>
     
     <button class="input__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></button> 
      
@@ -46,7 +46,7 @@
         </button>
 
         <button
-            class="question__next-btn"
+            class="question__arrow-btn question__arrow-btn--next"
             ng-disabled="!inputCtrl.canGoForward()"
             ng-click="inputCtrl.nextQuestion();"
             c6-sfx-on="{click: 'bell'}"
@@ -55,7 +55,7 @@
         </button>
                     
         <button
-            class="question__back-btn"
+            class="question__arrow-btn question__arrow-btn--back"
             ng-disabled="!inputCtrl.canGoBack()"
             ng-click="inputCtrl.prevQuestion();"
             name="prev">

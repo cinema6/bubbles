@@ -1,26 +1,23 @@
 /* Siri Video Experience specific styles */
 
-.annotation {
+.annotations__bubble {
     width: 18%;
 }
-    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
-        .annotation {
-            min-width: 10%;
-            max-width: 35%;
-        }
-    }
 
-.a-text {
-    width: 100%; padding: 0; margin: 0 auto;
+.annotations__text {
+    width: 100%; padding: 0; margin: 0 auto;  opacity: 0.55; 
     text-align: center; line-height: 135%;
-    font-family: 'Helvetica Neue Bold', 'Helvetica', arial, sans-serif; 
     font-size: 90%; color: #fff; letter-spacing: 0.03em; text-transform:uppercase;
-    opacity: 0.55; 
-    -moz-transform: rotateX(25deg); -o-transform: rotateX(25deg); -ms-transform: rotateX(25deg); -webkit-transform: rotateX(25deg); transform: rotateX(25deg);
-
+    font-family: 'Helvetica Neue Bold', 'Helvetica', arial, sans-serif; 
+    -moz-transform: rotateX(25deg); -o-transform: rotateX(25deg); -ms-transform: rotateX(25deg); 
+    -webkit-transform: rotateX(25deg); transform: rotateX(25deg);
 }
 
+@media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
+    .annotations__bubble {
+        min-width: 10%; max-width: 35%;
+    }
+}
             
 /* positioning */
 .siri-0 { top: 57%; left: 41.25%; }
-

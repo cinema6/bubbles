@@ -17,7 +17,8 @@
             "thumb": "experiences/screenjack~brucelee/assets/slice__thumbnail--brucelee.jpg",
             "screenshot": "experiences/screenjack~brucelee/assets/landing-hero__screenshot--brucelee.jpg",
 			"logo": "experiences/screenjack~brucelee/assets/logo_alpha.png",
-            "hero": "experiences/screenjack~brucelee/assets/lee__hero.jpg"
+            "hero": "experiences/screenjack~brucelee/assets/lee__hero.jpg",
+            "tag": "expGroups/screenjack/assets/screenjack__imprint.png"
         },
         "min_features": {
             "inlineVideo": true

@@ -110,11 +110,7 @@
         background: url(../img/logo_alpha.png) center center no-repeat;
         background-size: contain; height: 1em; margin: 0.6825em 0 0 0.75em;
     }
-
-    .exp-hero__tag {
-        background: url(../img/series__screenjack.png) no-repeat; 
-    }
-
+    
 /*  ==========================================================================
     c6 controls  styles
     ========================================================================== */

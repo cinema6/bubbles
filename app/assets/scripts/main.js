@@ -47,7 +47,7 @@ var libUrl = c6.libUrl.bind(window.c6),
         libUrl('gsap/1.11.1-0-g4819f8a/TweenMax.min.js'),
         libUrl('angular/v1.1.5-0-g9a7035e/angular.min.js'),
         libUrl('ui-router/0.2.0-0-g818b0d6/angular-ui-router.min.js'),
-        libUrl('c6ui/v1.0.0-0-gc527e0e/c6uilib.min.js'),
+        libUrl('c6ui/v1.2.5-0-g3dbe388/c6uilib.min.js'),
     ];
 
 function loadScriptsInOrder(scriptsList, done) {
@@ -78,7 +78,10 @@ loadScriptsInOrder(libScripts, function() {
 
     Modernizr.load({
         test: Modernizr.touch,
-        nope: libUrl('c6ui/v1.2.4-0-g148dede/css/c6uilib--hover.min.css')
+        nope: [
+            libUrl('c6ui/v1.2.5-0-g3dbe388/css/c6uilib--hover.min.css'),
+            __C6_APP_BASE_URL__ + '/styles/Screenjack--hover.css'
+        ]
     });
 
     loadScriptsInOrder(appScripts, function() {

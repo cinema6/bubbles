@@ -58,7 +58,9 @@ angular.module('c6.ctrl',['c6.svc'])
             setup: function(appData) {
                 var experience = appData.experience;
 
-                return c6ImagePreloader.load([experience.img.bg]);
+                self.profile = appData.profile;
+
+                return c6ImagePreloader.load([self.img(experience.img.hero)]);
             }
         });
 
@@ -69,10 +71,36 @@ angular.module('c6.ctrl',['c6.svc'])
     this.sfxSvc = sfxSvc;
     this.experience = null;
     this.expData = null;
+    this.profile = null;
     this.experienceAnimation = null;
     this.promptModel = null; // Holds the prompts for the user and their responses
     this.annotationsModel = null; // holds the annotations (speech bubbles)
     this.sfxReady = false;
+
+    this.img = function(src) {
+        var profile = this.profile,
+            modifiers = {
+                slow: '--low',
+                average: '--med',
+                fast: '--high'
+            },
+            speed, webp, extArray, ext;
+
+        if (!src || !profile) {
+            return null;
+        }
+
+        speed = profile.speed;
+        webp = profile.webp;
+        extArray = src.split('.');
+        ext = extArray[extArray.length - 1];
+
+        if (webp) {
+            return src.replace(('.' + ext), (modifiers[speed] + '.webp'));
+        } else {
+            return src.replace(('.' + ext), (modifiers[speed] + '.' + ext));
+        }
+    };
     
     siteSession.on('pendingPath', function(path, respond) {
         if (path !== '/') {
@@ -219,7 +247,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.appCtrl = this;
     $scope.$state = $state;
     $scope.$stateParams = $stateParams;
-    
+
     site.getAppData().then(function(data) {
         var sfxToLoad = [
             { name: 'type', src: appBase + '/media/tw_strike' },

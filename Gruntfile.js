@@ -485,10 +485,11 @@ module.exports = function (grunt) {
         grunt.task.run('s3:test');
         grunt.task.run('s3:contentTest');
     });
-
+    
     grunt.registerTask('publish-prod',function(){
         grunt.task.run('build');
-        grunt.task.run('s3:demo');
+        grunt.task.run('s3:production');
+        grunt.task.run('s3:productionContent');
     });
 
     grunt.registerTask('default', ['build']);

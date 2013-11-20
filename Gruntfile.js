@@ -356,25 +356,35 @@ module.exports = function (grunt) {
             options: {
                 key:    '<%= settings.aws.accessKeyId %>',
                 secret: '<%= settings.aws.secretAccessKey %>',
-                bucket: 'demos.cinema6.com',
+                bucket: 'cinema6.com-etc',
                 access: 'public-read',
                 maxOperations: 4
             },
-            demo: {
+            production: {
                 upload: [
                     {
                         src: 'dist/**',
-                        dest: 'screenjack/',
+                        dest: 'experiences/screenjack/',
                         rel : 'dist/'
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'screenjack/<%= settings.version() %>/index.html',
+                        dest: 'experiences/screenjack/<%= settings.version() %>/index.html',
                         headers : { 'cache-control' : 'max-age=0' }
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'screenjack/index.html',
+                        dest: 'experiences/screenjack/index.html',
+                        headers : { 'cache-control' : 'max-age=0' }
+                    }
+                ]
+            },
+            productionContent: {
+                upload: [
+                    {
+                        src: 'siteContent/**',
+                        rel: 'siteContent/',
+                        dest: 'collateral/',
                         headers : { 'cache-control' : 'max-age=0' }
                     }
                 ]

@@ -13,7 +13,7 @@ var c6 = window.c6,
         'release'           : true,
         'logging'           : [],
         'showPlayerData'    : false,
-        'vidUrl'            : 'https://s3.amazonaws.com/c6media/src/screenjack/video/'
+        'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/'
     },
     debugConfig = {
         'release'           : false,

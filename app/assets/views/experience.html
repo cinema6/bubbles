@@ -1,47 +1,40 @@
-<div class="experience partial">
-  <div ui-view ng-animate="appCtrl.stateHistory.from + '=>' + appCtrl.stateHistory.to" class="paperTexture ng-cloak"></div>
+<div ui-view ng-animate="appCtrl.stateHistory.from + '=>' + appCtrl.stateHistory.to" class="ng-cloak"></div>
+
+<div class="video__group c6-view--fill-100" ng-controller="C6ExperienceCtrl" c6-mouse-activity ng-show="$state.is('experience.video')" ng-animate="'video'" style="display: none;">
   
-  <div ng-controller="C6ExperienceCtrl" c6-mouse-activity ng-show="$state.is('experience.video')" ng-animate="'video'" class="experience__group" style="display: none;">
-	  <div class="c6Controls__group"
-		  ng-animate="'c6Controls'"
-          ng-class="{'offscreen': !(expCtrl.videoCanPlay && appCtrl.showC6Chrome)}"
-		  ng-mouseenter="appCtrl.userIsUsingC6Chrome = true"
-		  ng-mouseleave="appCtrl.userIsUsingC6Chrome = false;">
-		  <c6-controls delegate="expCtrl.c6ControlsDelegate" controller="expCtrl.c6ControlsController"></c6-controls>
-	  </div>
-	  <c6-progress-bar loading="($state.is('experience.video') && !expCtrl.videoCanPlay)" id="loading-group"></c6-progress-bar>
-      <!--<div class="experience__logo">
-          <img ng-src="{{appCtrl.currentCategory() ? ('assets/img/logo_vid_' + appCtrl.currentCategory() + '.png') : null }}">
-      </div>-->
-      <div class="experience__video" c6-resize="{height:528, width: 1280, font: 28}">
-        <video
-          id="player"
-          c6-video
-          c6-src="appCtrl.expData.src"
-          c6-events="{timeupdate: 'expCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'expCtrl.goToEnd(c6.video);'}"
-		  preload="auto">
+    <div class="c6-controls__group"
+        ng-animate="'c6Controls'"
+        ng-class="{'offscreen': !(expCtrl.videoCanPlay && appCtrl.showC6Chrome)}"
+        ng-mouseenter="appCtrl.userIsUsingC6Chrome = true"
+        ng-mouseleave="appCtrl.userIsUsingC6Chrome = false;">
+        <c6-controls delegate="expCtrl.c6ControlsDelegate" controller="expCtrl.c6ControlsController"></c6-controls>
+    </div>
+
+    <c6-progress-bar loading="($state.is('experience.video') && !expCtrl.videoCanPlay)" id="loading-group"></c6-progress-bar>
+
+    <div class="c6-view--pos-50" c6-resize="{height:528, width: 1280, font: 28}">
+        <video class="c6-view--fill-100" id="player" c6-video c6-src="appCtrl.expData.src" preload="auto"
+          c6-events="{timeupdate: 'expCtrl.setActiveAnnotations(c6.event, c6.video);', ended: 'expCtrl.goToEnd(c6.video);'}">
        </video>
 
-        <ul class="annotations" >
-          <li
-            ng-repeat="a in expCtrl.annotationsModel.annotations"
-            ng-show="expCtrl.annotationIsActive(a)"
-            style="display: none;"
-            ng-animate="appCtrl.expData.anim + '-annotation'"
-            ng-class="' annotation ' + a.cls.join(' ')">
-            <div class="a-style">
-              <div class="a-frame">
-                <div class="a-text">
-                  {{a.text}}&nbsp;
-                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
-                  <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
+        <ul class="annotations__group c6-view--fill-100">
+            <li ng-repeat="a in expCtrl.annotationsModel.annotations"
+                ng-show="expCtrl.annotationIsActive(a)"
+                style="display: none;"
+                ng-animate="appCtrl.expData.anim + '-annotation'"
+                ng-class="' annotations__bubble ' + a.cls.join(' ')">
+                <div class="annotations__style">
+                    <div class="annotations__frame">
+                        <div class="annotations__text">
+                            {{a.text}}&nbsp;
+                            <div class="annotations__corner annotations__corner--right"></div>
+                            <div class="annotations__corner annotations__corner--left"></div>
+                            <div class="annotations__tail" ng-class="'annotations__tail--' + a.tail.pos + '-' + a.tail.type"></div>
+                        </div>
+                    </div> 
                 </div>
-              </div> 
-            </div>
             </li> 
         </ul>
-
-      </div>
-      <div class="transition_blackFade">&nbsp;</div>
     </div>
+
 </div>

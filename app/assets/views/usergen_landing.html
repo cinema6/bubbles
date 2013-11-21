@@ -1,32 +1,26 @@
-<section class="landing-hero__group" ng-style="{'background-image': 'url(' + appCtrl.experience.img.bg + ')'};">
-    <div class="landing--hero__overlay">&nbsp;</div>
-    <h1 class="landing-hero-slides__hdr tk--hdr">
-        <a ng-click="appCtrl.startExperience()" class="landing-hero-slides__slide--link" title="Play Now">
-            <span class="hero-slides__play"><span class="ir">Play Now</span></span>
+<section class="exp-hero__group" ng-style="{'background-image': 'url(' + appCtrl.img(appCtrl.experience.img.hero) + ')'};">
+    <h1 class="exp-hero-slides__hdr">
+        <a ng-click="appCtrl.startExperience()" class="exp-hero-slides__link" title="Play Now">
+            <span class="c6-ui__play"><span class="ir">Play Now</span></span>
         </a>
     </h1>
-    <div class="landing--hero__video-group">
-        <div class="grid grid--middle grid--center">
-            <img class="landing--hero__video grid__item eleven-twelfths" ng-src="{{appCtrl.experience.img.screenshot}}">
-            <div class="grid__item one-twelfth palm--hide" style="margin-left: -12%; padding: 0;">
-                <div style="height:42em;">&nbsp;</div>
-            </div> 
+    <div class="c6-view__container">
+        <div class="grid grid--middle exp__grid">
+            <div class="exp-hero__desc grid__item one-third palm--one-whole lap--five-twelfths">
+                <div class="exp-hero__copy-box">
+                    <h1 class="exp-hero__title tk--hdr">{{appCtrl.experience.title}}</h1>
+                    <h2 class="exp-hero__sub tk--hdr">{{appCtrl.experience.subtitle}}</h2>
+                    <div class="exp-hero__copy">
+                        <p>{{appCtrl.experience.summary}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__item one-twelfth">
+                <div class="exp-hero__vertical-spacer">&nbsp;</div>
+            </div>
+            <div ng-style="{backgroundImage: 'url(' + appCtrl.experience.img.tag + ')'}" class="exp-hero__tag">
+                <span class="ir">Screenjack</span>
+            </div>
         </div>
     </div>
-    <div class="landing--hero__series">
-        <span class="ir">Screenjack</span>
-    </div>
-    <ul class="landing--hero__annotations">
-        <li class="landing__annotation landing__annoation-position--{{$index}}" ng-repeat="a in appCtrl.randomAnnotations">
-            <div class="a-style">
-                <div class="a-frame">
-                    <div class="a-text">
-                        {{a.text}}&nbsp;
-                        <div class="a-deco-right"></div><div class="a-deco-left"></div>
-                        <div ng-class="'a-tail-' + a.tail.pos + '-' + a.tail.type"></div>
-                    </div>
-                </div> 
-            </div>
-        </li> 
-    </ul>
 </section><!--.hero__group-->

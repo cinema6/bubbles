@@ -1,48 +1,28 @@
-<div class="endScreen">
-         <!--artwork-->
-        <header ><img class="endScreen__logo" ng-src="assets/img/logo_rippedPaper_{{appCtrl.currentCategory()}}.png"></header>
-        <!--<div class="startScreen__bgArtwork"></div>-->
+<div class="eend__group c6-view--fill-100">
+    <header>
+        <img class="sj__logo--big" ng-src="assets/img/sj__logo--large.png">
+    </header>
         
-        <!--content-->
-        <div class="viewport" c6-resize>
-        
-        <div class="vidFrame__group"> 
-            <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' annotation-last ' + 'vidFrame__annotation-{{appCtrl.currentCategory()}}'">
-	            <div class="a-style">
-	              <div class="a-frame">
-	                <div class="a-text">
-	                  {{endCtrl.lastAnnotation.text}}&nbsp;
-	                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
-	                  <div ng-class="'a-tail-' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
-	                </div>
-	              </div>  
-	            </div>
-		    </div>
-            <img class="vidFrame" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{appCtrl.currentVideo()}}.jpg">
-        </div>
-
-            <menu class="vidMenu">
-                <button class="vidMenu__btnReplay" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
-                <button class="vidMenu__btnShare" id="videMenu_shareBtn" ng-click="endCtrl.share()" href="#" name="Share"><span class="ir">Share</span></button>
-                <button class="vidMenu__btnNewVid" ng-click="$state.transitionTo('experience.input');" name="newVid"><span class="ir">Make a new video</span></button>
+    <div class="c6-view--pos-50" c6-resize>
+        <div class="end-frame__group c6-view--pos-50"> 
+            <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' end-frame__annotation ' + 'end-frame__annotation--{{appCtrl.currentCategory()}}'">
+                <div class="annotations__style">
+                    <div class="annotations__frame">
+                        <div class="annotations__text">
+                            {{endCtrl.lastAnnotation.text}}&nbsp;
+                            <div class="annotations__corner annotations__corner--right"></div>
+                            <div class="annotations__corner annotations__corner--left"></div>
+                            <div class="annotations__tail" ng-class="'annotations__tail--' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
+                        </div>
+                    </div>  
+                </div>
+    	    </div>
+            <img class="end-frame__img" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{appCtrl.currentVideo()}}.jpg">
+            <menu class="end-menu__group">
+                <button class="end-menu__group__replay-btn" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
+                <button class="end-menu__group__share-btn" id="videMenu_shareBtn" ng-click="endCtrl.share()" href="#" name="Share"><span class="ir">Share</span></button>
+                <button class="end-menu__group__new-btn" ng-click="$state.transitionTo('experience.input');" name="newVid"><span class="ir">Make a new video</span></button>
             </menu>
-        </div>
-        
-    <div class="share__group" ng-if="endCtrl.showShareBox" ng-animate="'shareBox'">
-        <div class="share__window--group" id="share-box">
-            <button class="share__close--btn" ng-click="endCtrl.showShareBox = false"><span class="ir">Close</span></button>
-            <h2 class="share__hdr">Share this Video</h2>
-
-            <div class="share__links--group">
-                <form class="share__url--group">
-                    <span class="share__url--label">URL:</span>
-                    <!--<span class="share__url--box">http://c6.com/94nuf1</span>-->
-                    <input class="share__url--box" id="urlbox" value={{endCtrl.sharedUrl}} onclick="this.select()">
-                    <button class="share__url--btn"><span class="ir">Copy URL</span></button>
-                </form>
-                <a class="share__facebook--btn" title="Share on Facebook" ng-click="endCtrl.fbShare()"><span class="ir">Share on Facebook</span></a>
-                <a class="share__twitter--btn" title="Share on Twitter" ng-click="endCtrl.twitShare()"><span class="ir">Share on Twitter</span></a>
-            </div>
         </div>
     </div>
 </div>

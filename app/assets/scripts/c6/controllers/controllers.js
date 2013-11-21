@@ -2,6 +2,8 @@
 /* jshint -W106 */
 'use strict';
 
+var ga = window.ga; // make the linter happy
+
 function PromptModel(experience) {
     var localException = function(msg) {
         return {
@@ -56,7 +58,9 @@ angular.module('c6.ctrl',['c6.svc'])
             setup: function(appData) {
                 var experience = appData.experience;
 
-                return c6ImagePreloader.load([experience.img.bg]);
+                self.profile = appData.profile;
+
+                return c6ImagePreloader.load([self.img(experience.img.hero)]);
             }
         });
 
@@ -67,12 +71,37 @@ angular.module('c6.ctrl',['c6.svc'])
     this.sfxSvc = sfxSvc;
     this.experience = null;
     this.expData = null;
+    this.profile = null;
     this.experienceAnimation = null;
     this.promptModel = null; // Holds the prompts for the user and their responses
     this.annotationsModel = null; // holds the annotations (speech bubbles)
-
     this.sfxReady = false;
-        
+
+    this.img = function(src) {
+        var profile = this.profile,
+            modifiers = {
+                slow: '--low',
+                average: '--med',
+                fast: '--high'
+            },
+            speed, webp, extArray, ext;
+
+        if (!src || !profile) {
+            return null;
+        }
+
+        speed = profile.speed;
+        webp = profile.webp;
+        extArray = src.split('.');
+        ext = extArray[extArray.length - 1];
+
+        if (webp) {
+            return src.replace(('.' + ext), (modifiers[speed] + '.webp'));
+        } else {
+            return src.replace(('.' + ext), (modifiers[speed] + '.' + ext));
+        }
+    };
+    
     siteSession.on('pendingPath', function(path, respond) {
         if (path !== '/') {
             allowStateChange = true;
@@ -196,6 +225,10 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
         self.stateHistory.from = fromState.name;
         self.stateHistory.to = toState.name;
+        ga('send','pageview', {
+            'page'  : $location.absUrl(),
+            'title' : 'screenjack ' + toState.name
+        });
     });
 
     $scope.$on('c6MouseActivityStart', function() {
@@ -214,7 +247,7 @@ angular.module('c6.ctrl',['c6.svc'])
     $scope.appCtrl = this;
     $scope.$state = $state;
     $scope.$stateParams = $stateParams;
-    
+
     site.getAppData().then(function(data) {
         var sfxToLoad = [
             { name: 'type', src: appBase + '/media/tw_strike' },
@@ -281,11 +314,19 @@ angular.module('c6.ctrl',['c6.svc'])
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
         readyEvent = c6UserAgent.device.isMobile() ? 'loadstart' : 'canplaythrough',
+        gaLabel = $scope.appCtrl.experience.uri.match(/shared~/) ?
+                         $scope.appCtrl.experience.uri + ', vid=' + $scope.appCtrl.expData.video :
+                         $scope.appCtrl.experience.uri,
         oldResponses,
         video;
 
     $scope.$on('c6video-ready', function(event, player) {
         video = player;
+        
+        video.on('error', function(err) {
+            $log.error('Video Error: ' + err.toString());
+            ga('send', 'event', 'screenjack', 'video_error', $scope.appCtrl.expData.src);
+        });
 
         var undoWatch = $scope.$watch('expCtrl.c6ControlsController.ready', function(ready) {
             if (ready) {
@@ -297,11 +338,14 @@ angular.module('c6.ctrl',['c6.svc'])
         player.on([readyEvent, 'play'], function(event, video) {
             self.videoCanPlay = true;
             $timeout(function() {
-                if ($state.is('experience.video') && video.player.paused) { video.player.play(); }
+                if ($state.is('experience.video') && video.player.paused) {
+                    video.player.play();
+                    ga('send', 'event', 'screenjack', 'video_play', gaLabel);
+                }
             }, 200, false);
         });
     });
-
+        
     $scope.$on('c6video-regenerated', function(event, video) {
         video.player.load();
     });
@@ -320,6 +364,7 @@ angular.module('c6.ctrl',['c6.svc'])
             }
             $log.log('Playing the video!');
             video.player.play();
+            ga('send', 'event', 'screenjack', 'video_play', gaLabel);
         }
     });
 
@@ -354,6 +399,8 @@ angular.module('c6.ctrl',['c6.svc'])
                 annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
                 .then(function(url) {
                     $scope.appCtrl.expData.src = url;
+                }, function() { // error handler
+                    ga('send', 'event', 'screenjack', 'dub_error', gaLabel);
                 });
             }
         }
@@ -410,6 +457,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.goToEnd = function(player) {
         player.fullscreen(false);
         $state.transitionTo('experience.end', $stateParams);
+        ga('send', 'event', 'screenjack', 'completed_video', gaLabel);
     };
 
     this.annotationIsActive = function(annotation) {
@@ -420,7 +468,10 @@ angular.module('c6.ctrl',['c6.svc'])
 }])
 
 .controller('C6InputCtrl', ['$log', '$scope', '$rootScope', '$stateParams', '$state', function($log, $scope, $rootScope, $stateParams, $state) {
-    var self = this;
+    var self = this,
+        gaLabel = $scope.appCtrl.experience.uri.match(/shared~/) ?
+                      $scope.appCtrl.experience.uri + ', vid=' + $scope.appCtrl.expData.video :
+                      $scope.appCtrl.experience.uri;
     $log.log('Creating C6InputCtrl: ' + $stateParams.category);
     $rootScope.currentRoute = 'input';
 
@@ -468,6 +519,7 @@ angular.module('c6.ctrl',['c6.svc'])
     this.startExperience = function() {
         $scope.$broadcast('experienceStart');
         $state.transitionTo('experience.video', $stateParams);
+        ga('send', 'event', 'screenjack', 'submit_responses', gaLabel);
     };
 
     $scope.inputCtrl = this;
@@ -506,6 +558,14 @@ angular.module('c6.ctrl',['c6.svc'])
         });
         shareExp.data.content_type = 'usergen';
         shareExp.appUri = shareExp.appUri.replace(/wizard$/, 'usergen');
+        ['title', 'subtitle', 'summary'].forEach(function(key) {
+            if (shareExp.data[key + '_usergen']) {
+                shareExp[key] = shareExp.data[key + '_usergen'];
+            }
+        });
+        var landCont = shareExp.landingPageContent;
+        landCont.middle = landCont.middle.replace(/\.html$/, '_usergen.html');
+        landCont.right = landCont.right.replace(/\.html$/, '_usergen.html');
         site.shareUrl(shareExp);
     };
 

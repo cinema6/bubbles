@@ -1,0 +1,14 @@
+/*  ==========================================================================
+    screenjack annotation icon styles
+    ========================================================================== */
+    .annotation__img--bubble {
+        display: inline-block; float: left;
+        width: 3.75em; height: 4.125em; margin: 0.375em 0.75em 0 0;
+        background: url(assets/annotation__bubble--icon.svg) no-repeat left center; background-size: contain;
+    }
+
+    .annotation__img--speech {
+        display: inline-block; float: left;
+        width: 3.75em; height: 4.125em; margin: 0.375em 0.75em 0 0;
+        background: url(assets/annotation__speech--icon.svg) no-repeat left center; background-size: contain;
+    }

@@ -26,6 +26,7 @@ var fs           = require('fs-extra'),
         if (!result) {
             result = 'localhost';
         }
+
         return result;
     }());
 
@@ -355,26 +356,42 @@ module.exports = function (grunt) {
             options: {
                 key:    '<%= settings.aws.accessKeyId %>',
                 secret: '<%= settings.aws.secretAccessKey %>',
-                bucket: 'demos.cinema6.com',
+                bucket: 'cinema6.com-etc',
                 access: 'public-read',
                 maxOperations: 4
             },
-            demo: {
+            production: {
                 upload: [
                     {
                         src: 'dist/**',
-                        dest: 'screenjack/',
+                        dest: 'experiences/screenjack/',
                         rel : 'dist/'
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'screenjack/<%= settings.version() %>/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        dest: 'experiences/screenjack/<%= settings.version() %>/index.html',
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     },
                     {
                         src: 'dist/index.html',
-                        dest: 'screenjack/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        dest: 'experiences/screenjack/index.html',
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
+                    }
+                ]
+            },
+            productionContent: {
+                upload: [
+                    {
+                        src: 'siteContent/**',
+                        rel: 'siteContent/',
+                        dest: 'collateral/',
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     }
                 ]
             },
@@ -391,12 +408,16 @@ module.exports = function (grunt) {
                     {
                         src: 'dist/index.html',
                         dest: 'content/screenjack/<%= settings.version() %>/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'content/screenjack/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     }
                 ]
             },
@@ -409,7 +430,9 @@ module.exports = function (grunt) {
                         src: 'siteContent/**',
                         rel: 'siteContent/',
                         dest: '<%= settings.contentPath %>',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     }
                 ]
             }
@@ -474,10 +497,11 @@ module.exports = function (grunt) {
         grunt.task.run('s3:test');
         grunt.task.run('s3:contentTest');
     });
-
+    
     grunt.registerTask('publish-prod',function(){
         grunt.task.run('build');
-        grunt.task.run('s3:demo');
+        grunt.task.run('s3:production');
+        grunt.task.run('s3:productionContent');
     });
 
     grunt.registerTask('default', ['build']);

@@ -370,12 +370,16 @@ module.exports = function (grunt) {
                     {
                         src: 'dist/index.html',
                         dest: 'experiences/screenjack/<%= settings.version() %>/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'experiences/screenjack/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     }
                 ]
             },
@@ -385,7 +389,9 @@ module.exports = function (grunt) {
                         src: 'siteContent/**',
                         rel: 'siteContent/',
                         dest: 'collateral/',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     }
                 ]
             },
@@ -402,12 +408,16 @@ module.exports = function (grunt) {
                     {
                         src: 'dist/index.html',
                         dest: 'content/screenjack/<%= settings.version() %>/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'content/screenjack/index.html',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     }
                 ]
             },
@@ -420,7 +430,9 @@ module.exports = function (grunt) {
                         src: 'siteContent/**',
                         rel: 'siteContent/',
                         dest: '<%= settings.contentPath %>',
-                        headers : { 'cache-control' : 'max-age=0' }
+                        options: {
+                            headers : { 'cache-control' : 'max-age=0' }
+                        }
                     }
                 ]
             }

@@ -1,4 +1,4 @@
-<section class="exp-hero__group" ng-style="{'background-image': 'url(' + appCtrl.img(appCtrl.experience.img.hero) + ')'};">
+<section class="exp-hero__group" ng-style="{'background-image': appCtrl.experience.img.hero && 'url(' + appCtrl.img(appCtrl.experience.img.hero) + ')'};">
     <h1 class="exp-hero-slides__hdr">
         <a ng-click="appCtrl.startExperience()" class="exp-hero-slides__link" title="Play Now">
             <span class="c6-ui__play"><span class="ir">Play Now</span></span>

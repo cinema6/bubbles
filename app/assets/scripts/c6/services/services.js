@@ -283,8 +283,8 @@ angular.module('c6.svc',[])
                     requestBodyObject.script.push(line);
                 });
 
-                $http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create',
-                           requestBodyObject).then(function(response) {
+                //$http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create',
+                $http.post(env.dubUrl, requestBodyObject).then(function(response) {
                     var urlFromServer = response.data.output;
 
                     genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };

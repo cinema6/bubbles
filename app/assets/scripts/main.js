@@ -14,7 +14,7 @@ var c6 = window.c6,
         'logging'           : [],
         'showPlayerData'    : false,
         'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
-        'dubUrl'            : 'http://api1.cinema6.com/dub/create/'
+        'dubUrl'            : 'http://site.cinema6.com/dub/create/'
     },
     debugConfig = {
         'release'           : false,

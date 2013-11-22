@@ -93,62 +93,52 @@
 }
 
 /* positioning */
-.lotr-0 { top: 6%; left: 3%; max-width: 22% }
+.lotr-0 { top: 6%; left: 4%; max-width: 22% }
 .lotr-0 .annotations__tail--bottomRight-thought {  
     background: url(../img/fantasy/bottomRight-thought.png) no-repeat 75% 0%; 
 }
-.lotr-1 { top: 45%; left: 3%; max-width: 24% }
+.lotr-1 { top: 45%; left: 4%; max-width: 24% }
 .lotr-1 .annotations__tail--topRight-thought {  
     background: url(../img/fantasy/topRight-thought.png) no-repeat 65% 0%; 
 }
-.lotr-2 { top: 8%; left: 68%; }
+.lotr-2 { top: 50%; left: 30%; }
 .lotr-2 .annotations__tail--topLeft-thought {  
     background: url(../img/fantasy/topLeft-thought.png) no-repeat 30% 0%; 
 }
-.lotr-3 { top: 8%; left: 8%; }
-.lotr-4 { top: 6%; left: 74%; max-width: 24%}
+.lotr-3 { top: 65%; left: 55%; }
+.lotr-4 { top: 40%; left: 71%; max-width: 24%}
 .lotr-4 .annotations__tail--bottomLeft-thought {  
     background: url(../img/fantasy/bottomLeft-thought.png) no-repeat 60% 0%; 
 }
-.lotr-5 { top: 45%; left: 72%; }
+.lotr-5 { top: 2%; left: 70%; }
 .lotr-5 .annotations__tail--bottomLeft-thought {  
     background: url(../img/fantasy/bottomLeft-thought.png) no-repeat 50% 0%; 
 }
-.lotr-6 { top: 68%; left: 69%; }
+.lotr-6 { top: 63%; left: 66%; }
 .lotr-6 .annotations__tail--bottomLeft-thought {  
     background: url(../img/fantasy/bottomLeft-thought.png) no-repeat 40% 0%; 
 }
-.lotr-7 { top: 15%; left: 74%; max-width: 20%; }
-.lotr-8 { top: 15%; left: 74%; min-width: 16%; max-width: 22%; }
-.lotr-9 { top: 58%; left: 69%; max-width: 20%; }
+.lotr-7 { top: 58%; left: 66%; max-width: 20%; }
+.lotr-8 { top: 55%; left: 5%; min-width: 16%; max-width: 22%; }
+.lotr-9 { top: 45%; left: 5%; max-width: 20%; }
 .lotr-9 .annotations__tail--topLeft-thought {  
     background: url(../img/fantasy/topLeft-thought.png) no-repeat 25% 0%; 
 }
-.lotr-10 { top: 4%; left: 3%; }
+.lotr-10 { top: 45%; left: 5%; }
 .lotr-10 .annotations__tail--bottomRight-thought {  
     background: url(../img/fantasy/bottomRight-thought.png) no-repeat 25% 0%; 
 }
-.lotr-11 { top: 8%; left: 70%; max-width: 20%; }
+.lotr-11 { top: 8%; left: 10%; max-width: 20%; }
 .lotr-11 .annotations__tail--bottomRight-thought {  
     background: url(../img/fantasy/bottomRight-thought.png) no-repeat 75% 0%; 
 }
-.lotr-12 { top: 49%; left: 5%; }
-.lotr-13 { top: 8%; left: 20%; }
-.lotr-14 { top: 8%; left: 14%; }
-.lotr-15 { top: 60%; left: 2%; max-width: 28%; }
+.lotr-12 { top: 5%; left: 65%; }
+.lotr-13 { top: 8%; left: 8%; }
+.lotr-14 { top: 8%; left: 62%; }
+.lotr-15 { top: 60%; left: 5%; max-width: 28%; }
 .lotr-15 .annotations__tail--topRight-thought {  
     background: url(../img/fantasy/topRight-thought.png) no-repeat 40% 0%; 
 }
-.lotr-16 { top: 5%; left: 22%; }
-.lotr-17 { top: 8%; left: 4%;  min-width: 18%; max-width: 18%; }
-.lotr-18 { top: 53%; left: 4%;  min-width: 18%; max-width: 18%}
-.lotr-19 { top: 5%; left: 64%;  }
-.lotr-20 { top: 8%; left: 60%;  }
-.lotr-21 { top: 44%; left: 2%;  min-width: 18%; max-width: 18%}
-.lotr-22 { top: 8%; left: 4%;  max-width: 20%}
-.lotr-23 { top: 8%; left: 4%;  max-width: 20%}
-.lotr-24 { top: 8%; left: 4%;  max-width: 20%}
-.lotr-25 { top: 15%; left: 10%; }
-.lotr-25 .annotations__tail--bottomRight-thought {  
-    background: url(../img/fantasy/bottomRight-thought.png) no-repeat 75% 0%; 
- }
+.lotr-16 { top: 60%; left: 35%; max-width: 28%;}
+.lotr-17 { top: 5%; left: 75%;  min-width: 18%; max-width: 20%; }
+.lotr-18 { top: 10%; left: 5%; max-width: 28%}

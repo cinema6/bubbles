@@ -44,11 +44,9 @@ function PromptModel(experience) {
 angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
                           'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
-                          'C6ResponseCachingService', 'c6AniCache', 'site', 'environment',
-                          'c6UserAgent', 'c6ImagePreloader',
+                          'c6AniCache', 'site', 'environment', 'c6UserAgent', 'c6ImagePreloader',
             function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
-                     annSvc, respSvc, c6AniCache, site, env,
-                    c6UserAgent, c6ImagePreloader) {
+                     annSvc, c6AniCache, site, env, c6UserAgent, c6ImagePreloader) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
@@ -379,8 +377,12 @@ angular.module('c6.ctrl',['c6.svc'])
                 responses = $scope.appCtrl.promptModel.responses;
                 
             if (!angular.equals(responses, oldResponses) || c6UserAgent.device.isMobile()) {
-                respSvc.setResponses(responses, $scope.appCtrl.currentCategory(),
-                                     $scope.appCtrl.currentVideo());
+                try {
+                    respSvc.setResponses(responses, $scope.appCtrl.currentCategory(),
+                                         $scope.appCtrl.currentVideo());
+                } catch(e) {
+                    $log.error(e);
+                }
                 if (txt2SpchModel) {
                     self.videoCanPlay = false;
                 }

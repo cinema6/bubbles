@@ -56,6 +56,11 @@ angular.module('c6.ctrl',['c6.svc'])
             setup: function(appData) {
                 var experience = appData.experience;
 
+                //TODO - find a better way to get this info to the annotations service
+                if (appData.dubServiceUrl){
+                    env.dubUrl = appData.dubServiceUrl + '/dub/create';
+                }
+
                 self.profile = appData.profile;
 
                 return c6ImagePreloader.load([self.img(experience.img.hero)]);

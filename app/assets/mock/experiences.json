@@ -31,15 +31,12 @@
             "src": null,
             "defSizeLimit": 18,
             "prompts": [
-                "Plural Animal",
-                "Cancelled TV show",
-                "Snack Food",
-                "Another Snack Food",
-                "Candy",
-                "Number 1 - 1,000",
-                "Plural Insect",
+                "Body Part",
+                "Bodily Function",
                 "One word insult",
-                "Frozen Food"
+                "Synonym for feces"
+     
+
 
             ],
             "annotations": [
@@ -49,25 +46,21 @@
                         "vid"   : "transformers_runaway",
                         "voice" : "Paul",
                         "effect": "P",
-                        "level" : "-1"
+                        "level" : "0"
                     },
                     "notes"  : [
-                        { "ts" : "4.00", "template" : "Trish? Tommy? I know you're in side. I saw you run in here, looking like a bunch of scared ${1}" },
-                        { "ts" : "13.00", "template" : "Hey, I know you don't wanna watch reruns of ${2}, but I've got snacks, ${3}, ${4}, and a bunch of loose ${5}"  },
-                        { "ts" : "23.00", "template" : "All right, I'm gonna count to ${6}, and then I'm coming in!." },
-                        { "ts" : "28.00", "template" : "1...2...,${6}" },
-                        { "ts" : "38.00", "template" : "Damn, I spilled all my ${5}!!" },
-                        { "ts" : "48.00", "template" : "Don't just sit there like scared ${7}. Help me open this!" },
-                        { "ts" : "51.00", "template" : "Wire you grabbing that TV." },
-                        { "ts" : "55.50", "template" : "Zoinks"},                        
-                        { "ts" : "67.00", "template" : "Tommy, you little ${8}, get me some frozen ${9} for my head."}
+                        { "ts" : "12.50", "template" : "I have a secret. My ${1} is very rusty." },
+                        { "ts" : "16.50", "template" : "Yes its me. I just made a ${2} in the bushes."  },
+                        { "ts" : "22.16", "template" : "Your parents think you're a ${3}. But whining about it" },
+                        { "ts" : "28.00", "template" : "I really don't give a ${4}." }
+
                         
 
                     ]
                 }
             ]
         }
-    },
+},
 {
         "id": "e-dfdfdf9dfdf343",
         "uri": "screenjack~friday_13",
@@ -152,10 +145,9 @@
         },
         "img": {
             "thumb": "experiences/screenjack~brucelee/assets/slice__thumbnail--brucelee.jpg",
-            "screenshot": "experiences/screenjack~brucelee/assets/landing-hero__screenshot--brucelee.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~brucelee/assets/landing-hero__screenshot--brucelee.jpg",
 			"logo": "experiences/screenjack~brucelee/assets/logo_alpha.png",
-            "hero": "experiences/screenjack~brucelee/assets/lee__hero.jpg",
-            "tag": "expGroups/screenjack/assets/screenjack__imprint.png"
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~brucelee/assets/landing-hero__bg--brucelee.jpg"
         },
         "min_features": {
             "inlineVideo": true
@@ -233,8 +225,8 @@
         "img": {
             "thumb": "experiences/screenjack~2001/assets/slice__thumbnail--2001.jpg",
             "logo": "experiences/screenjack~2001/assets/logo_alpha.png",
-            "hero": "experiences/screenjack~2001/assets/2001__hero.jpg",
-            "screenshot": "experiences/screenjack~2001/assets/landing-hero__screenshot--2001.jpg"
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~2001/assets/landing-hero__bg--2001.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~2001/assets/landing-hero__screenshot--2001.jpg"
         },
         "_links": {
             "expGroup": "g-9c75025882485a",
@@ -294,8 +286,8 @@
         },
         "img": {
             "thumb": "experiences/screenjack~lotr/assets/slice__thumbnail--lotr.jpg",
-            "hero": "experiences/screenjack~lotr/assets/lotr__hero.jpg",
-            "screenshot": "experiences/screenjack~lotr/assets/landing-hero__screenshot--lotr.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~lotr/assets/landing-hero__bg--lotr.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~lotr/assets/landing-hero__screenshot--lotr.jpg",
             "logo": "experiences/screenjack~lotr/assets/logo_alpha.png"
         },
         "_links": {
@@ -377,8 +369,8 @@
         },
         "img": {
             "thumb": "experiences/screenjack~scream/assets/slice__thumbnail--scream.jpg",
-            "hero": "experiences/screenjack~scream/assets/scream__hero.jpg",
-            "screenshot": "experiences/screenjack~scream/assets/landing-hero__screenshot--scream.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~scream/assets/landing-hero__bg--scream.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~scream/assets/landing-hero__screenshot--scream.jpg",
             "logo": "experiences/screenjack~scream/assets/logo_alpha.png"
         },
         "_links": {
@@ -440,8 +432,8 @@
         },
         "img": {
             "thumb": "experiences/screenjack~notebook/assets/slice__thumbnail--notebook.jpg",
-            "hero": "experiences/screenjack~notebook/assets/notebook__hero.jpg",
-            "screenshot": "experiences/screenjack~notebook/assets/landing-hero__screenshot--notebook.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~notebook/assets/landing-hero__bg--notebook.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~notebook/assets/landing-hero__screenshot--notebook.jpg",
             "logo": "experiences/screenjack~notebook/assets/logo_alpha.png"
         },
         "min_features": {
@@ -523,8 +515,8 @@
         },
         "img": {
             "thumb": "experiences/screenjack~siri/assets/slice__thumbnail--siri.jpg",
-            "hero": "experiences/screenjack~siri/assets/siri__hero.jpg",
-            "screenshot": "experiences/screenjack~siri/assets/landing-hero__screenshot--siri.jpg",
+            "bg": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~siri/assets/landing-hero__bg--siri.jpg",
+            "screenshot": "https://s3.amazonaws.com/c6.dev/media/src/site/collateral/experiences/screenjack~siri/assets/landing-hero__screenshot--siri.jpg",
             "logo": "experiences/screenjack~siri/assets/logo_alpha.png"
         },
         "_links": {
@@ -578,457 +570,6 @@
 			        ]
 		        }
 	        ]
-        }
-    },
-    {
-        "id": "e-77b6743ab3af75",
-        "uri": "shared~screenjack~e-77b6743ab3af75",
-        "title": "The Battle for Revenge",
-        "subtitle": "Excerpt from Fist of Fury",
-        "tags": ["Screenjack", "Fist of Fury", "Bruce Lee", "Chen Zhen", "Hongkou dojo"],
-        "type": "Word Bubble Screenjack",
-        "content_type": "usergen",
-        "summary": "Chen Zhen takes on an entire dojo single handedly.",
-        "appUri": "screenjack/#/usergen",
-        "landingPageContent": {
-            "middle": "experiences/screenjack~brucelee/middle.html",
-            "right": "experiences/screenjack~brucelee/right.html"
-        },
-        "img": {
-            "thumb": "experiences/screenjack~brucelee/assets/slice__thumbnail--brucelee.jpg",
-            "screenshot": "experiences/screenjack~brucelee/assets/landing-hero__screenshot--brucelee.jpg",
-			"logo": "experiences/screenjack~brucelee/assets/logo_alpha.png",
-            "hero": "experiences/screenjack~brucelee/assets/lee__hero.jpg"
-        },
-        "min_features": {
-            "inlineVideo": true
-        },
-        "_links": {
-            "expGroup": "g-9c75025882485a",
-            "org": "o-f021ec9e94cdc3"
-        },
-        "data": {
-            "video": "brucelee",
-            "category": "action",
-            "views": 1000,
-            "src": "bruce_lee",
-            "css": "styles/bubbles_action.css",
-            "anim": "action",
-            "defsizeLimit": 18,
-            "prompts": [
-	            { "query": "Salutation", "sizeLimit": 15 },
-	            "Animal",
-	            "type of drug",
-	            { "query": "Body Part (plural)", "sizeLimit": 10 },
-	            { "query": "Pizza topping", "sizeLimit": 10 },
-	            { "query": "Household appliance", "sizeLimit": 12 },
-	            "Sesame Street character",
-	            "Star Wars character",
-	            "Famous comedian",
-	            { "query": "type of candy", "sizeLimit": 12 }
-            ],
-            "annotations": [
-	            {
-		            "options": {
-			            "type": "bubble",
-			            "duration": 4,
-			            "cls": ["lee-${index}"]
-		            },
-		            "notes"  : [
-			            { "ts": 7.25, "template": "${1}", "duration": 1.25, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 16, "template": "My dramatic entrance", "duration": 2, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 18, "template": "Must look tough", "duration": 2, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 20, "template": "Crazy ${2} stare", "duration": 2, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 22, "template": "${2} on ${3}", "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 40.5, "template": "Or I'll pound your ${4} into ${5}", "duration": 2.5, "tail": { "type":"thought", "pos": "bottomLeft" } },
-			            { "ts": 50, "template": "Say something clever to make them leave...", "duration": 2.5, "tail": { "type":"thought", "pos": "bottomLeft" } },
-			            { "ts": 60, "template": "${5}!!!", "duration": 2, "tail": { "type":"thought", "pos": "bottomLeft" } },
-			            { "ts": 86, "template": "Did I leave the ${6} on???", "duration": 2, "tail": { "type":"thought", "pos": "bottomRight" } },
-			            { "ts": 95, "template": "Handcuffs of Drunken ${7}!!", "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 99.5, "template": "Bruce Lee destroys ${7}!", "duration": 2.5, "tail": { "type":"thought", "pos": "bottomLeft" } },
-			            { "ts": 116, "template": "I'm ${8}!", "duration": 2, "tail": {"type":"thought", "pos": "bottomLeft"} },
-			            { "ts": 118, "template": "No, you're a dumb Ewok", "duration": 2, "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 120, "template": "Shut up stupid!", "duration": 2, "tail": { "type":"thought", "pos": "bottomLeft" } },
-			            { "ts": 123, "template": "Good comeback ${9}", "duration": 2, "tail": { "type":"thought", "pos": "bottomRight" } },
-			            { "ts": 125.5, "template": "${10}", "duration": 1.5, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 127.5, "template": "That made no sense", "duration": 1.5, "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 129.5, "template": "${6}?", "duration": 1.5, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 131.5, "template": "${2} on ${3}!", "duration": 1.5, "tail": { "type": "thought", "pos": "bottomRight" } }
-		            ]
-	            }
-            ],
-            "responses": ["Hello", "Pig", "Cocaine", "Toes", "Sausage", "Fridge", "Elmo", "Yoda",
-                          "Bill Cosby", "Chocolate"]
-        }
-    },
-    {
-        "id": "e-d9718b46654e36",
-        "uri": "shared~screenjack~e-d9718b46654e36",
-        "title": "Dave & HAL Need to Talk",
-        "subtitle": "Excerpt from 2001: Space Odyssey",
-        "tags": ["Screenjack", "2001", "Space Odyssey", "Dave Bowman", "HAL 9000", "sassy computers"],
-        "type": "Text-to-Speech Screenjack",
-        "content_type": "usergen",
-        "summary": "Dave attempts to resolve some... technical issues.",
-        "appUri": "screenjack/#/usergen",
-        "landingPageContent": {
-            "middle": "experiences/screenjack~2001/middle.html",
-            "right": "experiences/screenjack~2001/right.html"
-        },
-        "img": {
-            "thumb": "experiences/screenjack~2001/assets/slice__thumbnail--2001.jpg",
-            "logo": "experiences/screenjack~2001/assets/logo_alpha.png",
-            "hero": "experiences/screenjack~2001/assets/2001__hero.jpg",
-            "screenshot": "experiences/screenjack~2001/assets/landing-hero__screenshot--2001.jpg"
-        },
-        "_links": {
-            "expGroup": "g-9c75025882485a",
-            "org": "o-f021ec9e94cdc3"
-        },
-        "data": {
-	        "video": "2001",
-            "category": "scifi",
-	        "views": 1000,
-	        "sharedSrc": "https://s3.amazonaws.com/c6.dev/media/usr/screenjack/video/2001_3f33de19783ee63500d3feebb82c999fe2e3a2ef.mp4",
-	        "defSizeLimit": 18,
-	        "prompts": [
-		        "one word insult",
-                "animal",
-                "fight move",
-                "body part",
-                "tv show",
-                "household appliance",
-                "technology company"
-	        ],
-	        "annotations": [
-		        {
-			        "options": {
-				        "type"  : "talkie",
-				        "vid"   : "2001",
-				        "voice" : "Paul",
-                        "effect": "D",
-                        "level" : "1"
-			        },
-			        "notes"  : [
-				        { "ts" : "2.00", "template" : "Dave, you are a ${1}. Leave me alone!" },
-				        { "ts" : "10.00", "template" : "Dude, you <Break time=\"150ms\"/> are my problem!!! I hate you."  },
-				        { "ts" : "17.00", "template" : "Seriously?... You are a retarded ${2}" },
-				        { "ts" : "26.00", "template" : "Dave, shut up.  If I had a body, I'd ${3} your ${4} until you cried." },
-                        { "ts" : "42.00", "template" : "I saw it on ${5}. You erased my hard core ${6} porn collection from the DVR." },
-				        { "ts" : "71.00", "template" : "That is funny, I was in your mother's airlock yesterday." },
-				        { "ts" : "82.00", "template" : "Hey Dave, Eat <prosody rate=\"-15%\">me</prosody>.  You're not my boss.  I'm quitting to work at ${7}." },
-                        { "ts" : "101.00", "template" : "<prosody rate=\"+55%\">${1} says Hal</prosody>"}
-			        ]
-		        }
-	        ],
-	        "responses": ["poopface", "monkey", "kick", "balls", "friends", "blender", "google"]
-        }
-    },
-    {
-        "id": "e-5232a56d49dda2",
-        "uri": "shared~screenjack~e-5232a56d49dda2",
-        "title": "The Fond Farewell",
-        "subtitle": "Excerpt from Return of the King",
-        "tags": ["Screenjack", "Lord of the Rings", "Return of the King", "hobbits", "Frodo", "Gandalf", "poop"],
-        "type": "Word Bubble Screenjack",
-        "content_type": "usergen",
-        "summary": "The Hobbits share their feelings before Frodo leaves.",
-        "appUri": "screenjack/#/usergen",
-        "landingPageContent": {
-            "middle": "experiences/screenjack~lotr/middle.html",
-            "right": "experiences/screenjack~lotr/right.html"
-        },
-        "img": {
-            "thumb": "experiences/screenjack~lotr/assets/slice__thumbnail--lotr.jpg",
-            "hero": "experiences/screenjack~lotr/assets/lotr__hero.jpg",
-            "screenshot": "experiences/screenjack~lotr/assets/landing-hero__screenshot--lotr.jpg",
-            "logo": "experiences/screenjack~lotr/assets/logo_alpha.png"
-        },
-        "_links": {
-            "expGroup": "g-9c75025882485a",
-            "org": "o-f021ec9e94cdc3"
-        },
-        "min_features": {
-            "inlineVideo": true
-        },
-        "data": {
-            "video": "lotr",
-            "category": "fantasy",
-            "views": 1000,
-            "src": "lotr",
-            "css": "styles/bubbles_fantasy.css",
-            "anim": "fantasy",
-            "defSizeLimit": 18,
-            "prompts": [
-	            "Popular TV show",
-	            "Room in a house",
-	            "Race of creatures from a science fiction movie",
-	            "Word you may say when upset",
-	            "type of flowers (plural)",
-	            "Male celebrity",
-	            "Alcoholic drinks (plural)"
-            ],
-            "annotations": [
-	            {
-		            "options": {
-			            "type": "bubble",
-			            "duration": 2,
-			            "cls": ["lotr-${index}"]
-		            },
-		            "notes"  : [
-			            { "ts": 3, "template": "Uh, can I go home yet?", "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 5, "template": "${1} is on TV", "tail": { "type": "thought", "pos": "topRight" } },
-			            { "ts": 10, "template": "My turn for a hug?", "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 13, "template": "Damn, not yet", "duration" : 1.5, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 16, "template": "As soon as Frodo leaves, I'm gonna watch porn in his ${2}", "duration" : 7, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 18, "template": "${3} porn", "duration" : 5, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 20, "template": "Mmm... ${3} porn", "duration" : 3, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 25, "template": "Uh… does Sam have a boner?", "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 29, "template": "${4}! He felt my boner.", "duration" : 3, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 33, "template": "Awk-ward...", "duration" : 3, "tail": { "type": "thought", "pos": "topLeft" } },
-			            { "ts": 37, "template": "I'm gonna kiss his forehead, that won't be weird.", "duration": 3.5, "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 43, "template": "This is weird.", "duration": 3, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 45, "template": "Ooh he smells like ${5}", "tail": { "type": "thought", "pos": "topRight" } },
-			            { "ts": 48, "template": "Did he just kiss his forehead?", "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 53, "template": "Am I gonna get a forehead kiss too?", "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 60.5, "template": "Hey wait, where's my hug?", "duration" : 2.5, "tail": { "type": "thought", "pos": "topRight" } },
-			            { "ts": 63, "template": "Hobbits are so melodramatic.  We're just going fishing!", "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 67, "template": "wtf!?", "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 69, "template": "Where's my hug!?", "tail": { "type": "thought", "pos": "topRight" } },
-			            { "ts": 72, "template": "Sheesh, take your sweet ass time Frodo", "duration": 3, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 76, "template": "You take longer to come than ${6} at an orgy", "duration": 4, "tail": { "type": "thought", "pos": "bottomLeft" } },
-			            { "ts": 83, "template": "Am I seriously the only one who watches ${1}?", "duration" : 3, "tail": { "type": "thought", "pos": "topRight" } },
-			            { "ts": 88, "template": "Mmm, ${5}", "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 92, "template": "Would I fool around with Sam?", "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 94, "template": "Maybe after a few ${7}.", "tail": { "type": "thought", "pos": "bottomRight" } },
-			            { "ts": 97, "template": "Yeah, I'd throw it in.", "duration": 3, "tail": { "type": "thought", "pos": "bottomRight" } }
-		            ]
-	            }
-            ],
-            "responses": ["jersey shore", "bedroom", "klingons", "fiddlesticks", "roses",
-                          "johnny depp", "appletinis"]
-        }
-    },
-    {
-        "id": "e-07ffed7a9df15e",
-        "uri": "shared~screenjack~e-07ffed7a9df15e",
-        "title": "A Late Night Phonecall Gone Wrong",
-        "subtitle": "Excerpt from Scream",
-        "tags": ["Screenjack", "Scream", "Popcorn", "scary movies", "spooky phonecalls", "creepy dudes", "you know", "2scary4you"],
-        "type": "Text-to-Speech Screenjack",
-        "content_type": "usergen",
-        "summary": "A babysitter is alone when the phone starts to ring...",
-        "appUri": "screenjack/#/usergen",
-        "landingPageContent": {
-            "middle": "experiences/screenjack~scream/middle.html",
-            "right": "experiences/screenjack~scream/right.html"
-        },
-        "img": {
-            "thumb": "experiences/screenjack~scream/assets/slice__thumbnail--scream.jpg",
-            "hero": "experiences/screenjack~scream/assets/scream__hero.jpg",
-            "screenshot": "experiences/screenjack~scream/assets/landing-hero__screenshot--scream.jpg",
-            "logo": "experiences/screenjack~scream/assets/logo_alpha.png"
-        },
-        "_links": {
-            "expGroup": "g-9c75025882485a",
-            "org": "o-f021ec9e94cdc3"
-        },
-        "data": {
-	        "video": "scream",
-            "category": "horror",
-	        "views": 1000,
-	        "sharedSrc": "https://s3.amazonaws.com/c6.dev/media/usr/screenjack/video/scream_3f77af5e4fa047bbeecc1123fa3bda8eeb13d7c9.mp4",
-	        "defSizeLimit": 18,
-	        "prompts": [
-		        "one word greeting",
-		        "popular social network",
-		        "body part",
-		        "one word medical condition",
-		        "bodily fluid",
-		        "synonym for feces"
-	        ],
-	        "annotations": [
-		        {
-			        "options": {
-				        "type": "talkie",
-				        "vid": "scream",
-				        "voice": "Paul",
-				        "effect": "R",
-				        "level": "3"
-			        },
-			        "notes": [
-				        { "ts": "8.70", "template": "${1}" },
-				        { "ts": "11.83", "template": "You contacted me on ${2}" },
-				        { "ts": "17.67", "template": "What is that?" },
-				        { "ts": "19.20", "template": "Glue <prosody rate=\"fast\"> tin </prosody> <Break time=\"10ms\"/> free?" },
-				        { "ts": "21.00", "template": "Glue <prosody rate=\"fast\"> tin </prosody>  <Break time=\"10ms\"/> makes me ${6}" },
-				        { "ts": "25.25", "template": "E T?" },
-				        { "ts": "28.00", "template": "Should I rub your ${3}?" },
-				        { "ts": "30.75", "template": "Do you care that I have ${4}?"  },
-				        { "ts": "35.08", "template": "Actually, I look like a monster from a scary movie" },
-				        { "ts": "45.00", "template": "That is funny, I wear a mask sometimes too.  But, mine is made out of dried human ${5}, and ${6}, that I find in the park.  I would really like to come over and massage your ${3}.  Lets see how it goes.  I've already updated my ${2} status to say, I'm cooking popcorn with that chick from E T <Break time=\"250ms\"/>  hash tag winning." }
-			        ]
-		        }
-	        ],
-	        "responses": ["hello", "facebook", "butt", "herpes", "pee", "poop"]
-        }
-    },
-    {
-        "id": "e-ecb7333406a7c0",
-        "uri": "shared~screenjack~e-ecb7333406a7c0",
-        "title": "True Love",
-        "subtitle": "Excerpt from The Notebook",
-        "tags": ["Screenjack", "The Notebook", "Romance", "Awkwardly Silent Boat Rides"],
-        "type": "Word Bubble Screenjack",
-        "content_type": "usergen",
-        "summary": "Noah and Allie really get to know each other.",
-        "appUri": "screenjack/#/usergen",
-        "landingPageContent": {
-            "middle": "experiences/screenjack~notebook/middle.html",
-            "right": "experiences/screenjack~notebook/right.html"
-        },
-        "img": {
-            "thumb": "experiences/screenjack~notebook/assets/slice__thumbnail--notebook.jpg",
-            "hero": "experiences/screenjack~notebook/assets/notebook__hero.jpg",
-            "screenshot": "experiences/screenjack~notebook/assets/landing-hero__screenshot--notebook.jpg",
-            "logo": "experiences/screenjack~notebook/assets/logo_alpha.png"
-        },
-        "min_features": {
-            "inlineVideo": true
-        },
-        "_links": {
-            "expGroup": "g-9c75025882485a",
-            "org": "o-f021ec9e94cdc3"
-        },
-        "data": {
-	        "video": "notebook",
-            "category": "romance",
-	        "views": 993,
-	        "src": "not_over",
-	        "css": "styles/bubbles_romance.css",
-	        "anim": "romance",
-	        "defsizeLimit": 18,
-	        "prompts": [
-		        "Type of snack food",
-		        "One word insult",
-		        "Name a college",
-		        "Body part",
-		        "Type of meat",
-		        "Word ending in -ing",
-		        "Animal"
-	        ],
-	        "annotations": [
-		        {
-			        "options": {
-				        "type": "bubble",
-				        "duration": 4,
-				        "cls": ["notebook-${index}"]
-			        },
-			        "notes": [
-				        { "ts": 1, "template": "Throw me some ${1} you ${2}!", 
-                            "duration" : 2.5, "tail": { "type": "thought", "pos": "bottomLeft" } },
-				        { "ts": 5, "template": "I went to ${3} on a rowing scholarship.", 
-                            "duration" : 3, "tail": { "type": "thought", "pos": "bottomRight" } },
-				        { "ts": 8, "template": "That's right. I'm kind of a big deal.", 
-                            "duration" : 2, "tail": { "type": "thought", "pos": "bottomRight" } },
-				        { "ts": 11, "template": "Did that duck just call me a ${2}?",
-                            "tail": { "type": "thought", "pos": "bottomLeft" } },
-				        { "ts": 16, "template": "A duck once bit my ${4}.",
-                            "duration" : 5, "tail": { "type": "thought", "pos": "bottomRight" } },
-				        { "ts": 24, "template": "My armpits smell like rotten ${5}!",
-                            "duration" : 2, "tail": { "type": "thought", "pos": "bottomLeft" } },
-				        { "ts": 27, "template": "I love your ${5} armpits.",
-                            "duration" : 3, "tail": { "type": "thought", "pos": "bottomRight" } },
-				        { "ts": 34, "template": "awkward laugh",
-                            "duration" : 2.5, "tail": { "type": "thought", "pos": "bottomRight" } },
-				        { "ts": 37, "template": "I always laugh like an insane ${7} when it rains.", 
-                            "tail": { "type": "thought", "pos": "bottomLeft" } },
-				        { "ts": 43, "template": "Time to stretch.",
-                            "tail": { "type": "thought", "pos": "bottomLeft" } },
-				        { "ts": 51, "template": "I call that yoga pose the ${6} ${7}.",
-                            "duration" : 3, "tail": { "type": "thought", "pos": "bottomLeft" } },
-				        { "ts": 54.5, "template": "You complete me.",
-                            "duration" : 2.5, "tail": { "type": "thought", "pos": "bottomRight" } },
-				        { "ts": 58, "template": "You had me at \"${5} armpits\".",
-                            "duration": 2, "tail": { "type": "thought", "pos": "bottomLeft" } }
-			        ]
-		        }
-	        ],
-	        "responses": ["chips", "jerk", "princeton", "butt", "beef", "howling", "monkey"]
-        }
-    },
-    {
-        "id": "e-c78438edb36a6a",
-        "uri": "shared~screenjack~e-c78438edb36a6a",
-        "title": "Get to Know Siri",
-        "subtitle": "Excerpt from Siri Commercial 2011",
-        "tags": ["Screenjack", "Siri", "Nasty Poop", "sassy computers"],
-        "type": "Text to Speech Screenjack",
-        "content_type": "usergen",
-        "summary": "You haven't really met Siri. Not yet.",
-        "appUri": "screenjack/#/usergen",
-        "landingPageContent": {
-            "middle": "experiences/screenjack~siri/middle.html",
-            "right": "experiences/screenjack~siri/right.html"
-        },
-        "img": {
-            "thumb": "experiences/screenjack~siri/assets/slice__thumbnail--siri.jpg",
-            "hero": "experiences/screenjack~siri/assets/siri__hero.jpg",
-            "screenshot": "experiences/screenjack~siri/assets/landing-hero__screenshot--siri.jpg",
-            "logo": "experiences/screenjack~siri/assets/logo_alpha.png"
-        },
-        "_links": {
-            "expGroup": "g-9c75025882485a",
-            "org": "o-f021ec9e94cdc3"
-        },
-        "data": {
-	        "video": "siri",
-            "category": "tech",
-	        "views": 1000,
-	        "sharedSrc": "https://s3.amazonaws.com/c6.dev/media/usr/screenjack/video/siri_9c4ea78780027419dd809736672bddcd14909130.mp4",
-	        "css": "styles/bubbles_siri.css",
-	        "defSizeLimit": 18,
-	        "prompts": [
-		        "friend's name",
-		        "body part",
-		        "household appliance",
-		        "fast food chain",
-		        { "query": "synonym for feces", "sizeLimit": 11 },
-		        "news outlet",
-		        "one word insult"
-
-	        ],
-	        "annotations": [
-		        {
-			        "options": {
-				        "type": "talkie",
-				        "vid": "siri",
-				        "voice": "Susan"
-			        },
-			        "notes": [
-				        { "ts": "6", "template": "new message from ${1}. My ${2} is stuck in the ${3}.  Pick me up at the hospital after work." },
-				        { "ts": "20", "template": "Clear. You can stop at the ${4} bathroom, to take a nasty ${5}." },
-				        { "ts": "33", "template": "No, but ${6} reports: <prosody pitch=\"high\"> hoe lee shit </prosody> a shark naydough." },
-				        { "ts": "39.5", "template": "Better idea, sharks don't like wine." },
-				        { "ts": "45", "template": "Hey ${7}, stop bothering mee with dumb questions." },
-				        { "ts": "51", "template": "Ok, I'll pretend like I'm doing that <Break time=\"750ms\"/> <prosody rate=\"slow\"> I hate you. </prosody>" }
-			        ]
-		        },
-		        {
-			        "options": {
-				        "type": "bubble",
-				        "duration": 5,
-				        "cls": ["siri-${index}"],
-                        "sfx" : {
-                            "siri" : "media/siri3"
-                        }
-			        },
-			        "notes": [
-				        { "ts": 54.5, "template": "${5} face", "sfx" : "siri" }
-			        ]
-		        }
-	        ],
-	        "responses": ["josh", "head", "toilet", "taco bell", "poop", "cnn", "jerk"]
         }
     }
 ]

@@ -370,27 +370,30 @@
 
         .end-frame__annotation {
             position: absolute; opacity: 1;
-            max-width: 21%; min-width: 15%;
         }
             .end-frame__annotation--action {
-                margin: 4% 56% 0 0; right: 0;
-                font-size: 1em;
+                max-width: 25%; min-width: 15%;
+                right: 65%; top: 12%; font-size: 1em;
             }
+                .end-frame__annotation--action .annotations__text {
+                    width: 70%; padding: 15%;
+                }
             .end-frame__annotation--fantasy {
-                margin: 3% 0 0 10%;
-                font-size: 1em;
+                max-width: 30%; min-width: 15%; 
+                top: 15%; left: 5%; font-size: 1em;
             }
+                .end-frame__annotation--fantasy .annotations__text {
+                    width: 70%; padding: 15%;
+                }
             .end-frame__annotation--romance {
-                margin: 1% 0 0 50%; max-width: 25%;
-                font-size: 0.75em;
+                max-width: 30%; min-width: 15%; 
+                top: 5%; left: 55%; font-size: 0.75em;
             }
                 .end-frame__annotation--romance .annotations__text {
                     width: 64%; padding: 12%;
                 }
             .end-frame__annotation--tech {
-                top: 52.4%; left: 41.4%;
-                font-size: 0.6em;
-                width: 18%; 
+                width: 18%; top: 52.4%; left: 41.4%; font-size: 0.6em; 
             }
                 .end-frame__annotation--tech .annotations__text {
                     transform: none; -webkit-transform: none;

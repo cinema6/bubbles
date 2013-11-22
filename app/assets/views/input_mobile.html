@@ -22,6 +22,7 @@
                         class="question__input"
                         type="text"
                         name="response"
+                        ng-keypress="appCtrl.askForVideoLoad()"
                         autocomplete="off"
                         ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                         ng-disabled="appCtrl.inExperience"
@@ -41,14 +42,14 @@
             ng-if="(inputCtrl.currentResponse()? true : false) && inputCtrl.isDone()"
             ng-animate="'start-button'"
             c6-sfx-on="{click: 'yank'}"
-            ng-click="appCtrl.askForVideoLoad(); inputCtrl.startExperience();">
+            ng-click="inputCtrl.startExperience();">
             <span class="ir">Start</span>
         </button>
         <button
             class="question__arrow-btn question__arrow-btn--next"
             c6-sfx-on="{click: 'bell'}"
             ng-disabled="!inputCtrl.canGoForward()"
-            ng-click="inputCtrl.nextQuestion(); appCtrl.askForVideoLoad();"
+            ng-click="inputCtrl.nextQuestion();"
             name="next">
             <span class="ir">Next</span>
         </button>         

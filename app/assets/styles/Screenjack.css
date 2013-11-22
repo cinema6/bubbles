@@ -427,14 +427,14 @@
                 background: url(../img/btn_newVid_tap.png) no-repeat top center; background-size: contain; float:right;
             }
 
-    @media screen and (max-device-width: 1024px) {
+    @media screen and (max-device-width: 1024px) and (min-device-width: 569px) {
         .end-frame__group {
-            margin: -34.45395% 0 0 -35%;
+            margin: 0 0 0 -35%; top: 15% !important; /* overwriting .c6-view--pos-50 that is still needed for desktop */
         }
     }
 
     @media screen and (max-device-width: 568px) {
         .end-frame__group {
-            margin: -16.45395% 0 0 -35%;
+            margin: 0 0 0 -35%; top: 20% !important; /* above overwrite */
         }
     }

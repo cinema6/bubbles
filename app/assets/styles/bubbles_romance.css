@@ -4,21 +4,13 @@
     min-width: 20%; max-width: 28%;
 }
     .annotations__style {
-        position: relative; padding: 8px; border-radius: 50px;
-        background: url(../img/romance/annotation-body.png) content-box;
+        position: relative; border-radius: 16px; 
+        background: url(../img/romance/annotation-body.png);
     }
-        .annotations__frame {
-            background: url(../img/romance/annotation-right.png) repeat-y right, 
-                        url(../img/romance/annotation-left.png) repeat-y left, 
-                        url(../img/romance/annotation-top.png) repeat-x top, 
-                        url(../img/romance/annotation-bottom.png) repeat-x bottom;
-            border-radius: 60px; margin: -5px;
-        }
-
         .annotations__text {
-            width: 84%; padding: 6% 8%; margin: 0 auto;
-            text-align: center; font-size: 185%; line-height: 100%; color: #352e2e;
-            font-family: 'LadylikeBB', 'courier prime', georgia, serif;
+            padding: 0.75em 1em; text-align: center;
+            font-size: 1.75em; /* 28px */ line-height: 1; color: #352e2e;
+            font-family: 'LadylikeBB', georgia, serif;
         }
             @font-face {
                 font-family: LadylikeBB;
@@ -29,13 +21,24 @@
                 font-weight: normal; font-style: normal;
             }
 
-        .annotations__corner {
-            position: absolute; height: 94%; width: 98%; top: 3%; left: 1%;
-            background: url(../img/romance/annotation-bottomRight.png) no-repeat bottom right,
-                        url(../img/romance/annotation-topRight.png) no-repeat top right,
-                        url(../img/romance/annotation-bottomLeft.png) no-repeat bottom left,
-                        url(../img/romance/annotation-topLeft.png) no-repeat top left;
-        } 
+        .annotations__frame, .annotations__corner { 
+            position: absolute; width: 105%; height: 110%; left: -2.5%; top: -5%; 
+        }
+
+            .annotations__frame {
+                border-radius: 46px;
+                background: url(../img/romance/annotation-right.png) repeat-y right, 
+                            url(../img/romance/annotation-left.png) repeat-y left, 
+                            url(../img/romance/annotation-top.png) repeat-x top, 
+                            url(../img/romance/annotation-bottom.png) repeat-x bottom;
+            }
+
+            .annotations__corner {
+                background: url(../img/romance/annotation-bottomRight.png) no-repeat bottom right,
+                            url(../img/romance/annotation-topRight.png) no-repeat top right,
+                            url(../img/romance/annotation-bottomLeft.png) no-repeat bottom left,
+                            url(../img/romance/annotation-topLeft.png) no-repeat top left;
+            }
 
         .annotations__tail {
             position: absolute; width: 100%; left: 0;
@@ -43,76 +46,71 @@
 
             .annotations__tail--bottomLeft-speech {
                 background: url(../img/romance/bottomLeft-speech.png) no-repeat 15% 0%; 
-                height: 22px; bottom: -5px;
+                height: 22px; bottom: -15px;
             }
 
             .annotations__tail--bottomRight-speech {
                 background: url(../img/romance/bottomRight-speech.png) no-repeat 80% 0%; 
-                height: 22px; bottom: -5px;
+                height: 22px; bottom: -15px;
             }
 
             .annotations__tail--topLeft-speech {
                 background: url(../img/romance/topLeft-speech.png) no-repeat 15% 0%; 
-                height: 22px; top: -5px;
+                height: 22px; top: -15px;
             }
 
             .annotations__tail--topRight-speech {
                 background: url(../img/romance/topRight-speech.png) no-repeat 80% 0%; 
-                height: 22px; top: -5px;
+                height: 22px; top: -15px;
             }
 
             .annotations__tail--bottomLeft-thought {
                 background: url(../img/romance/bottomLeft-thought.png) no-repeat 15% 0%; 
                 background-size: contain;
-                height: 30%;  bottom: -22%;
+                height: 30%;  bottom: -30%;
             }
 
             .annotations__tail--bottomRight-thought {
                 background: url(../img/romance/bottomRight-thought.png) no-repeat 80% 0%; 
                 background-size: contain;
-                height: 30%; bottom: -22%;
+                height: 30%; bottom: -30%;
             }
 
             .annotations__tail--topLeft-thought {
                 background: url(../img/romance/topLeft-thought.png) no-repeat 15% 0%; 
                 background-size: contain;
-                height: 30%;  top: -22%;
+                height: 30%; top: -30%;
             }
 
             .annotations__tail--topRight-thought {
                 background: url(../img/romance/topRight-thought.png) no-repeat 80% 0%; 
                 background-size: contain;
-                height: 30%; top: -22%;
+                height: 30%; top: -30%;
             }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-    .annotations__style {
-        border-radius: 38%;
-    }
-    .annotations__corner {
-        width: 98.5%; height: 89%; top: 6%;  
+@media only screen and (min-width: 1412px) {
+    .annotations__frame, .annotations__corner { 
+        width: 102%; height: 104%; left: -1%; top: -2%;
     }
 }
-@media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
-    .annotations__text {
-        font-size: 125%; padding: 14% 10%;
-    }
-    .annotations__corner {
-        width: 98.5%; height: 93%; top: 4%;  
+
+@media only screen and (max-width: 769px) {
+    .annotations__frame, .annotations__corner { 
+        width: 108%; height: 112%; left: -4%; top: -6%;
     }
 }
 
 /* bubble and tail positioning */
 .notebook-0 { top: 3%; left: 58%; }
-.notebook-1 { top: 2%; left: 4%; max-width: 34% }
-.notebook-2 { top: 2%; left: 4%; max-width: 34% }
+.notebook-1 { top: 2%; left: 6%; max-width: 34% }
+.notebook-2 { top: 2%; left: 6%; max-width: 34% }
 .notebook-3 { top: 3%; left: 48%; max-width: 28%}
 .notebook-4 { top: 8%; left: 15%; max-width: 30% }
 .notebook-5 { top: 15%; left: 43%; max-width: 34%}
 .notebook-6 { top: 3%; left: 10%; max-width: 34%}
 .notebook-7 { top: 4%; left: 15%; max-width: 34% }
-.notebook-8 { top: 3%; left: 38%; }
+.notebook-8 { top: 3%; left: 40%; max-width: 40%}
 .notebook-9 { top: 3%; left: 38%; }
-.notebook-10 { top: 4%; left: 49%; }
+.notebook-10 { top: 4%; left: 49%; max-width: 40%}
 .notebook-11 { top: 4%; left: 26%; }
 .notebook-12 { top: 4%; left: 46%; }

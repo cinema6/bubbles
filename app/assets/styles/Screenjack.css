@@ -386,12 +386,9 @@
                     width: 70%; padding: 15%;
                 }
             .end-frame__annotation--romance {
-                max-width: 30%; min-width: 15%; 
-                top: 5%; left: 55%; font-size: 0.75em;
+                width: 37%; top: 6%; left: 55%; font-size: 1em;
             }
-                .end-frame__annotation--romance .annotations__text {
-                    width: 64%; padding: 12%;
-                }
+
             .end-frame__annotation--tech {
                 width: 18%; top: 52.4%; left: 41.4%; font-size: 0.6em; 
             }

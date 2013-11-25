@@ -7,14 +7,13 @@
         <div class="end-frame__group c6-view--pos-50"> 
             <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' end-frame__annotation ' + 'end-frame__annotation--{{appCtrl.currentCategory()}}'">
                 <div class="annotations__style">
-                    <div class="annotations__frame">
-                        <div class="annotations__text">
-                            {{endCtrl.lastAnnotation.text}}&nbsp;
-                            <div class="annotations__corner annotations__corner--right"></div>
-                            <div class="annotations__corner annotations__corner--left"></div>
-                            <div class="annotations__tail" ng-class="'annotations__tail--' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
-                        </div>
-                    </div>  
+                    <div class="annotations__text">
+                        {{endCtrl.lastAnnotation.text}}&nbsp;
+                        <div class="annotations__frame"></div>
+                        <div class="annotations__corner annotations__corner--right"></div>
+                        <div class="annotations__corner annotations__corner--left"></div>
+                        <div class="annotations__tail" ng-class="'annotations__tail--' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
+                    </div>
                 </div>
     	    </div>
             <img class="end-frame__img" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{appCtrl.currentVideo()}}.jpg">

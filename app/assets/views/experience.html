@@ -24,14 +24,13 @@
                 ng-animate="appCtrl.expData.anim + '-annotation'"
                 ng-class="' annotations__bubble ' + a.cls.join(' ')">
                 <div class="annotations__style">
-                    <div class="annotations__frame">
-                        <div class="annotations__text">
-                            {{a.text}}&nbsp;
-                            <div class="annotations__corner annotations__corner--right"></div>
-                            <div class="annotations__corner annotations__corner--left"></div>
-                            <div class="annotations__tail" ng-class="'annotations__tail--' + a.tail.pos + '-' + a.tail.type"></div>
-                        </div>
-                    </div> 
+                    <div class="annotations__text">
+                        {{a.text}}&nbsp;
+                        <div class="annotations__frame"></div>
+                        <div class="annotations__corner annotations__corner--right"></div>
+                        <div class="annotations__corner annotations__corner--left"></div>
+                        <div class="annotations__tail" ng-class="'annotations__tail--' + a.tail.pos + '-' + a.tail.type"></div>
+                    </div>
                 </div>
             </li> 
         </ul>

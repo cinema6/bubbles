@@ -571,8 +571,12 @@ angular.module('c6.ctrl',['c6.svc'])
             }
         });
         var landCont = shareExp.landingPageContent;
-        landCont.middle = landCont.middle.replace(/\.html$/, '_usergen.html');
-        landCont.right = landCont.right.replace(/\.html$/, '_usergen.html');
+        if (!landCont.middle.match('_usergen.html')) {
+            landCont.middle = landCont.middle.replace(/\.html$/, '_usergen.html');
+        }
+        if (!landCont.right.match('_usergen.html')) {
+            landCont.right = landCont.right.replace(/\.html$/, '_usergen.html');
+        }
         site.shareUrl(shareExp);
     };
 

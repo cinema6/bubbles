@@ -102,14 +102,6 @@
             background-size:50% !important; background-position:right 50% !important;
         }
     }
-
-/*  ==========================================================================
-    c6__main.css overides : for branding 
-    ========================================================================== */
-    .c6-bar__app-title {
-        background: url(../img/logo_alpha.png) center center no-repeat;
-        background-size: contain; height: 1em; margin: 0.6825em 0 0 0.75em;
-    }
     
 /*  ==========================================================================
     c6 controls  styles
@@ -340,7 +332,7 @@
         background-color: #000;
     }
         .annotations__group {
-            z-index: 2; padding: 0; list-style: none;
+            z-index: 2; padding: 0; list-style: none; overflow: hidden;
         }
             .annotations__bubble {   
                 position: absolute; opacity: 1;

@@ -1,53 +1,28 @@
-<div class="endScreen">
-         <!--artwork-->
-        <header ><img class="endScreen__logo" ng-src="assets/img/logo_rippedPaper_{{appCtrl.currentCategory()}}.png"></header>
-        <div class="startScreen__bgArtwork"></div>
+<div class="eend__group c6-view--fill-100">
+    <header>
+        <img class="sj__logo--big" ng-src="assets/img/sj__logo--large.png">
+    </header>
         
-        <!--content-->
-        <div class="viewport" c6-resize>
-        
-        <div class="vidFrame__group"> 
-            <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' annotation-last ' + 'vidFrame__annotation-{{appCtrl.currentCategory()}}'">
-	            <div class="a-style">
-	              <div class="a-frame">
-	                <div class="a-text">
-	                  {{endCtrl.lastAnnotation.text}}&nbsp;
-	                  <div class="a-deco-right"></div><div class="a-deco-left"></div>
-	                  <div ng-class="'a-tail-' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
-	                </div>
-	              </div>  
-	            </div>
-		    </div>
-            <img class="vidFrame" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{$stateParams.expid}}.jpg">
-        </div>
-
-            <menu class="vidMenu">
-                <button class="vidMenu__btnReplay" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
-                <!--<button class="vidMenu__btnEdit" ng-click="appCtrl.goToRoute('/entry/{{appCtrl.category()}}');"name="edit"><span class="ir">Edit</span></button>-->
-                <button class="vidMenu__btnNewVid" ng-click="$state.transitionTo('experience.categories');" name="newVid"><span class="ir">Make a new video</span></button>
+    <div class="c6-view--pos-50" c6-resize>
+        <div class="end-frame__group c6-view--pos-50"> 
+            <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' end-frame__annotation ' + 'end-frame__annotation--{{appCtrl.currentCategory()}}'">
+                <div class="annotations__style">
+                    <div class="annotations__frame">
+                        <div class="annotations__text">
+                            {{endCtrl.lastAnnotation.text}}&nbsp;
+                            <div class="annotations__corner annotations__corner--right"></div>
+                            <div class="annotations__corner annotations__corner--left"></div>
+                            <div class="annotations__tail" ng-class="'annotations__tail--' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
+                        </div>
+                    </div>  
+                </div>
+    	    </div>
+            <img class="end-frame__img" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{appCtrl.currentVideo()}}.jpg">
+            <menu class="end-menu__group">
+                <button class="end-menu__group__replay-btn" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
+                <button class="end-menu__group__share-btn" id="videMenu_shareBtn" ng-click="endCtrl.share()" href="#" name="Share"><span class="ir">Share</span></button>
+                <button class="end-menu__group__new-btn" ng-click="$state.transitionTo('experience.input');" name="newVid"><span class="ir">Make a new video</span></button>
             </menu>
         </div>
-        <footer class="shareMenu"><span class="ir">Share with others:</span>
-            <button disabled="disabled" class="shareMenu__btnEmail" name="email"><span class="ir">Share through Email</span></button>
-            
-            <button
-            	disabled="disabled"
-            	c6-share="twitter"
-            	share-url="http://apple.com/"
-            	share-description="This is Apple, Inc."
-            	class="shareMenu__btnTwitter"
-            	name="twitter"><span class="ir">Share on Twitter</span>
-            </button>
-            
-            <button
-            	disabled="disabled"
-            	c6-share="facebook"
-            	share-url="http://www.apple.com"
-            	share-title="Apple, Inc."
-            	share-description="This is an awesome description!"
-            	share-image="http://www.itscanfixthat.com/wp-content/uploads/2013/02/apple-icon.gif"
-            	class="shareMenu__btnFacebook"
-            	name="facebook"><span class="ir">Share on Facebook</span>
-            </button>
-        </footer>
-     </div>
+    </div>
+</div>

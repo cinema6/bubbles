@@ -1,0 +1,26 @@
+<section class="exp-hero__group" ng-style="{'background-image': appCtrl.experience.img.hero && 'url(' + appCtrl.img(appCtrl.experience.img.hero) + ')'};">
+    <h1 class="exp-hero-slides__hdr">
+        <a ng-click="appCtrl.startExperience()" class="exp-hero-slides__link" title="Play Now">
+            <span class="c6-ui__play"><span class="ir">Play Now</span></span>
+        </a>
+    </h1>
+    <div class="c6-view__container">
+        <div class="grid grid--middle exp__grid">
+            <div class="exp-hero__desc grid__item one-third palm--one-whole lap--five-twelfths">
+                <div class="exp-hero__copy-box">
+                    <h1 class="exp-hero__title tk--hdr">{{appCtrl.experience.title}}</h1>
+                    <h2 class="exp-hero__sub tk--hdr">{{appCtrl.experience.subtitle}}</h2>
+                    <div class="exp-hero__copy">
+                        <p>{{appCtrl.experience.summary}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__item one-twelfth">
+                <div class="exp-hero__vertical-spacer">&nbsp;</div>
+            </div>
+            <div ng-style="{backgroundImage: appCtrl.experience.img.tag && 'url(' + appCtrl.experience.img.tag + ')'}" class="exp-hero__tag">
+                <span class="ir">Screenjack</span>
+            </div>
+        </div>
+    </div>
+</section><!--.hero__group-->

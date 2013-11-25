@@ -1,1066 +1,440 @@
-/* overall css stylesheet */
-
-button {border: none; cursor: pointer; padding: 0; margin: 0;}
-ul {list-style: none;}
-input {cursor: text;}
-button {border: 0;}
-button:disabled {opacity: 0.15;}
-.disabled {opacity: 0.15;}
-.hidden {display: none;}
-.transparent {opacity: 0;}
-
-.paperTexture { 
-    background: url('../img/bg_tile.jpg') repeat;
-    font-family: "courier prime", courier, times, serif; height: 100%; width: 100%;
-}
-
-.experience {position: absolute; width:100%; height: 100%; overflow: hidden;}
-
-.viewport { 
-    height: 684px; 
-    width: 1280px; 
-    margin: -396px 0 0 -640px; 
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    font-size: 28px; }
-
-.c6-bar__container {
-	position: absolute;
-	height: 2.25em;
-	width: 100%;
-	top: 0px;
-
-    -ms-transition: top 0.5s; -moz-transition: top 0.5s; -o-transition: top 0.5s; -webkit-transition: top 0.5s; transition: top 0.5s;
-}
-	.c6-bar__container.offscreen {
-		top: -2.25em;
-	}
-
-.c6-bar__app-title {
-    background: url('../img/logo_alpha.png') center center no-repeat;
-    background-size: contain; height:1em; margin:0.6825em 0 0 0.75em;
-}
-
-.disclaimer--categories {
-	position: absolute; width: 100%;
-	top: 40px; text-align: center;
-	font-size: 200%; font-weight: bold;
-	z-index: 999999;
-	color: red; font-family: 'open sans', arial, sans-serif; text-transform: uppercase; 
-}
-    @media screen and (max-device-width: 640px){
-        .disclaimer--categories {font-size: 100%;}
+/*  ==========================================================================
+    experience branding styles
+    ========================================================================== */
+    .sj__bg { 
+        background: url(../img/bg_tile.jpg) repeat;
+    }
+    .sj__art {
+        position: absolute; 
+        width: 34.9375em; height: 35.1875em;
+        bottom: -20.75em; left: -20.75em;
+        background: url(../img/sj__paperball.png) no-repeat center; background-size: contain;
+    }
+    .sj__logo--small {
+        top: 0; left: -235px; position: absolute;
+    } 
+    .sj__logo--big {
+        position: absolute; z-index: 2;
+        width: 50%; margin-top: -9%; top: 2.25em;
     }
 
-.disclaimer--landing {
-    position: absolute;
-    top: 1.8em; width: 100%; text-align: center;
-    font-size: 200%; font-weight: bold;
-    z-index: 999999;
-    color: red; font-family: 'open sans', arial, sans-serif; text-transform: uppercase; 
-}
-    @media screen and (max-device-width: 640px){
-        .disclaimer--landing {font-size: 140%; top: 5.8em;}
+    .sj-loading__group {
+        position: fixed; top: 45%;
+        width: 100%; z-index: 9000;
+    }
+        .sj-loading__scroller {
+            font-family: 'courier prime', courier, times, serif; color: #fff; height: 3.75em;
+        }
+            .sj-loading__text {
+                display: inline-block; text-align: center; width: 35.5em; 
+                position: absolute; left: 50%; margin-left: -17.75em;
+            }
+        .sj-loading__bar { 
+            background: #232527; width: 25%; margin: 0 auto;
+        }
+            .sj-loading__bar--active {
+                background: red; height: 0.375em; width: 0
+            }
+
+    @media screen and (max-device-width: 1024px) and (orientation: landscape) {
+        .sj__art {
+            width: 25em; height: 25em;
+            bottom: -8em; left: -16em;
+        }
+        .sj__logo--big {
+            margin-top: -4.75em;
+        }
+    }
+    @media screen and (max-device-width: 1024px) and (orientation: portrait) {
+        .sj__art {
+            width: 25em; height: 25em;
+            bottom: -4em; left: -8em;
+        }
+        .sj__logo--big {
+            margin-top: -4.75em;
+        }
     }
 
+    @media screen and (max-device-width: 568px) {
+        .sj__art {
+            display:none;
+        }
+        .sj__logo--small {
+            top: 1em; left: -6.5em;
+            width: 12.5em;
+        }
+        .sj-loading__scroller {
+            font-size: 0.8em;
+        }
+            .sj-loading__text {
+                width: 20em; margin-left: -10em;
+            }
+        .sj__logo--big {
+            width: 40%; margin-top: -1.75em;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .sj-loading__scroller {
+            font-size: 0.6em;
+        }
+            .sj-loading__text {
+                width: 15em; margin-left: -7.5em;
+            }
+        .sj__logo--big {
+            width: 50%; 
+        }
+    }
 
 /*  ==========================================================================
-    landing page styles
+    exp-hero__group styles : important stuff!!
     ========================================================================== */
+    @media only screen and (max-device-width:400px) and (orientation: portrait), (max-width:480px) {
+        .exp-hero__group {
+            background-size:cover !important; background-position:50% top !important; 
+        }
+        .c6-ui__play {
+            top: 50% !important;
+        }
+    }
+    @media only screen and (max-device-width : 568px) and (orientation: landscape) {
+        .exp-hero__group {
+            background-size:50% !important; background-position:right 50% !important;
+        }
+    }
+
+/*  ==========================================================================
+    c6__main.css overides : for branding 
+    ========================================================================== */
+    .c6-bar__app-title {
+        background: url(../img/logo_alpha.png) center center no-repeat;
+        background-size: contain; height: 1em; margin: 0.6825em 0 0 0.75em;
+    }
     
-    /* ----- hero box ----- */
-    .hero__group {
-        background: url(../img/herobox_artwork.jpg) center bottom no-repeat #ffb928;
+/*  ==========================================================================
+    c6 controls  styles
+    ========================================================================== */
+    .c6-controls__group {
+        position: absolute; bottom: 10px; width: 100%; z-index: 1000;
     }
-        .hero__desc {
-            margin: 2.25em 0 0 0; text-align: center;
+        .c6-controls__group.offscreen {
+            bottom: -40px;
         }
-        .hero__title {
-            width: 100%; height: 1.875em; /* 90px */  
-            margin:0 auto; padding:0; display: block;
-            background: url(../img/screenjackLogo.png) center center no-repeat;
-            background-size: contain;
-        }
-        .hero__copy {
-            color:#d9000a; margin:1em auto 0 auto; text-align: center; width: 22em;
-            font-family: "courier prime", courier, times, serif; font-size: 1em; line-height: 1.48em;
-        }
-
-            @media only screen and (max-width: 374px) {
-                .hero__copy {
-                    width: 19em;
-                    font-size: 0.8em;
-                }
-            }
-    /* ----- video info ----- */
-    .video-info__group {
-        margin-top: 2.5em;
-    }   
-    .vid-details__userBanner {
-        background: url(../img/userBanner_c6.jpg) no-repeat bottom;
-        background-size: contain;
-        width: 100%;
-    }
-
-    /* ----- about ----- */ 
-    .about-scenes__group {
-            margin-top: 2.5em; text-align: left;
-    }   
-        .about__hdr {
-            margin: 0;
-        }
-        .about__copy {
-            font-size: 0.939em; line-height: 1.6em; margin: 1em 0 0 0;
-        }
-        .about__copy-group {
-            margin-top: 1.2em; padding: 0.8em 0 0 0; position: relative;
-            width: 100%;
-        }
-            @media only screen and (max-width: 768px) { 
-                    .about__copy-group {text-align: center; }
-                }
-            .about__img-left {width: 46%; }
-                @media only screen and (max-width: 768px) { 
-                    .about__img-left {width: 90%; }
-                }
-            
-            .about__img-right {width: 46%; }
-                @media only screen and (max-width: 768px) { 
-                    .about__img-right {width: 70%; margin-top: 2em;}
-                }
-                    
-            .about__caption-right {
-                font-size: 0.939em; line-height: 1.6em; margin-left: 1.5em;
-                width: 48%; display: inline-block; position: absolute; top: 15%;
-            }
-                @media only screen and (max-width: 904px) { 
-                    .about__caption-right {margin: -1.2em 0 0 1.5em;}
-                }
-                 @media only screen and (max-width: 768px) { 
-                    .about__caption-right { position: inherit; margin: 1em 0 0 -0.2em; width: 90%;}
-                }
-
-            .about__caption-left {
-                font-size: 0.939em; line-height: 1.6em; 
-                width: 48%; display: inline-block; margin-bottom: 2.1em;
-            }
-                @media only screen and (max-width: 884px) { 
-                    .about__caption-left {margin: -1.2em 0 0 0;}
-                }   
-                @media only screen and (max-width: 768px) { 
-                    .about__caption-left { position: inherit; width: 90%;}
-                }
-
-    /* ---- pull quote ---- */
-    .quote__group {
-        margin-top: 2.5em;
-    }
-
-    .quote__base {
-        width: 100%; margin-top: 1.2em;
-    }
-
-    @media only screen and (max-width: 768px) and (min-width: 500px) {
-        .quote__base {
-            width: 70%; margin: 1.5em auto;
-        }
-    }
-
-        /* ---- action styles ----- */
-        .action .quote__style {
-            position: relative; padding: 11px; 
-            background: url('../img/action/annotation-body.png'); background-clip: content-box;
-        }
-
-        .action .quote__frame {
-            background: url('../img/action/annotation-right.png') repeat-y right, 
-                        url('../img/action/annotation-left.png') repeat-y left, 
-                        url('../img/action/annotation-top.png') repeat-x top, 
-                        url('../img/action/annotation-bottom.png') repeat-x bottom;
-            margin: -11px;
-        }
-            .action .quote__deco-right {
-                position: absolute; height: 100%; width: 12px; top: 0; right: 0; z-index: 10;
-                background: url('../img/action/annotation-bottomRight.png') no-repeat bottom right,
-                            url('../img/action/annotation-topRight.png') no-repeat top right;
-            }  
-            .action .quote__deco-left {
-                position: absolute; height: 100%; width: 12px; top: 0; left: 0; z-index: 11;
-                background: url('../img/action/annotation-bottomLeft.png') no-repeat bottom left,
-                            url('../img/action/annotation-topLeft.png') no-repeat top left;
-            } 
-
-        .action .quote__text {
-            width: 84%; padding: 8%;  margin: 0 auto;
-            text-align: center; font-family: "uppercut-angle", "courier prime", georgia, serif; font-size: 105%; line-height: 100%; color: #111111; font-size: 175%;
-        }
-            @media only screen and (max-width: 768px) and (min-width: 500px) {
-                .action .quote__text {
-                    font-size: 250%
-                }
-            }
-        .action .quote__tail {
-            position: absolute;
-            background: url('../img/action/bottomRight-thought.png') no-repeat 30% 0%;
-            height: 35%; width: 100%;
-            bottom: -30%; left: 0;
-        }
-
-        .action .quote__portrait {
-            height: 48px; width: 48px; background: url('../img/quote__portrait-lee.png');
-            position: absolute; bottom: -60px; left: 42%;
-        }
-
-        /* ---- romance styles ----- */
-        .romance .quote__style {
-            position: relative; padding: 11px; border-radius: 50px;
-            background: url('../img/romance/annotation-body.png'); background-clip: content-box;
-        }
-
-        .romance .quote__frame {
-            background: url('../img/romance/annotation-right.png') repeat-y right, 
-                        url('../img/romance/annotation-left.png') repeat-y left, 
-                        url('../img/romance/annotation-top.png') repeat-x top, 
-                        url('../img/romance/annotation-bottom.png') repeat-x bottom;
-            margin: -5px; border-radius: 50px;
-        }
-            .romance .quote__deco-right {
-                position: absolute;
-                background: url('../img/romance/annotation-bottomRight.png') no-repeat bottom right,
-                            url('../img/romance/annotation-topRight.png') no-repeat top right,
-                            url('../img/romance/annotation-bottomLeft.png') no-repeat bottom left,
-                            url('../img/romance/annotation-topLeft.png') no-repeat top left;
-                height: 90%; width: 98%;
-                top: 5%;
-                left: 1%;
-            }  
-           
-        .romance .quote__text {
-            width: 84%; padding: 8%;  margin: 0 auto;
-            text-align: center; font-family: "LadylikeBB", "courier prime", georgia, serif; font-size: 105%; line-height: 100%; color: #111111; font-size: 220%;
-        }
-            @media only screen and (max-width: 768px) and (min-width: 500px) {
-                .romance .quote__text {
-                    font-size: 300%
-                }
-            }
-             @font-face {
-            font-family: LadylikeBB;
-            src: url('../media/romance/ladylikebb-webfont.ttf') format('truetype'),
-                url('../media/romance/ladylikebb-webfont.woff') format('woff'), 
-                url('../media/romance/ladylikebb-webfont.eot') format('embedded-opentype'), 
-                url('../media/romance/ladylikebb-webfont.svg#ladylike_bbregular') format('svg'); 
-            font-weight: normal;
-            font-style: normal;
-        }
-        .romance .quote__tail {
-            position: absolute;
-            background: url('../img/romance/bottomRight-thought.png') no-repeat 30% 0%;
-            height: 35%; width: 100%;
-            bottom: -30%; left: 0;
-        }
-
-        .romance .quote__portrait {
-            height: 48px; width: 48px; background: url('../img/quote__portrait-notebook.png');
-            position: absolute; bottom: -60px; left: 42%;
-        }
-
-        /* ---- fantasy styles ----- */
-        .fantasy .quote__style {
-            position: relative; border-radius: 40px; box-shadow: 0 3px 5px #c1c1c1;
-            background: url('../img/fantasy/annotation-right.png') repeat-y right, 
-                        url('../img/fantasy/annotation-left.png') repeat-y left, 
-                        url('../img/fantasy/annotation-top.png') repeat-x top, 
-                        url('../img/fantasy/annotation-bottom.png') repeat-x bottom,
-                        url('../img/fantasy/annotation-body.png');
-        }
-
-        .fantasy .quote__frame {
-            background: url('../img/fantasy/annotation-bottomRight.png') no-repeat 100% 100%,
-                url('../img/fantasy/annotation-bottomLeft.png') no-repeat 0% 100%,
-                url('../img/fantasy/annotation-topRight.png') no-repeat 100% 0%,
-                url('../img/fantasy/annotation-topLeft.png') no-repeat 0% 0%;
-            margin: 0px;
-        }
-            .fantasy .quote__deco-right {
-                position: absolute;
-                background: url('../img/fantasy/annotation-bottomRight_deco.png') no-repeat bottom right; 
-                height: 68px; width: 71px;
-                bottom: -14px;
-                right: -14px;
-            }  
-           .fantasy .quote__deco-left {
-              position: absolute;
-              background: url('../img/fantasy/annotation-topLeft_deco.png') no-repeat top left; 
-              height: 68px; width: 71px;
-              top: -14px;
-              left: -14px;
-            }  
-        .fantasy .quote__text {
-            width: 80%;
-            padding: 10%;
-            margin: 0 auto;
-            text-align: center;
-            font-family: "Sunshine", "SherwoodRegular", "courier prime", georgia, serif;
-            font-size: 150%;
-            line-height: 150%;
-            color: #fff;
-        }
-            @media only screen and (max-width: 768px) and (min-width: 500px) {
-                .fantasy .quote__text {
-                    font-size: 250%;
-                }
-            }
-        .fantasy .quote__tail {
-            position: absolute; 
-            background: url('../img/fantasy/bottomRight-thought.png') no-repeat 30% 0%;
-            height: 35%; width: 100%;
-            bottom: -35%; left: 0; 
-        }
-
-        .fantasy .quote__portrait {
-            height: 48px; width: 48px; background: url('../img/quote__portrait-lotr.png');
-            position: absolute; bottom: -60px; left: 42%;
-        }
-
-    /* ---- transition panels ---- */
-    .transition__panels-top {
-        height: 100%; width: 100%; 
-        background: #232527; top: -100%;
-        z-index: 2000; position: fixed;
-        display: none;
-    }
-    .transition__panels-bottom {
-        height: 100%; width: 100%; 
-        background: #232527; bottom: -100%;
-        z-index: 2000; position: fixed;
-        display: none;
-    }
 
 /*  ==========================================================================
-    categories styles
+    landing annotation styles
     ========================================================================== */
-    .startScreen {position: absolute; width: 100%; height: 100%; font-size: 100%; z-index: 5; display: block;
-        -ms-transform-origin: 0% 0%; -moz-transform-origin: 0% 0%; -o-transform-origin: 0% 0%; -webkit-transform-origin: 0% 0%; transform-origin: 0% 0%;
-        -ms-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg); 
+    .exp-screenshot__group {
+        position:absolute; width:100%; height: 100%; z-index: 3; margin-left: 24px;
+    }
+        .exp-screenshot__box {
+            max-height: 33.475em; max-width: 57.89em; 
+        }
+        .exp-screenshot__img {
+            border-radius: 0.33em; box-shadow: 0 0 2.1em #000;
+        }
+
+    .landing--hero__annotations {
+        max-width: 78.89em; height: 100%;
+        margin: 0 auto; padding: 0.5em;
+        opacity: 0.7; list-style: none;
+    }
+        .landing__annotation {
+            max-width: 18em; min-width: 10em; font-size: 1em;
+        }
+
+        .landing__annoation-position--0 {
+            margin: 0 0 0 70%; padding: 1em 0 0 1em; 
+        }
+        .landing__annoation-position--1 {
+            margin:12em 0 0 2%;
+        }
+        .landing__annoation-position--2 {
+            margin:10em 0 0 75%;
+        }
+
+    @media only screen and (max-width: 768px) {
+        .landing__annotation {
+            font-size: 0.75em;
+        }
+        .landing__annoation-position--0 {
+            margin: 0 0 0 35%; padding: 3em 0 0 1em;
+        }
+        .landing__annoation-position--1 {
+            margin:15em 0 0 2%;
+        }
+        .landing__annoation-position--2 {
+            display:none;
+        }
     }
 
-     /* content */
-        .startScreen__directions { 
-            color: #c20000; font-size:1.4em; font-weight: 300; margin: 0 0 0 37%;
+    @media only screen and (max-device-width : 480px) and (orientation: landscape) {
+        .exp-screenshot__group {
+            width: 90%; margin-left: 10%;
         }
-
-        .category__group {
-            width: 83%; margin: 10% 0 0 13%; z-index: 1;
-            -ms-transform: rotate(-15deg); -moz-transform: rotate(-15deg); -o-transform: rotate(-15deg); -webkit-transform: rotate(-15deg); transform: rotate(-15deg);
-        }
-            .category__item { width: 33%; margin: 2% 0 0 0; display: inline-block;}
-
-            .category__frame {background: #fff; box-shadow: 0 2px 4px #b9b9b9; }
-                .category__frame:active { background: #c20000;} 
-
-            .category__art {width: 96%; margin: 2%;}            
-
-            /* iphone 5 horizontal */
-            @media only screen and (max-width: 568px) {
-                .category__group {
-                    width: 90%; margin: 10% 0 0 7%;
-                }
+            .exp-screenshot__box {
+                margin-top:0;
             }
-            /* iphone 4 horizontal */
-            @media only screen and (max-width: 480px) {
-                .category__group {
-                    width: 95%; margin: 12% 0 0 4%;
-                }
-            }
-            /* iphone vertical */
-            @media only screen and (max-width: 320px) {
-                .category__group {
-                    width: 90%; margin: 5% 3% 0 0;
-                }
-                .category__item {
-                    width: 50%;
-                }
-            }
-
-		 /* artwork */
-         .startScreen__logo {
-            background: url('../img/logo_pen800.png') no-repeat top left; background-size: contain;
-            top: 0; left: 0; margin: -380px 0 0 -250px;
-            width: 800px; height: 1300px;
-            z-index: -1; position: absolute;
-         }
-			.startScreen__this_undefined {
-				display: block;
-				position: fixed;
-				z-index: 1000;
-				top: 860px;
-				left: 0px;
-				width: 35px;
-				height: 50px;
-			}
-				.startScreen__this_undefined:hover {
-					text-decoration: none;
-				}
-            @media only screen and (max-width: 768px) {
-                .startScreen__logo {
-                    background: url('../img/logo_pen600.png') no-repeat top left;
-                    width: 600px; margin: -275px 0 0 -200px;
-                }
-				.startScreen__this_undefined {
-					top: 750px;
-					left: 10px;
-				}
-            }
-            @media only screen and (max-height: 570px) {
-                .startScreen__logo {
-                    background: url('../img/logo_pen600.png') no-repeat top left;
-                    width: 600px; margin: -275px 0 0 -200px;
-                }
-				.startScreen__this_undefined {
-					top: 750px;
-					left: 10px;
-				}
-            }
-            @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                .startScreen__logo {
-                    background: url('../img/logo_pen600.png') no-repeat top left;
-                    width: 600px; margin: -270px 0 0 -200px;
-                }
-            }
-            @media only screen and (max-height: 442px) {
-                .startScreen__logo {
-                    background: url('../img/logo_pen300.png') no-repeat top left;
-                    width: 300px; margin: -120px 0 0 -100px;
-                }
-				.startScreen__this_undefined {
-					top: 390px;
-					height: 20px;
-					width: 20px;
-					left: 0px;
-				}
-            }
-            @media only screen and (max-width: 568px) {
-                .startScreen__logo {
-                    background: url('../img/logo_pen300.png') no-repeat top left;
-                    width: 300px; margin: -120px 0 0 -100px;
-                }
-				.startScreen__this_undefined {
-					top: 390px;
-					height: 20px;
-					width: 20px;
-					left: 0px;
-				}
-            }
-
-        .startScreen__bgArtwork {
-            background: url('../img/paperball.png') no-repeat bottom right;
-            width: 100%; height: 100%;
-            bottom: 0; right: -400px;
-            z-index: -1; position: absolute;
-         }
-            /* ipad */
-            @media screen and (max-width: 768px) {
-               .startScreen__bgArtwork {    
-                    background-size: contain;
-                    width: 200px; height: 200px;
-                    bottom: 20%; right: -120px;
-                } 
-            }   
-            /* iphone */
-            @media screen and (max-width: 568px) {
-                .startScreen__bgArtwork {
-                    background-size: contain;
-                    width: 120px; height: 120px;
-                    bottom: 12%; right: -70px;
-                } 
-            }
+    }
 
 /*  ==========================================================================
     input styles
     ========================================================================== */
-    .inputScreen {width: 100%; height: 100%; position: absolute; z-index: 4; opacity: 1; display: block;
+    .input__group {
+        z-index: 4; opacity: 1;
+        font-family: 'Courier Prime', courier, times, serif;
         -ms-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -webkit-transform-origin: 0 0; transform-origin: 0 0;
         -ms-transform: rotate(0deg); -moz-transform: rotate(0deg); -o-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);
     }
-
-    /* content */
-      .content {
-        background: none; 
-        height: 308px; width: 722px;
-        position: absolute;
-        top: 45%; left: 50%;
-        margin: -120px 0  0 -361px;
-      }
-        @media screen and (max-width: 768px) {
-            .content { width: 480px; margin: -70px 0  0 -240px; position: absolute;}
+        .input__questions {
+            position: absolute; top: 25%; left: 50%;
+            width: 90%; height: 50%; margin: 1.125em 0 0 -45%;
+            z-index: 10;
         }
-        @media screen and (max-width: 320px) {
-            .content { width: 100%; margin: -70px 0 0 0; left: 0;}
-        }
-
-        .question__group {padding: 0;}
-            .question__prompt {
-                position: absolute;
-                text-align: center;
-                top: 5%; left: 50%; width: 75%;
-                margin: 0 0 0 -37.5%;
-                color: #000; opacity: 1;
+            .question__group {
+                padding: 0; text-align: center; color: #000;
+                position: absolute; width: 100%; top: 0; list-style: none;
             }
-
-                .question__number { 
-                    text-align: center; font-size: 0.8em; /* 16px */ color: #252525; 
-                    opacity: 1; margin: 2% 0 0 0;
+                .question__prompt {
+                    position: absolute; width: 100%;
                 }
-                    @media screen and (max-width: 568px) {
-                        .question__number {margin: -2% 0 0 0; font-size: 0.8em; }
+                    .question__instructions { 
+                        margin: 2% 0 0 0; font-size: 0.875em; /* 14px */ color: #252525; opacity: 1;                   
                     }
-
-                    @media screen and (max-width: 320px) {
-                        .question__number { margin: -8% 0 0 0;}
+                    .question__query {
+                        margin: 0.375em 0 0 0; font-size: 1.75em; /* 28px */ font-weight: 700; opacity: 1;
                     }
-
-                .question__query {
-                    width: 100%; height: 11%; 
-                    margin: 1% 0 0 0;  line-height: 120%;
-                    text-align: center; font-size: 32px; 
-                    display: block; 
-                    opacity: 1;
+                .question__answer-box {
+                    width: 65%; position: absolute; top: 8em; left: 17.5%;
                 }
-                    @media screen and (max-width: 1024px) {
-                        .question__query { width: 80%; margin: 0 0 0 10%;}
+                    .question__input {
+                        width: 100%; border: 0;
+                        font-family: 'Courier Prime', Courier, Times, serif;
+                        font-size: 1.75em; /* 28px */ font-weight: 700; color: #c20000;
+                        background: url(../img/inputLine.jpg) bottom center repeat-x; 
                     }
-                    @media screen and (max-width: 568px) {
-                        .question__query { font-size: 1.3em;}
+                        .question__input:focus {outline:none;}
+                        .question__input::-ms-clear {display:none;} /* remove X from IE10 */
+
+                    .question__subtext {
+                        width: 100%; margin: 1% 0 0 0; font-size: 0.75em; /* 12px */
                     }
-            
-            .question__userAnswer {
-                position: absolute;
-                width: 68%; height: 10%;
-                top: 50%; left: 50%;
-                margin: 0 0 0 -34%;
+                        .question__progressMeter {
+                            float: left; 
+                        }
+                        .question__characterCount {
+                            float: right;
+                        }
+
+            .question__arrow-btn {
+                width: 4.125em; height: 4.125em; border: 0;
+                position: absolute; top: 10em;
             }
-                /* medium desktop */
-                @media screen and (max-width: 568px) {
-                    .question__userAnswer {
-                        margin: 0 0 0 -30%; position: absolute;
-                        width: 60%; top: 25%; 
-                    }
+                .question__arrow-btn:disabled {
+                    opacity: 0.15;
                 }
-
-                /* small desktop */
-                @media screen and (max-width: 320px) {
-                    .question__userAnswer { width: 54%; margin: 0 0 0 -27%;}
+                .question__arrow-btn--back {
+                    background: url(../img/btn_previous_default.png) no-repeat center center; left: 7%;
                 }
-                
-                /* tablet */
-                @media screen and (max-device-width: 1045px) {
-                    .question__userAnswer { width: 74%; }
+                    .question__arrow-btn--back:active {
+                        background: url(../img/btn_previous_tap.png) no-repeat center center;
+                    }
+
+                .question__arrow-btn--next {
+                    background: url(../img/btn_next_default.png) no-repeat center center; right: 7%;
                 }
-                /* iphone5 landscape */
-                @media screen and (max-device-width: 568px) {
-                    .question__userAnswer { width: 65%; }
-                }
-                /* iphone5 portrait */
-                @media screen and (max-device-width: 320px) {
-                    .question__userAnswer { width: 55%;}
-                }
-                .question__input {
-                    width: 100%;
-                    border: 0;
-                    background: url('../img/inputLine.jpg') bottom center repeat-x; 
-                    font-family: "Courier Prime", Courier, Times, serif;
-                    font-size: 1.8em; font-weight: 700; color: #c20000;
-                    z-index: 1;
-                }
-                    .question__input:focus {outline:none;}
-                    .question__input::-ms-clear {display:none;} /*remove X from IE10*/
-                    /* small desktop */
-                    @media screen and (max-width: 568px) {
-                        .question__input { font-size: 1.4em; }
-                    }
-                    /* ipad landscape  */
-                    @media screen and (max-device-width: 1045px) {
-                        .question__input { width: 100%;}
-                    }
-                    /* ipad portrait  */
-                    @media screen and (max-device-width: 768px) {
-                        .question__input { width: 92%;}
-                    }
-                    /* iphone5 landscape */
-                    @media screen and (max-device-width: 568px) {
-                        .question__input { width: 94%;}
-                    }
-                    /* iphone5 portrait */
-                    @media screen and (max-device-width: 320px) {
-                        .question__input { width: 90%;}
+                    .question__arrow-btn--next:active {
+                        background: url(../img/btn_next_tap.png) no-repeat center center;
                     }
 
-                .question__subtext {
-                    width: 100%; height: 16px; margin: 1% 0 0 0;
-                }
-                    /* ipad & iphone landscape  */
-                    @media screen and (max-device-width: 1045px) and (orientation: landscape) {
-                        .question__subtext { width: 97%;}
-                    }
-                    .question__progressMeter {
-                        margin: 0; float: left; font-size: 0.8em;
-                    }
 
-                    /* structure is for mobile only */
-                    .question__characterCount {
-                        margin: 0; float: right; text-align: right; font-size: 0.8em;
-                    }
-
-            /* ------ keyboard up classes ------ */
-                .question__inputCheck {
-                    background: url("../img/input_check.png") right no-repeat;
-                    height: 32px; width: 68%;
-                    top: 50%; left: 50%;
-                    margin: 0 0 0 -34%;
-                    position: absolute;
-                    z-index: -2;
-                }
-
-                /* iPad landscape*/
-                    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                    .c6-ios-keyboard-up {
-                        height: 280px; width: 100%; margin-top:40px;
-                    }
-                        .c6-ios-keyboard-up .inputScreen__bgArtwork { bottom: -410px;}
-                        .c6-ios-keyboard-up .inputScreen__logo { top: 0;}
-                        .c6-ios-keyboard-up .inputScreen__btnClose { top: -38px;}
-                    }
-
-                /* iPad portrait */
-                    @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: portrait) {
-                    .c6-ios-keyboard-up {
-                        height: 620px; width: 100%; margin-top:40px; 
-                    }
-                        .c6-ios-keyboard-up .inputScreen__bgArtwork { bottom: -300px;}
-                        .c6-ios-keyboard-up .inputScreen__logo { top: 0;}
-                        .c6-ios-keyboard-up .inputScreen__btnClose { top: -38px;}
-                    }
-
-                /* iPhone landscape */
-                    @media screen and (max-width: 568px) {
-                    .question__inputCheck {
-                        height: 24px; background-size: contain; top: 35%;
-                    }
-
-                    .c6-ios-keyboard-up {
-                        height: 90px; width: 100%; position: absolute; margin-top: 38px;
-                    }
-                        .c6-ios-keyboard-up .content { height: 100%; top: 64px;}
-                        .c6-ios-keyboard-up .question__number { font-size: 0.5em;}
-                        .c6-ios-keyboard-up .question__query { font-size: 1em;}
-
-                        .c6-ios-keyboard-up .question__input { font-size: 1.25em; margin-top: 5%;}
-
-                        .c6-ios-keyboard-up .question__btnStart { height: 40%;}
-                        .c6-ios-keyboard-up .question__inputCheck { height: 18px; top: 42%;}
-                        .c6-ios-keyboard-up .question__btnPrevious { top: 50%; height: 20%;}
-                        .c6-ios-keyboard-up .question__btnNext { top: 50%; height: 20%;}
-
-                        .c6-ios-keyboard-up .inputScreen__logo {top: 5px; }
-                        .c6-ios-keyboard-up .inputScreen__logo img {height: 25px;}
-                        .c6-ios-keyboard-up .inputScreen__bgArtwork {display: none;}
-                        .c6-ios-keyboard-up .inputScreen__btnClose {top: -42px; right: -14px; height: 30px;}
-                    }
-
-                /* iPhone portrait */
-                    @media screen and (max-width: 320px) {
-                        .c6-ios-keyboard-up {
-                            height: 200px;
-                        }   
-                            .c6-ios-keyboard-up .content { top: 100px; }
-                            .c6-ios-keyboard-up .inputScreen__logo {top: 0; }
-                            .c6-ios-keyboard-up .question__btnPrevious { top: 25%;}
-                            .c6-ios-keyboard-up .question__btnNext { top: 25%;}
-                            .c6-ios-keyboard-up .question__btnStart { top: 10%;}
-                    }
-
-        .question__btnPrevious {
-            background: url('../img/btn_previous_default.png') no-repeat bottom left; background-size: contain;
-            height: 10%;  width: 5%; 
-            position: absolute;
-            top: 43%; left: 0;
-            margin: 5% 0 0 0;
-            z-index: 5;  
-         }
-            .question__btnPrevious:active {background: url('../img/btn_previous_tap.png') no-repeat bottom left; background-size: contain;}
-            @media screen and (max-width: 568px) {
-                .question__btnPrevious { margin: 0 0 0 8%; top: 25%;}
-            }
-            @media screen and (max-width: 320px) {
-                .question_btnPrevious {margin: 0;}
-            }
-
-        .question__btnNext {
-            background: url('../img/btn_next_default.png') no-repeat bottom right; background-size: contain;
-            height: 10%; width: 5%; 
-            top: 50%; right: 0;
-            position: absolute;
-            z-index: 5;  
-         }
-            .question__btnNext:active {background: url('../img/btn_next_tap.png') no-repeat bottom right;}
-            @media screen and (max-width: 568px) {
-                .question__btnNext { margin: 0 8% 0 0; top: 25%;}
-            }
-
-        .question__btnStart {
-            background: url('../img/btn_start_default.png') center no-repeat; background-size: contain; 
-            width: 27%; height: 19%;
-            left: 36.5%; top: 75%;
-            position: absolute; 
-			margin-top: 80px;
-         }
-            .question__btnStart:active {background: url('../img/btn_start_tap.png') center no-repeat;}
-
-            /* small desktop */
-            @media screen and (max-width: 768px) {
-                .question__btnStart { width: 50%; top: 70%; left: 25%; }
-            }
-            /* ipad landscape */
-            @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-                .question__btnStart { top: 70%;}
-            }
-            /* iphone landscape */
-            @media screen and (max-device-width: 568px) {
-                .question__btnStart {width: 28%; left: 36%;}
-            }
-            /* iphone portrait */
-            @media screen and (max-device-width: 320px) {
-                .question__btnStart {top: 20%; width: 40%; left: 30%;}
-            }
+            .question__start-btn {
+                background: url(../img/btn_start_default.png) center no-repeat;  
+                width: 17.5em; height: 6.5em; border: 0;
+                left: 50%; margin-top: 22em;
+                position: absolute; margin-left: -8.75em;
+             }
+                .question__start-btn:active {background: url('../img/btn_start_tap.png') center no-repeat;}
  
-        .inputScreen__btnClose {
-            background: url('../img/btn_close_default.png'); background-size: cover;
-            height: 54px; width: 65px;
-            margin: 40px 2px 0 0;
-            position: relative;
-            float: right;
-            display: block;
+        .input__close-btn {
+            position: absolute; top: 3.25em; right: 0.25em;
+            width: 4.125em; height: 3.375em; border: 0;
+            background: url(../img/btn_close_default.png) no-repeat top left; background-size: cover;
             z-index: 1;
-         }
-         .inputScreen__btnClose:active {background: url('../img/btn_close_tap.png'); background-size: cover;}
-            @media screen and (max-width: 768px) {
-                .inputScreen__btnClose { height: 42px; width: 50px; }
-            }     
-
-		.progressDock {
-			text-align: center; margin: 250px 50px 0 0;
-		}
-            @media screen and (max-device-width:1024px) {
-                .progressDock { margin: 150px 0 0 0;}
-            }
-            @media screen and (max-device-width: 320px) {
-                .progressDock { margin: 0 0 0 0;}
+        }
+            .input__close-btn:active {
+                background: url(../img/btn_close_tap.png) no-repeat top left; background-size: cover;
             }
 
-			.progressDock li {
-				display: inline-block; width: 42px;
-			}
-				.progressDock li img {
-					-webkit-transform:scale(0); -moz-transform:scale(0); -ms-transform:scale(0); -o-transform:scale(0);
-                    transform:scale(0); display: none;
-				}
-    			@media screen and (max-width: 768px) {
-    				.progressDock img {width: 30px;}
-    			}
-    			@media screen and (max-width: 568px) {
-    				.progressDock {margin: 126px 30px 0 0;}
-    				.progressDock li {width: 26px;}
-    			}
-    			@media screen and (max-width: 320px) {
-    				.progressDock { margin: 120px 30px 0 0; }
-                    .progressDock li {width: 20px;}
-    			}
+        .progress-dock__group {
+            text-align: center; margin: 12.5em 3.125em 0 0;
+        }
+            .progress-dock__item {
+                display: inline-block; width: 2.625em;
+            }
+        
+        @media screen and (max-device-width: 1024px) {
+            .input__questions {
+                top: 20%;
+            }
+        }   
 
-    /* artwork */
-     .inputScreen__logo {
-        top: 48px; left: 10px;
-        width: 100%; height: 100%;
-        position: absolute;
-        z-index: 0; background-size: contain;
-     } 
-        /* phone */
-        @media screen and (max-device-width: 568px) {
-            .inputScreen__logo img { height: 30px;} 
+        @media screen and (max-width: 567px) {
+            .progress-dock__item {
+                width: 1.875em;
+            }
+            .progress-dock__img {
+                width: 1.625em;
+            }
         }
 
-     .inputScreen__bgArtwork {
-        background: url('../img/paperball.png') no-repeat bottom left; 
-        width: 100%;
-        height: 200%;
-        position: absolute;
-        z-index: 0;
-        bottom: -300px;
-        left: -300px;
-     }
         @media screen and (max-width: 768px) {
-            .inputScreen__bgArtwork { background-size: contain; width: 450px; height: 450px;}
+            .question__arrow-btn--back {
+                left: 0;
+            }
+            .question__arrow-btn--next {
+                right: 0;
+            }
+            .input__close-btn {
+               top: 3.75em;
+            }
         }
-        @media screen and (max-width: 568px) {
-            .inputScreen__bgArtwork {
-                background-size: contain;
-                width: 100px; height: 100px;
-                bottom: -40px; left: -40px;
+        
+        @media screen and (max-device-width: 568px) {
+            .input__questions {
+                top: 20%;
+            }
+            .question__instructions { 
+                font-size: 0.625em; /* 10px */
+            }
+                .question__query {
+                    font-size: 1.125em; /* 18px */
+                }
+
+            .question__answer-box {
+                margin: -4em auto;
+            }
+                .question__input {
+                    font-size: 1.25em; /* 20px */ width: 92%;
+                }
+                .question__characterCount {
+                    margin-right: 0;
+                }     
+
+            .question__arrow-btn {
+                width: 2.25em; height: 2.25em; top: 8em;
+            }
+                .question__arrow-btn--next, .question__arrow-btn--back {
+                    background-size: contain;
+                }
+
+            .question__start-btn {
+                background-size: contain; height: 4.125em; margin-top: 14em;
             }
         }
 
 /*  ==========================================================================
     video experience styles
     ========================================================================== */
- .c6Controls__group {
-    z-index: 1000;
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    
-    -ms-transition: bottom 0.5s; -moz-transition: bottom 0.5s; -o-transition: bottom 0.5s; -webkit-transition: bottom 0.5s; transition: bottom 0.5s;
- }
-    .c6Controls__group.offscreen {
-        bottom: -40px;
+    .video__group {
+        background-color: #000;
     }
- .transition_blackFade {
-    background: #000; 
-    height: 100%; 
-    width: 100%; 
-    z-index: 0;
-    position: fixed; 
-    top: 0; 
-    opacity: 1;
- }
- .experience__group {height: 100%; width:100%; position: absolute; top: 0;}
- .experience__logo {
-    top: 46px; left: 12px;
-    z-index: 99; position: fixed;
-    opacity: 1;
-    width: 25%;
- }
-    .experience__logo img {
-        height: auto; width: 100%;
-    }
-
-    .experience__video {
-        position: absolute;
-        top: 50%; left: 50%;
-    }
-     #player {
-        z-index: 1; position: absolute;
-        /*width: 98%; height: 90%;
-        margin-left: -47%; padding: 1%;
-        top: 30px; left: 47%;*/
-        height: 100%; width: 100%;
-        opacity: 0;
-     }
-
-     .annotations{
-        z-index: 2; position: absolute;
-        width: 100%; height: 100%; padding: 0;
-
-        /*left: 50%; top: 50%; padding: 0;*/
-     }
-        .annotation {   
-            position: absolute; opacity: 1;
-            -ms-transform-origin: 50% 50%; /* IE 9 */
-            -moz-transform-origin: 50% 50%; /* Firefox */
-            -o-transform-origin: 50% 50%; /* Opera */
-            -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
-            transform-origin: 50% 50%;
+        .annotations__group {
+            z-index: 2; padding: 0; list-style: none;
         }
-
-    .loading__group {
-    	position: fixed; top: 45%;
-    	width: 100%; z-index: 9000;
-    	}
-    	.loading__text {
-    		font-family: "courier prime", courier, times, serif; color: #fff; height: 30px;
-    	}
-    		@media screen and (max-width: 568px) {
-    			.loading__text {font-size: 0.8em;}
-    		}
-    		@media screen and (max-width: 320px) {
-    			.loading__text {font-size: 0.6em;}
-    		}
-
-    		.loading__text li {
-                display: inline-block; text-align: center; width: 568px; 
-                position: absolute; left: 50%; margin-left: -284px;
+            .annotations__bubble {   
+                position: absolute; opacity: 1;
+                -ms-transform-origin: 50% 50%; /* IE 9 */
+                -moz-transform-origin: 50% 50%; /* Firefox */
+                -o-transform-origin: 50% 50%; /* Opera */
+                -webkit-transform-origin: 50% 50%; /* Safari and Chrome */
+                transform-origin: 50% 50%;
             }
-    			@media screen and (max-width: 568px) {
-    				.loading__text li{width: 320px; margin-left: -160px;}
-    			}
-    			@media screen and (max-width: 320px) {
-    				.loading__text li{width: 240px; margin-left: -120px;}
-    			}
-
-    	.loading__container { 
-    		background: #232527; width: 25%; margin: 0 auto;
-    	}
-    		.loading__bar {background: red; height: 6px; width: 0}
 
 /*  ==========================================================================
     end styles
     ========================================================================== */
-    .endScreen {width: 100%; height: 100%; position: absolute; opacity: 1; display: block;
+    .end__group {
+        margin-top: 2em; opacity: 1;
         -ms-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -webkit-transform-origin: 0 0; transform-origin: 0 0;
         -ms-transform: rotate(0deg); -moz-transform: rotate(0deg);  -o-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);
     }
 
-    /* content */
-    .vidFrame__group {
-        height:58.30%; width: 55.57%; margin: 11.56% 0 0 21.79%; position: relative;
+    .end-frame__group {
+        width: 70%; height: 0; padding-bottom: 44.9079%; 
+        margin: -20.45395% 0 0 -35%; position: relative;
     }
-        /* iphone */
-        @media screen and (max-width: 668px) {
-            .vidFrame__group {
-                height:65%; width: 61.95%; margin: 10% 0 0 19.29%;
-            }
-        }
-        @media screen and (max-width: 320px) {
-            .vidFrame__group {
-                height:83.85%; width: 80%; margin: 10% 0 0 10%;
-            }
+        .end-frame__img {
+            width: 100%;
         }
 
-        .vidFrame {
-            height:100%; width: 100%; margin: 0; 
-        }
-
-        .annotation-last {
+        .end-frame__annotation {
             position: absolute; opacity: 1;
-            max-width: 21%; min-width: 15%;
         }
-
-        .vidFrame__annotation-action {
-            margin: 4% 56% 0 0; right: 0;
-            font-size: 0.6em;
-        }
-
-        .vidFrame__annotation-fantasy {
-            margin: 3% 0 0 2%;
-            font-size: 0.7em;
-        }
-        .vidFrame__annotation-romance {
-            margin: 1% 0 0 28%;
-            font-size: 1em;
-        }
-
-        .vidFrame__annotation-tech {
-            top: 59.4%; left: 41.4%;
-            font-size: 0.6em;
-            width: 18%; 
-        }
-
-            .vidFrame__annotation-tech .a-text {transform: none; -webkit-transform: none;}
+            .end-frame__annotation--action {
+                max-width: 25%; min-width: 15%;
+                right: 65%; top: 12%; font-size: 1em;
+            }
+                .end-frame__annotation--action .annotations__text {
+                    width: 70%; padding: 15%;
+                }
+            .end-frame__annotation--fantasy {
+                max-width: 30%; min-width: 15%; 
+                top: 15%; left: 5%; font-size: 1em;
+            }
+                .end-frame__annotation--fantasy .annotations__text {
+                    width: 70%; padding: 15%;
+                }
+            .end-frame__annotation--romance {
+                max-width: 30%; min-width: 15%; 
+                top: 5%; left: 55%; font-size: 0.75em;
+            }
+                .end-frame__annotation--romance .annotations__text {
+                    width: 64%; padding: 12%;
+                }
+            .end-frame__annotation--tech {
+                width: 18%; top: 52.4%; left: 41.4%; font-size: 0.6em; 
+            }
+                .end-frame__annotation--tech .annotations__text {
+                    transform: none; -webkit-transform: none;
+                }
            
-        .vidMenu { 
-            position: absolute;
-            height: 8.2%; width: 56.45%; 
-            display: inline-block; 
-            left: 21.78%; top: 80%;
-            margin: .4% 0 0 0; padding: 0; 
+        .end-menu__group { 
+            position: absolute; height: 8%; width: 100%; 
+            bottom: -2%; padding: 0; 
          }
-            /* iphone */
-            @media screen and (max-width: 568px) {
-                .vidMenu {
-                    width: 62%; margin: 4.5% 0 0 -3%;
+            .end-menu__group__replay-btn { 
+                background: url(../img/btn_playAgain_default.png) no-repeat top center; background-size: contain; 
+                height: 100%; width: 6.67%; float:left; border: 0;
+            }
+                .end-menu__group__replay-btn:active {
+                    background: url(../img/btn_playAgain_tap.png) no-repeat top center; background-size: contain
                 }
+
+            .end-menu__group__share-btn { 
+                background: url(../img/btn_share_default.png) no-repeat top center; background-size: contain; 
+                height: 100%; width: 6.67%; float:left; border: 0;
             }
-            @media screen and (max-width: 320px) {
-                .vidMenu {
-                    width: 80%; margin: 24% 0 0 -12%;
+                .end-menu__group__share-btn:active {
+                    background: url(../img/btn_share_tap.png) no-repeat top center; background-size: contain
                 }
-            }
-            .vidMenu__btnReplay { 
-                background: url('../img/btn_playAgain_default.png') no-repeat top center; background-size: contain; 
-                height: 100%; width: 6.67%; float:left;
-            }
-            .vidMenu__btnReplay:hover {background: url('../img/btn_playAgain_hover.png') no-repeat top center; background-size: contain}
-            .vidMenu__btnReplay:active {background: url('../img/btn_playAgain_tap.png') no-repeat top center; background-size: contain}
 
-            .vidMenu__btnNewVid { 
-                background: url('../img/btn_newVid_default.png') no-repeat top center; background-size: contain; 
-                height: 100%; width: 34.56%; float: right;
+            .end-menu__group__new-btn { 
+                background: url(../img/btn_newVid_default.png) no-repeat top center; background-size: contain; 
+                height: 100%; width: 34.56%; float: right; border: 0;
             }
-            .vidMenu__btnNewVid:active {background: url('../img/btn_newVid_tap.png') no-repeat top center; background-size: contain; float:right;}
-
-        .shareMenu {
-            background: url('../img/header_shareWithOthers.png') no-repeat 0 25%; background-size: 30.54% auto;
-            height: 6%; width: 70%;
-            position: absolute;
-            bottom: 0; left: 50%;
-            margin: 0 0 0 -35%;
-         }
-            /* iphone */
-            @media screen and (max-width: 568px) {
-                .shareMenu {
-                    width: 95%;
-                    margin: 0 0 0 -47.5%;
-                }
+              .end-menu__group__new-btn:active {
+                background: url(../img/btn_newVid_tap.png) no-repeat top center; background-size: contain; float:right;
             }
 
-            .shareMenu__btnFacebook { 
-                background: url('../img/btn_facebook_default.png') no-repeat top; background-size: contain; 
-                height: 100%; width: 16.06%; float: right;
-            }
-            .shareMenu__btnFacebook:active {background: url('../img/btn_facebook_tap.png') no-repeat top; background-size: contain;}
-
-            .shareMenu__btnTwitter { 
-                background: url('../img/btn_twitter_default.png') no-repeat top; background-size: contain; 
-                height: 100%; width: 15.16%; float: right; margin: 0 0 0 8% 
-            }
-            .shareMenu__btnTwitter:active {background: url('../img/btn_twitter_tap.png') no-repeat top; background-size: contain;} 
-
-            .shareMenu__btnEmail { 
-                background: url('../img/btn_email_default.png') no-repeat top; background-size: contain; 
-                height: 100%; width: 13.57%; float: right; margin: 0 0 0 8%;
-            }
-            .shareMenu__btnEmail:active {background: url('../img/btn_email_tap.png') no-repeat top; background-size: contain;}
-
-    /* artwork */
-     .endScreen__logo {
-        position: absolute; z-index: 2;
-        width: 1000px;
-        margin: -155px 0 0 0;
+    @media screen and (max-device-width: 1024px) and (min-device-width: 569px) {
+        .end-frame__group {
+            margin: 0 0 0 -35%; top: 15% !important; /* overwriting .c6-view--pos-50 that is still needed for desktop */
+        }
     }
-        @media screen and (max-width: 768px) {
-            .endScreen__logo {
-                width: 600px;
-                margin: -80px 0 0 0;
-            } 
-        }
-        @media only screen and (min-device-width: 768px) and (max-device-width: 1045px) and (orientation: landscape) {
-            .endScreen__logo {
-                width: 800px;
-                margin: -115px 0 0 0;
-            }
-        }
 
-        @media screen and (max-height: 990px) {
-            .endScreen__logo {
-                width: 600px;
-                margin: -80px 0 0 0;
-            }
+    @media screen and (max-device-width: 568px) {
+        .end-frame__group {
+            margin: 0 0 0 -35%; top: 20% !important; /* above overwrite */
         }
-        @media screen and (max-height: 692px) {
-            .endScreen__logo {
-                width: 400px;
-                margin: -40px 0 0 0;
-            }
-        } 
-        /* iphone */
-        @media screen and (max-width: 568px) {
-            .endScreen__logo {
-                width: 300px;
-                margin: -20px 0 0 0;
-            } 
-        }
-
-     .endScreen__logo img {
-        width: 80%; height: auto;
-        margin: 0;
-     }
+    }

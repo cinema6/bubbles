@@ -8,36 +8,86 @@ require.config({
     baseUrl:  __C6_APP_BASE_URL__
 });
 
-var c6Scripts;
+var c6 = window.c6,
+    releaseConfig = {
+        'release'           : true,
+        'logging'           : [],
+        'showPlayerData'    : false,
+        'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
+        'dubUrl'            : 'http://site.cinema6.com/dub/create/'
+    },
+    debugConfig = {
+        'release'           : false,
+        'logging'           : ['error','warn','log','info'],
+        'showPlayerData'    : true,
+        'vidUrl'            : 'https://s3.amazonaws.com/c6.dev/media/src/screenjack/video/',
+        'dubUrl'            : 'http://dv-api1.cinema6.com/dub/create/'
+    };
+
+function extend(dest, src) {
+    var keys = Object.keys(src),
+        length = keys.length,
+        key;
+
+    while(length--) {
+        key = keys[length];
+
+        dest[key] = src[key];
+    }
+
+    return dest;
+}
+
+extend(c6.appConfig, ((c6.env === 'release') ? releaseConfig : debugConfig));
+
+var libUrl = c6.libUrl.bind(window.c6),
+    appScripts,
+    libScripts = [
+        libUrl('modernizr/modernizr.custom.71747.js'),
+        libUrl('jquery/2.0.3-0-gf576d00/jquery.min.js'),
+        libUrl('gsap/1.11.2-0-g79f8c87/TimelineMax.min.js'),
+        libUrl('gsap/1.11.2-0-g79f8c87/TweenMax.min.js'),
+        libUrl('angular/v1.1.5-0-g9a7035e/angular.min.js'),
+        libUrl('ui-router/0.2.0-0-g818b0d6/angular-ui-router.min.js'),
+        libUrl('c6ui/v1.2.8-0-g5fb90ef/c6uilib.min.js'),
+    ];
+
+function loadScriptsInOrder(scriptsList, done) {
+    if (scriptsList) {
+        var script = scriptsList.shift();
+        if (script) {
+            require([script], function() {
+                loadScriptsInOrder(scriptsList, done);
+            });
+            return;
+        }
+    }
+    done();
+}
+
 if (__C6_BUILD_VERSION__) {
-    c6Scripts = [   'scripts/c6app.min' ];
+    appScripts = [   'scripts/c6app.min' ];
 } else {
-    c6Scripts = [   'scripts/c6/app',
+    appScripts = [   'scripts/c6/app',
                     'scripts/c6/services/services',
                     'scripts/c6/controllers/controllers',
                     'scripts/c6/animations/animations',
                     'scripts/c6/directives/directives'
                     ];
 }
+loadScriptsInOrder(libScripts, function() {
+    var Modernizr = window.Modernizr;
 
-require([   'lib/jquery/jquery.min',
-            'lib/greensock/TimelineMax.min',
-            'lib/greensock/TweenMax.min'
-            /*'lib/jqueryui/jquery-ui.min'*/], function(){
+    Modernizr.load({
+        test: Modernizr.touch,
+        nope: [
+            libUrl('c6ui/v1.2.8-0-g5fb90ef/css/c6uilib--hover.min.css'),
+            __C6_APP_BASE_URL__ + '/styles/Screenjack--hover.css'
+        ]
+    });
 
-    require(['lib/angular/angular.min'],function(){
-        require(['lib/c6ui/c6ui'], function() {
-            require(['lib/c6ui/computed/computed'], function() {
-				require(['lib/c6ui/sfx/sfx',
-					'lib/c6ui/controls/controls',
-					'lib/c6media/c6lib.video',
-					'lib/ui-router/angular-ui-router.min'],function(){
-					require(c6Scripts, function(){
-						angular.bootstrap(document, ['c6.app']);
-					});
-				});
-			});
-        });
+    loadScriptsInOrder(appScripts, function() {
+        angular.bootstrap(document, ['c6.app']);
     });
 });
 

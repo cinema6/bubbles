@@ -1,0 +1,27 @@
+/*  ==========================================================================
+    c6 controls  styles
+    ========================================================================== */
+    .c6-controls__group {
+        -ms-transition: bottom 0.5s; -moz-transition: bottom 0.5s; -o-transition: bottom 0.5s; -webkit-transition: bottom 0.5s; transition: bottom 0.5s;
+    }
+
+/*  ==========================================================================
+    input styles
+    ========================================================================== */
+    .question__arrow-btn, .question__start-btn, .input__close-btn {
+        cursor: pointer;
+    }
+
+
+/*  ==========================================================================
+    end styles
+    ========================================================================== */
+    .end-menu__group__replay-btn,.end-menu__group__share-btn, .end-menu__group__new-btn {
+        cursor: pointer;
+    }
+        .end-menu__group__replay-btn:hover {
+        	background: url(../img/btn_playAgain_hover.png) no-repeat top center; background-size: contain
+        }
+        .end-menu__group__share-btn:hover {
+        	background: url(../img/btn_share_hover.png) no-repeat top center; background-size: contain
+        }

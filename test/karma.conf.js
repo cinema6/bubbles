@@ -10,6 +10,11 @@ files = [
   '../app/assets/lib/angular/angular.js',
   '../app/assets/lib/ui-router/angular-ui-router.js',
   '../app/assets/lib/c6media/c6lib.video.js',
+  '../app/assets/lib/c6ui/c6ui.js',
+  '../app/assets/lib/c6ui/sfx/sfx.js',
+  '../app/assets/lib/c6ui/events/emitter.js',
+  '../app/assets/lib/c6ui/postmessage/postmessage.js',
+  '../app/assets/lib/c6ui/site/site.js',
   '../app/assets/lib/angular/angular-mocks.js',
 /*
   '../app/assets/lib/require/require.js',
@@ -43,7 +48,7 @@ colors = true;
 logLevel = LOG_INFO;
 
 // enable / disable watching file and executing tests whenever any file changes
-autoWatch = false;
+autoWatch = true;
 
 // Start these browsers, currently available:
 // - Chrome

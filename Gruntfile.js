@@ -33,6 +33,7 @@ var fs           = require('fs-extra'),
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    grunt.loadTasks('./util/grunt-versionator/tasks');
 
     // configurable paths
     var initProps = {
@@ -352,6 +353,29 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        collateral: {
+            test: {
+                options: {
+                    s3: 'contentTest'
+                }
+            },
+            production: {
+                options: {
+                    s3: 'productionContent'
+                }
+            }
+        },
+        versionator: {
+            build: {
+                options: {
+                    map: '.tmp/maps/screenjack.map.json'
+                },
+                expand: true,
+                cwd: 'siteContent',
+                src: '**',
+                dest: '.tmp/collateral'
+            }
+        },
         s3: {
             options: {
                 key:    '<%= settings.aws.accessKeyId %>',
@@ -427,6 +451,14 @@ module.exports = function (grunt) {
                 },
                 upload: [
                     {
+                        src: '.tmp/collateral/**',
+                        rel: '.tmp/collateral/',
+                        dest: '<%= settings.contentPath %>',
+                        options: {
+                            headers : { 'cache-control' : 'max-age=31556926' }
+                        }
+                    },
+                    {
                         src: 'siteContent/**',
                         rel: 'siteContent/',
                         dest: '<%= settings.contentPath %>',
@@ -490,6 +522,15 @@ module.exports = function (grunt) {
         type = type ? type : 'patch';
     //    grunt.task.run('test');
         grunt.task.run('build');
+    });
+
+    grunt.registerMultiTask('collateral', function() {
+        var options = this.options({
+            s3: this.target
+        });
+
+        grunt.task.run('versionator');
+        grunt.task.run('s3:' + options.s3);
     });
 
     grunt.registerTask('publish-test',function(){

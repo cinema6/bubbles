@@ -2,7 +2,9 @@
   "name": "bubbles",
   "version": "0.0.17",
   "description": "Cinema6 Bubble Thoughts demo.",
-  "dependencies": {},
+  "dependencies": {
+    "temporary": "0.0.7"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.0",

@@ -2,12 +2,6 @@
 (function(){
 	'use strict';
 	
-    if (window.location.toString().match(/www\.cinema6\.com/) !== null){
-        ga('create', 'UA-44457821-2', 'cinema6.com');
-    } else {
-        ga('create', 'UA-44457821-1', { 'cookieDomain' : 'none' });
-    }
-
 	var dependencies = [
 		'ui.router',
 		'c6.ui',

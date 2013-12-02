@@ -352,6 +352,18 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        versionator: {
+            build: {
+                options: {
+                    createSets: [/(--high|--med|--low)\.(jpg|webp)/, '.jpg'],
+                    insertBefore: /(--high|--med|--low)\.(jpg|webp)/,
+                },
+                expand: true,
+                cwd: 'siteContent',
+                src: '**',
+                dest: '.tmp/collateral'
+            }
+        },
         s3: {
             options: {
                 key:    '<%= settings.aws.accessKeyId %>',
@@ -427,6 +439,14 @@ module.exports = function (grunt) {
                 },
                 upload: [
                     {
+                        src: '.tmp/collateral/**',
+                        rel: '.tmp/collateral/',
+                        dest: '<%= settings.contentPath %>',
+                        options: {
+                            headers : { 'cache-control' : 'max-age=31556926' }
+                        }
+                    },
+                    {
                         src: 'siteContent/**',
                         rel: 'siteContent/',
                         dest: '<%= settings.contentPath %>',
@@ -490,6 +510,11 @@ module.exports = function (grunt) {
         type = type ? type : 'patch';
     //    grunt.task.run('test');
         grunt.task.run('build');
+    });
+
+    grunt.registerTask('collateral', function(s3Target) {
+        grunt.task.run('versionator');
+        grunt.task.run('s3:' + s3Target);
     });
 
     grunt.registerTask('publish-test',function(){

@@ -49,10 +49,10 @@
                         "level" : "0"
                     },
                     "notes"  : [
-                        { "ts" : "12.50", "template" : "I have a secret. My ${1} is very rusty." },
+                        { "ts" : "12.80", "template" : "fun fact. my ${1} is really smelly!?." },
                         { "ts" : "16.50", "template" : "Yes its me. I just made a ${2} in the bushes."  },
                         { "ts" : "22.16", "template" : "Your parents think you're a ${3}. But whining about it" },
-                        { "ts" : "28.00", "template" : "I really don't give a ${4}." }
+                        { "ts" : "27.70", "template" : "I really don't give a ${4}." }
 
                         
 

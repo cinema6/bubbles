@@ -570,11 +570,12 @@ angular.module('c6.ctrl',['c6.svc'])
                 shareExp[key] = shareExp.data[key + '_usergen'];
             }
         });
-        if (shareExp.data.middle_usergen) {
-            landCont.middle = shareExp.data.middle_usergen;
+        var landCont = shareExp.landingPageContent;
+        if (landCont.middle_usergen) {
+            landCont.middle = landCont.middle_usergen;
         }
-        if (shareExp.data.right_usergen) {
-            landCont.right = shareExp.data.right_usergen;
+        if (landCont.right_usergen) {
+            landCont.right = landCont.right_usergen;
         }
         site.shareUrl(shareExp);
     };

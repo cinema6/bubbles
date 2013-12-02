@@ -520,13 +520,13 @@ module.exports = function (grunt) {
     grunt.registerTask('publish-test',function(){
         grunt.task.run('build');
         grunt.task.run('s3:test');
-        grunt.task.run('s3:contentTest');
+        grunt.task.run('collateral:contentTest');
     });
     
     grunt.registerTask('publish-prod',function(){
         grunt.task.run('build');
         grunt.task.run('s3:production');
-        grunt.task.run('s3:productionContent');
+        grunt.task.run('collateral:productionContent');
     });
 
     grunt.registerTask('default', ['build']);

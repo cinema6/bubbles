@@ -39,6 +39,24 @@ function extend(dest, src) {
 }
 
 extend(c6.appConfig, ((c6.env === 'release') ? releaseConfig : debugConfig));
+c6.rootDomain = (function(w){
+    var r = w.location.toString(), m = null;
+    if (w.location.origin) {
+        r = w.location.origin;
+    }
+    m = r.match(/(http[s]*:\/\/[^\/]*)/);
+    if (m !== null && m !== undefined){
+        r = m[0];
+    }
+    return r;
+
+}(window));
+
+if (c6.rootDomain.match(/\/\/(www\.)*cinema6.com/) !== null){
+    ga('create', 'UA-44457821-2', 'cinema6.com');
+} else {
+    ga('create', 'UA-44457821-1', { 'cookieDomain' : 'none' });
+}
 
 var libUrl = c6.libUrl.bind(window.c6),
     appScripts,

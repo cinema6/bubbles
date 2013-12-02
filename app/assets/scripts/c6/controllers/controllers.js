@@ -571,11 +571,11 @@ angular.module('c6.ctrl',['c6.svc'])
             }
         });
         var landCont = shareExp.landingPageContent;
-        if (!landCont.middle.match('_usergen.html')) {
-            landCont.middle = landCont.middle.replace(/\.html$/, '_usergen.html');
+        if (landCont.middle_usergen) {
+            landCont.middle = landCont.middle_usergen;
         }
-        if (!landCont.right.match('_usergen.html')) {
-            landCont.right = landCont.right.replace(/\.html$/, '_usergen.html');
+        if (landCont.right_usergen) {
+            landCont.right = landCont.right_usergen;
         }
         site.shareUrl(shareExp);
     };

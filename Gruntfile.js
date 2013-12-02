@@ -352,18 +352,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        collateral: {
-            test: {
-                options: {
-                    s3: 'contentTest'
-                }
-            },
-            production: {
-                options: {
-                    s3: 'productionContent'
-                }
-            }
-        },
         versionator: {
             build: {
                 options: {

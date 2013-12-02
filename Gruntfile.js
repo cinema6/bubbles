@@ -33,7 +33,6 @@ var fs           = require('fs-extra'),
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-    grunt.loadTasks('./util/grunt-versionator/tasks');
 
     // configurable paths
     var initProps = {
@@ -368,7 +367,14 @@ module.exports = function (grunt) {
         versionator: {
             build: {
                 options: {
-                    map: '.tmp/maps/screenjack.map.json'
+                    createSetsWith: function(src) {
+                        return src.replace(/(--high|--med|--low)\.(jpg|webp)/, '.jpg');
+                    },
+                    insertAtIndex: function(src) {
+                        var modifierIndex = src.search(/(--high|--med|--low)\.(jpg|webp)/);
+
+                        return (modifierIndex > -1) ? modifierIndex : src.lastIndexOf('.');
+                    }
                 },
                 expand: true,
                 cwd: 'siteContent',
@@ -524,13 +530,9 @@ module.exports = function (grunt) {
         grunt.task.run('build');
     });
 
-    grunt.registerMultiTask('collateral', function() {
-        var options = this.options({
-            s3: this.target
-        });
-
+    grunt.registerTask('collateral', function(s3Target) {
         grunt.task.run('versionator');
-        grunt.task.run('s3:' + options.s3);
+        grunt.task.run('s3:' + s3Target);
     });
 
     grunt.registerTask('publish-test',function(){

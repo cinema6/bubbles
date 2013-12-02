@@ -398,11 +398,11 @@ module.exports = function (grunt) {
             productionContent: {
                 upload: [
                     {
-                        src: 'siteContent/**',
-                        rel: 'siteContent/',
+                        src: '.tmp/collateral/**',
+                        rel: '.tmp/collateral/',
                         dest: 'collateral/',
                         options: {
-                            headers : { 'cache-control' : 'max-age=0' }
+                            headers : { 'cache-control' : 'max-age=31556926' }
                         }
                     }
                 ]

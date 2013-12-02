@@ -355,14 +355,8 @@ module.exports = function (grunt) {
         versionator: {
             build: {
                 options: {
-                    createSetsWith: function(src) {
-                        return src.replace(/(--high|--med|--low)\.(jpg|webp)/, '.jpg');
-                    },
-                    insertAtIndex: function(src) {
-                        var modifierIndex = src.search(/(--high|--med|--low)\.(jpg|webp)/);
-
-                        return (modifierIndex > -1) ? modifierIndex : src.lastIndexOf('.');
-                    }
+                    createSets: [/(--high|--med|--low)\.(jpg|webp)/, '.jpg'],
+                    insertBefore: /(--high|--med|--low)\.(jpg|webp)/,
                 },
                 expand: true,
                 cwd: 'siteContent',

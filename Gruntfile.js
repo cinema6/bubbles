@@ -37,7 +37,7 @@ module.exports = function (grunt) {
     // configurable paths
     var initProps = {
         c6AppUrl    : 'http://' + myIp + ':9000/',
-        contentPath : '/media/src/site/collateral/',
+        contentPath : 'media/src/site/collateral/',
         prefix      : process.env.HOME,
         app         : path.join(__dirname,'app'),
         dist        : path.join(__dirname,'dist'),
@@ -369,28 +369,30 @@ module.exports = function (grunt) {
                 key:    '<%= settings.aws.accessKeyId %>',
                 secret: '<%= settings.aws.secretAccessKey %>',
                 bucket: 'cinema6.com-etc',
-                access: 'public-read',
-                maxOperations: 4
+                access: 'public-read'
             },
             production: {
                 upload: [
                     {
                         src: 'dist/**',
                         dest: 'experiences/screenjack/',
-                        rel : 'dist/'
+                        rel : 'dist/',
+                        options: {
+                            CacheControl: 'max-age=31556926'
+                        }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'experiences/screenjack/<%= settings.version() %>/index.html',
                         options: {
-                            headers : { 'cache-control' : 'max-age=0' }
+                            CacheControl: 'max-age=0'
                         }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'experiences/screenjack/index.html',
                         options: {
-                            headers : { 'cache-control' : 'max-age=0' }
+                            CacheControl: 'max-age=0'
                         }
                     }
                 ]
@@ -402,7 +404,7 @@ module.exports = function (grunt) {
                         rel: '.tmp/collateral/',
                         dest: 'collateral/',
                         options: {
-                            headers : { 'cache-control' : 'max-age=31556926' }
+                            CacheControl: 'max-age=31556926'
                         }
                     }
                 ]
@@ -415,20 +417,23 @@ module.exports = function (grunt) {
                     {
                         src: 'dist/**',
                         dest: 'content/screenjack/',
-                        rel : 'dist/'
+                        rel : 'dist/',
+                        options: {
+                            CacheControl: 'max-age=31556926'
+                        }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'content/screenjack/<%= settings.version() %>/index.html',
                         options: {
-                            headers : { 'cache-control' : 'max-age=0' }
+                            CacheControl: 'max-age=0'
                         }
                     },
                     {
                         src: 'dist/index.html',
                         dest: 'content/screenjack/index.html',
                         options: {
-                            headers : { 'cache-control' : 'max-age=0' }
+                            CacheControl: 'max-age=0'
                         }
                     }
                 ]
@@ -443,7 +448,7 @@ module.exports = function (grunt) {
                         rel: '.tmp/collateral/',
                         dest: '<%= settings.contentPath %>',
                         options: {
-                            headers : { 'cache-control' : 'max-age=31556926' }
+                            CacheControl: 'max-age=31556926'
                         }
                     },
                     {
@@ -451,7 +456,7 @@ module.exports = function (grunt) {
                         rel: 'siteContent/',
                         dest: '<%= settings.contentPath %>',
                         options: {
-                            headers : { 'cache-control' : 'max-age=0' }
+                            CacheControl: 'max-age=0'
                         }
                     }
                 ]

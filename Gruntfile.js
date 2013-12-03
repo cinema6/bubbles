@@ -368,10 +368,8 @@ module.exports = function (grunt) {
             options: {
                 key:    '<%= settings.aws.accessKeyId %>',
                 secret: '<%= settings.aws.secretAccessKey %>',
-                region: '<%= settings.aws.region %>',
                 bucket: 'cinema6.com-etc',
-                access: 'public-read',
-                maxOperations: 4
+                access: 'public-read'
             },
             production: {
                 upload: [

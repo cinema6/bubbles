@@ -229,7 +229,7 @@ angular.module('c6.ctrl',['c6.svc'])
         self.stateHistory.from = fromState.name;
         self.stateHistory.to = toState.name;
         ga('send','pageview', {
-            'page'  : $location.absUrl(),
+            'page'  : $location.url(),
             'title' : 'screenjack ' + toState.name
         });
     });

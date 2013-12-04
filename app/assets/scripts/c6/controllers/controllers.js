@@ -98,7 +98,7 @@ angular.module('c6.ctrl',['c6.svc'])
         extArray = src.split('.');
         ext = extArray[extArray.length - 1];
 
-        if (webp) {
+        if (webp && speed !== 'slow') {
             return src.replace(('.' + ext), (modifiers[speed] + '.webp'));
         } else {
             return src.replace(('.' + ext), (modifiers[speed] + '.' + ext));

@@ -893,5 +893,58 @@
 	        ],
 	        "responses": ["josh", "head", "toilet", "taco bell", "poop", "cnn", "jerk"]
         }
+    },
+    {
+        "id": "e-c692a64131861d",
+        "uri": "screenjack~transformers_runaway",
+        "title": "The Runaway",
+        "subtitle": "Excerpt from Transfomers: Generation One",
+        "tags": ["Screenjack"],
+        "type": "Text-to-Speech Screenjack",
+        "content_type": "wizard",
+        "summary": "You can always count on Bumblebee when you really need him.",
+        "appUri": "screenjack/#/wizard",
+        "landingPageContent": {
+            "middle": "experiences/screenjack~transfomers-runaway/middle.html",
+            "right": "experiences/screenjack~transfomers-runaway/right.html",
+            "middle_usergen": "experiences/screenjack~transfomers-runaway/middle_usergen.html",
+            "right_usergen": "experiences/screenjack~transfomers-runaway/right_usergen.html",
+            "stylesheet": "expGroups/screenjack/c6__sj-annotations.css"
+        },
+        "img": {
+            "thumb": "experiences/screenjack~transfomers-runaway/assets/transfomers-runaway__slice.jpg",
+            "logo": "expGroups/screenjack/assets/logo_alpha.png",
+            "hero": "experiences/screenjack~transfomers-runaway/assets/transfomers-runaway__hero.jpg",
+            "tag": "categories/screenjack/assets/screenjack__imprint.png"
+        },
+        "data": {
+            "video": "transformers_runaway",
+            "category": "horror",
+            "views": 1000,
+            "src": null,
+            "defSizeLimit": 18,
+            "prompts": [
+                "Body Part",
+                "Synonym for feces",
+                "One word insult"
+            ],
+            "annotations": [
+                {
+                    "options": {
+                        "type"  : "talkie",
+                        "vid"   : "transformers_runaway",
+                        "voice" : "Paul",
+                        "effect": "P",
+                        "level" : "0"
+                    },
+                    "notes"  : [
+                        { "ts" : "12.50", "template" : "fun fact. my ${1} is really smelly!?." },
+                        { "ts" : "16.50", "template" : "Yes its me. I just made a ${2} in the bushes."  },
+                        { "ts" : "22.16", "template" : "Your parents think you're a ${3}. But whining about it" },
+                        { "ts" : "27.70", "template" : "I really don't give a ${2}." }
+                    ]
+                }
+            ]
+        }
     }
 ]

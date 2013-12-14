@@ -394,7 +394,7 @@
          }
             .end-menu__group__replay-btn { 
                 background: url(../img/btn_playAgain_default.png) no-repeat top center; background-size: contain; 
-                height: 100%; width: 6.67%; float:left; border: 0;
+                height: 100%; width: 6.67%; min-width: 2.75em; min-height: 2.75em; float:left; border: 0;
             }
                 .end-menu__group__replay-btn:active {
                     background: url(../img/btn_playAgain_tap.png) no-repeat top center; background-size: contain
@@ -402,7 +402,7 @@
 
             .end-menu__group__share-btn { 
                 background: url(../img/btn_share_default.png) no-repeat top center; background-size: contain; 
-                height: 100%; width: 6.67%; float:left; border: 0;
+                height: 100%; width: 6.67%; min-width: 2.75em; min-height: 2.75em; float:left; border: 0;
             }
                 .end-menu__group__share-btn:active {
                     background: url(../img/btn_share_tap.png) no-repeat top center; background-size: contain
@@ -410,7 +410,7 @@
 
             .end-menu__group__new-btn { 
                 background: url(../img/btn_newVid_default.png) no-repeat top center; background-size: contain; 
-                height: 100%; width: 34.56%; float: right; border: 0;
+                height: 100%; width: 34.56%; min-width: 13.5em; min-height: 2.75em; float: right; border: 0;
             }
               .end-menu__group__new-btn:active {
                 background: url(../img/btn_newVid_tap.png) no-repeat top center; background-size: contain; float:right;

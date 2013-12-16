@@ -17,11 +17,5 @@
     end styles
     ========================================================================== */
     .end-menu__group__replay-btn,.end-menu__group__share-btn, .end-menu__group__new-btn {
-        cursor: pointer;
+        cursor: pointer; 
     }
-        .end-menu__group__replay-btn:hover {
-        	background: url(../img/btn_playAgain_hover.png) no-repeat top center; background-size: contain
-        }
-        .end-menu__group__share-btn:hover {
-        	background: url(../img/btn_share_hover.png) no-repeat top center; background-size: contain
-        }

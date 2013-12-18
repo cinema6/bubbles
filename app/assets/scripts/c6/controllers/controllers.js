@@ -69,7 +69,7 @@ angular.module('c6.ctrl',['c6.svc'])
             }
         });
 
-    if (c6UserAgent.device.isMobile()) {
+    if (c6UserAgent.device.isIPhone()) {
         $state.get('experience.input').templateUrl = appBase + '/views/input_mobile.html';
     }
 

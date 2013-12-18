@@ -178,6 +178,12 @@
         }
     }
 
+    @media screen and (min-width: 1600px) {
+        .input__paper-stack {
+            background: url(../img/input__paper-stack--hires.png) no-repeat; background-size: contain;
+        }
+    }
+
     @media screen and (max-width: 1276px) {
         .input__resize-box {
             width: 60em; height: 38.125em; margin: -11.25em 0 0 -30em;

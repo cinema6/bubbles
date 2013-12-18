@@ -1,0 +1,250 @@
+/*  ==========================================================================
+    experience branding styles
+    ========================================================================== */
+    .sj__logo {
+        position: absolute; top: 0; left: 0;
+        background: url(../img/sj__logo.png) no-repeat top left; background-size: contain;
+        width: 15%; max-width: 17.5em; height: 37.5em;
+    }
+    .sj__paperball {
+        position: absolute; bottom: 0; right: 0;
+        background: url(../img/sj__paperball.png) no-repeat top left;  background-size: contain;
+        width: 5%; max-width: 5em; height: 18.5em; 
+    }
+    .sj__close-btn {
+        position: absolute; top: 0; right: 0;
+        background: url(../img/sj__close-btn.png) no-repeat top right; background-size: contain;
+        width: 8.125em; height: 4.5em; z-index: 3;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .sj__logo, .sj__paperball {
+            opacity: 0;
+        }
+    }
+
+/*  ==========================================================================
+    input styles
+    ========================================================================== */
+    .input__group {
+        font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16;
+        background: url(../img/sj__wood-bg.jpg) no-repeat 50% 50%; background-size: cover;
+    }
+        .input__resize-box {
+            z-index: 3; position: absolute; width: 80%; height: 80%; margin: -15% 0 0 -40%;
+        }
+            .input__form {
+                width: 75%; margin: 0 auto 3em; 
+            }
+                .input__sj-logo {
+                    background: url(../img/sj__title-logo.png) no-repeat center center; 
+                    background-size: contain; height: 0.5em; margin: 0; /* font @ 24px */
+                }
+                .input__title { 
+                    color: #4d4a4a; font-size: 1.25em; font-weight: 300; margin: 1%;
+                }
+                .input__divider {
+                    background: url(../img/input__divider.png) repeat-x;
+                    height: 0.1875em; border: 0; opacity: 0.65;
+                }
+
+                .prompts__group {
+                    position: relative; display: inline-block;  width: 80%; height: 8em;
+                    padding: 0; margin: 10% 0 0; text-align: left; list-style: none;
+                }
+                    .prompt-type__copy {
+                        position: absolute; width: 17%; margin: 0.5em 0; text-align: right;
+                        font-size: 0.875em; font-weight: 300; text-transform: uppercase; 
+                        color: rgba(17, 17, 17, 0.78);
+                    }
+                        .prompt-type__hint {
+                            top: 0; left: 0; 
+                        }
+                        .prompt-type__answer {
+                            top: 55%; left: 0; 
+                        }
+                    .prompt__label {
+                        position: absolute; width: 72%; top: 0; left: 20%;
+                        color: #4f4f4f; font-size: 1.5em; font-weight: 700;
+                    }
+                    .prompt__input {
+                        position: absolute; width: 72%; top: 50%; left: 20%; padding: 0.2em 0;
+                        background: none; border: 0; border-bottom: 1px #111111 dashed; font-weight: 700;
+                        font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; 
+                    }
+                        .prompt__input:focus {
+                            border-bottom: 1px #111111 dashed;
+                        }
+                        .prompt__input--active {
+                            color: #c20000; 
+                        }
+                        .prompt__input--inactive {
+                            color: rgba(194, 0, 0, 0.31); font-style: italic;
+                        }
+
+                .character-counter__box {
+                    position: absolute; display: block; left: 32%; margin-top: -2em;  
+                    padding: 0.91667em 0.6667em; font-size: 0.75em;
+                }
+                    .character-counter__default {
+                        background: url(../img/character-count__bg.png) no-repeat; color: #686868;
+                    }
+                    .character-counter__error {
+                        background: url(../img/character-count__error.png) no-repeat; color: #2a2a2a;
+                    }
+                        .character-counter__icon {
+                            margin-bottom: -1px;
+                        }
+
+                .nav__btn {
+                   position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 30%;
+                }
+                    .nav__prev-btn {
+                        background: url(../img/input__nav--prev.png) no-repeat; background-size: contain;
+                        left: -7%;
+                    }   
+                    .nav__next-btn {
+                        background: url(../img/input__nav--next.png) no-repeat; background-size: contain;
+                        right: -7%;
+                    }
+
+                .progress__timeline {
+                    width: 76%; margin: 0 auto;
+                }
+                    .progress__number {
+                        display: inline-block; height: 1.4375em; width: 2.75em; padding: 0.0625em 0 0 0.375em; 
+                        text-align: left; font-weight: 700; font-size: 1em; margin-left: -0.625em;
+                        background: url(../img/progress-tracker--inactive.png) no-repeat;
+                        color: rgba(0, 0, 0, 0.3);
+                    }
+                        .progress__number--complete {
+                            background: url(../img/progress-tracker--completed.png) no-repeat;
+                            color: transparent;
+                        }
+                        .progress__number--active {
+                            background: url(../img/progress-tracker--active.png) no-repeat;
+                            color: #fff;
+                        }
+                    .progress__start {
+                        display: inline-block; height: 3.3125em; width: 4.125em; margin: 0 0 -2.25em -0.625em;
+                        background: url(../img/progress-tracker__start--inactive.png) no-repeat center center;
+                    }
+                        .progress__start--active {
+                            background: url(../img/progress-tracker__start--active.png) center center no-repeat;
+                        }
+
+        .input__paper-stack {
+            background: url(../img/input__paper-stack.png) no-repeat; background-size: contain; z-index: 2;
+        }
+            .input__paper-stack--scaling {
+                width: 76%; height: 0; padding-bottom: 48.525%; margin: -25.2495% 0 0 -38%;
+            }
+            .input__paper-stack--static {
+                width: 60em; height: 38.125em; margin: -19.0625em 0 0 -30em;
+            }
+
+    @media screen and (min-width: 2240px) {
+        .input__form {
+            margin: 0 auto 6em; 
+        }
+            .input__sj-logo {
+                height: 0.667em;
+            }
+            .input__title { 
+                font-size: 1.625em;
+            }   
+
+        .prompt-type {
+            font-size: 1em;
+        }
+            .prompt__label, .prompt__input {
+                font-size: 2em;
+            }
+            .prompt-type__answer {
+                top: 70%;
+            }
+            .prompt__input {
+                top: 65%;
+            }
+            .character-counter__box {
+                margin-top: 0.5em;
+            }
+
+        .nav__prev-btn {
+            left: 0;
+        }
+        .nav__next-btn {
+            right: 0;
+        }
+    }
+
+    @media screen and (min-width: 1600px) {
+        .input__paper-stack {
+            background: url(../img/input__paper-stack--hires.png) no-repeat; background-size: contain;
+        }
+    }
+
+    @media screen and (max-width: 1276px) {
+        .input__resize-box {
+            width: 60em; height: 38.125em; margin: -11.25em 0 0 -30em;
+        }
+    }
+
+    @media screen and (max-width: 815px) {
+        .input__resize-box {
+            width: 100%; margin: -11.25em  0 0 -50%;
+        }
+            .input__form {
+                width: 90%;
+            }
+                .prompt__label, .prompt__input {
+                    font-size: 1.25em;
+                }
+            .input__title {
+                font-size: 1em;
+            }
+            
+            .nav__btn {
+                width: 1.875em;
+            }
+                .nav__prev-btn {
+                    left: -14%;
+                }
+                .nav__next-btn {
+                    right: -14%;
+                }
+
+        .sj__close-btn {
+            width: 5.9375em;
+        }
+    }
+
+
+/*  ==========================================================================
+    end styles
+    ========================================================================== */
+    .end__group {
+        font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16;
+        background: url(../img/sj__wood-bg.jpg) no-repeat 50% 50%; background-size: cover;
+    }
+        .photo__group {
+            position: relative; /*left: 15.357%;  
+            width: 73.428%; height: 0; padding-bottom:44.2%;*/ height: 100%; width: 100%;
+            /*background: rgba(0,0,0,0.2);*/
+        }
+            .photo__layer {
+                position: absolute; padding:1.146%; background-color: #f3f3f3;
+                width: 58%; /*max-width: 50.125em;*/ box-shadow: 0 1px 3px rgba(0,0,0,0.46);
+            }
+                .photo__top-layer {
+                    top: 50%; left: 50%; margin: -25% 0 0 -35%; z-index: 3;
+                    transform: rotate(-4.5deg); -webkit-transform: rotate(-4.5deg);
+                }
+                .photo__bottom-layer {
+                    top: 50%; left: 50%; margin: -15% 0 0 -20%; z-index: 2;
+                    transform: rotate(3.7deg); -webkit-transform: rotate(3.7deg);
+                }
+
+                .photo__img {
+                    width: 100%;
+                }

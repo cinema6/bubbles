@@ -12,6 +12,39 @@
         cursor: pointer;
     }
 
+/*  ==========================================================================
+    NEW input styles
+    ========================================================================== */
+    .sj__logo, .sj__paperball {
+        transition: opacity 0.5s; -webkit-transition: opacity 0.5s;
+    }
+
+    .sj__close-btn { 
+        cursor: pointer;
+    }
+
+    .nav__btn {
+        cursor: pointer;
+    }
+        .nav__next-btn {
+            transition: background 0.3s; -webkit-transition: background 0.3s;
+        }
+            .nav__next-btn:hover {
+                background: url(../img/input__nav--next-hover.png) no-repeat;
+                background-size: contain;
+            }
+        .nav__prev-btn {
+            transition: background 0.3s; -webkit-transition: background 0.3s;
+        }
+            .nav__prev-btn:hover {
+                background: url(../img/input__nav--prev-hover.png) no-repeat;
+                background-size: contain;
+            }
+
+    .progress__start--active {
+        cursor: pointer;
+    }
+
 
 /*  ==========================================================================
     end styles

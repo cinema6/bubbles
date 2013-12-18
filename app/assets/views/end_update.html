@@ -1,0 +1,48 @@
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="../styles/screenjack--desktop.css">
+    <link rel="stylesheet" href="../styles/screenjack--hover.css">
+    <link rel="stylesheet" href="../styles/c6__main.css">
+
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    <div class="end__group c6-view--fill-100">
+        
+        <!--<div class="c6-view--pos-50" c6-resize>-->
+            <div class="photo__group">
+
+                <!--<div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' end-frame__annotation ' + 'end-frame__annotation--{{appCtrl.currentCategory()}}'">
+                    <div class="annotations__style">
+                        <div class="annotations__text">
+                            {{endCtrl.lastAnnotation.text}}&nbsp;
+                            <div class="annotations__frame"></div>
+                            <div class="annotations__corner annotations__corner--right"></div>
+                            <div class="annotations__corner annotations__corner--left"></div>
+                            <div class="annotations__tail" ng-class="'annotations__tail--' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="photo__layer photo__top-layer">
+                    <img class="photo__img" src="../img/vidFrame_action_brucelee.jpg">
+                </div>
+                <div class="photo__layer photo__bottom-layer">
+                    <img class="photo__img" src="../img/vidFrame_action_brucelee.jpg">
+                </div>
+            </div>
+        <!--</div>-->
+
+        <!--<menu class="end-menu__group">
+            <button class="end-menu__group__replay-btn" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
+            <button class="end-menu__group__share-btn" id="videMenu_shareBtn" ng-click="endCtrl.share()" href="#" name="Share"><span class="ir">Share</span></button>
+            <button class="end-menu__group__new-btn" ng-click="$state.transitionTo('experience.input');" name="newVid"><span class="ir">Make a new video</span></button>
+        
+        </menu>-->
+
+        <a class="sj__close-btn" href="#"><span class="ir">Close</span></a>
+
+        <div class="sj__logo">&nbsp;</div>
+        <div class="sj__paperball">&nbsp;</div>
+    </div>
+</body>
+</html>

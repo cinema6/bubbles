@@ -1,0 +1,13 @@
+<ul class="progress__timeline">
+    <li ng-repeat="number in numbers()"
+        ng-class="{
+            'progress__number--complete': (current > $index),
+            'progress__number--active': (current == $index)
+        }"
+        class="progress__number">
+        {{number}}
+    </li>
+    <li ng-class="{'progress__start--active': done()}" ng-click="onStart()" class="progress__start">
+        <span class="ir">Start</span><!-- new start button -->
+    </li>
+</ul>

@@ -9,81 +9,83 @@
             <hr class="input__divider">
 
             <ul class="prompts__group" id="prompts">
-                <li class="prompts__item">
-                    <div ng-repeat="prompt in inputCtrl.promptModel.prompts">
-                        <div class="prompt__hint">
-                            <h3 class="prompt-type__copy prompt-type__hint">Hint:</h3>
-                            <label ng-if="inputCtrl.currentPromptIndex() === $index"
-                            ng-animate="'prompt'" class="prompt__label">
-                                &ldquo;{{inputCtrl.promptModel.prompts[$index].query}}&rdquo;
-                            </label>
-                        </div> 
+                <li class="prompts__item"
+                    ng-repeat="prompt in inputCtrl.promptModel.prompts">
+                    <div class="prompt__hint">
+                        <h3 class="prompt-type__copy prompt-type__hint">Hint:</h3>
+                        <label ng-if="inputCtrl.currentPromptIndex() === $index"
+                        ng-animate="'prompt'" class="prompt__label">
+                            &ldquo;{{inputCtrl.promptModel.prompts[$index].query}}&rdquo;
+                        </label>
+                    </div> 
 
-                        <div class="prompt__answer">
-                            <h3 class="prompt-type__copy prompt-type__answer">Answer:</h3>
-                            <input 
-                                class="prompt__input prompt__input--inactive" 
-                                type="text"
-                                name="response"
-                                autocomplete="off"
-                                placeholder="Type your answer here..."
-                                ng-if="$index === inputCtrl.currentPromptIndex()"
-                                ng-animate="'response-' + inputCtrl.currentDirection"
-                                ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
-                                ng-disabled="appCtrl.inExperience"
-                                c6-on="{experienceStart: '$this.prop(\'disabled\', true); $this.blur();'}"
-                                ng-keypress="($event.charCode !== 32)? appCtrl.sfxSvc.playSound('type') : false;"
-                                maxlength="{{prompt.sizeLimit}}"
-                                c6-autofocus>
-                            </input>
-                        </div>
+                    <div class="prompt__answer">
+                        <h3 class="prompt-type__copy prompt-type__answer">Answer:</h3>
+                        <input 
+                            class="prompt__input prompt__input--inactive" 
+                            type="text"
+                            name="response"
+                            autocomplete="off"
+                            placeholder="Type your answer here..."
+                            ng-if="$index === inputCtrl.currentPromptIndex()"
+                            ng-animate="'response-' + inputCtrl.currentDirection"
+                            ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
+                            ng-disabled="appCtrl.inExperience"
+                            c6-on="{experienceStart: '$this.prop(\'disabled\', true); $this.blur();'}"
+                            ng-keypress="($event.charCode !== 32)? appCtrl.sfxSvc.playSound('type') : false;"
+                            maxlength="{{prompt.sizeLimit}}"
+                            c6-autofocus>
+                        </input>
                     </div>
                 </li>
-            <button 
-                class="nav__btn nav__next-btn" 
-                ng-disabled="!inputCtrl.canGoForward()"
-                ng-click="inputCtrl.nextQuestion();"
-                c6-sfx-on="{click: 'bell'}"
-                name="next">
-                <span class="ir">Next Question</span>
-            </button>
 
-            <button 
-                title="Previous Question"
-                class="nav__btn nav__prev-btn" 
-                ng-disabled="!inputCtrl.canGoBack()"
-                ng-click="inputCtrl.prevQuestion();"
-                name="prev">
-                <span class="ir">Previous Question</span>
-            </button>
+                <button
+                    ng-if="!!inputCtrl.currentResponse() && inputCtrl.isDone()"
+                    style="visibility: hidden;"
+                    ng-click="inputCtrl.startExperience();">
+                </button>
 
-            
+                <button
+                    class="nav__btn nav__next-btn" 
+                    ng-disabled="!inputCtrl.canGoForward()"
+                    ng-click="inputCtrl.nextQuestion();"
+                    c6-sfx-on="{click: 'bell'}"
+                    name="next">
+                    <span class="ir">Next Question</span>
+                </button>
+
+                <button 
+                    title="Previous Question"
+                    class="nav__btn nav__prev-btn" 
+                    ng-disabled="!inputCtrl.canGoBack()"
+                    ng-click="inputCtrl.prevQuestion();"
+                    name="prev">
+                    <span class="ir">Previous Question</span>
+                </button>
             </ul>
-
-            <!--<small class="character-counter__box character-counter__default"><strong>15</strong> characters left</small>-->
-            <small class="character-counter__box character-counter__error"><img class="character-counter__icon" src="assets/img/input__error.png"> Your answer is too long! Keep it under <strong>24</strong> characters.</small>
+            <c6-remaining-chars limit="{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit}}"
+                count="{{inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}">
+            </c6-remaining-chars>
         </form>
 
-        <ul class="progress__timeline">
-            <li class="progress__number progress__number--complete">1</li>
-            <li class="progress__number progress__number--active">2</li>
-            <li class="progress__number">3</li>
-            <li class="progress__number">4</li>
-            <li class="progress__number">5</li>
-            <li class="progress__number">6</li>
-            <li class="progress__start">
-                <a href="#"><span class="ir">Start</span></a><!-- new start button -->
-            </li>
-        </ul>
+        <c6-progress-timeline current="{{inputCtrl.currentPromptIndex()}}"
+            total="{{inputCtrl.promptModel.prompts.length}}"
+            done="!!inputCtrl.currentResponse() && inputCtrl.isDone()"
+            on-start="inputCtrl.startExperience()">
+        </c6-progress-timeline>
     </div>
 
-    <div class="input__paper-stack input__paper-stack--scaling c6-view--pos-50" id="paper-stack">&nbsp;</div>
+    <div class="input__paper-stack input__paper-stack--scaling c6-view--pos-50"
+        ng-class="{
+            'input__paper-stack--static': (appCtrl.window.width <= 1276),
+            'input__paper-stack--scaling': (appCtrl.window.width > 1276)
+        }"
+        id="paper-stack">
+        &nbsp;
+    </div>
 
     <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
 
     <div class="sj__logo">&nbsp;</div>
     <div class="sj__paperball">&nbsp;</div>
-
 </div>
-
-<script src="assets/scripts/input__test.js"></script>

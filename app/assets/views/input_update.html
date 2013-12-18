@@ -1,0 +1,87 @@
+<!doctype html>
+<head>
+	<link rel="stylesheet" href="../styles/screenjack--desktop.css">
+	<link rel="stylesheet" href="../styles/screenjack--hover.css">
+	<link rel="stylesheet" href="../styles/c6__main.css">
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+<div class="input__group c6-view--fill-100" id="input-screen" style="overflow:visible">
+
+	<div class="input__prompts c6-view--pos-50">
+		<form class="input__form">
+			<h2 class="sj__title-logo">
+				<span class="ir">Screenjack:</span>
+			</h2>
+			<h1 class="input__exp-title">A Late Night Phonecall Gone Wrong</h1>
+			<hr class="input__divider">
+
+			<ul class="prompts__group">
+				<li class="prompts__item">
+					<div class="prompt__hint">
+						<h3 class="prompt__type prompt__type--hint">Hint:</h3>
+						<label class="prompt__label">&ldquo;Synonym for feces&rdquo;</label>
+					</div> 
+
+					<div class="prompt__answer">
+						<h3 class="prompt__type prompt__type--answer">Answer:</h3>
+						<input class="prompt__input prompt__input--inactive" type="text" value="Type your answer here..."></input>
+					</div>
+				</li>
+
+			<button class="prompts__nav prompts__nav--prev" title="Previous Question"><span class="ir">Previous Question</span></button>
+			<button class="prompts__nav prompts__nav--next" title="Next Question"><span class="ir">Next Question</span></button>
+			</ul>
+
+			<small class="prompt__character-counter prompt__character-counter--default"><strong>15</strong> characters left</small>
+			<!--<small class="prompt__character-counter prompt__character-counter--error"><img class="character-counter__icon" src="../img/input__error.png"> Your answer is too long! Keep it under <strong>24</strong> characters.</small>-->
+		</form>
+
+		<ul class="progress__group">
+			<li class="progress__item progress__item--complete">1</li>
+			<li class="progress__item progress__item--active">2</li>
+			<li class="progress__item progress__item--inactive">3</li>
+			<li class="progress__item progress__item--inactive">4</li>
+			<li class="progress__item progress__item--inactive">5</li>
+			<li class="progress__item progress__item--inactive">6</li>
+			<li class="progress__start progress__start--inactive"><a href="#"><span class="ir">Start</span></a></li>
+		</ul>
+	</div>
+
+	<div class="paper-stack paper-stack--scaling c6-view--pos-50" id="paper-stack">&nbsp;</div>
+
+	<a class="sj__close-btn" href="#"><span class="ir">Close</span></a>
+
+	<div class="sj__bg-logo sj__bg-logo--static">&nbsp;</div>
+	<div class="sj__paperball sj__paperball--static">&nbsp;</div>
+
+</div>
+</body>
+
+<script>
+toggleScaling = function () {
+	var paperStack = $('#paper-stack');
+
+	if (window.innerWidth <= 1276 && paperStack.hasClass('paper-stack--scaling')) {
+		paperStack.removeClass('paper-stack--scaling');
+		paperStack.toggleClass('paper-stack--static');
+
+	} else if (window.innerWidth > 1276 && paperStack.hasClass('paper-stack--static')) {
+		paperStack.removeClass('paper-stack--static');
+		paperStack.toggleClass('paper-stack--scaling');
+	}
+}
+
+	window.onload = function(event) {
+		toggleScaling();
+	}
+
+	window.onresize = function(event) {
+		toggleScaling();
+	}
+
+</script>
+
+</html>

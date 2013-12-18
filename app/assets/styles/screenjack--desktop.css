@@ -72,6 +72,9 @@
                         background: none; border: 0; border-bottom: 1px #111111 dashed; font-weight: 700;
                         font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; 
                     }
+                        .prompt__input:focus {
+                            border-bottom: 1px #111111 dashed;
+                        }
                         .prompt__input--active {
                             color: #c20000; 
                         }

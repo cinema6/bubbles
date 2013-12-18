@@ -9,10 +9,12 @@
             <hr class="input__divider">
 
             <ul class="prompts__group" id="prompts">
+                <h3 class="prompt-type__copy prompt-type__hint">Hint:</h3>
+                <h3 class="prompt-type__copy prompt-type__answer">Answer:</h3>
                 <li class="prompts__item"
                     ng-repeat="prompt in inputCtrl.promptModel.prompts">
                     <div class="prompt__hint">
-                        <h3 class="prompt-type__copy prompt-type__hint">Hint:</h3>
+                        
                         <label ng-if="inputCtrl.currentPromptIndex() === $index"
                         ng-animate="'prompt'" class="prompt__label">
                             &ldquo;{{inputCtrl.promptModel.prompts[$index].query}}&rdquo;
@@ -20,7 +22,7 @@
                     </div> 
 
                     <div class="prompt__answer">
-                        <h3 class="prompt-type__copy prompt-type__answer">Answer:</h3>
+                        
                         <input 
                             class="prompt__input prompt__input--inactive" 
                             type="text"

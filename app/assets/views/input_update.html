@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="../styles/c6__main.css">
 
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="../scripts/input__test.js"></script>
 </head>
 
 <body>
@@ -59,29 +60,4 @@
 
 </div>
 </body>
-
-<script>
-toggleScaling = function () {
-	var paperStack = $('#paper-stack');
-
-	if (window.innerWidth <= 1276 && paperStack.hasClass('input__paper-stack--scaling')) {
-		paperStack.removeClass('input__paper-stack--scaling');
-		paperStack.toggleClass('input__paper-stack--static');
-
-	} else if (window.innerWidth > 1276 && !paperStack.hasClass('input__paper-stack--scaling')) {
-		paperStack.removeClass('input__paper-stack--static');
-		paperStack.toggleClass('input__paper-stack--scaling');
-	}
-}
-
-	window.onload = function(event) {
-		toggleScaling();
-	}
-
-	window.onresize = function(event) {
-		toggleScaling();
-	}
-
-</script>
-
 </html>

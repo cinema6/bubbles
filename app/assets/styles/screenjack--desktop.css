@@ -17,12 +17,6 @@
         width: 8.125em; height: 4.5em; z-index: 3;
     }
 
-    @media screen and (max-width: 1024px) {
-        .sj__logo, .sj__paperball {
-            opacity: 0;
-        }
-    }
-
 /*  ==========================================================================
     input styles
     ========================================================================== */
@@ -70,17 +64,24 @@
                     .prompt__input {
                         position: absolute; width: 72%; top: 50%; left: 20%; padding: 0.2em 0;
                         background: none; border: 0; border-bottom: 1px #111111 dashed; font-weight: 700;
-                        font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; 
+                        font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; color: #c20000; 
                     }
                         .prompt__input:focus {
                             border-bottom: 1px #111111 dashed;
                         }
-                        .prompt__input--active {
-                            color: #c20000; 
-                        }
-                        .prompt__input--inactive {
-                            color: rgba(194, 0, 0, 0.31); font-style: italic;
-                        }
+                            /* --- placeholder styles --- */
+                            .prompt__input::-webkit-input-placeholder {
+                                color: rgba(194, 0, 0, 0.31); font-style: italic;
+                            }
+                            .prompt__input:-moz-placeholder {
+                                color: rgba(194, 0, 0, 0.31); font-style: italic;
+                            }
+                            .prompt__input:-ms-input-placeholder {
+                                color: rgba(194, 0, 0, 0.31); font-style: italic;
+                            }
+                            .prompt__input::-moz-placeholder {
+                                color: rgba(194, 0, 0, 0.31); font-style: italic;
+                            }
 
                 .character-counter__box {
                     position: absolute; display: block; left: 32%; margin-top: -2em;  
@@ -97,32 +98,32 @@
                         }
 
                 .nav__btn {
-                   position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 30%;
+                   position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 0; margin-top: 18%;
                 }
                     .nav__prev-btn {
                         background: url(../img/input__nav--prev.png) no-repeat; background-size: contain;
-                        left: -7%;
+                        left: 0; margin-left: 15%;
                     }   
                     .nav__next-btn {
                         background: url(../img/input__nav--next.png) no-repeat; background-size: contain;
-                        right: -7%;
+                        right: 0; margin-right: 15%;
                     }
 
                 .progress__timeline {
                     width: 76%; margin: 0 auto;
                 }
                     .progress__number {
-                        display: inline-block; height: 1.4375em; width: 2.75em; padding: 0.0625em 0 0 0.375em; 
-                        text-align: left; font-weight: 700; font-size: 1em; margin-left: -0.625em;
-                        background: url(../img/progress-tracker--inactive.png) no-repeat;
+                        display: inline-block; height: 2.4375em; width: 1.75em; padding: 0.325em 2.175em 0 0; 
+                        text-align: center; font-weight: 700; font-size: 0.75em; 
+                        background: url(../img/progress-tracker--inactive.png) no-repeat; background-size: contain;
                         color: rgba(0, 0, 0, 0.3);
                     }
                         .progress__number--complete {
-                            background: url(../img/progress-tracker--completed.png) no-repeat;
+                            background: url(../img/progress-tracker--completed.png) no-repeat; background-size: contain;
                             color: transparent;
                         }
                         .progress__number--active {
-                            background: url(../img/progress-tracker--active.png) no-repeat;
+                            background: url(../img/progress-tracker--active.png) no-repeat; background-size: contain;
                             color: #fff;
                         }
                     .progress__start {
@@ -190,6 +191,12 @@
         }
     }
 
+    @media screen and (max-width: 1024px) {
+        .input__hide {
+            opacity: 0;
+        }
+    }
+
     @media screen and (max-width: 815px) {
         .input__resize-box {
             width: 100%; margin: -11.25em  0 0 -50%;
@@ -205,15 +212,19 @@
             }
             
             .nav__btn {
-                width: 1.875em;
+                width: 1.875em; margin: 0; top: 25%;
             }
                 .nav__prev-btn {
-                    left: -14%;
+                    left: 5%;
                 }
                 .nav__next-btn {
-                    right: -14%;
+                    right: 5%;
                 }
-
+        
+        .progress__number { 
+            padding: 0.325em 2.175em 0 0; font-size: 0.625em;
+        }
+        
         .sj__close-btn {
             width: 5.9375em;
         }

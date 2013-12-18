@@ -5,7 +5,7 @@
             <h2 class="input__sj-logo">
                 <span class="ir">Screenjack:</span>
             </h2>
-            <h1 class="input__title">A Late Night Phonecall Gone Wrong</h1><!-- experience title needs to be dynamic -->
+            <h1 class="input__title">{{appCtrl.experience.title}}</h1><!-- experience title needs to be dynamic -->
             <hr class="input__divider">
 
             <ul class="prompts__group" id="prompts">
@@ -38,31 +38,32 @@
                         </input>
                     </div>
                 </li>
-
-                <button
-                    ng-if="!!inputCtrl.currentResponse() && inputCtrl.isDone()"
-                    style="visibility: hidden;"
-                    ng-click="inputCtrl.startExperience();">
-                </button>
-
-                <button
-                    class="nav__btn nav__next-btn" 
-                    ng-disabled="!inputCtrl.canGoForward()"
-                    ng-click="inputCtrl.nextQuestion();"
-                    c6-sfx-on="{click: 'bell'}"
-                    name="next">
-                    <span class="ir">Next Question</span>
-                </button>
-
-                <button 
-                    title="Previous Question"
-                    class="nav__btn nav__prev-btn" 
-                    ng-disabled="!inputCtrl.canGoBack()"
-                    ng-click="inputCtrl.prevQuestion();"
-                    name="prev">
-                    <span class="ir">Previous Question</span>
-                </button>
             </ul>
+
+            <button
+                ng-if="!!inputCtrl.currentResponse() && inputCtrl.isDone()"
+                style="visibility: hidden;"
+                ng-click="inputCtrl.startExperience();">
+            </button>
+
+            <button
+                class="nav__btn nav__next-btn" 
+                ng-disabled="!inputCtrl.canGoForward()"
+                ng-click="inputCtrl.nextQuestion();"
+                c6-sfx-on="{click: 'bell'}"
+                name="next">
+                <span class="ir">Next Question</span>
+            </button>
+
+            <button 
+                title="Previous Question"
+                class="nav__btn nav__prev-btn" 
+                ng-disabled="!inputCtrl.canGoBack()"
+                ng-click="inputCtrl.prevQuestion();"
+                name="prev">
+                <span class="ir">Previous Question</span>
+            </button>
+
             <c6-remaining-chars limit="{{inputCtrl.promptModel.prompts[inputCtrl.currentPromptIndex()].sizeLimit}}"
                 count="{{inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()].length}}">
             </c6-remaining-chars>
@@ -86,6 +87,6 @@
 
     <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
 
-    <div class="sj__logo">&nbsp;</div>
-    <div class="sj__paperball">&nbsp;</div>
+    <div class="sj__logo input__hide">&nbsp;</div>
+    <div class="sj__paperball input__hide">&nbsp;</div>
 </div>

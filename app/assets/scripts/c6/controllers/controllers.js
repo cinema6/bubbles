@@ -183,7 +183,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.userIsUsingC6Chrome = false;
     this.showC6Chrome = false;
-    $scope.$watch('appCtrl.showC6Chrome || !$state.is(\'experience.video\')', function(shouldShow) {
+    $scope.$watch('appCtrl.showC6Chrome', function(shouldShow) {
         if (site.ready) {
             site.requestBar(shouldShow);
         } else {

@@ -347,7 +347,7 @@
     end styles
     ========================================================================== */
     .end__group {
-        margin-top: 2em; opacity: 1; 
+        /*margin-top: 2em;*/ opacity: 1; 
         -ms-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -webkit-transform-origin: 0 0; transform-origin: 0 0;
         -ms-transform: rotate(0deg); -moz-transform: rotate(0deg);  -o-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);
     }

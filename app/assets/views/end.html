@@ -1,10 +1,7 @@
-<div class="eend__group c6-view--fill-100">
-    <header>
-        <img class="sj__logo--big" ng-src="assets/img/sj__logo--large.png">
-    </header>
-        
-    <div class="c6-view--pos-50" c6-resize>
-        <div class="end-frame__group c6-view--pos-50"> 
+<div class="end__group c6-view--fill-100">
+    
+    <div class="photo__group">
+        <div class="photo__layer photo__top-layer">
             <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' end-frame__annotation ' + 'end-frame__annotation--{{appCtrl.currentCategory()}}'">
                 <div class="annotations__style">
                     <div class="annotations__text">
@@ -15,13 +12,32 @@
                         <div class="annotations__tail" ng-class="'annotations__tail--' + endCtrl.lastAnnotation.tail.pos + '-' + endCtrl.lastAnnotation.tail.type"></div>
                     </div>
                 </div>
-    	    </div>
-            <img class="end-frame__img" ng-src="assets/img/vidFrame_{{appCtrl.currentCategory()}}_{{appCtrl.currentVideo()}}.jpg">
-            <menu class="end-menu__group">
-                <button class="end-menu__group__replay-btn" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" name="replay"><span class="ir">Replay</span></button>
-                <button class="end-menu__group__share-btn" id="videMenu_shareBtn" ng-click="endCtrl.share()" href="#" name="Share"><span class="ir">Share</span></button>
-                <button class="end-menu__group__new-btn" ng-click="$state.transitionTo('experience.input');" name="newVid"><span class="ir">Make a new video</span></button>
-            </menu>
+            </div>
+            <img class="photo__img" ng-src="assets/img/video-screenshot__{{appCtrl.currentVideo()}}--1.jpg">
         </div>
+        
+        <div class="photo__layer photo__bottom-layer">
+            <img class="photo__img" ng-src="assets/img/video-screenshot__{{appCtrl.currentVideo()}}--2.jpg">
+        </div>
+    
+        <menu class="end-menu__group"> 
+            <div class="end-menu__box end-menu__new-video-shadow">
+                <button class="end-menu__btn end-menu__new-video-paper" ng-click="$state.transitionTo('experience.input');" name="newVid" title="Make a New Video"><span class="ir">Make a New Video</span></button>
+            </div>
+            <div class="end-menu__box end-menu__replay-shadow">
+                <button class="end-menu__btn end-menu__replay-btn" ng-click="appCtrl.askForVideoLoad(); $state.transitionTo('experience.video', $stateParams);" 
+                title="Watch Again"><span class="ir">Watch Again</span></button>
+            </div>
+            <div class="end-menu__box end-menu__share-shadow">
+                <button class="end-menu__btn end-menu__share-btn" id="videMenu_shareBtn" ng-click="endCtrl.share()" title="Share"><span class="ir">Share</span></button>
+            </div>
+        </menu>
     </div>
+
+    <div class="sj__close-btn sj__close-shadow">
+        <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
+    </div>
+
+    <div class="sj__logo">&nbsp;</div>
+    <div class="sj__paperball">&nbsp;</div>
 </div>

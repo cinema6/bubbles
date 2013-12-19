@@ -113,7 +113,7 @@
                     }
 
                 .progress__timeline {
-                    width: 76%; margin: 0 auto;
+                    width: 100%; margin: 0 auto; padding: 0 0.5em;
                 }
                     .progress__number {
                         display: inline-block; height: 2.4375em; width: 1.75em; padding: 0.325em 2.175em 0 0; 
@@ -130,7 +130,7 @@
                             color: #fff;
                         }
                     .progress__start {
-                        display: inline-block; height: 3.3125em; width: 4.125em; margin: 0 0 -2.25em -0.625em;
+                        display: inline-block; height: 3.3125em; width: 4.125em; margin: 0 0 -2.25em -1.625em;
                         background: url(../img/progress-tracker__start--inactive.png) no-repeat center center;
                     }
                         .progress__start--active {
@@ -207,6 +207,10 @@
             .input__form {
                 width: 90%;
             }
+
+            .prompts__group {
+                margin: 7% 0 0;
+            }
                 .prompt__label, .prompt__input {
                     font-size: 1.25em;
                 }
@@ -231,9 +235,29 @@
         .sj__close-btn {
             width: 5em;
         }
+
+
     }
 
+    @media screen and (max-width:500px) {
+        .progress__number {
+            padding: 0.325em 1em 0 0;
+            background: url(../img/progress-tracker-short--inactive.png) no-repeat; background-size: contain;
+        }
+            .progress__number--complete {
+                background: url(../img/progress-tracker-short--completed.png) no-repeat; background-size: contain;
+            }
+            .progress__number--active {
+                background: url(../img/progress-tracker-short--active.png) no-repeat; background-size: contain;
+            }
+    }
 
+    @media screen and (max-height:500px) {
+        .input__resize-box.{
+            height: 18.125em;
+        }
+    }
+    
     @media screen and (max-device-width: 1024px) and (orientation: landscape) {
         .input__resize-box {
             margin: -35% 0 0 -48%;
@@ -266,7 +290,7 @@
         background: url(../img/sj__wood-bg.jpg) no-repeat 50% 50%; background-size: cover;
     }
         .photo__group {
-            position: absolute; width: 84%; /*height: 91.89%;*/ height: 100%; /*top: 4.055%;*/ left: 8%; 
+            position: absolute; width: 84%; height: 100%; left: 8%; 
         }
             .photo__layer {
                 position: absolute; padding: 1% 1% 41%; width: 65.99%; height: 0;
@@ -324,3 +348,31 @@
                         background: url(../img/end__share-btn--shadow.png) no-repeat;
                         background-size: contain;  
                     }
+
+        .end-frame__annotation {
+            position: absolute; opacity: 1;
+        }
+            .end-frame__annotation--action {
+                max-width: 30%; min-width: 15%;
+                right: 60%; top: 12%; font-size: 1em;
+            }
+                .end-frame__annotation--action .annotations__text {
+                    width: 70%; padding: 15%;
+                }
+            .end-frame__annotation--fantasy {
+                max-width: 30%; min-width: 15%; 
+                top: 15%; left: 5%; font-size: 1em;
+            }
+                .end-frame__annotation--fantasy .annotations__text {
+                    width: 70%; padding: 15%;
+                }
+            .end-frame__annotation--romance {
+                width: 37%; top: 6%; left: 55%; font-size: 1em;
+            }
+
+            .end-frame__annotation--tech {
+                width: 18%; top: 52.4%; left: 41.4%; font-size: 0.6em; 
+            }
+                .end-frame__annotation--tech .annotations__text {
+                    transform: none; -webkit-transform: none;
+                }

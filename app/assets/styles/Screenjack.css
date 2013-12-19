@@ -86,22 +86,6 @@
         }
     }
 
-/*  ==========================================================================
-    exp-hero__group styles : important stuff!!
-    ========================================================================== */
-    @media only screen and (max-device-width:400px) and (orientation: portrait), (max-width:480px) {
-        .exp-hero__group {
-            background-size:cover !important; background-position:50% top !important; 
-        }
-        .c6-ui__play {
-            top: 50% !important;
-        }
-    }
-    @media only screen and (max-device-width : 568px) and (orientation: landscape) {
-        .exp-hero__group {
-            background-size:50% !important; background-position:right 50% !important;
-        }
-    }
     
 /*  ==========================================================================
     c6 controls  styles

@@ -22,6 +22,49 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 	};
 }])
 
+.directive('c6ProgressTimeline', ['appBaseUrl', 'c6Computed',
+function                         ( appBaseUrl ,  c          ) {
+    return {
+        restrict: 'E',
+        templateUrl: appBaseUrl + '/views/directives/c6_progress_timeline.html',
+        scope: {
+            current: '@',
+            total: '@',
+            done: '&',
+            onStart: '&'
+        },
+        link: function(scope) {
+            scope.numbers = c(scope, function(total) {
+                var number,
+                    numbers = [];
+
+                for (number = 1; number <= total; number++) {
+                    numbers.push(number);
+                }
+
+                return numbers;
+            }, ['total']);
+        }
+    };
+}])
+
+.directive('c6RemainingChars', ['appBaseUrl', 'c6Computed',
+function                       ( appBaseUrl ,  c          ) {
+    return {
+        restrict: 'E',
+        templateUrl: appBaseUrl + '/views/directives/c6_remaining_chars.html',
+        scope: {
+            limit: '@',
+            count: '@'
+        },
+        link: function(scope) {
+            scope.remaining = c(scope, function(limit, count) {
+                return limit - count;
+            }, ['limit', 'count']);
+        }
+    };
+}])
+
 .directive('c6ProgressBar', ['appBaseUrl', function(base) {
 	return {
 		restrict: 'E',
@@ -93,40 +136,6 @@ angular.module('c6.dir.screenJack',['c6.svc'])
 							element.fadeOut();
 						}, 500);
 					}
-				}
-			});
-		}
-	};
-}])
-.directive('c6ProgressNumber', ['appBaseUrl', function(base) {
-	return {
-		restrict: 'E',
-		template: '<img class="progress-dock__img" id="blank" ng-src="' + base + '/img/progress_empty{{number()}}.png"><img class="progress-dock__img" id="fill" ng-src="' + base + '/img/progress_full{{number()}}.png">',
-		scope: {
-			filled: '&',
-			number: '&'
-		},
-		link: function(scope, element) {
-			var fill = element.find('img#fill'),
-				blank = element.find('img#blank');
-
-			if (scope.filled()) {
-				fill.show();
-			} else {
-				blank.show();
-			}
-
-			scope.$watch('filled()', function(filled) {
-				if (filled) {
-					var showCheck = new TimelineMax({paused: false});
-
-					showCheck.to(blank, 0.1, {scale: 0, display: 'none'})
-						.to(fill, 0.2, {scale: 1, display: 'inline'});
-				} else {
-					var hideCheck = new TimelineMax({paused: false});
-
-					hideCheck.to(fill, 0.2, {scale: 0, display: 'none'})
-						.to(blank, 0.1, {scale: 1, display: 'inline'});
 				}
 			});
 		}

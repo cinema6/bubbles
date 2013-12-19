@@ -1,0 +1,63 @@
+<!doctype html>
+<head>
+	<link rel="stylesheet" href="../styles/screenjack--desktop.css">
+	<link rel="stylesheet" href="../styles/screenjack--hover.css">
+	<link rel="stylesheet" href="../styles/c6__main.css">
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="../scripts/input__test.js"></script>
+</head>
+
+<body>
+<div class="input__group c6-view--fill-100" id="input-screen" style="overflow:visible">
+
+	<div class="input__resize-box c6-view--pos-50">
+		<form class="input__form">
+			<h2 class="input__sj-logo">
+				<span class="ir">Screenjack:</span>
+			</h2>
+			<h1 class="input__title">A Late Night Phonecall Gone Wrong</h1>
+			<hr class="input__divider">
+
+			<ul class="prompts__group" id="prompts">
+				<li class="prompts__item">
+					<div class="prompt__hint">
+						<h3 class="prompt-type__copy prompt-type__hint">Hint:</h3>
+						<label class="prompt__label">&ldquo;Synonym for feces&rdquo;</label>
+					</div> 
+
+					<div class="prompt__answer">
+						<h3 class="prompt-type__copy prompt-type__answer">Answer:</h3>
+						<input class="prompt__input prompt__input--inactive" type="text" value="Type your answer here..."></input>
+					</div>
+				</li>
+
+			<button class="nav__btn nav__prev-btn" title="Previous Question"><span class="ir">Previous Question</span></button>
+			<button class="nav__btn nav__next-btn" title="Next Question"><span class="ir">Next Question</span></button>
+			</ul>
+
+			<small class="character-counter__box character-counter__default"><strong>15</strong> characters left</small>
+			<!--<small class="character-counter__box character-counter__error"><img class="character-counter__icon" src="../img/input__error.png"> Your answer is too long! Keep it under <strong>24</strong> characters.</small>-->
+		</form>
+
+		<ul class="progress__timeline">
+			<li class="progress__number progress__number--complete">1</li>
+			<li class="progress__number progress__number--active">2</li>
+			<li class="progress__number">3</li>
+			<li class="progress__number">4</li>
+			<li class="progress__number">5</li>
+			<li class="progress__number">6</li>
+			<li class="progress__start"><a href="#"><span class="ir">Start</span></a></li>
+		</ul>
+	</div>
+
+	<div class="input__paper-stack input__paper-stack--scaling c6-view--pos-50" id="paper-stack">&nbsp;</div>
+
+	<a class="sj__close-btn" href="#"><span class="ir">Close</span></a>
+
+	<div class="sj__logo">&nbsp;</div>
+	<div class="sj__paperball">&nbsp;</div>
+
+</div>
+</body>
+</html>

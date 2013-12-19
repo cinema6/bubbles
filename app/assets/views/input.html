@@ -5,7 +5,7 @@
             <h2 class="input__sj-logo">
                 <span class="ir">Screenjack:</span>
             </h2>
-            <h1 class="input__title">{{appCtrl.experience.title}}</h1><!-- experience title needs to be dynamic -->
+            <h1 class="input__title">{{appCtrl.experience.title}}</h1>
             <hr class="input__divider">
 
             <ul class="prompts__group" id="prompts">
@@ -87,7 +87,9 @@
         &nbsp;
     </div>
 
-    <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
+    <div class="sj__close-btn sj__close-shadow">
+        <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
+    </div>
 
     <div class="sj__logo input__hide">&nbsp;</div>
     <div class="sj__paperball input__hide">&nbsp;</div>

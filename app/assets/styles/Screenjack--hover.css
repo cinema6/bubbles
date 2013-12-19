@@ -52,3 +52,7 @@
     .end-menu__group__replay-btn,.end-menu__group__share-btn, .end-menu__group__new-btn {
         cursor: pointer; 
     }
+
+    .end-menu__btn {
+        cursor: pointer;
+    }

@@ -371,7 +371,7 @@
             }
 
             .end-frame__annotation--tech {
-                width: 18%; top: 52.4%; left: 41.4%; font-size: 0.6em; 
+                width: 18%; top: 59%; left: 41.4%; font-size: 1em; 
             }
                 .end-frame__annotation--tech .annotations__text {
                     transform: none; -webkit-transform: none;

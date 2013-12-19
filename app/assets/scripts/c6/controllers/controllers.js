@@ -45,11 +45,13 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6AppCtrl', ['$log', '$scope', '$location', '$q', '$stateParams', '$timeout',
                           'appBaseUrl', 'c6Sfx', '$state', 'C6AnnotationsService',
                           'c6AniCache', 'site', 'environment', 'c6UserAgent', 'c6ImagePreloader',
+                          '$window',
             function($log, $scope, $location, $q, $stateParams, $timeout, appBase, sfxSvc, $state,
-                     annSvc, c6AniCache, site, env, c6UserAgent, c6ImagePreloader) {
+                     annSvc, c6AniCache, site, env, c6UserAgent, c6ImagePreloader, $window) {
 
     $log.log('Creating C6AppCtrl');
     var self = this,
+        window$ = angular.element($window),
         hideC6ControlsTimeout,
         allowStateChange = false,
         siteSession = site.init({
@@ -67,9 +69,21 @@ angular.module('c6.ctrl',['c6.svc'])
             }
         });
 
-    if (c6UserAgent.device.isMobile()) {
+    if (c6UserAgent.device.isIPhone()) {
         $state.get('experience.input').templateUrl = appBase + '/views/input_mobile.html';
     }
+
+    this.window = {
+        width: $window.innerWidth,
+        height: $window.innerHeight
+    };
+
+    window$.bind('resize', function() {
+        $scope.$apply(function() {
+            self.window.width = $window.innerWidth;
+            self.window.height = $window.innerHeight;
+        });
+    });
 
     this.sfxSvc = sfxSvc;
     this.experience = null;
@@ -183,7 +197,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
     this.userIsUsingC6Chrome = false;
     this.showC6Chrome = false;
-    $scope.$watch('appCtrl.showC6Chrome || !$state.is(\'experience.video\')', function(shouldShow) {
+    $scope.$watch('appCtrl.showC6Chrome', function(shouldShow) {
         if (site.ready) {
             site.requestBar(shouldShow);
         } else {
@@ -511,7 +525,7 @@ angular.module('c6.ctrl',['c6.svc'])
         this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() + 1];
     };
     this.prevQuestion = function() {
-         this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() - 1];
+        this.currentPrompt = this.promptModel.prompts[this.currentPromptIndex() - 1];
     };
     this.canGoBack = function() {
          return this.currentPromptIndex();

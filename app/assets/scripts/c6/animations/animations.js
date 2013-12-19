@@ -1,5 +1,5 @@
 (function() {
-    /*global TimelineLite:false, Power4:false, Back:false, Elastic:false */
+    /*global TimelineLite:false, Back:false */
     'use strict';
     angular.module('c6.anim', ['c6.ui'])
 
@@ -140,7 +140,7 @@
         }])
 
     // start button //
-        .animation('start-button-enter', [function() {
+/*        .animation('start-button-enter', [function() {
             return {
                 setup: function($startButton) {
                     $startButton.css({
@@ -175,9 +175,9 @@
                 }
             };
         }])
-
+*/
     // next button //
-        .animation('response-next-leave', [function() {
+/*        .animation('response-next-leave', [function() {
             return {
                 setup: function(response) {
                     response.find('.question__input').prop('disabled', true);
@@ -211,9 +211,9 @@
                 }
             };
         }])
-
+*/
     // prev button //
-        .animation('response-previous-leave', [function() {
+/*        .animation('response-previous-leave', [function() {
             return {
                 setup: function(response) {
                     response.find('.question__input').prop('disabled', true);
@@ -248,9 +248,9 @@
                 }
             };
         }])
-
+*/
     // prompt/question // 
-        .animation('prompt-leave', [function() {
+/*      .animation('prompt-leave', [function() {
             return {
                 setup: function(prompt) {
                     prompt.css({
@@ -292,7 +292,7 @@
                 }
             };
         }])
-
+*/
 /*  ==========================================================================
     video state animations
     ========================================================================== */

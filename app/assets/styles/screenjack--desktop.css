@@ -80,7 +80,7 @@
                                 color: rgba(194, 0, 0, 0.31); font-style: italic;
                             }
                             .prompt__input:-ms-input-placeholder {
-                                color: rgba(194, 0, 0, 0.31); font-style: italic;
+                                color: #c20000; color: rgba(194, 0, 0, 0.31); font-style: italic;
                             }
                             .prompt__input::-moz-placeholder {
                                 color: rgba(194, 0, 0, 0.31); font-style: italic;
@@ -103,6 +103,9 @@
                 .nav__btn {
                    position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 0; margin-top: 18%;
                 }
+                    .nav__btn:disabled {
+                        opacity: 0.3;
+                    }
                     .nav__prev-btn {
                         background: url(../img/input__nav--prev.png) no-repeat; background-size: contain;
                         left: 0; margin-left: 15%;
@@ -119,7 +122,7 @@
                         display: inline-block; height: 2.4375em; width: 1.75em; padding: 0.325em 2.175em 0 0; 
                         text-align: center; font-weight: 700; font-size: 0.75em; 
                         background: url(../img/progress-tracker--inactive.png) no-repeat; background-size: contain;
-                        color: rgba(0, 0, 0, 0.3);
+                        color: rgba(0, 0, 0, 0.3); transition: background 0.5s; -webkit-transition: background 0.5s;
                     }
                         .progress__number--complete {
                             background: url(../img/progress-tracker--completed.png) no-repeat; background-size: contain;
@@ -132,6 +135,7 @@
                     .progress__start {
                         display: inline-block; height: 3.3125em; width: 4.125em; margin: 0 0 -2.25em -1.625em;
                         background: url(../img/progress-tracker__start--inactive.png) no-repeat center center;
+                        transition: background 0.5s; -webkit-transition: background 0.5s;
                     }
                         .progress__start--active {
                             background: url(../img/progress-tracker__start--active.png) center center no-repeat;

@@ -1,0 +1,80 @@
+.view {
+	width: 130px; height: 3.875em;
+	-webkit-perspective: 800px; perspective: 800px;
+	cursor: pointer;
+}
+
+.slice {
+	width: 26px; height: 100%; z-index: 100;
+	
+	/*-webkit-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;*/
+	transform-style: preserve-3d;
+	
+	/*-webkit-transform-origin: left center;
+	-ms-transform-origin: left center;*/
+	transform-origin: right center;
+	
+	transition: transform 150ms ease-in-out; -webkit-transition: -webkit-transform 150ms ease-in-out;
+}
+
+	.slice-5, .slice-2, .slice-3, .slice-4 {
+		/*-webkit-transform: translate3d(26px,0,0);
+		-ms-transform: translate3d(26px,0,0);*/
+		transform: translate3d(26px,0,0);
+	}
+
+	.slice-1 {
+		background-position: 0px 0px;
+	}
+		.view:hover .slice-1 {
+			/*transition-delay: 200ms; -webkit-transition-delay: 200ms;
+			
+			-webkit-transform: rotate3d(0,1,0,-3deg);
+			-ms-transform: rotate3d(0,1,0,-3deg);*/
+			transform: translate3d(26px,0,0) rotate3d(0,1,0,42deg);
+		}
+
+	.slice-2 {
+		background-position: -26px 0px;
+		transform:;
+	}
+		.view:hover .slice-2 {
+			/*transition-delay: 150ms; -webkit-transition-delay: 150ms;
+			
+			-webkit-transform: translate3d(25px,0,0) rotate3d(0,1,0,-10deg);
+			-ms-transform: translate3d(25px,0,0) rotate3d(0,1,0,-10deg);*/
+			transform: translate3d(24px,0,0) rotate3d(0,-1,0,30deg);
+		}
+
+	.slice-3 {
+		background-position: -52px 0px;
+	}
+		.view:hover .slice-3 {
+			/*transition-delay: 100ms; -webkit-transition-delay: 100ms;
+			
+			-webkit-transform: translate3d(25px,0,0) rotate3d(0,1,0,-16deg);
+			-ms-transform: translate3d(25px,0,0) rotate3d(0,1,0,-16deg);*/
+			transform: translate3d(26px,0,0) rotate3d(0,-1,0,16deg);
+		}
+
+	.slice-4 {
+		background-position: -78px 0px;
+	}
+		.view:hover .slice-4 {
+			/*transition-delay: 50ms; -webkit-transition-delay: 50ms;
+			
+			-webkit-transform: translate3d(25px,0,0) rotate3d(0,1,0,-30deg);
+			-ms-transform: translate3d(25px,0,0) rotate3d(0,1,0,-30deg);*/
+			transform: translate3d(25px,0,0) rotate3d(0,-1,0,3deg);
+
+		}
+
+	.slice-5 {
+		background-position: -104px 0px;
+	}
+		.view:hover .slice-5 {
+			/*-webkit-transform: translate3d(26px,0,0) rotate3d(0,1,0,-42deg);
+			-ms-transform: translate3d(26px,0,0) rotate3d(0,1,0,-42deg);*/
+			transform: translate3d(26px,0,0);
+		}

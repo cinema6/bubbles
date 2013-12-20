@@ -92,18 +92,48 @@
                                 color: rgba(194, 0, 0, 0.31); font-style: italic;
                             }
 
+                .character-counter__group {
+                    position: absolute; left: 32%; margin-top: -1.5em; text-align: left;
+                }
                 .character-counter__box {
-                    position: absolute; display: block; left: 32%; margin-top: -2em;  
-                    padding: 0.91667em 0.6667em; font-size: 0.75em;
+                    position: relative; display: block; font-size: 0.75em; padding: 0.1667em 0.6667em 0;
                 }
                     .character-counter__default {
-                        background: url(../img/character-count__bg.png) no-repeat top left; color: #686868;
+                        background-color: #dbdbdc; border: #d7d7d7 1px solid; color: #686868; 
                     }
+                        .character-counter__default:after, .character-counter__default:before {
+                            bottom: 100%; left: 30px;  border: solid transparent;
+                            content: " ";  height: 0; width: 0;  position: absolute;
+                            pointer-events: none;
+                        }
+                        .character-counter__default:after {
+                            border-color: rgba(219, 219, 220, 0);  border-bottom-color: #dbdbdc;
+                            border-width: 6px; margin-left: -6px;
+                        }
+                        .character-counter__default:before {
+                            border-color: rgba(215, 215, 215, 0); border-bottom-color: #d7d7d7;
+                            border-width: 7px; margin-left: -7px;
+                        }
+
                     .character-counter__error {
-                        background: url(../img/character-count__error.png) no-repeat top left; color: #2a2a2a;
+                        background-color: #e4b8b9; border: #e7adad 1px solid; color: #2a2a2a;
                     }
+                        .character-counter__error:after, .character-counter__error:before {
+                            bottom: 100%; left: 30px; border: solid transparent;
+                            content: " "; height: 0; width: 0; position: absolute;
+                            pointer-events: none;
+                        }
+
+                        .character-counter__error:after {
+                            border-color: rgba(228, 184, 185, 0); border-bottom-color: #e4b8b9;
+                            border-width: 6px; margin-left: -6px;
+                        }
+                        .character-counter__error:before {
+                            border-color: rgba(231, 173, 173, 0); border-bottom-color: #e7adad;
+                            border-width: 7px; margin-left: -7px;
+                        }
                         .character-counter__icon {
-                            margin-bottom: -1px;
+                            margin-bottom: -2px;
                         }
 
                 .nav__btn {
@@ -180,12 +210,12 @@
             .prompt__input {
                 top: 65%;
             }
-            .character-counter__box {
-                margin-top: 0.5em;
-            }
             .prompt__input-underline {
                 top: 84%;
             }
+        .character-counter__group {
+            margin-top: 0.5em;
+        }
 
         .nav__prev-btn {
             left: 0;
@@ -246,9 +276,12 @@
                 .nav__next-btn {
                     right: 3%;
                 }
-            .character-counter__box {
-                left: 28%; margin-top: -3em;
+            .character-counter__group {
+                left: 28%; margin-top: -2em;
             }
+                .character-counter__error {
+                    width: 50%;
+                }
         
         .progress__number { 
             padding: 1.25em 2.175em 0 0; font-size: 0.625em;

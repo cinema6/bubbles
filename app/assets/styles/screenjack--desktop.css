@@ -1,6 +1,10 @@
 /*  ==========================================================================
     experience branding styles
     ========================================================================== */
+    .sj__bg {
+        background: url(../img/sj__wood-bg.jpg) no-repeat; background-size: cover; 
+    }
+
     .sj__logo {
         position: absolute; top: 0; left: 0;
         background: url(../img/sj__logo.png) no-repeat top left; background-size: contain;
@@ -24,8 +28,7 @@
     input styles
     ========================================================================== */
     .input__group {
-        font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16;
-        background: url(../img/sj__wood-bg.jpg) no-repeat 50% 50%; background-size: cover;
+        font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16; 
     }
         .input__resize-box {
             z-index: 3; position: absolute; width: 80%; height: 80%; margin: -15% 0 0 -40%;
@@ -291,7 +294,6 @@
     ========================================================================== */
     .end__group {
         font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16;
-        background: url(../img/sj__wood-bg.jpg) no-repeat 50% 50%; background-size: cover;
     }
         .photo__group {
             position: absolute; width: 84%; height: 100%; left: 8%; 

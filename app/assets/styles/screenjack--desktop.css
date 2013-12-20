@@ -2,14 +2,16 @@
     experience branding styles
     ========================================================================== */
     .sj__bg {
-        background: url(../img/sj__wood-bg.jpg) no-repeat; background-size: cover; 
+        background: url(../img/sj__wood-bg.jpg) center center no-repeat; background-size: cover; overflow:hidden;
     }
-
     .sj__logo {
         position: absolute; top: 0; left: 0;
         background: url(../img/sj__logo.png) no-repeat top left; background-size: contain;
         width: 15%; max-width: 17.5em; height: 37.5em;
     }
+        .sj__logo-link {
+            display:block; position: absolute; width: 100%; height: 20%;
+        }
     .sj__paperball {
         position: absolute; bottom: 0; right: 0;
         background: url(../img/sj__paperball.png) no-repeat top left;  background-size: contain;
@@ -50,7 +52,7 @@
 
                 .prompts__group {
                     position: relative; display: inline-block;  width: 80%; height: 8em;
-                    padding: 0; margin: 10% 0 0; text-align: left; list-style: none;
+                    padding: 0; margin: 7% 0 0; text-align: left; list-style: none;
                 }
                     .prompt-type__copy {
                         position: absolute; width: 17%; margin: 0.5em 0; text-align: right;
@@ -95,10 +97,10 @@
                     padding: 0.91667em 0.6667em; font-size: 0.75em;
                 }
                     .character-counter__default {
-                        background: url(../img/character-count__bg.png) no-repeat; color: #686868;
+                        background: url(../img/character-count__bg.png) no-repeat top left; color: #686868;
                     }
                     .character-counter__error {
-                        background: url(../img/character-count__error.png) no-repeat; color: #2a2a2a;
+                        background: url(../img/character-count__error.png) no-repeat top left; color: #2a2a2a;
                     }
                         .character-counter__icon {
                             margin-bottom: -1px;
@@ -111,11 +113,11 @@
                         opacity: 0.3;
                     }
                     .nav__prev-btn {
-                        background: url(../img/input__nav--prev.png) no-repeat; background-size: contain;
+                        background: url(../img/input__nav--prev.png) no-repeat center center; background-size: contain;
                         left: 0; margin-left: 15%;
                     }   
                     .nav__next-btn {
-                        background: url(../img/input__nav--next.png) no-repeat; background-size: contain;
+                        background: url(../img/input__nav--next.png) no-repeat center center; background-size: contain;
                         right: 0; margin-right: 15%;
                     }
 
@@ -123,17 +125,17 @@
                     width: 100%; margin: 0 auto; padding: 0 0.5em;
                 }
                     .progress__number {
-                        display: inline-block; height: 2.4375em; width: 1.75em; padding: 0.325em 2.175em 0 0; 
+                        display: inline-block; height: 2.4375em; width: 1.75em; padding: 1.25em 2.175em 0 0; 
                         text-align: center; font-weight: 700; font-size: 0.75em; 
-                        background: url(../img/progress-tracker--inactive.png) no-repeat; background-size: contain;
+                        background: url(../img/progress-tracker--inactive.png) no-repeat center center; background-size: contain;
                         color: rgba(0, 0, 0, 0.3); transition: background 0.5s; -webkit-transition: background 0.5s;
                     }
                         .progress__number--complete {
-                            background: url(../img/progress-tracker--completed.png) no-repeat; background-size: contain;
+                            background: url(../img/progress-tracker--completed.png) no-repeat center center; background-size: contain;
                             color: transparent;
                         }
                         .progress__number--active {
-                            background: url(../img/progress-tracker--active.png) no-repeat; background-size: contain;
+                            background: url(../img/progress-tracker--active.png) no-repeat center center; background-size: contain;
                             color: #fff;
                         }
                     .progress__start {
@@ -146,7 +148,7 @@
                         }
 
         .input__paper-stack {
-            background: url(../img/input__paper-stack.png) no-repeat; background-size: contain; z-index: 2;
+            background: url(../img/input__paper-stack.png) no-repeat top center; background-size: contain; z-index: 2;
         }
             .input__paper-stack--scaling {
                 width: 76%; height: 0; padding-bottom: 48.525%; margin: -25.2495% 0 0 -38%;
@@ -182,7 +184,7 @@
                 margin-top: 0.5em;
             }
             .prompt__input-underline {
-                top: 80%;
+                top: 84%;
             }
 
         .nav__prev-btn {
@@ -195,7 +197,10 @@
 
     @media screen and (min-width: 1600px) {
         .input__paper-stack {
-            background: url(../img/input__paper-stack--hires.png) no-repeat; background-size: contain;
+            background: url(../img/input__paper-stack--hires.png) no-repeat top center; background-size: contain;
+        }
+        .prompts__group {
+            margin: 10% 0 0;
         }
     }
 
@@ -241,9 +246,12 @@
                 .nav__next-btn {
                     right: 3%;
                 }
+            .character-counter__box {
+                left: 28%; margin-top: -3em;
+            }
         
         .progress__number { 
-            padding: 0.325em 2.175em 0 0; font-size: 0.625em;
+            padding: 1.25em 2.175em 0 0; font-size: 0.625em;
         }
         
         .sj__close-btn {
@@ -253,20 +261,20 @@
 
     @media screen and (max-width:500px) {
         .progress__number {
-            padding: 0.325em 1em 0 0;
-            background: url(../img/progress-tracker-short--inactive.png) no-repeat; background-size: contain;
+            padding: 1.325em 1em 0 0;
+            background: url(../img/progress-tracker-short--inactive.png) no-repeat center center; background-size: contain;
         }
             .progress__number--complete {
-                background: url(../img/progress-tracker-short--completed.png) no-repeat; background-size: contain;
+                background: url(../img/progress-tracker-short--completed.png) no-repeat center center; background-size: contain;
             }
             .progress__number--active {
-                background: url(../img/progress-tracker-short--active.png) no-repeat; background-size: contain;
+                background: url(../img/progress-tracker-short--active.png) no-repeat center center; background-size: contain;
             }
     }
 
     @media screen and (max-height:500px) {
         .input__resize-box.{
-            height: 18.125em;
+            height: 16.125em;
         }
     }
     
@@ -331,12 +339,12 @@
             }
 
                 .end-menu__replay-btn {
-                    background: url(../img/end__watch-again-btn--paper.png) no-repeat;
+                    background: url(../img/end__watch-again-btn--paper.png) no-repeat center center;
                     background-size: contain;
                 }
                     .end-menu__replay-shadow {
                         top: 0; left: 0; width: 33.84%; height: 67.87%;
-                        background: url(../img/end__watch-again-btn--shadow.png) no-repeat;
+                        background: url(../img/end__watch-again-btn--shadow.png) no-repeat center center;
                         background-size: contain;  
                     }
 
@@ -346,7 +354,7 @@
                 }
                     .end-menu__new-video-shadow {
                         top: 30.43%; left: 26.87%; width: 36.22%; height: 67.93%;
-                        background: url(../img/end__new-video-btn--shadow.png) no-repeat;
+                        background: url(../img/end__new-video-btn--shadow.png) no-repeat center center;
                         background-size: contain;  
                     }
 
@@ -356,7 +364,7 @@
                 }
                     .end-menu__share-shadow {
                         top: 38.04%; left: 66.84%; width: 28.31%; height: 52.44%;
-                        background: url(../img/end__share-btn--shadow.png) no-repeat;
+                        background: url(../img/end__share-btn--shadow.png) no-repeat center center;
                         background-size: contain;  
                     }
 

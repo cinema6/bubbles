@@ -44,7 +44,7 @@
 
             <button
                 ng-if="!!inputCtrl.currentResponse() && inputCtrl.isDone()"
-                style="visibility: hidden;"
+                style="display:none;"
                 ng-click="inputCtrl.startExperience();"
                 c6-sfx-on="{click: 'yank'}">
             </button>
@@ -93,6 +93,10 @@
         <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
     </div>
 
-    <div class="sj__logo" id="sj-logo">&nbsp;</div>
-    <div class="sj__paperball" id="paperball">&nbsp;</div>
+    <div class="sj__logo input__hide" id="sj-logo">
+        <a class="sj__logo-link" ng-click="$state.transitionTo('landing_wizard');">
+            <span class="ir">Screenjack</span>
+        </a>
+    </div>
+    <div class="sj__paperball input__hide" id="paperball">&nbsp;</div>
 </div>

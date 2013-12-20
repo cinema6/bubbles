@@ -67,23 +67,24 @@
                         position: absolute; width: 72%; top: 0; left: 20%;
                         color: #4f4f4f; font-size: 1.5em; font-weight: 700;
                     }
-                    .prompt__input {
-                        position: absolute; width: 72%; top: 50%; left: 20%; padding: 0.2em 0;
-                        background: none; border: 0; border-bottom: 1px #111111 dashed; font-weight: 700;
-                        font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; color: #c20000; 
+                    .prompt__input-underline {
+                        position: absolute; width: 72%; top: 60%; left: 20%;
+                        border-bottom: 1px #111111 dashed; 
                     }
-                        .prompt__input:focus {
-                            border-bottom: 1px #111111 dashed;
+                        .prompt__input {
+                            position: absolute; width: 72%; top: 50%; left: 20%;
+                            padding: 0.2em 0; background: none; border: 0; font-weight: 700;
+                            font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; color: #c20000; 
                         }
                             /* --- placeholder styles --- */
                             .prompt__input::-webkit-input-placeholder {
-                                color: rgba(194, 0, 0, 0.31); font-style: italic;
+                                color: #c20000; opacity: 0.2; font-style: italic;
                             }
                             .prompt__input:-moz-placeholder {
                                 color: rgba(194, 0, 0, 0.31); font-style: italic;
                             }
                             .prompt__input:-ms-input-placeholder {
-                                color: #c20000; color: rgba(194, 0, 0, 0.31); font-style: italic;
+                                color: #c20000; opacity: 0.31; font-style: italic;
                             }
                             .prompt__input::-moz-placeholder {
                                 color: rgba(194, 0, 0, 0.31); font-style: italic;
@@ -104,7 +105,7 @@
                         }
 
                 .nav__btn {
-                   position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 0; margin-top: 18%;
+                   position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 0; margin-top: 17%;
                 }
                     .nav__btn:disabled {
                         opacity: 0.3;
@@ -180,6 +181,9 @@
             .character-counter__box {
                 margin-top: 0.5em;
             }
+            .prompt__input-underline {
+                top: 80%;
+            }
 
         .nav__prev-btn {
             left: 0;
@@ -216,7 +220,7 @@
             }
 
             .prompts__group {
-                margin: 7% 0 0;
+                margin: 10% 0 0;
             }
                 .prompt__label, .prompt__input {
                     font-size: 1.25em;
@@ -224,15 +228,18 @@
             .input__title {
                 font-size: 1em;
             }
+            .prompt__input-underline {
+                top: 55%;
+            }
             
             .nav__btn {
-                width: 1.875em; margin: 0; top: 25%;
+                width: 1.875em; margin: 0; top: 24%;
             }
                 .nav__prev-btn {
-                    left: 5%;
+                    left: 3%;
                 }
                 .nav__next-btn {
-                    right: 5%;
+                    right: 3%;
                 }
         
         .progress__number { 
@@ -242,8 +249,6 @@
         .sj__close-btn {
             width: 5em;
         }
-
-
     }
 
     @media screen and (max-width:500px) {

@@ -1,6 +1,6 @@
 <div class="end__group c6-view--fill-100">
     
-    <div class="photo__group">
+    <div class="photo__group" id="photos">
         <div class="photo__layer photo__top-layer">
             <div ng-if="appCtrl.annotationsModel ? true : false" ng-class="' end-frame__annotation ' + 'end-frame__annotation--{{appCtrl.currentCategory()}}'">
                 <div class="annotations__style">
@@ -34,10 +34,10 @@
         </menu>
     </div>
 
-    <div class="sj__close-btn sj__close-shadow">
+    <div class="sj__close-btn sj__close-shadow" id="close-btn">
         <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
     </div>
 
-    <div class="sj__logo">&nbsp;</div>
-    <div class="sj__paperball">&nbsp;</div>
+    <div class="sj__logo" id="sj-logo">&nbsp;</div>
+    <div class="sj__paperball" id="paperball">&nbsp;</div>
 </div>

@@ -1,6 +1,6 @@
 <div class="input__group c6-view--fill-100" id="input-screen" style="overflow:visible">
 
-    <div class="input__resize-box c6-view--pos-50">
+    <div class="input__resize-box c6-view--pos-50" id="paper-form">
         <form class="input__form">
             <h2 class="input__sj-logo">
                 <span class="ir">Screenjack:</span>
@@ -87,10 +87,10 @@
         &nbsp;
     </div>
 
-    <div class="sj__close-btn sj__close-shadow">
+    <div class="sj__close-btn sj__close-shadow" id="close-btn">
         <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
     </div>
 
-    <div class="sj__logo input__hide">&nbsp;</div>
-    <div class="sj__paperball input__hide">&nbsp;</div>
+    <div class="sj__logo" id="sj-logo">&nbsp;</div>
+    <div class="sj__paperball" id="paperball">&nbsp;</div>
 </div>

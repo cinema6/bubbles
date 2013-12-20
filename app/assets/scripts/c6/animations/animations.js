@@ -1,12 +1,11 @@
 (function() {
-    /*global TimelineLite:false, Back:false */
+    /*global TimelineLite:false, Back:false, Power2:false */
     'use strict';
     angular.module('c6.anim', ['c6.ui'])
 
 /*  ==========================================================================
     input state animations
     ========================================================================== */
-
     /* --- to video --- */
         .animation('experience.input=>experience.video-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
@@ -21,8 +20,16 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-leave start');
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                            element.find('#close-btn'),
+                            element.find('#sj-logo'),
+                            element.find('#paperball')
+                        ];
 
-                    timeline.to(element, 2, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.5, {autoAlpha: 0})
+                        .to(element, 1, {autoAlpha: 0, ease: Power2.easeIn}, '-0.5')
                         .eventCallback('onComplete', function() {
                             $log.info('input-leave done');
                             done();
@@ -54,8 +61,13 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-leave start');
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                        ];
 
-                    timeline.to(element, 1, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.5, {autoAlpha: 0})
+                        .set(element, {autoAlpha: 0, ease: Power2.easeIn})
                         .eventCallback('onComplete', function() {
                             $log.info('input-leave done');
                             done();
@@ -87,8 +99,16 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-enter start');
-
-                    timeline.to(element, 2, {autoAlpha: 1}, '+=1')
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                            element.find('#close-btn'),
+                            element.find('#sj-logo'),
+                            element.find('#paperball')
+                        ];
+                        
+                    timeline.to(element, 1, {autoAlpha: 1, ease: Power2.easeIn}, '+=0.5')
+                        .from(interfaceElements, 0.5, {autoAlpha: 0}, '-=0.25')
                         .eventCallback('onComplete', function() {
                             $log.info('input-enter done');
                             done();
@@ -120,10 +140,15 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-enter start');
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                        ];
 
-                    timeline.to(element, 1, {autoAlpha: 1}, '+=0.5')
+                    timeline.set(element, {autoAlpha: 1}, '+=0.25')
+                        .from(interfaceElements, 0.5, {autoAlpha: 0})
                         .eventCallback('onComplete', function() {
-                            $log.info('input-enter done');
+                            $log.info('input-leave done');
                             done();
                         });
 
@@ -313,8 +338,8 @@
                     $log.log('In video-show start');
                     var player$ = element.find('#player').css({opacity: 0, visibility: 'hidden'});
 
-                    timeline.to(element, 1.5, {autoAlpha:1}, '+=0.5')
-                        .to(player$, 1, {autoAlpha: 1}, '-=0.5')
+                    timeline.to(element, 1, {autoAlpha:1}, '+=0.5')
+                        .to(player$, 1, {autoAlpha: 1}, '-=0.25')
                         .eventCallback('onComplete', function() {
                             $log.info('video-show done');
                             $rootScope.$broadcast('finishedAnimatingVideoShow');
@@ -350,7 +375,7 @@
                     var player$ = element.find('#player').css({opacity: 1, visibility: 'visible'});
 
                     timeline.to(player$, 1, {autoAlpha: 0})
-                        .to(element, 1, {autoAlpha:0})
+                        .to(element, 0.5, {autoAlpha:0})
                         .eventCallback('onComplete', function() {
                             $log.info('video-hide done');
                             done();
@@ -467,7 +492,6 @@
 /*  ==========================================================================
     end state animations
     ========================================================================== */
-
     /* --- to video --- */
         .animation('experience.end=>experience.video-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
@@ -482,8 +506,15 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In end-leave start');
+                    var interfaceElements = [
+                        element.find('#photos'),
+                        element.find('#close-btn'),
+                        element.find('#sj-logo'),
+                        element.find('#paperball')
+                    ];
 
-                    timeline.to(element, 2, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.5, {autoAlpha: 0})
+                        .to(element, 1, {autoAlpha: 0, ease: Power2.easeIn}, '-0.25')
                         .eventCallback('onComplete', function() {
                             $log.info('end-leave done');
                             done();
@@ -515,8 +546,10 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In end-leave start');
+                    var interfaceElements = element.find('#photos');
 
-                    timeline.to(element, 1, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.25, {autoAlpha: 0})
+                        .set(element, {autoAlpha: 0})
                         .eventCallback('onComplete', function() {
                             $log.info('end-leave done');
                             done();
@@ -581,8 +614,12 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In end-enter start');
+                    var interfaceElements = [
+                            element.find('#photos'),
+                        ];
 
-                    timeline.to(element, 1, {autoAlpha: 1}, '+=0.5')
+                    timeline.set(element, {autoAlpha: 1}, '+=0.5')
+                        .from(interfaceElements, 0.5, {autoAlpha: 0})
                         .eventCallback('onComplete', function() {
                             $log.info('end-enter done');
                             done();

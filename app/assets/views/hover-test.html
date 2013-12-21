@@ -9,59 +9,62 @@
 
 	<style>
 	/* desktop styles */
-	.sj__close-btn {
-        position: absolute; top: 0; right: 0; width: 7.25em; height: 3.875em; z-index: 3;
+		.sj__close-btn {
+	        position: absolute; top: 0; right: 0; width: 7.25em; height: 3.875em; z-index: 3;
+	    }
+	        .sj__close-shadow {
+	            background: url(../img/sj__close-btn--shadow.png) no-repeat top right; /*background-size: contain;*/
+	        }
+	        .sj__close-paper {
+	            background: url(../img/sj__close-btn--paper.png) no-repeat top right; /*background-size: contain;*/
+	        }
+
+	        .shadow-bg {
+	        	background-image: url(../img/sj__close-btn--shadow.png);
+	        }
+
+	        .paper-bg {
+	        	background-image: url(../img/sj__close-btn--paper.png);
+	        }
+
+
+	    /* hover styles */
+	    .sj__close-btn { 
+		    cursor: pointer;
+		}
+
+	.box {
+    	background: purple;
+    	position: absolute;
+    	left: 300px; top: 300px;
+    	height: 100px; width: 100px;
+
+    	transform: perspective(600px) rotateY(52deg);
     }
-        .sj__close-shadow {
-            background: url(../img/sj__close-btn--shadow.png) no-repeat top right; /*background-size: contain;*/
-        }
-        .sj__close-paper {
-            background: url(../img/sj__close-btn--paper.png) no-repeat top right; /*background-size: contain;*/
-        }
-
-        .shadow-bg {
-        	background-image: url(../img/sj__close-btn--shadow.png);
-        }
-
-        .paper-bg {
-        	background-image: url(../img/sj__close-btn--paper.png);
-        }
-
-
-    /* hover styles */
-    .sj__close-btn { 
-	    cursor: pointer;
-	}
 	</style>
 </head>
 <body>
 
-	<div class="none">
+	<!--<div class="none">
 		<div class="sj__close-btn sj__close-shadow">&nbsp;</div>
 	    <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
+	</div>-->
+
+
+
+
+	<div class="button__group sj__close-shadow">
+		<div class="button__shadow "> </div>
+
+		<div class="slice slice-1"></div>
+        <div class="slice slice-2"></div>
+        <div class="slice slice-3"></div>
+        <div class="slice slice-4"></div>
+        <div class="slice slice-5"></div>
 	</div>
 
 
-
-<div >
-	<div class="view">
-		<div class="shadow"> </div>
-
-		<div class="slice slice-1 paper-bg">
-	        <div class="slice slice-2 paper-bg">
-	            <div class="slice slice-3 paper-bg">
-	                <div class="slice slice-4 paper-bg">
-	                    <div class="slice slice-5 paper-bg">
-
-	                    </div><!-- /s5 -->
-	                </div><!-- /s4 --> 
-	            </div><!-- /s3 -->    
-	        </div><!-- /s2 -->
-	    </div><!-- /s1 -->
-
-
-	</div>
-</div>
+	<div class="box">&nbsp;</div>
 
 
 </body>

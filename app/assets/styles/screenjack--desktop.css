@@ -461,8 +461,8 @@
                 .end-frame__annotation--tech .annotations__text {
                     transform: none; -webkit-transform: none;
                 }
-                
-    @media screen and (max-width: 1618px) {
+
+    @media screen and (min-width: 1618px) {
         .annotations__text {
             font-size: 160%;
         }

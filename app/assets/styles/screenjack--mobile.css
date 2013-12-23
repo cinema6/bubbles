@@ -2,7 +2,7 @@
     experience branding styles
     ========================================================================== */
     .sj__bg { 
-        background: url(../img/bg_tile.jpg) repeat;
+        background: url(../img/sj__wood-bg.jpg) center center no-repeat; background-size: cover; overflow:hidden;
     }
     .sj__art {
         position: absolute; 
@@ -19,6 +19,9 @@
     }
 
     @media screen and (max-device-width: 568px) {
+    	.sj__bg { 
+		    background: url(../img/bg_tile.jpg) repeat;
+		}
         .sj__art {
             display:none;
         }

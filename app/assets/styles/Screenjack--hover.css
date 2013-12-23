@@ -50,14 +50,14 @@
             transition: background 0.3s; -webkit-transition: background 0.3s;
         }
             .nav__next-btn:hover {
-                background: url(../img/input__nav--next-hover.png) no-repeat;
+                background: url(../img/input__nav--next-hover.png) no-repeat center center;
                 background-size: contain;
             }
         .nav__prev-btn {
             transition: background 0.3s; -webkit-transition: background 0.3s;
         }
             .nav__prev-btn:hover {
-                background: url(../img/input__nav--prev-hover.png) no-repeat;
+                background: url(../img/input__nav--prev-hover.png) no-repeat center center;
                 background-size: contain;
             }
 

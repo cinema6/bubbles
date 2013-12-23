@@ -86,22 +86,6 @@
         }
     }
 
-/*  ==========================================================================
-    exp-hero__group styles : important stuff!!
-    ========================================================================== */
-    @media only screen and (max-device-width:400px) and (orientation: portrait), (max-width:480px) {
-        .exp-hero__group {
-            background-size:cover !important; background-position:50% top !important; 
-        }
-        .c6-ui__play {
-            top: 50% !important;
-        }
-    }
-    @media only screen and (max-device-width : 568px) and (orientation: landscape) {
-        .exp-hero__group {
-            background-size:50% !important; background-position:right 50% !important;
-        }
-    }
     
 /*  ==========================================================================
     c6 controls  styles
@@ -347,7 +331,7 @@
     end styles
     ========================================================================== */
     .end__group {
-        margin-top: 2em; opacity: 1;
+        margin-top: 2em; opacity: 1; 
         -ms-transform-origin: 0 0; -moz-transform-origin: 0 0; -o-transform-origin: 0 0; -webkit-transform-origin: 0 0; transform-origin: 0 0;
         -ms-transform: rotate(0deg); -moz-transform: rotate(0deg);  -o-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);
     }
@@ -364,7 +348,7 @@
             position: absolute; opacity: 1;
         }
             .end-frame__annotation--action {
-                max-width: 25%; min-width: 15%;
+                max-width: 30%; min-width: 15%;
                 right: 65%; top: 12%; font-size: 1em;
             }
                 .end-frame__annotation--action .annotations__text {
@@ -389,32 +373,21 @@
                 }
            
         .end-menu__group { 
-            position: absolute; height: 8%; width: 100%; 
-            bottom: -2%; padding: 0; 
+            position: absolute; width: 100%; bottom: 2%; padding: 0; margin: 0; height: 1.69em;
          }
-            .end-menu__group__replay-btn { 
-                background: url(../img/btn_playAgain_default.png) no-repeat top center; background-size: contain; 
-                height: 100%; width: 6.67%; float:left; border: 0;
+            .end-menu__group__replay-btn {
+                background: url(../img/btn__replay--desktop.png) no-repeat; 
+                width: 5.846em; height: 1.69em; border: 0; padding: 0; float:left; margin-right: 2em;
             }
-                .end-menu__group__replay-btn:active {
-                    background: url(../img/btn_playAgain_tap.png) no-repeat top center; background-size: contain
-                }
+            .end-menu__group__share-btn {
+                background: url(../img/btn__share--desktop.png) no-repeat; 
+                width: 5.538em; height: 1.69em; border: 0; padding: 0; float:left; 
+            }
+            .end-menu__group__new-btn {
+                background: url(../img/btn__new--desktop.png) no-repeat;
+                width: 13.538em; height: 1.69em; border: 0; padding: 0; float: right;
+            }
 
-            .end-menu__group__share-btn { 
-                background: url(../img/btn_share_default.png) no-repeat top center; background-size: contain; 
-                height: 100%; width: 6.67%; float:left; border: 0;
-            }
-                .end-menu__group__share-btn:active {
-                    background: url(../img/btn_share_tap.png) no-repeat top center; background-size: contain
-                }
-
-            .end-menu__group__new-btn { 
-                background: url(../img/btn_newVid_default.png) no-repeat top center; background-size: contain; 
-                height: 100%; width: 34.56%; float: right; border: 0;
-            }
-              .end-menu__group__new-btn:active {
-                background: url(../img/btn_newVid_tap.png) no-repeat top center; background-size: contain; float:right;
-            }
 
     @media screen and (max-device-width: 1024px) and (min-device-width: 569px) {
         .end-frame__group {
@@ -422,8 +395,24 @@
         }
     }
 
-    @media screen and (max-device-width: 568px) {
+    @media screen and (max-width: 568px) {
         .end-frame__group {
-            margin: 0 0 0 -35%; top: 20% !important; /* above overwrite */
+            margin: 0 0 0 -35%; top: 17% !important; /* above overwrite */
         }
+            
+        .end-menu__group { 
+            bottom: -12%; height: 4.5em;
+         }
+            .end-menu__group__replay-btn {
+                background: url(../img/btn__replay--mobile.png) no-repeat left; background-size: contain;
+                width: 4em; height: 4em; margin-right: 2em; 
+            }
+            .end-menu__group__share-btn {
+                background: url(../img/btn__share--mobile.png) no-repeat left; background-size: contain;
+                width: 3.323em; height: 4em; margin-right: 1em;
+            }
+            .end-menu__group__new-btn {
+                background: url(../img/btn__new--mobile.png) no-repeat right; background-size: contain;
+                width: 6.277em;  height: 4em;
+            }
     }

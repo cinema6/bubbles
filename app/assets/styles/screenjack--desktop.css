@@ -309,6 +309,9 @@
                 .character-counter__error {
                     width: 100%;
                 }
+                .character-counter__default {
+                    width: 10.5em;
+                }
         
         .progress__number { 
             padding: 1.25em 2.175em 0 0; font-size: 0.625em;

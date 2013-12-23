@@ -310,9 +310,9 @@ angular.module('c6.ctrl',['c6.svc'])
 .controller('C6ExperienceCtrl',['$log','$scope','$rootScope','$location','$stateParams',
                                 'C6AnnotationsService','$state','$timeout','environment',
                                 'C6ResponseCachingService','c6Sfx','C6VideoControlsService',
-                                'c6UserAgent',
+                                'c6UserAgent','C6VideoLookupService',
             function($log,$scope,$rootScope,$location,$stateParams,annSvc,$state,$timeout,env,
-                     respSvc,sfxSvc,vidCtrlsSvc,c6UserAgent) {
+                     respSvc,sfxSvc,vidCtrlsSvc,c6UserAgent,lookupSvc) {
                      
     $log.log('Creating C6ExperienceCtrl');
     var self = this,
@@ -403,9 +403,10 @@ angular.module('c6.ctrl',['c6.svc'])
 
                 oldResponses = angular.copy(responses);
 
-                annSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
+                lookupSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
                 .then(function(url) {
                     $scope.appCtrl.expData.src = url;
+                    console.log($scope.appCtrl.expData.src);
                 }, function() { // error handler
                     ga('send', 'event', 'screenjack', 'dub_error', gaLabel);
                 });

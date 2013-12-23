@@ -161,12 +161,8 @@ angular.module('c6.svc',[])
     };
 }])
 
-// Has functions for creating annotation models, interpolating responses with tempaltes, and 
-// retrieving urls for text-to-speech videos.
-.service('C6AnnotationsService', ['$routeParams', '$rootScope', 'c6VideoService', '$http', '$q',
-                                  '$log', 'environment', function($routeParams, $rootScope, vidSvc,
-                                                                  $http, $q, $log, env) {
-    var genVidUrlCache = {};
+// Has functions for creating annotation models and interpolating responses with tempaltes
+.service('C6AnnotationsService', ['c6VideoService', '$log', function(vidSvc, $log) {
 
     this.getAnnotationsModelByType = function(type, annotations) {
         var toReturn,
@@ -229,36 +225,68 @@ angular.module('c6.svc',[])
         return annoModel;
     };
 
+}])
+
+// Handles looking up text-to-speech videos (from a cache, S3, or dub)
+.service('C6VideoLookupService', ['$log','$http','$q','environment', function($log,$http,$q,env) {
+    var genVidUrlCache = {};
+
+    var haveCachedUrl = function(model) {
+        var cache = genVidUrlCache,
+            cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
+
+        return ((cachedModel ? true : false) && (function() {
+            var newModelAnnotations = model.annotations;
+
+            return cachedModel.annotations.every(function(annotation, index) {
+                return annotation.text === newModelAnnotations[index].text;
+            });
+        })());
+    };
+    
+    var verifySharedUrl = function(sharedUrl) {
+        if (!sharedUrl) {
+            return $q.reject();
+        }
+        $log.log('Checking shared url for video');
+        return $http.head(sharedUrl);
+    };
+    
+    var getDubVideoV1 = function(body) {
+        body.version = 1;
+        return $http.post(env.dubUrl, body).then(function(response) {
+            return response.data.output;
+        });
+    };
+    
+    var getDubVideo = function(body) {
+        var deferred = $q.defer();
+        body.version = 2;
+        
+        $http.post(env.dubUrl, body).then(function(response) {
+            if (response.statusCode = 201) {
+                deferred.resolve(response.data.output);
+            } else {
+                deferred.reject(response);
+            }
+        });
+        
+        return deferred.promise;
+    };
+
     // Will first check a local cache, then attempt to verify the src url from the shared script
     // Then, if those fail, it will go to dub to create a video.
     this.fetchText2SpeechVideoUrl = function(model, sharedUrl) {
-        var url = $q.defer(),
-            haveCachedUrl = function() {
-                var cache = genVidUrlCache,
-                    cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
+        var deferred = $q.defer();
 
-                return ((cachedModel ? true : false) && (function() {
-                    var newModelAnnotations = model.annotations;
-
-                    return cachedModel.annotations.every(function(annotation, index) {
-                        return annotation.text === newModelAnnotations[index].text;
-                    });
-                })());
-            },
-            verifySharedUrl = function() {
-                if (!sharedUrl) {
-                    return $q.reject();
-                }
-                $log.log('Checking shared url for video');
-                return $http.head(sharedUrl);
-            };
-
-        if (haveCachedUrl()) {
+        if (haveCachedUrl(model)) {
             $log.log('Already have a URL for these responses');
-            url.resolve(genVidUrlCache[model.options.vid].url);
+            console.log(genVidUrlCache);
+            console.log(genVidUrlCache[model.options.vid].url);
+            deferred.resolve(genVidUrlCache[model.options.vid].url);
         } else {
-            verifySharedUrl().then(function() {
-                url.resolve(sharedUrl);
+            verifySharedUrl(sharedUrl).then(function() {
+                deferred.resolve(sharedUrl);
                 genVidUrlCache[model.options.vid] = { model: model, url: sharedUrl };
             }, function(error) {
                 if (error) {
@@ -283,23 +311,20 @@ angular.module('c6.svc',[])
                     requestBodyObject.script.push(line);
                 });
 
-                //$http.post('http://' + (env.release ? 'dub' : 'alpha') + '.cinema6.net/dub/create',
-                $http.post(env.dubUrl, requestBodyObject).then(function(response) {
-                    var urlFromServer = response.data.output;
-
-                    genVidUrlCache[model.options.vid] = { model: model, url: urlFromServer };
-                    url.resolve(urlFromServer);
+                getDubVideo(requestBodyObject).then(function(url) {
+                    genVidUrlCache[model.options.vid] = { model: model, url: url };
+                    deferred.resolve(url);
                 }, function(error) {
                     $log.error(error);
-                    url.reject(error);
+                    deferred.reject(error);
                 });
             });
         }
 
-        return url.promise;
+        return deferred.promise;
     };
 }])
-
+    
 .service('C6ResizeService', ['$window', '$log', function($window, $log) {
     var resizeFunctions = [];
 

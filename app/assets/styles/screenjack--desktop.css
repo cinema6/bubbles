@@ -336,26 +336,14 @@
     }
     
     @media screen and (max-device-width: 1024px) and (orientation: landscape) {
-        /*.input__resize-box {
-            margin: -35% 0 0 -48%;
-        }
-        .input__paper-stack--static {
-            margin: -28.625em 0 0 -30em;
-        }*/
         .nav__btn {
-            margin-top: 32%;
+            top: 12%;
         }
     }
 
     @media screen and (max-device-width: 768px) and (orientation: portrait) {
-        /*.input__resize-box {
-            margin: -28% 0 0 -61.5%;
-        }
-        .input__paper-stack--static {
-            margin: -25em 0 0 -31em;
-        }*/
         .nav__btn {
-            margin-top: 8%;
+            top: 28%;
         }
     }
 

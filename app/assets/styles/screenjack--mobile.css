@@ -267,7 +267,7 @@
         }
             
         .end-menu__group { 
-            bottom: -12%; height: 4.5em;
+            bottom: 0; height: 4.5em;
          }
             .end-menu__group__replay-btn {
                 background: url(../img/btn__replay--mobile.png) no-repeat left; background-size: contain;

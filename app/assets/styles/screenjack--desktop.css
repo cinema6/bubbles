@@ -462,23 +462,23 @@
                     transform: none; -webkit-transform: none;
                 }
 
-    /*@media screen and (min-width: 1618px) {
-        .annotations__text {
-            font-size: 160%;
+    @media screen and (min-width: 1618px) {
+        .end-frame__annotation {
+            font-size: 2em;
         }
     }
 
     @media screen and (max-width: 1024px) {
-        .annotations__text {
-            font-size: 100%;
+        .end-frame__annotation {
+            font-size: 1em;
         }
     }
 
     @media screen and (max-width: 600px) {
-        .annotations__text {
-            font-size: 75%;
+        .end-frame__annotation {
+            font-size: 0.75em
         }
-    }*/
+    }
 
     @media screen and (max-device-width: 1024px) and (orientation: landscape) {
         .photo__top-layer {

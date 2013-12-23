@@ -361,7 +361,7 @@ angular.module('c6.ctrl',['c6.svc'])
     });
 
     $scope.$on('finishedAnimatingVideoShow', function() {
-        if (self.videoCanPlay && video.player.paused) {
+        if ((self.videoCanPlay || video.player.readyState > 3) && video.player.paused) {
             if (video.hasPlayed()) {
                 video.player.currentTime = 0;
             }

@@ -304,10 +304,10 @@
                     right: 3%;
                 }
             .character-counter__group {
-                left: 28%; margin-top: -2em;
+                left: 28%; margin-top: -2em; width: 50%;
             }
                 .character-counter__error {
-                    width: 50%;
+                    width: 100%;
                 }
         
         .progress__number { 

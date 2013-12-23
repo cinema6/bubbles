@@ -461,18 +461,18 @@
 
     @media screen and (max-device-width: 1024px) and (orientation: landscape) {
         .photo__top-layer {
-            margin-top: -13em;
+            margin-top: -16em;
         }
         .photo__bottom-layer {
-            margin-top: -6em;
+            margin-top: -8em;
         }
     }
 
     @media screen and (max-device-width: 768px) and (orientation: portrait) {
         .photo__top-layer {
-            margin-top: -16em;
+            margin-top: -13em;
         }
         .photo__bottom-layer {
-            margin-top: -8em;
+            margin-top: -7em;
         }
     }

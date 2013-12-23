@@ -69,10 +69,6 @@
 /*  ==========================================================================
     end styles
     ========================================================================== */
-    .end-menu__group__replay-btn,.end-menu__group__share-btn, .end-menu__group__new-btn {
-        cursor: pointer; 
-    }
-
     .end-menu__new-video-btn, .end-menu__replay-btn, .end-menu__share-btn {
         cursor: pointer;
     }

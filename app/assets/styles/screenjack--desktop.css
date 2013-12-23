@@ -337,7 +337,7 @@
     
     @media screen and (max-device-width: 1024px) and (orientation: landscape) {
         .nav__btn {
-            top: 6em;
+            margin-top: 16em;
         }
     }
 
@@ -458,3 +458,21 @@
                 .end-frame__annotation--tech .annotations__text {
                     transform: none; -webkit-transform: none;
                 }
+
+    @media screen and (max-device-width: 1024px) and (orientation: landscape) {
+        .photo__top-layer {
+            margin-top: -13em;
+        }
+        .photo__bottom-layer {
+            margin-top: -6em;
+        }
+    }
+
+    @media screen and (max-device-width: 768px) and (orientation: portrait) {
+        .photo__top-layer {
+            margin-top: -16em;
+        }
+        .photo__bottom-layer {
+            margin-top: -8em;
+        }
+    }

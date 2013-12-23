@@ -241,18 +241,18 @@
                     transform: none; -webkit-transform: none;
                 }
            
-        .end-menu__group { 
+        .end-options__group { 
             position: absolute; width: 100%; bottom: 2%; padding: 0; margin: 0; height: 1.69em;
          }
-            .end-menu__group__replay-btn {
+            .end-options__group__replay-btn {
                 background: url(../img/btn__replay--desktop.png) no-repeat; 
                 width: 5.846em; height: 1.69em; border: 0; padding: 0; float:left; margin-right: 2em;
             }
-            .end-menu__group__share-btn {
+            .end-options__group__share-btn {
                 background: url(../img/btn__share--desktop.png) no-repeat; 
                 width: 5.538em; height: 1.69em; border: 0; padding: 0; float:left; 
             }
-            .end-menu__group__new-btn {
+            .end-options__group__new-btn {
                 background: url(../img/btn__new--desktop.png) no-repeat;
                 width: 13.538em; height: 1.69em; border: 0; padding: 0; float: right;
             }
@@ -269,18 +269,18 @@
             margin: 0 0 0 -35%; top: 17% !important; /* above overwrite */
         }
             
-        .end-menu__group { 
+        .end-options__group { 
             margin-top:8.5em; height: 4.5em;
          }
-            .end-menu__group__replay-btn {
+            .end-options__group__replay-btn {
                 background: url(../img/btn__replay--mobile.png) no-repeat left; background-size: contain;
                 width: 4em; height: 4em; margin-right: 2em; 
             }
-            .end-menu__group__share-btn {
+            .end-options__group__share-btn {
                 background: url(../img/btn__share--mobile.png) no-repeat left; background-size: contain;
                 width: 3.323em; height: 4em; margin-right: 1em;
             }
-            .end-menu__group__new-btn {
+            .end-options__group__new-btn {
                 background: url(../img/btn__new--mobile.png) no-repeat right; background-size: contain;
                 width: 6.277em;  height: 4em;
             }

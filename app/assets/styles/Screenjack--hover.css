@@ -71,18 +71,13 @@
     .end-menu__btn {
         cursor: pointer;
     }
-        .end-menu__btn:hover .end-menu__new-video-slice--1 {
+        .end-menu__btn:hover .end-menu__new-video-slice--1,
+        .end-menu__btn:hover .end-menu__replay-slice--1,
+        .end-menu__btn:hover .end-menu__share-slice--1 {
             transform: perspective(300px) rotateX(0);
         }
-        .end-menu__btn:hover .end-menu__new-video-slice--2 {
-            transform: perspective(300px) rotateX(6deg);
-        }
-        .end-menu__btn:hover .end-menu__new-video-slice--3 {
-            transform: perspective(300px) rotateX(14deg) scale3d(1.025,0.8,1.025);
-        }
-        .end-menu__btn:hover .end-menu__new-video-slice--4 {
-            transform: perspective(300px) rotateX(32deg) scale3d(1.065,0.65,1.065); top: 56%;
-        }
-        .end-menu__btn:hover .end-menu__new-video-slice--5 {
-            transform: perspective(300px) rotateX(64deg) scale3d(1.125,0.5,1.125); top: 67%;
+        .end-menu__btn:hover .end-menu__new-video-slice--2,
+        .end-menu__btn:hover .end-menu__replay-slice--2,
+        .end-menu__btn:hover .end-menu__share-slice--2 {
+            transform: perspective(300px) rotateX(4deg) scale3d(1, 0.925, 1);
         }

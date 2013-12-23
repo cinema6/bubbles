@@ -47,41 +47,58 @@
 		    margin: 0; padding: 0 0 42.057%; z-index: 4; /*padding: 0 0 42.057%;*/
 		    background: rgba(0,0,0,0.2); overflow:visible;
 		}
-		    .end-menu__box {
-		        position: absolute; top: 30.43%; left: 26.87%;
-		        width: 36.22%; height: 50.93%; /*height: 67.93%; width: 36.22%;*/
+		    .end-menu__new-video {
+		        position: absolute; top: 30.43%; left: 26.87%; width: 36.22%; height: 50.93%; /*height: 67.93%; width: 36.22%;*/
 		        z-index: 3; overflow:visible;
 		    }
+		    .end-menu__replay {
+		        position: absolute; top: 0; left: 0; width: 33.84%; height: 52.87%; /*height: 67.87%;*/
+		        z-index: 3; overflow:visible;
+		    }
+		    .end-menu__share {
+		        position: absolute; top: 38.04%; left: 66.84%; width: 28.31%; height: 38.94%; /*height: 52.44%;*/
+		        z-index: 3; overflow:visible; background: rgba(0,0,0,0.2);
+		    }
 		    	.end-menu__new-video-shadow {
-		            background: url(../img/end__new-video-btn--shadow.png) no-repeat center center; background-size: contain;  
+		            background: url(../img/end__new-video-btn--shadow.png) no-repeat top center; background-size: contain;  
 		        }
-			    .end-menu__btn {
-			       position: relative; display: block; width: 100%; height: 100%;
-			    }
-		    	.end-menu__new-video-slice {
-		    		position: absolute; height: 20%; width: 100%; 
+		        .end-menu__replay-shadow {
+		        	background: url(../img/end__watch-again-btn--shadow.png) no-repeat top center; background-size: contain;  
+		        }
+		        .end-menu__share-shadow {
+		        	background: url(../img/end__share-btn--shadow.png) no-repeat top center; background-size: contain;  
+		        }
+
+		    .end-menu__btn {
+		       position: relative; display: block; width: 100%; height: 100%;
+		    }
+		    	.end-menu__slice {
+		    		position: absolute; width: 100%; 
 		    		transform-origin: center top; -webkit-transform-origin: center top; -ms-transform-origin: center top;   
 		            transition: transform 200ms ease-in-out, top 200ms ease-in-out; 
 		            -webkit-transition: -webkit-transform 200ms ease-in-out, top 200ms ease-in-out;
 		    	}
 		    		.end-menu__new-video-slice--1 {
-						background: url(../img/end__new-video-btn--paper.png) no-repeat 0 0; z-index: 1;
+						background: url(../img/end__new-video-btn--paper.png) no-repeat 0 0; z-index: 1; height: 10%; 
 						background-size: cover;
 		    		}
 		    		.end-menu__new-video-slice--2 {
-		    			background: url(../img/end__new-video-btn--paper.png) no-repeat 0 25%; z-index: 2; top: 20%;
+		    			background: url(../img/end__new-video-btn--paper.png) no-repeat 0 100%; z-index: 2; top: 10%; height: 90%;
 						background-size: cover;
 		    		}
-		    		.end-menu__new-video-slice--3 {
-		    			background: url(../img/end__new-video-btn--paper.png) no-repeat 0 50%; z-index: 3; top: 40%;
+		    		.end-menu__replay-slice--1 {
+						background: url(../img/end__watch-again-btn--paper.png) no-repeat 0 0; z-index: 1; height: 10%; 
 						background-size: cover;
 		    		}
-		    		.end-menu__new-video-slice--4 {
-		    			background: url(../img/end__new-video-btn--paper.png) no-repeat 0 75% ; z-index: 4; top: 60%;
+		    		.end-menu__replay-slice--2 {
+		    			background: url(../img/end__watch-again-btn--paper.png) no-repeat 0 100%; z-index: 2; top: 10%; height: 90%;
 						background-size: cover;
 		    		}
-		    		.end-menu__new-video-slice--5 {
-		    			background: url(../img/end__new-video-btn--paper.png) no-repeat 0 100%; z-index: 5; top: 80%;
+		    		.end-menu__share-slice--1 {
+						background: url(../img/end__share-btn--paper.png) no-repeat 0 0; z-index: 1; height: 10%; 
 						background-size: cover;
 		    		}
- 
+		    		.end-menu__share-slice--2 {
+		    			background: url(../img/end__share-btn--paper.png) no-repeat 0 100%; z-index: 2; top: 10%; height: 90%;
+						background-size: cover;
+		    		}

@@ -461,6 +461,24 @@
                 .end-frame__annotation--tech .annotations__text {
                     transform: none; -webkit-transform: none;
                 }
+                
+    @media screen and (max-width: 1618px) {
+        .annotations__text {
+            font-size: 160%;
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .annotations__text {
+            font-size: 100%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .annotations__text {
+            font-size: 75%;
+        }
+    }
 
     @media screen and (max-device-width: 1024px) and (orientation: landscape) {
         .photo__top-layer {

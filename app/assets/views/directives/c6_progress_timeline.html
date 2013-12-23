@@ -7,7 +7,10 @@
         class="progress__number">
         {{number}}
     </li>
-    <li ng-class="{'progress__start--active': done()}" ng-click="onStart()" class="progress__start">
+    <li ng-class="{'progress__start--active': done()}"
+        ng-click="onStart()" 
+        c6-sfx-on="{click: 'yank'}"
+        class="progress__start">
         <span class="ir">Start</span><!-- new start button -->
     </li>
 </ul>

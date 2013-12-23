@@ -1,31 +1,63 @@
 /*  ==========================================================================
     experience branding styles
     ========================================================================== */
+    .sj__bg {
+        background: url(../img/sj__wood-bg.jpg) center center no-repeat; background-size: cover; overflow:hidden;
+    }
     .sj__logo {
         position: absolute; top: 0; left: 0;
         background: url(../img/sj__logo.png) no-repeat top left; background-size: contain;
         width: 15%; max-width: 17.5em; height: 37.5em;
     }
+        .sj__logo-link {
+            display:block; position: absolute; width: 100%; height: 20%;
+        }
     .sj__paperball {
         position: absolute; bottom: 0; right: 0;
         background: url(../img/sj__paperball.png) no-repeat top left;  background-size: contain;
         width: 5%; max-width: 5em; height: 18.5em; 
     }
     .sj__close-btn {
-        position: absolute; top: 0; right: 0;
-        background: url(../img/sj__close-btn--paper.png) no-repeat top right; background-size: contain;
-        width: 7.25em; height: 3.875em; z-index: 3;
+        position: absolute; top: 0; right: 0; 
+        width: 7.25em; height: 3.1875em; 
+        z-index: 3; overflow:visible;
     }
         .sj__close-shadow {
             background: url(../img/sj__close-btn--shadow.png) no-repeat top right; background-size: contain;
         }
+        .sj__close-link {
+            display: block; height: 100%; width: 100%;
+        }
+        .sj__close-slice {
+            position:absolute; height: 100%; width: 1.625em;
+            transform-origin: 100% 50%; -webkit-transform-origin: 100% 50%; -ms-transform-origin: 100% 50%;   
+            transition: transform 200ms ease-in-out, left 200ms ease-in-out;
+        }
+            .sj__close-slice--1 {
+                background: url(../img/sj__close-btn--paper.png) no-repeat 0 0; z-index: 5
+            }
+            .sj__close-slice--2 {
+                background: url(../img/sj__close-btn--paper.png) no-repeat -1.4375em 0; left: 1.4375em; z-index: 4; 
+                transition-delay: 10ms;
+            }
+            .sj__close-slice--3 {
+                background: url(../img/sj__close-btn--paper.png) no-repeat -2.875em 0; left: 2.875em; z-index: 3;
+                transition-delay: 25ms;
+            }
+            .sj__close-slice--4 {
+                background: url(../img/sj__close-btn--paper.png) no-repeat -4.3125em 0; left: 4.3125em; z-index: 2;
+                transition-delay: 25ms;
+            }
+            .sj__close-slice--5 {
+                background: url(../img/sj__close-btn--paper.png) no-repeat -5.75em 0; left: 5.75em; z-index: 1; width: 1.5em;
+                transition-delay: 25ms;
+            }
 
 /*  ==========================================================================
     input styles
     ========================================================================== */
     .input__group {
-        font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16;
-        background: url(../img/sj__wood-bg.jpg) no-repeat 50% 50%; background-size: cover;
+        font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16; 
     }
         .input__resize-box {
             z-index: 3; position: absolute; width: 80%; height: 80%; margin: -15% 0 0 -40%;
@@ -47,7 +79,7 @@
 
                 .prompts__group {
                     position: relative; display: inline-block;  width: 80%; height: 8em;
-                    padding: 0; margin: 10% 0 0; text-align: left; list-style: none;
+                    padding: 0; margin: 7% 0 0; text-align: left; list-style: none;
                 }
                     .prompt-type__copy {
                         position: absolute; width: 17%; margin: 0.5em 0; text-align: right;
@@ -64,54 +96,85 @@
                         position: absolute; width: 72%; top: 0; left: 20%;
                         color: #4f4f4f; font-size: 1.5em; font-weight: 700;
                     }
-                    .prompt__input {
-                        position: absolute; width: 72%; top: 50%; left: 20%; padding: 0.2em 0;
-                        background: none; border: 0; border-bottom: 1px #111111 dashed; font-weight: 700;
-                        font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; color: #c20000; 
+                    .prompt__input-underline {
+                        position: absolute; width: 72%; top: 60%; left: 20%;
+                        border-bottom: 1px #111111 dashed; 
                     }
-                        .prompt__input:focus {
-                            border-bottom: 1px #111111 dashed;
+                        .prompt__input {
+                            position: absolute; width: 72%; top: 50%; left: 20%;
+                            padding: 0.2em 0; background: none; border: 0; font-weight: 700;
+                            font-size: 1.5em; font-family: 'Courier Prime', courier, times, serif; color: #c20000; 
                         }
                             /* --- placeholder styles --- */
                             .prompt__input::-webkit-input-placeholder {
-                                color: rgba(194, 0, 0, 0.31); font-style: italic;
+                                color: #c20000; opacity: 0.2; font-style: italic;
                             }
                             .prompt__input:-moz-placeholder {
                                 color: rgba(194, 0, 0, 0.31); font-style: italic;
                             }
                             .prompt__input:-ms-input-placeholder {
-                                color: #c20000; color: rgba(194, 0, 0, 0.31); font-style: italic;
+                                color: #c20000; opacity: 0.31; font-style: italic;
                             }
                             .prompt__input::-moz-placeholder {
                                 color: rgba(194, 0, 0, 0.31); font-style: italic;
                             }
 
+                .character-counter__group {
+                    position: absolute; left: 32%; margin-top: -1.5em; text-align: left;
+                }
                 .character-counter__box {
-                    position: absolute; display: block; left: 32%; margin-top: -2em;  
-                    padding: 0.91667em 0.6667em; font-size: 0.75em;
+                    position: relative; display: block; font-size: 0.75em; padding: 0.1667em 0.6667em 0;
                 }
                     .character-counter__default {
-                        background: url(../img/character-count__bg.png) no-repeat; color: #686868;
+                        background-color: #dbdbdc; border: #d7d7d7 1px solid; color: #686868; 
                     }
+                        .character-counter__default:after, .character-counter__default:before {
+                            bottom: 100%; left: 30px;  border: solid transparent;
+                            content: " ";  height: 0; width: 0;  position: absolute;
+                            pointer-events: none;
+                        }
+                        .character-counter__default:after {
+                            border-color: rgba(219, 219, 220, 0);  border-bottom-color: #dbdbdc;
+                            border-width: 6px; margin-left: -6px;
+                        }
+                        .character-counter__default:before {
+                            border-color: rgba(215, 215, 215, 0); border-bottom-color: #d7d7d7;
+                            border-width: 7px; margin-left: -7px;
+                        }
+
                     .character-counter__error {
-                        background: url(../img/character-count__error.png) no-repeat; color: #2a2a2a;
+                        background-color: #e4b8b9; border: #e7adad 1px solid; color: #2a2a2a;
                     }
+                        .character-counter__error:after, .character-counter__error:before {
+                            bottom: 100%; left: 30px; border: solid transparent;
+                            content: " "; height: 0; width: 0; position: absolute;
+                            pointer-events: none;
+                        }
+
+                        .character-counter__error:after {
+                            border-color: rgba(228, 184, 185, 0); border-bottom-color: #e4b8b9;
+                            border-width: 6px; margin-left: -6px;
+                        }
+                        .character-counter__error:before {
+                            border-color: rgba(231, 173, 173, 0); border-bottom-color: #e7adad;
+                            border-width: 7px; margin-left: -7px;
+                        }
                         .character-counter__icon {
-                            margin-bottom: -1px;
+                            margin-bottom: -2px;
                         }
 
                 .nav__btn {
-                   position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 0; margin-top: 18%;
+                   position: absolute; height: 1.625em; width: 2.625em; border: 0; top: 0; margin-top: 17%;
                 }
                     .nav__btn:disabled {
                         opacity: 0.3;
                     }
                     .nav__prev-btn {
-                        background: url(../img/input__nav--prev.png) no-repeat; background-size: contain;
+                        background: url(../img/input__nav--prev.png) no-repeat center center; background-size: contain;
                         left: 0; margin-left: 15%;
                     }   
                     .nav__next-btn {
-                        background: url(../img/input__nav--next.png) no-repeat; background-size: contain;
+                        background: url(../img/input__nav--next.png) no-repeat center center; background-size: contain;
                         right: 0; margin-right: 15%;
                     }
 
@@ -119,17 +182,17 @@
                     width: 100%; margin: 0 auto; padding: 0 0.5em;
                 }
                     .progress__number {
-                        display: inline-block; height: 2.4375em; width: 1.75em; padding: 0.325em 2.175em 0 0; 
+                        display: inline-block; height: 2.4375em; width: 1.75em; padding: 1.25em 2.175em 0 0; 
                         text-align: center; font-weight: 700; font-size: 0.75em; 
-                        background: url(../img/progress-tracker--inactive.png) no-repeat; background-size: contain;
+                        background: url(../img/progress-tracker--inactive.png) no-repeat center center; background-size: contain;
                         color: rgba(0, 0, 0, 0.3); transition: background 0.5s; -webkit-transition: background 0.5s;
                     }
                         .progress__number--complete {
-                            background: url(../img/progress-tracker--completed.png) no-repeat; background-size: contain;
+                            background: url(../img/progress-tracker--completed.png) no-repeat center center; background-size: contain;
                             color: transparent;
                         }
                         .progress__number--active {
-                            background: url(../img/progress-tracker--active.png) no-repeat; background-size: contain;
+                            background: url(../img/progress-tracker--active.png) no-repeat center center; background-size: contain;
                             color: #fff;
                         }
                     .progress__start {
@@ -142,7 +205,7 @@
                         }
 
         .input__paper-stack {
-            background: url(../img/input__paper-stack.png) no-repeat; background-size: contain; z-index: 2;
+            background: url(../img/input__paper-stack.png) no-repeat top center; background-size: contain; z-index: 2;
         }
             .input__paper-stack--scaling {
                 width: 76%; height: 0; padding-bottom: 48.525%; margin: -25.2495% 0 0 -38%;
@@ -174,9 +237,12 @@
             .prompt__input {
                 top: 65%;
             }
-            .character-counter__box {
-                margin-top: 0.5em;
+            .prompt__input-underline {
+                top: 84%;
             }
+        .character-counter__group {
+            margin-top: 0.5em;
+        }
 
         .nav__prev-btn {
             left: 0;
@@ -188,7 +254,10 @@
 
     @media screen and (min-width: 1600px) {
         .input__paper-stack {
-            background: url(../img/input__paper-stack--hires.png) no-repeat; background-size: contain;
+            background: url(../img/input__paper-stack--hires.png) no-repeat top center; background-size: contain;
+        }
+        .prompts__group {
+            margin: 10% 0 0;
         }
     }
 
@@ -213,7 +282,7 @@
             }
 
             .prompts__group {
-                margin: 7% 0 0;
+                margin: 10% 0 0;
             }
                 .prompt__label, .prompt__input {
                     font-size: 1.25em;
@@ -221,44 +290,48 @@
             .input__title {
                 font-size: 1em;
             }
+            .prompt__input-underline {
+                top: 55%;
+            }
             
             .nav__btn {
-                width: 1.875em; margin: 0; top: 25%;
+                width: 1.875em; margin: 0; top: 24%;
             }
                 .nav__prev-btn {
-                    left: 5%;
+                    left: 3%;
                 }
                 .nav__next-btn {
-                    right: 5%;
+                    right: 3%;
+                }
+            .character-counter__group {
+                left: 28%; margin-top: -2em;
+            }
+                .character-counter__error {
+                    width: 50%;
                 }
         
         .progress__number { 
-            padding: 0.325em 2.175em 0 0; font-size: 0.625em;
+            padding: 1.25em 2.175em 0 0; font-size: 0.625em;
         }
         
-        .sj__close-btn {
-            width: 5em;
-        }
-
-
     }
 
     @media screen and (max-width:500px) {
         .progress__number {
-            padding: 0.325em 1em 0 0;
-            background: url(../img/progress-tracker-short--inactive.png) no-repeat; background-size: contain;
+            padding: 1.325em 1em 0 0;
+            background: url(../img/progress-tracker-short--inactive.png) no-repeat center center; background-size: contain;
         }
             .progress__number--complete {
-                background: url(../img/progress-tracker-short--completed.png) no-repeat; background-size: contain;
+                background: url(../img/progress-tracker-short--completed.png) no-repeat center center; background-size: contain;
             }
             .progress__number--active {
-                background: url(../img/progress-tracker-short--active.png) no-repeat; background-size: contain;
+                background: url(../img/progress-tracker-short--active.png) no-repeat center center; background-size: contain;
             }
     }
 
     @media screen and (max-height:500px) {
         .input__resize-box.{
-            height: 18.125em;
+            height: 16.125em;
         }
     }
     
@@ -291,7 +364,6 @@
     ========================================================================== */
     .end__group {
         font-family: 'Courier Prime', courier, times, serif; text-align: center; font-size: 16;
-        background: url(../img/sj__wood-bg.jpg) no-repeat 50% 50%; background-size: cover;
     }
         .photo__group {
             position: absolute; width: 84%; height: 100%; left: 8%; 
@@ -314,43 +386,61 @@
 
         .end-menu__group {
             position: absolute; width: 100%; height: 0; top: 50%; margin-top: -30%; 
-            margin: 0; padding: 0 0 42.057%; z-index: 4;
+            margin: 0; padding: 0 0 42.057%; z-index: 4; /*padding: 0 0 42.057%;*/ overflow:visible;
         }
-            .end-menu__box {
-                position: absolute;
+            .end-menu__new-video {
+                position: absolute; top: 30.43%; left: 26.87%; width: 36.22%; height: 50.93%; /*height: 67.93%; width: 36.22%;*/
+                z-index: 3; overflow:visible;
             }
-            .end-menu__btn {
-                border: 0; width: 100%; height: 100%;
+            .end-menu__replay {
+                position: absolute; top: 0; left: 0; width: 33.84%; height: 52.87%; /*height: 67.87%;*/
+                z-index: 3; overflow:visible;
             }
-
-                .end-menu__replay-btn {
-                    background: url(../img/end__watch-again-btn--paper.png) no-repeat;
-                    background-size: contain;
+            .end-menu__share {
+                position: absolute; top: 38.04%; left: 66.84%; width: 28.31%; height: 38.9%; /*height: 52.44%;*/
+                z-index: 3; overflow:visible; background: rgba(0,0,0,0.2);
+            }
+                .end-menu__new-video-shadow {
+                    background: url(../img/end__new-video-btn--shadow.png) no-repeat top center; background-size: contain;  
                 }
-                    .end-menu__replay-shadow {
-                        top: 0; left: 0; width: 33.84%; height: 67.87%;
-                        background: url(../img/end__watch-again-btn--shadow.png) no-repeat;
-                        background-size: contain;  
+                .end-menu__replay-shadow {
+                    background: url(../img/end__watch-again-btn--shadow.png) no-repeat top center; background-size: contain;  
+                }
+                .end-menu__share-shadow {
+                    background: url(../img/end__share-btn--shadow.png) no-repeat top center; background-size: contain;  
+                }
+
+            .end-menu__new-video-btn, .end-menu__replay-btn, .end-menu__share-btn {
+               position: relative; display: block; width: 100%; height: 100%;
+            }
+                .end-menu__slice {
+                    position: absolute; width: 100%; 
+                    transform-origin: center top; -webkit-transform-origin: center top; -ms-transform-origin: center top;   
+                    transition: transform 200ms ease-in-out, top 200ms ease-in-out;
+                }
+                    .end-menu__new-video-slice--1 {
+                        background: url(../img/end__new-video-btn--paper.png) no-repeat 0 0; z-index: 1; height: 10%; 
+                        background-size: cover;
                     }
-
-                .end-menu__new-video-paper {
-                    background: url(../img/end__new-video-btn--paper.png) no-repeat;
-                    background-size: contain;
-                }
-                    .end-menu__new-video-shadow {
-                        top: 30.43%; left: 26.87%; width: 36.22%; height: 67.93%;
-                        background: url(../img/end__new-video-btn--shadow.png) no-repeat;
-                        background-size: contain;  
+                    .end-menu__new-video-slice--2 {
+                        background: url(../img/end__new-video-btn--paper.png) no-repeat 0 100%; z-index: 2; top: 10%; height: 90%;
+                        background-size: cover;
                     }
-
-                .end-menu__share-btn {
-                    background: url(../img/end__share-btn--paper.png) no-repeat;
-                    background-size: contain;
-                }
-                    .end-menu__share-shadow {
-                        top: 38.04%; left: 66.84%; width: 28.31%; height: 52.44%;
-                        background: url(../img/end__share-btn--shadow.png) no-repeat;
-                        background-size: contain;  
+                    .end-menu__replay-slice--1 {
+                        background: url(../img/end__watch-again-btn--paper.png) no-repeat 0 0; z-index: 1; height: 10%; 
+                        background-size: cover;
+                    }
+                    .end-menu__replay-slice--2 {
+                        background: url(../img/end__watch-again-btn--paper.png) no-repeat 0 100%; z-index: 2; top: 10%; height: 90%;
+                        background-size: cover;
+                    }
+                    .end-menu__share-slice--1 {
+                        background: url(../img/end__share-btn--paper.png) no-repeat 0 0; z-index: 1; height: 10%; 
+                        background-size: cover;
+                    }
+                    .end-menu__share-slice--2 {
+                        background: url(../img/end__share-btn--paper.png) no-repeat 0 100%; z-index: 2; top: 10%; height: 90%;
+                        background-size: cover;
                     }
 
         .end-frame__annotation {

@@ -1,2 +1,8 @@
-<small ng-show="remaining() > 0" class="character-counter__box character-counter__default"><strong>{{remaining()}}</strong> characters left</small>
-<small ng-show="remaining() < 1" class="character-counter__box character-counter__error"><img class="character-counter__icon" src="assets/img/input__error.png"> Your answer is too long! Keep it under <strong>{{limit}}</strong> characters.</small>
+<div class="character-counter__group">
+	<small ng-show="remaining() > 0" class="character-counter__box character-counter__default">
+		<span class="character-counter__copy"><strong>{{remaining()}}</strong> characters left</span>
+	</small>
+	<small ng-show="remaining() < 1" class="character-counter__box character-counter__error">
+		<span class="character-counter__copy"><img class="character-counter__icon" src="assets/img/input__error.png"> Your answer is too long! Keep it under <strong>{{limit}}</strong> characters.</span>
+	</small>
+</div>

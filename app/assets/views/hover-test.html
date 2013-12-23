@@ -1,68 +1,53 @@
 <!doctype html>
 <head>
-	<link rel="stylesheet" href="../styles/screenjack--desktop.css">
+	<!--<link rel="stylesheet" href="../styles/screenjack--desktop.css">-->
 	<link rel="stylesheet" href="../styles/screenjack--hover.css">
 	<link rel="stylesheet" href="../styles/papercurl.css">
 
 	<link rel="stylesheet" href="../styles/c6__main.css">
-
-
-	<style>
-	/* desktop styles */
-	.sj__close-btn {
-        position: absolute; top: 0; right: 0; width: 7.25em; height: 3.875em; z-index: 3;
-    }
-        .sj__close-shadow {
-            background: url(../img/sj__close-btn--shadow.png) no-repeat top right; /*background-size: contain;*/
-        }
-        .sj__close-paper {
-            background: url(../img/sj__close-btn--paper.png) no-repeat top right; /*background-size: contain;*/
-        }
-
-        .shadow-bg {
-        	background-image: url(../img/sj__close-btn--shadow.png);
-        }
-
-        .paper-bg {
-        	background-image: url(../img/sj__close-btn--paper.png);
-        }
-
-
-    /* hover styles */
-    .sj__close-btn { 
-	    cursor: pointer;
-	}
-	</style>
 </head>
 <body>
 
-	<div class="none">
-		<div class="sj__close-btn sj__close-shadow">&nbsp;</div>
-	    <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
-	</div>
+<div class="end__group c6-view--fill-100">
+	<div class="photo__group" id="photos">
 
+<menu class="end-menu__group" style="margin-top: -10%;">
+    <div class="end-menu__new-video end-menu__new-video-shadow">
+        <a class="end-menu__new-video-btn" name="newVid" title="Make a New Video">
+        	<span class="ir">Make a New Video</span>
+        	<div class="end-menu__slice end-menu__new-video-slice--1"></div>
+	        <div class="end-menu__slice end-menu__new-video-slice--2"></div>
+        </a>
+    </div>
 
+    <div class="end-menu__replay end-menu__replay-shadow">
+    	<a class="end-menu__replay-btn" title="Watch Again">
+        	<span class="ir">Watch Again</span>
+        	<div class="end-menu__slice end-menu__replay-slice--1"></div>
+	        <div class="end-menu__slice end-menu__replay-slice--2"></div>
+        </a>
+    </div>
 
-<div >
-	<div class="view">
-		<div class="shadow"> </div>
+    <div class="end-menu__share end-menu__share-shadow">
+    	<a class="end-menu__share-btn" id="videMenu_shareBtn" title="Share">
+        	<span class="ir">Share</span>
+        	<div class="end-menu__slice end-menu__share-slice--1"></div>
+	        <div class="end-menu__slice end-menu__share-slice--2"></div>
+        </a>
+    </div>
+</menu>
+</div></div>
 
-		<div class="slice slice-1 paper-bg">
-	        <div class="slice slice-2 paper-bg">
-	            <div class="slice slice-3 paper-bg">
-	                <div class="slice slice-4 paper-bg">
-	                    <div class="slice slice-5 paper-bg">
-
-	                    </div><!-- /s5 -->
-	                </div><!-- /s4 --> 
-	            </div><!-- /s3 -->    
-	        </div><!-- /s2 -->
-	    </div><!-- /s1 -->
-
-
-	</div>
+<div class="sj__close-btn sj__close-shadow" id="close-btn">
+    <a class="sj__close-link" ng-click="$state.transitionTo('landing_wizard');">
+    	<span class="ir">Close</span>
+    	<div class="sj__close-slice sj__close-slice--1"></div>
+        <div class="sj__close-slice sj__close-slice--2"></div>
+        <div class="sj__close-slice sj__close-slice--3"></div>
+        <div class="sj__close-slice sj__close-slice--4"></div>
+        <div class="sj__close-slice sj__close-slice--5"></div>
+    </a>
 </div>
-
 
 </body>
 </html>

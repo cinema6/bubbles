@@ -1,12 +1,11 @@
 (function() {
-    /*global TimelineLite:false, Back:false */
+    /*global TimelineLite:false, Back:false, Power2:false */
     'use strict';
     angular.module('c6.anim', ['c6.ui'])
 
 /*  ==========================================================================
     input state animations
     ========================================================================== */
-
     /* --- to video --- */
         .animation('experience.input=>experience.video-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
@@ -21,8 +20,16 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-leave start');
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                            element.find('#close-btn'),
+                            element.find('#sj-logo'),
+                            element.find('#paperball')
+                        ];
 
-                    timeline.to(element, 2, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.5, {autoAlpha: 0})
+                        .to(element, 1, {autoAlpha: 0, ease: Power2.easeIn}, '-0.5')
                         .eventCallback('onComplete', function() {
                             $log.info('input-leave done');
                             done();
@@ -54,8 +61,13 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-leave start');
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                        ];
 
-                    timeline.to(element, 1, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.5, {autoAlpha: 0})
+                        .set(element, {autoAlpha: 0, ease: Power2.easeIn})
                         .eventCallback('onComplete', function() {
                             $log.info('input-leave done');
                             done();
@@ -87,8 +99,16 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-enter start');
-
-                    timeline.to(element, 2, {autoAlpha: 1}, '+=1')
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                            element.find('#close-btn'),
+                            element.find('#sj-logo'),
+                            element.find('#paperball')
+                        ];
+                        
+                    timeline.to(element, 1, {autoAlpha: 1, ease: Power2.easeIn}, '+=0.5')
+                        .from(interfaceElements, 0.5, {autoAlpha: 0}, '-=0.25')
                         .eventCallback('onComplete', function() {
                             $log.info('input-enter done');
                             done();
@@ -120,10 +140,15 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In input-enter start');
+                    var interfaceElements = [
+                            element.find('#paper-stack'),
+                            element.find('#paper-form'),
+                        ];
 
-                    timeline.to(element, 1, {autoAlpha: 1}, '+=0.5')
+                    timeline.set(element, {autoAlpha: 1}, '+=0.25')
+                        .from(interfaceElements, 0.5, {autoAlpha: 0})
                         .eventCallback('onComplete', function() {
-                            $log.info('input-enter done');
+                            $log.info('input-leave done');
                             done();
                         });
 
@@ -139,160 +164,86 @@
             });
         }])
 
-    // start button //
-/*        .animation('start-button-enter', [function() {
-            return {
-                setup: function($startButton) {
-                    $startButton.css({
-                        '-ms-transform': 'rotateX(90deg) scale(1.1)',
-                            '-moz-transform': 'rotateX(90deg) scale(1.1)',
-                            '-o-transform': 'rotateX(90deg) scale(1.1)',
-                            '-webkit-transform': 'rotateX(90deg) scale(1.1)',
-                            'transform': 'rotateX(90deg) scale(1.1)',
-                        '-ms-transform-origin': '50% 0%',
-                            '-moz-transform-origin': '50% 0%',
-                            '-o-transform-origin': '50% 0%',
-                            '-webkit-transform-origin': '50% 0%',
-                            'transform-origin': '50% 0%'
-                    });
-                },
-                start: function($startButton, done) {
-                    var startShow = new TimelineLite();
-
-                    startShow.to($startButton, 2, {rotationX: '0deg', scale: '1', ease: Elastic.easeOut })
-                    .eventCallback('onComplete', done);
-                }
-            };
-        }])
-
-        .animation('start-button-leave', [function() {
-            return {
-                start: function($startButton, done) {
-                    var startHide = new TimelineLite();
-
-                    startHide.to($startButton, 1, {rotationX: '90deg', scale: '1.1', ease: Power4.easeIn })
-                    .eventCallback('onComplete', done);
-                }
-            };
-        }])
-*/
     // next button //
-/*        .animation('response-next-leave', [function() {
+        .animation('prompt-next-leave', ['$log', function($log) {
             return {
                 setup: function(response) {
-                    response.find('.question__input').prop('disabled', true);
+                    $log.log('Next-Prompt Leave setup');
+                    response.css({'opacity': 1});
                 },
                 start: function(response, done) {
-                    var nextLeave= new TimelineLite();
+                    var timeline = new TimelineLite({paused: true});
 
-                    nextLeave.to(response, 0.5, {rotationX: '90deg',scale: '1.1', ease: Power4.easeIn})
-                        .eventCallback('onComplete', done);
+                    timeline.to(response, 0.25, {'opacity': 0})
+                        .eventCallback('onComplete', function() {
+                            $log.info('Next-Prompt Leave done');
+                            done();
+                        });
+                    timeline.play();
                 }
             };
         }])
-        .animation('response-next-enter', ['$window', function($window) {
+        .animation('prompt-next-enter', ['$window', '$log', function($window, $log) {
             return {
                 setup: function(response) {
-                    if (!$window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-                    var input = response.find('.question__input');
-                        input.prop('disabled', true);
-
-                        setTimeout(function() {
-                            input.prop('disabled', false);
-                            input.focus();
-                        }, 1250);
-                    }
+                    $log.log('Next-Prompt Enter setup');
+                    response.css({'opacity': 0});
                 },
                 start: function(response, done) {
-                    var nextEnter= new TimelineLite();
+                    var timeline = new TimelineLite({paused: true});
 
-                    nextEnter.from(response, 1.5, {rotationX: '90deg', scale: '1.1', ease: Power4.easeOut}, '+=1')
-                    .eventCallback('onComplete', done);
+                    timeline.to(response, 0.1, {'opacity': 1}, '+=0.2')
+                        .from(response, 0.275, {x: '200', ease: Back.easeOut}, '-=0.1')
+                        .eventCallback('onComplete', function() {
+                            $log.info('Next-Prompt Enter done');
+                            done();
+                        });
+                    timeline.play();
                 }
             };
         }])
-*/
+
     // prev button //
-/*        .animation('response-previous-leave', [function() {
+        .animation('prompt-previous-leave', ['$log', function($log) {
             return {
                 setup: function(response) {
-                    response.find('.question__input').prop('disabled', true);
+                    $log.log('Prev-Prompt Leave setup');
+                    response.css({'opacity': 1});
                 },
                 start: function(response, done) {
-                    var prevLeave= new TimelineLite();
+                    
+                    var timeline = new TimelineLite({paused: true});
 
-                    prevLeave.to(response, 0.5, {rotationX: '90deg', scale: '1.1', ease: Power4.easeIn})
-                    .eventCallback('onComplete', done);
+                    timeline.to(response, 0.25, {'opacity': 0})
+                        .eventCallback('onComplete', function() {
+                            $log.info('Prev-Prompt Leave done');
+                            done();
+                        });
+                    timeline.play();
                 }
             };
         }])
-
-        .animation('response-previous-enter', ['$window', function($window) {
+        .animation('prompt-previous-enter', ['$window', '$log', function($window, $log) {
             return {
                 setup: function(response) {
-                    if (!$window.navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-                    var input = response.find('.question__input');
-                        input.prop('disabled', true);
-
-                        setTimeout(function() {
-                            input.prop('disabled', false);
-                            input.focus();
-                        }, 1250);
-                    }
+                    $log.log('Prev-Prompt Enter setup');
+                    response.css({'opacity': 0});
                 },
                 start: function(response, done) {
-                    var prevEnter= new TimelineLite();
+                    var timeline = new TimelineLite({paused: true});
 
-                    prevEnter.from(response, 1.5, {rotationX: '90deg', scale: '1.1', ease: Power4.easeOut}, '+=1')
-                    .eventCallback('onComplete', done);
-                }
-            };
-        }])
-*/
-    // prompt/question // 
-/*      .animation('prompt-leave', [function() {
-            return {
-                setup: function(prompt) {
-                    prompt.css({
-                        '-ms-transform-origin': '50% 0%',
-                            '-moz-transform-origin': '50% 0%',
-                            '-o-transform-origin': '50% 0%',
-                            '-webkit-transform-origin': '50% 0%',
-                            'transform-origin': '50% 0%'
-                    });
-                },
-                start: function(prompt, done) {
-                    var promptLeave= new TimelineLite();
+                    timeline.to(response, 0.1, {'opacity': 1}, '+=0.2')
+                        .from(response, 0.3, {x: '-45', ease: Back.easeOut}, '-=0.1')
+                        .eventCallback('onComplete', function() {
+                            $log.info('Prev-Prompt Enter done');
+                            done();
+                        });
+                    timeline.play();
 
-                    promptLeave.to(prompt, 0.5, { rotationX: '90deg', scale: '1.1', ease: Power4.easeIn})
-                    .eventCallback('onComplete', done);
                 }
             };
         }])
 
-         .animation('prompt-enter', [function() {
-            return {
-                setup: function(prompt) {
-                    prompt.hide();
-                    prompt.css({
-                        '-ms-transform-origin': '50% 0%',
-                            '-moz-transform-origin': '50% 0%',
-                            '-o-transform-origin': '50% 0%',
-                            '-webkit-transform-origin': '50% 0%',
-                            'transform-origin': '50% 0%'
-                    });
-                },
-                start: function(prompt, done) {
-                    var promptEnter= new TimelineLite();
-
-                    prompt.show();
-
-                    promptEnter.from(prompt, 1.5, { rotationX: '90deg', scale: '1.1', ease: Power4.easeOut }, '+=1')
-                    .eventCallback('onComplete', done);
-                }
-            };
-        }])
-*/
 /*  ==========================================================================
     video state animations
     ========================================================================== */
@@ -313,8 +264,8 @@
                     $log.log('In video-show start');
                     var player$ = element.find('#player').css({opacity: 0, visibility: 'hidden'});
 
-                    timeline.to(element, 1.5, {autoAlpha:1}, '+=0.5')
-                        .to(player$, 1, {autoAlpha: 1}, '-=0.5')
+                    timeline.to(element, 1, {autoAlpha:1}, '+=0.5')
+                        .to(player$, 1, {autoAlpha: 1}, '-=0.25')
                         .eventCallback('onComplete', function() {
                             $log.info('video-show done');
                             $rootScope.$broadcast('finishedAnimatingVideoShow');
@@ -350,7 +301,7 @@
                     var player$ = element.find('#player').css({opacity: 1, visibility: 'visible'});
 
                     timeline.to(player$, 1, {autoAlpha: 0})
-                        .to(element, 1, {autoAlpha:0})
+                        .to(element, 0.5, {autoAlpha:0})
                         .eventCallback('onComplete', function() {
                             $log.info('video-hide done');
                             done();
@@ -467,7 +418,6 @@
 /*  ==========================================================================
     end state animations
     ========================================================================== */
-
     /* --- to video --- */
         .animation('experience.end=>experience.video-leave', ['$log', 'c6AniCache', function($log, c6AniCache) {
             return c6AniCache({
@@ -482,8 +432,15 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In end-leave start');
+                    var interfaceElements = [
+                        element.find('#photos'),
+                        element.find('#close-btn'),
+                        element.find('#sj-logo'),
+                        element.find('#paperball')
+                    ];
 
-                    timeline.to(element, 2, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.5, {autoAlpha: 0})
+                        .to(element, 1, {autoAlpha: 0, ease: Power2.easeIn}, '-0.25')
                         .eventCallback('onComplete', function() {
                             $log.info('end-leave done');
                             done();
@@ -515,8 +472,10 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In end-leave start');
+                    var interfaceElements = element.find('#photos');
 
-                    timeline.to(element, 1, {autoAlpha: 0})
+                    timeline.to(interfaceElements, 0.25, {autoAlpha: 0})
+                        .set(element, {autoAlpha: 0})
                         .eventCallback('onComplete', function() {
                             $log.info('end-leave done');
                             done();
@@ -581,8 +540,12 @@
                 },
                 start: function(element, done, timeline) {
                     $log.log('In end-enter start');
+                    var interfaceElements = [
+                            element.find('#photos'),
+                        ];
 
-                    timeline.to(element, 1, {autoAlpha: 1}, '+=0.5')
+                    timeline.set(element, {autoAlpha: 1}, '+=0.5')
+                        .from(interfaceElements, 0.5, {autoAlpha: 0})
                         .eventCallback('onComplete', function() {
                             $log.info('end-enter done');
                             done();

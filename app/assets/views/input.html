@@ -1,6 +1,6 @@
 <div class="input__group c6-view--fill-100" id="input-screen" style="overflow:visible">
 
-    <div class="input__resize-box c6-view--pos-50">
+    <div class="input__resize-box c6-view--pos-50" id="paper-form">
         <form class="input__form">
             <h2 class="input__sj-logo">
                 <span class="ir">Screenjack:</span>
@@ -11,41 +11,42 @@
             <ul class="prompts__group" id="prompts">
                 <h3 class="prompt-type__copy prompt-type__hint">Hint:</h3>
                 <h3 class="prompt-type__copy prompt-type__answer">Answer:</h3>
+                <div class="prompt__input-underline">&nbsp;</div>
+
                 <li class="prompts__item"
                     ng-repeat="prompt in inputCtrl.promptModel.prompts">
                     <div class="prompt__hint">
-                        
-                        <label ng-if="inputCtrl.currentPromptIndex() === $index"
-                        ng-animate="'prompt'" class="prompt__label">
+                        <label ng-if="$index === inputCtrl.currentPromptIndex()" ng-animate="'prompt-' + inputCtrl.currentDirection" class="prompt__label">
                             &ldquo;{{inputCtrl.promptModel.prompts[$index].query}}&rdquo;
                         </label>
                     </div> 
 
                     <div class="prompt__answer">
-                        
                         <input 
                             class="prompt__input prompt__input--inactive" 
                             type="text"
                             name="response"
                             autocomplete="off"
                             placeholder="Type your answer here..."
-                            ng-if="$index === inputCtrl.currentPromptIndex()"
-                            ng-animate="'response-' + inputCtrl.currentDirection"
                             ng-model="inputCtrl.promptModel.responses[inputCtrl.currentPromptIndex()]"
                             ng-disabled="appCtrl.inExperience"
                             c6-on="{experienceStart: '$this.prop(\'disabled\', true); $this.blur();'}"
                             ng-keypress="($event.charCode !== 32)? appCtrl.sfxSvc.playSound('type') : false;"
                             maxlength="{{prompt.sizeLimit}}"
-                            c6-autofocus>
+                            c6-autofocus
+                            ng-if="$index === inputCtrl.currentPromptIndex()" 
+                            ng-animate="'prompt-' + inputCtrl.currentDirection">
                         </input>
                     </div>
                 </li>
+
             </ul>
 
             <button
                 ng-if="!!inputCtrl.currentResponse() && inputCtrl.isDone()"
-                style="visibility: hidden;"
-                ng-click="inputCtrl.startExperience();">
+                style="display:none;"
+                ng-click="inputCtrl.startExperience();"
+                c6-sfx-on="{click: 'yank'}">
             </button>
 
             <button
@@ -62,6 +63,7 @@
                 class="nav__btn nav__prev-btn" 
                 ng-disabled="!inputCtrl.canGoBack()"
                 ng-click="inputCtrl.prevQuestion();"
+                c6-sfx-on="{click: 'return'}"
                 name="prev">
                 <span class="ir">Previous Question</span>
             </button>
@@ -87,10 +89,21 @@
         &nbsp;
     </div>
 
-    <div class="sj__close-btn sj__close-shadow">
-        <a class="sj__close-btn" ng-click="$state.transitionTo('landing_wizard');"><span class="ir">Close</span></a>
+    <div class="sj__close-btn sj__close-shadow" id="close-btn">
+        <a class="sj__close-link" ng-click="$state.transitionTo('landing_wizard');">
+            <span class="ir">Close</span>
+            <div class="sj__close-slice sj__close-slice--1"></div>
+            <div class="sj__close-slice sj__close-slice--2"></div>
+            <div class="sj__close-slice sj__close-slice--3"></div>
+            <div class="sj__close-slice sj__close-slice--4"></div>
+            <div class="sj__close-slice sj__close-slice--5"></div>
+        </a>
     </div>
 
-    <div class="sj__logo input__hide">&nbsp;</div>
-    <div class="sj__paperball input__hide">&nbsp;</div>
+    <div class="sj__logo input__hide" id="sj-logo">
+        <a class="sj__logo-link" ng-click="$state.transitionTo('landing_wizard');">
+            <span class="ir">Screenjack</span>
+        </a>
+    </div>
+    <div class="sj__paperball input__hide" id="paperball">&nbsp;</div>
 </div>

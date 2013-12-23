@@ -270,7 +270,8 @@ angular.module('c6.ctrl',['c6.svc'])
             { name: 'type', src: appBase + '/media/tw_strike' },
             { name: 'bell', src: appBase + '/media/tw_bell' },
             { name: 'pop', src: appBase + '/media/pop_1' },
-            { name: 'yank', src: appBase + '/media/tw_yank' }
+            { name: 'yank', src: appBase + '/media/tw_yank' },
+            { name: 'return', src: appBase + '/media/tw_paper-rewind' }
         ];
 
         $log.log('Profile: ' + JSON.stringify(data.profile, null, 3));

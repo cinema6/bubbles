@@ -71,6 +71,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
     if (c6UserAgent.device.isIPhone()) {
         $state.get('experience.input').templateUrl = appBase + '/views/input_mobile.html';
+        $state.get('experience.end').templateUrl = appBase + '/views/end_mobile.html';
     }
 
     this.window = {

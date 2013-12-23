@@ -232,6 +232,7 @@ angular.module('c6.svc',[])
                                   function($log,$http,$q,env,$timeout,$window) {
     var genVidUrlCache = {};
 
+    // Check if the video url is in the genVidUrlCache object
     var haveCachedUrl = function(model) {
         var cache = genVidUrlCache,
             cachedModel = cache[model.options.vid] && cache[model.options.vid].model;
@@ -245,6 +246,7 @@ angular.module('c6.svc',[])
         })());
     };
     
+    // Check that the sharedUrl points to an existent object on S3
     var verifySharedUrl = function(sharedUrl) {
         if (!sharedUrl) {
             return $q.reject();
@@ -261,6 +263,7 @@ angular.module('c6.svc',[])
         });
     };*/
     
+    // Poll the dub service for the status of the current dub job
     var checkStatus = function(jobId, host) {
         var deferred = $q.defer(),
             statusUrl = env.dubUrl + '/status/' + jobId + '?host=' + host,
@@ -295,6 +298,7 @@ angular.module('c6.svc',[])
         return deferred.promise;
     };
     
+    // Post a create request to dub and deal with the response
     var getDubVideo = function(body) {
         body.version = 2;
         

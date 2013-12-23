@@ -304,10 +304,13 @@
                     right: 3%;
                 }
             .character-counter__group {
-                left: 28%; margin-top: -2em;
+                left: 28%; margin-top: -2em; width: 50%;
             }
                 .character-counter__error {
-                    width: 50%;
+                    width: 100%;
+                }
+                .character-counter__default {
+                    width: 10.5em;
                 }
         
         .progress__number { 
@@ -336,26 +339,14 @@
     }
     
     @media screen and (max-device-width: 1024px) and (orientation: landscape) {
-        .input__resize-box {
-            margin: -35% 0 0 -48%;
-        }
-        .input__paper-stack--static {
-            margin: -28.625em 0 0 -30em;
-        }
         .nav__btn {
-            margin-top: 32%;
+            margin-top: 16em;
         }
     }
 
     @media screen and (max-device-width: 768px) and (orientation: portrait) {
-        .input__resize-box {
-            margin: -28% 0 0 -61.5%;
-        }
-        .input__paper-stack--static {
-            margin: -25em 0 0 -31em;
-        }
         .nav__btn {
-            margin-top: 32%;
+            top: 28%;
         }
     }
 
@@ -444,29 +435,65 @@
                     }
 
         .end-frame__annotation {
-            position: absolute; opacity: 1;
+            position: absolute; opacity: 1; font-size: 1em;
         }
             .end-frame__annotation--action {
                 max-width: 30%; min-width: 15%;
-                right: 60%; top: 12%; font-size: 1em;
+                right: 60%; top: 12%;
             }
                 .end-frame__annotation--action .annotations__text {
                     width: 70%; padding: 15%;
                 }
             .end-frame__annotation--fantasy {
                 max-width: 30%; min-width: 15%; 
-                top: 15%; left: 5%; font-size: 1em;
+                top: 15%; left: 5%;
             }
                 .end-frame__annotation--fantasy .annotations__text {
                     width: 70%; padding: 15%;
                 }
             .end-frame__annotation--romance {
-                width: 37%; top: 6%; left: 55%; font-size: 1em;
+                width: 37%; top: 6%; left: 55%;
             }
 
             .end-frame__annotation--tech {
-                width: 18%; top: 59%; left: 41.4%; font-size: 1em; 
+                width: 18%; top: 59%; left: 41.4%;
             }
                 .end-frame__annotation--tech .annotations__text {
                     transform: none; -webkit-transform: none;
                 }
+
+    @media screen and (min-width: 1618px) {
+        .end-frame__annotation {
+            font-size: 2em;
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .end-frame__annotation {
+            font-size: 1em;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .end-frame__annotation {
+            font-size: 0.75em
+        }
+    }
+
+    @media screen and (max-device-width: 1024px) and (orientation: landscape) {
+        .photo__top-layer {
+            margin-top: -16em;
+        }
+        .photo__bottom-layer {
+            margin-top: -8em;
+        }
+    }
+
+    @media screen and (max-device-width: 768px) and (orientation: portrait) {
+        .photo__top-layer {
+            margin-top: -13em;
+        }
+        .photo__bottom-layer {
+            margin-top: -7em;
+        }
+    }

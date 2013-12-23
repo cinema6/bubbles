@@ -100,8 +100,10 @@ loadScriptsInOrder(libScripts, function() {
         test: Modernizr.touch,
         nope: [
             libUrl('c6ui/v1.2.12-0-g08ccc1d/css/c6uilib--hover.min.css'),
-            __C6_APP_BASE_URL__ + '/styles/Screenjack--hover.css'
-        ]
+            __C6_APP_BASE_URL__ + '/styles/Screenjack--hover.css',
+            __C6_APP_BASE_URL__ + '/styles/screenjack--desktop.css'
+        ],
+        yep: __C6_APP_BASE_URL__ + '/styles/screenjack--mobile.css'
     });
 
     loadScriptsInOrder(appScripts, function() {

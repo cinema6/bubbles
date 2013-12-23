@@ -14,16 +14,18 @@ var c6 = window.c6,
         'logging'           : [],
         'showPlayerData'    : false,
         'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
-        'dubUrl'            : 'http://site.cinema6.com/dub/create/',
-        'dubTimeout'        : 40  // seconds, should be multiple of 5
+        'dubUrl'            : 'http://site.cinema6.com/dub',
+        'dubInterval'       : 5,  // how often to check status of job (seconds)
+        'dubTimeout'        : 45  // how long to wait until giving up on dub job (seconds)
     },
     debugConfig = {
         'release'           : false,
         'logging'           : ['error','warn','log','info'],
         'showPlayerData'    : true,
         'vidUrl'            : 'https://s3.amazonaws.com/c6.dev/media/src/screenjack/video/',
-        'dubUrl'            : 'http://dv-api1.cinema6.com/dub/create/',
-        'dubTimeout'        : 40  // seconds, should be multiple of 5
+        'dubUrl'            : 'http://dv-api1.cinema6.com/dub',
+        'dubInterval'       : 5,
+        'dubTimeout'        : 45
     };
 
 function extend(dest, src) {

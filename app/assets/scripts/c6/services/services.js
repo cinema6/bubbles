@@ -228,7 +228,8 @@ angular.module('c6.svc',[])
 }])
 
 // Handles looking up text-to-speech videos (from a cache, S3, or dub)
-.service('C6VideoLookupService', ['$log','$http','$q','environment', function($log,$http,$q,env) {
+.service('C6VideoLookupService', ['$log','$http','$q','environment','$timeout','$window',
+                                  function($log,$http,$q,env,$timeout,$window) {
     var genVidUrlCache = {};
 
     var haveCachedUrl = function(model) {
@@ -252,26 +253,64 @@ angular.module('c6.svc',[])
         return $http.head(sharedUrl);
     };
     
-    var getDubVideoV1 = function(body) {
+    // If you need to switch back to the dub v1 API, uncomment this and switch the reference in fetchText2SpeechVideoUrl
+    /*var getDubVideoV1 = function(body) {
         body.version = 1;
-        return $http.post(env.dubUrl, body).then(function(response) {
+        return $http.post(env.dubUrl + '/create', body).then(function(response) {
             return response.data.output;
         });
+    };*/
+    
+    var checkStatus = function(jobId, host) {
+        var deferred = $q.defer(),
+            statusUrl = env.dubUrl + '/status/' + jobId + '?host=' + host,
+            timeout, interval, lastStep;
+            
+        interval = $window.setInterval(function() {
+            $http.get(statusUrl).then(function(response) {
+                if (response.status === 201) {
+                    deferred.resolve(response.data.resultUrl);
+                    $window.clearInterval(interval);
+                    $timeout.cancel(timeout);
+                } else if (response.status !== 202) {
+                    deferred.reject('Error from /dub/status: ' + JSON.stringify(response.data));
+                    $window.clearInterval(interval);
+                    $timeout.cancel(timeout);
+                } else {
+                    lastStep = response.data.lastStatus.step;
+                }
+            }, function(error) {
+                $window.clearInterval(interval);
+                $timeout.cancel(timeout);
+                deferred.reject('Error from /dub/status: ' + JSON.stringify(error));
+            });
+        }, env.dubInterval * 1000);
+        
+        timeout = $timeout(function() {
+            $window.clearInterval(interval);
+            deferred.reject('Timed out checking status of dub job ' + jobId + ' at host ' + host +
+                            ', lastStep = ' + lastStep);
+        }, env.dubTimeout * 1000);
+        
+        return deferred.promise;
     };
     
     var getDubVideo = function(body) {
-        var deferred = $q.defer();
         body.version = 2;
         
-        $http.post(env.dubUrl, body).then(function(response) {
-            if (response.statusCode = 201) {
-                deferred.resolve(response.data.output);
+        return $http.post(env.dubUrl + '/create', body).then(function(response) {
+            if (response.status === 201) {
+                return response.data.output;
+            } else if (response.status !== 202) {
+                return $q.reject('Error posting create job: ' + JSON.stringify(response.data));
+            } else if (!response.data || !response.data.jobId || !response.data.host) {
+                return $q.reject('Incomplete data from /dub/create: ' + JSON.stringify(response.data));
             } else {
-                deferred.reject(response);
+                return checkStatus(response.data.jobId, response.data.host);
             }
+        }, function(err) {
+            return $q.reject('Error posting create job: ' + JSON.stringify(err.data));
         });
-        
-        return deferred.promise;
     };
 
     // Will first check a local cache, then attempt to verify the src url from the shared script
@@ -281,8 +320,6 @@ angular.module('c6.svc',[])
 
         if (haveCachedUrl(model)) {
             $log.log('Already have a URL for these responses');
-            console.log(genVidUrlCache);
-            console.log(genVidUrlCache[model.options.vid].url);
             deferred.resolve(genVidUrlCache[model.options.vid].url);
         } else {
             verifySharedUrl(sharedUrl).then(function() {
@@ -312,6 +349,12 @@ angular.module('c6.svc',[])
                 });
 
                 getDubVideo(requestBodyObject).then(function(url) {
+                    genVidUrlCache[model.options.vid] = { model: model, url: url };
+                    deferred.resolve(url);
+                }, function(error) {
+                    $log.error(error);
+                    return getDubVideo(requestBodyObject);  // retry once if we fail
+                }).then(function(url) { 
                     genVidUrlCache[model.options.vid] = { model: model, url: url };
                     deferred.resolve(url);
                 }, function(error) {

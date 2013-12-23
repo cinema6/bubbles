@@ -58,7 +58,7 @@ angular.module('c6.ctrl',['c6.svc'])
 
                 //TODO - find a better way to get this info to the annotations service
                 if (appData.dubServiceUrl){
-                    env.dubUrl = appData.dubServiceUrl + '/dub/create';
+                    env.dubUrl = appData.dubServiceUrl + '/dub';
                 }
 
                 self.profile = appData.profile;
@@ -327,8 +327,9 @@ angular.module('c6.ctrl',['c6.svc'])
         video = player;
         
         video.on('error', function(err) {
-            $log.error('Video Error: ' + err.toString());
-            ga('send', 'event', 'screenjack', 'video_error', $scope.appCtrl.expData.src);
+            $log.error('Video Error: ' + JSON.stringify(err));
+            ga('send', 'event', 'error', $scope.appCtrl.experience.uri,
+               'Video Error: ' + JSON.stringify(err));
         });
 
         var undoWatch = $scope.$watch('expCtrl.c6ControlsController.ready', function(ready) {
@@ -406,9 +407,9 @@ angular.module('c6.ctrl',['c6.svc'])
                 lookupSvc.fetchText2SpeechVideoUrl(txt2SpchModel, $scope.appCtrl.expData.sharedSrc)
                 .then(function(url) {
                     $scope.appCtrl.expData.src = url;
-                    console.log($scope.appCtrl.expData.src);
-                }, function() { // error handler
-                    ga('send', 'event', 'screenjack', 'dub_error', gaLabel);
+                }, function(error) { // error handler
+                    ga('send', 'event', 'error', $scope.appCtrl.experience.uri, 
+                       'Failed to fetch tts video: ' + error);
                 });
             }
         }

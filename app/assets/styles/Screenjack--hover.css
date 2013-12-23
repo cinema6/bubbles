@@ -24,18 +24,23 @@
     }
         .sj__close-btn:hover .sj__close-slice--1 {
             transform: perspective(100px) rotateY(72deg) scale3d(1.3,1.3,1.3); 
+            -webkit-transform: perspective(100px) rotateY(72deg) scale3d(1.3,1.3,1.3); 
         }
         .sj__close-btn:hover .sj__close-slice--2 {
             transform: perspective(100px) rotateY(42deg) scale3d(1.1,1.1,1.1); 
+            -webkit-transform: perspective(100px) rotateY(42deg) scale3d(1.1,1.1,1.1); 
         }
         .sj__close-btn:hover .sj__close-slice--3 {
             transform: perspective(100px) rotateY(20deg);
+            -webkit-transform: perspective(100px) rotateY(20deg);
         }
         .sj__close-btn:hover .sj__close-slice--4 {
             transform: perspective(100px) rotateY(10deg);
+            -webkit-transform: perspective(100px) rotateY(10deg);
         }
         .sj__close-btn:hover .sj__close-slice--5 {
             transform: perspective(100px) rotateY(3deg);
+            -webkit-transform: perspective(100px) rotateY(3deg);
         }
 
     .nav__btn {
@@ -68,16 +73,12 @@
         cursor: pointer; 
     }
 
-    .end-menu__btn {
+    .end-menu__new-video-btn, .end-menu__replay-btn, .end-menu__share-btn {
         cursor: pointer;
     }
-        .end-menu__btn:hover .end-menu__new-video-slice--1,
-        .end-menu__btn:hover .end-menu__replay-slice--1,
-        .end-menu__btn:hover .end-menu__share-slice--1 {
-            transform: perspective(300px) rotateX(0);
-        }
-        .end-menu__btn:hover .end-menu__new-video-slice--2,
-        .end-menu__btn:hover .end-menu__replay-slice--2,
-        .end-menu__btn:hover .end-menu__share-slice--2 {
+        .end-menu__new-video-btn:hover .end-menu__new-video-slice--2,
+        .end-menu__replay-btn:hover .end-menu__replay-slice--2,
+        .end-menu__share-btn:hover .end-menu__share-slice--2 {
             transform: perspective(300px) rotateX(4deg) scale3d(1, 0.925, 1);
+            -webkit-transform:rotateX(18deg);
         }

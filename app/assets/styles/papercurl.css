@@ -12,12 +12,12 @@
         }
         .sj__close-slice {
             position:absolute; height: 100%; width: 1.625em;
-            transform-origin: 0 center; -webkit-transform-origin: left center; -ms-transform-origin: 100% 0;   
+            transform-origin: 100% 50%; -webkit-transform-origin: 100% 50%; -ms-transform-origin: 100% 50%;   
             transition: transform 200ms ease-in-out, left 200ms ease-in-out; 
-            -webkit-transition: -webkit-transform 200ms ease-in-out, left 200ms ease-in-out;
+            /*-webkit-transition: -webkit-transform 200ms ease-in-out, left 200ms ease-in-out;*/
         }
             .sj__close-slice--1 {
-                background: url(../img/sj__close-btn--paper.png) no-repeat 0 0; z-index: 5;
+                background: url(../img/sj__close-btn--paper.png) no-repeat 0 0; z-index: 5
             }
             .sj__close-slice--2 {
                 background: url(../img/sj__close-btn--paper.png) no-repeat -1.4375em 0; left: 1.4375em; z-index: 4; 
@@ -56,7 +56,7 @@
 		        z-index: 3; overflow:visible;
 		    }
 		    .end-menu__share {
-		        position: absolute; top: 38.04%; left: 66.84%; width: 28.31%; height: 38.94%; /*height: 52.44%;*/
+		        position: absolute; top: 38.04%; left: 66.84%; width: 28.31%; height: 38.9%; /*height: 52.44%;*/
 		        z-index: 3; overflow:visible; background: rgba(0,0,0,0.2);
 		    }
 		    	.end-menu__new-video-shadow {
@@ -69,14 +69,14 @@
 		        	background: url(../img/end__share-btn--shadow.png) no-repeat top center; background-size: contain;  
 		        }
 
-		    .end-menu__btn {
+		    .end-menu__new-video-btn, .end-menu__replay-btn, .end-menu__share-btn {
 		       position: relative; display: block; width: 100%; height: 100%;
 		    }
 		    	.end-menu__slice {
 		    		position: absolute; width: 100%; 
 		    		transform-origin: center top; -webkit-transform-origin: center top; -ms-transform-origin: center top;   
 		            transition: transform 200ms ease-in-out, top 200ms ease-in-out; 
-		            -webkit-transition: -webkit-transform 200ms ease-in-out, top 200ms ease-in-out;
+		            /*-webkit-transition: -webkit-transform 200ms ease-in-out, top 200ms ease-in-out;*/
 		    	}
 		    		.end-menu__new-video-slice--1 {
 						background: url(../img/end__new-video-btn--paper.png) no-repeat 0 0; z-index: 1; height: 10%; 

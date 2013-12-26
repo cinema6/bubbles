@@ -14,7 +14,14 @@ var c6 = window.c6,
         'logging'           : [],
         'showPlayerData'    : false,
         'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
-        'dubUrl'            : 'http://site.cinema6.com/dub/create/'
+        'dubUrl'            : 'http://cinema6.com/dub/create/'
+    },
+    betaConfig = {
+        'release'           : false,
+        'logging'           : ['error','warn','log','info'],
+        'showPlayerData'    : true,
+        'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
+        'dubUrl'            : 'http://beta.cinema6.com/dub/create/'
     },
     debugConfig = {
         'release'           : false,
@@ -38,7 +45,18 @@ function extend(dest, src) {
     return dest;
 }
 
-extend(c6.appConfig, ((c6.env === 'release') ? releaseConfig : debugConfig));
+var config = (function() {
+    switch(c6.env) {
+    case 'debug':
+        return debugConfig;
+    case 'staging':
+        return stagingConfig;
+    case 'release':
+        return releaseConfig;
+    }
+})();
+
+extend(c6.appConfig, config);
 c6.rootDomain = (function(w){
     var r = w.location.toString(), m = null;
     if (w.location.origin) {

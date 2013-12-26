@@ -30,7 +30,13 @@
             (function() {
                 var c6 = {
                     env: (function() {
-                        return (!window.location.host.match(/cinema6.com/i)) ? 'debug' : 'release';
+                        if (window.location.host.match(/(localhost|\d+\.\d+\.\d+\.\d+)/)) {
+                            return 'debug';
+                        } else if ((window.location.host.match(/beta\.cinema6\.com/i)) || (window.location.search.indexOf('debug=true') !== -1)) {
+                            return 'staging';
+                        } else {
+                            return 'release';
+                        }
                     })(),
                     appConfig: {},
                     libUrl: function(url) {

@@ -45,7 +45,18 @@ function extend(dest, src) {
     return dest;
 }
 
-extend(c6.appConfig, ((c6.env === 'release') ? releaseConfig : debugConfig));
+var config = (function() {
+    switch(c6.env) {
+    case 'debug':
+        return debugConfig;
+    case 'staging':
+        return stagingConfig;
+    case 'release':
+        return releaseConfig;
+    }
+})();
+
+extend(c6.appConfig, config);
 c6.rootDomain = (function(w){
     var r = w.location.toString(), m = null;
     if (w.location.origin) {

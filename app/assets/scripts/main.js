@@ -14,7 +14,14 @@ var c6 = window.c6,
         'logging'           : [],
         'showPlayerData'    : false,
         'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
-        'dubUrl'            : 'http://site.cinema6.com/dub/create/'
+        'dubUrl'            : 'http://cinema6.com/dub/create/'
+    },
+    betaConfig = {
+        'release'           : false,
+        'logging'           : ['error','warn','log','info'],
+        'showPlayerData'    : true,
+        'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
+        'dubUrl'            : 'http://beta.cinema6.com/dub/create/'
     },
     debugConfig = {
         'release'           : false,

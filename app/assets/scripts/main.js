@@ -50,7 +50,7 @@ var config = (function() {
     case 'debug':
         return debugConfig;
     case 'staging':
-        return stagingConfig;
+        return betaConfig;
     case 'release':
         return releaseConfig;
     }

@@ -272,7 +272,7 @@ angular.module('c6.svc',[])
         interval = $window.setInterval(function() {
             $http.get(statusUrl).then(function(response) {
                 if (response.status === 201) {
-                    deferred.resolve(response.data.resultUrl);
+                    deferred.resolve(response.data.output);
                     $window.clearInterval(interval);
                     $timeout.cancel(timeout);
                 } else if (response.status !== 202) {

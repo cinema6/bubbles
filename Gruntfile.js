@@ -406,6 +406,66 @@ module.exports = function (grunt) {
                         options: {
                             CacheControl: 'max-age=31556926'
                         }
+                    },
+                    {
+                        src: 'siteContent/**',
+                        rel: 'siteContent/',
+                        dest: 'collateral/',
+                        options: {
+                            CacheControl: 'max-age=0'
+                        }
+                    }
+                ]
+            },
+            beta: {
+                options: {
+                    bucket: 'beta.cinema6.com-etc'
+                },
+                upload: [
+                    {
+                        src: 'dist/**',
+                        dest: 'experiences/screenjack/',
+                        rel : 'dist/',
+                        options: {
+                            CacheControl: 'max-age=31556926'
+                        }
+                    },
+                    {
+                        src: 'dist/index.html',
+                        dest: 'experiences/screenjack/<%= settings.version() %>/index.html',
+                        options: {
+                            CacheControl: 'max-age=0'
+                        }
+                    },
+                    {
+                        src: 'dist/index.html',
+                        dest: 'experiences/screenjack/index.html',
+                        options: {
+                            CacheControl: 'max-age=0'
+                        }
+                    }
+                ]
+            },
+            betaContent: {
+                options: {
+                    bucket: 'beta.cinema6.com-etc'
+                },
+                upload: [
+                    {
+                        src: '.tmp/collateral/**',
+                        rel: '.tmp/collateral/',
+                        dest: 'collateral/',
+                        options: {
+                            CacheControl: 'max-age=31556926'
+                        }
+                    },
+                    {
+                        src: 'siteContent/**',
+                        rel: 'siteContent/',
+                        dest: 'collateral/',
+                        options: {
+                            CacheControl: 'max-age=0'
+                        }
                     }
                 ]
             },
@@ -526,6 +586,12 @@ module.exports = function (grunt) {
         grunt.task.run('build');
         grunt.task.run('s3:test');
         grunt.task.run('collateral:contentTest');
+    });
+
+    grunt.registerTask('publish-beta',function(){
+        grunt.task.run('build');
+        grunt.task.run('s3:beta');
+        grunt.task.run('collateral:betaContent');
     });
     
     grunt.registerTask('publish-prod',function(){

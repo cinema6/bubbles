@@ -14,7 +14,7 @@ var c6 = window.c6,
         'logging'           : [],
         'showPlayerData'    : false,
         'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
-        'dubUrl'            : 'http://cinema6.com/dub',
+        'dubUrl'            : 'http://mutantplayground.com/dub',
         'dubInterval'       : 5,  // how often to check status of job (seconds)
         'dubTimeout'        : 45  // how long to wait until giving up on dub job (seconds)
     },
@@ -23,7 +23,7 @@ var c6 = window.c6,
         'logging'           : ['error','warn','log','info'],
         'showPlayerData'    : true,
         'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
-        'dubUrl'            : 'http://beta.cinema6.com/dub',
+        'dubUrl'            : 'http://beta.mutantplayground.com/dub',
         'dubInterval'       : 5,  // how often to check status of job (seconds)
         'dubTimeout'        : 45  // how long to wait until giving up on dub job (seconds)
     },
@@ -76,8 +76,8 @@ c6.rootDomain = (function(w){
 
 }(window));
 
-if (c6.rootDomain.match(/\/\/(www\.)*cinema6.com/) !== null){
-    ga('create', 'UA-44457821-2', 'cinema6.com');
+if (c6.rootDomain.match(/\/\/(www\.)*mutantplayground.com/) !== null){
+    ga('create', 'UA-44457821-2', 'mutantplayground.com');
 } else {
     ga('create', 'UA-44457821-1', { 'cookieDomain' : 'none' });
 }

@@ -13,7 +13,7 @@ var c6 = window.c6,
         'release'           : true,
         'logging'           : [],
         'showPlayerData'    : false,
-        'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
+        'vidUrl'            : 'http://cdn1.mutantplayground.com/src/screenjack/video/',
         'dubUrl'            : 'http://mutantplayground.com/dub',
         'dubInterval'       : 5,  // how often to check status of job (seconds)
         'dubTimeout'        : 45  // how long to wait until giving up on dub job (seconds)
@@ -22,7 +22,7 @@ var c6 = window.c6,
         'release'           : false,
         'logging'           : ['error','warn','log','info'],
         'showPlayerData'    : true,
-        'vidUrl'            : 'http://cdn1.cinema6.com/src/screenjack/video/',
+        'vidUrl'            : 'http://cdn1.mutantplayground.com/src/screenjack/video/',
         'dubUrl'            : 'http://beta.mutantplayground.com/dub',
         'dubInterval'       : 5,  // how often to check status of job (seconds)
         'dubTimeout'        : 45  // how long to wait until giving up on dub job (seconds)
@@ -32,7 +32,7 @@ var c6 = window.c6,
         'logging'           : ['error','warn','log','info'],
         'showPlayerData'    : true,
         'vidUrl'            : 'https://s3.amazonaws.com/c6.dev/media/src/screenjack/video/',
-        'dubUrl'            : 'http://dv-api1.cinema6.com/dub',
+        'dubUrl'            : 'http://dv-api1.mutantplayground.com/dub',
         'dubInterval'       : 5,  // how often to check status of job (seconds)
         'dubTimeout'        : 45  // how long to wait until giving up on dub job (seconds)
     };

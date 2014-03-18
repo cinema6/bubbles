@@ -368,7 +368,7 @@ module.exports = function (grunt) {
             options: {
                 key:    '<%= settings.aws.accessKeyId %>',
                 secret: '<%= settings.aws.secretAccessKey %>',
-                bucket: 'cinema6.com-etc',
+                bucket: 'mutantplayground.com-etc',
                 access: 'public-read'
             },
             production: {
@@ -419,7 +419,7 @@ module.exports = function (grunt) {
             },
             beta: {
                 options: {
-                    bucket: 'beta.cinema6.com-etc'
+                    bucket: 'beta.mutantplayground.com-etc'
                 },
                 upload: [
                     {
@@ -448,7 +448,7 @@ module.exports = function (grunt) {
             },
             betaContent: {
                 options: {
-                    bucket: 'beta.cinema6.com-etc'
+                    bucket: 'beta.mutantplayground.com-etc'
                 },
                 upload: [
                     {
